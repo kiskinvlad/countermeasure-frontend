@@ -202,6 +202,26 @@
     "@angular-devkit/schematics" "^0.5.4"
     typescript "~2.7.2"
 
+"@ngrx/effects@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-5.2.0.tgz#aa762b69cb6fd4644d724a1cecd265caa42baf09"
+
+"@ngrx/router-store@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-5.2.0.tgz#bf4b174ce19a36eba8211fc1ddeaf1e35ae74368"
+
+"@ngrx/schematics@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-5.2.0.tgz#ab7180d79f0ec68bd4ac3ef4ec83b9348d18d26c"
+
+"@ngrx/store-devtools@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-5.2.0.tgz#2fff916a9aa349375826772b359dbb64b9e5d622"
+
+"@ngrx/store@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-5.2.0.tgz#627ed74c9cd95462930485d912a557117b23903e"
+
 "@ngtools/webpack@6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-6.0.1.tgz#1a3eee13f7319a5c2b758ae461c386e1b6c80645"
