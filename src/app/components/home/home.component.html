@@ -1,0 +1,12 @@
+<div class="home">
+  <div class="container">
+        <p>
+          home works!
+        </p>
+        <h1>This text see all roles</h1>
+        <h2 *ngIf="getUserRole() === 'admin'">This text see only admin</h2>
+        <h3 *ngIf="getUserRole() === 'manager'">This text see only manager</h3>
+        <button (click)=logout()>Logout</button>
+  </div>
+</div>
+

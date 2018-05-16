@@ -1,0 +1,23 @@
+.login {
+    .login__wrapper {
+        margin: 10rem auto;
+        .row > *{
+            margin: 2rem auto;
+            .form-control {
+                display: inline-block;
+                width: 15rem;
+                float: right;
+            }
+            label {
+                padding: 7px 15px;
+            }
+            .login__button_wrapper {
+                text-align: center;
+                button {
+                    width: 8rem;
+                    border: 1px solid #8a8a8a;
+                }
+            }
+        }
+    }
+}
