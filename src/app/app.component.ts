@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from './services/authentication/authentication.service';
+import { AuthenticationService } from '@login/services/authentication/authentication.service';
+
 @Component({
   selector: 'ct-root',
   templateUrl: './app.component.html',

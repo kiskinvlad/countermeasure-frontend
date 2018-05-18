@@ -8,11 +8,11 @@
           <form (submit)="login()">
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" name="email" placeholder="" [(ngModel)]="credentials.email">
+                <input type="text" class="form-control" name="email" placeholder="" [(ngModel)]="user.email">
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="" [(ngModel)]="credentials.password">
+                <input type="password" class="form-control" name="password" placeholder="" [(ngModel)]="user.password">
               </div>
               <div class="form-group">
                 <div class="login__button_wrapper">
