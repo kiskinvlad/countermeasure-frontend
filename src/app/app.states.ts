@@ -1,7 +1,7 @@
 import { createFeatureSelector } from '@ngrx/store';
 
-import * as auth from './reducers/auth.reducers';
-import * as role from './reducers/role.reducers';
+import * as auth from '@login/store/reducers/auth.reducers';
+import * as role from '@login/store/reducers/role.reducers';
 
 export interface AppState {
   authState: auth.State;

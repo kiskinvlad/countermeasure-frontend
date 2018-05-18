@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { AppState } from '@login/store/app.states';
+import { AppState } from '../app.states';
 import { LogOut } from '@login/store/actions/auth.actions';
 import { State } from '@app/login/store/reducers/auth.reducers';
 import { Observable } from 'rxjs/Observable';

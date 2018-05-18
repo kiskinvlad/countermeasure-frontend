@@ -12,7 +12,7 @@ import { DashboardComponent } from '@dashboard/dashboard.component';
 import { AuthGuardService } from '@login/services/guard/auth-guard.service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { reducers } from '@login/store/app.states';
+import { reducers } from './app.states';
 import { AuthEffects } from '@login/store/effects/auth.effects';
 import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
 import { RoleService } from '@app/login/services/role/role.service';
