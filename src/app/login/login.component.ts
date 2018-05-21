@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs/';
 import { User } from './models/user';
-import { AppState, selectAuthState } from '../app.states';
-import { LogIn } from './store/actions/auth.actions';
+import { AppState, selectAuthState } from '@store/app.states';
+import { LogIn } from '@store/actions/auth.actions';
 
 @Component({
   selector: 'ct-login',

@@ -1,4 +1,4 @@
-import { Role } from '../../models/role';
+import { Role } from '@login/models/role';
 import { RoleActionTypes, All } from '../actions/role.actions';
 
 

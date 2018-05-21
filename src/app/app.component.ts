@@ -3,10 +3,10 @@ import { AuthenticationService } from '@login/services/authentication/authentica
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState, selectAuthState } from '@app/app.states';
+import { AppState, selectAuthState } from '@store/app.states';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { LocalStorageService } from '@app/services/local-storage.service';
-import { FetchUserData } from '@app/login/store/actions/auth.actions';
+import { FetchUserData } from '@store/actions/auth.actions';
 
 @Component({
   selector: 'ct-root',

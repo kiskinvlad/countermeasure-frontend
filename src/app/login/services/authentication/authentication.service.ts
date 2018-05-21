@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
 import { Constants } from '@configs/constants';
-import { State } from '../../store/reducers/auth.reducers';
+import { State } from '@store/reducers/auth.reducers';
 import { Store } from '@ngrx/store';
 import { Auth } from '@app/login/models/auth';
 @Injectable()

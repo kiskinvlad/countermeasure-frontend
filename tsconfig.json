@@ -6,7 +6,8 @@
       "@app/*": ["app/*"],
       "@configs/*": ["app/configs/*"],
       "@login/*": ["app/login/*"],
-      "@dashboard/*": ["app/dashboard/*"]
+      "@dashboard/*": ["app/dashboard/*"],
+      "@store/*": ["app/store/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

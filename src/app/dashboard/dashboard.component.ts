@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Role } from '@login/models/role';
-import { AppState, selectAuthState } from '../app.states';
-import { LogOut, FetchUserData } from '@login/store/actions/auth.actions';
-import { State } from '@app/login/store/reducers/auth.reducers';
+import { AppState, selectAuthState } from '@store/app.states';
+import { LogOut, FetchUserData } from '@store/actions/auth.actions';
+import { State } from '@store/reducers/auth.reducers';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs';
 import { NgxPermissionsService } from 'ngx-permissions';
