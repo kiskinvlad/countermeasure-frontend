@@ -3,28 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
-
-
+import { Constants } from '@configs/constants';
+import { State } from '../../store/reducers/auth.reducers';
+import { Store } from '@ngrx/store';
+import { Auth } from '@app/login/models/auth';
 @Injectable()
 export class AuthenticationService {
 
-  private BASE_URL = 'http://localhost:3000';
+  private user_api_url: String;
 
-  constructor(private http: HttpClient) {}
-
-  getToken(): string {
-    return localStorage.getItem('token');
+  constructor(private http: HttpClient, private _constants: Constants) {
+    this.user_api_url = _constants.USERS_API_ENDPOINT;
   }
 
-  logIn(email: string, password: string): Observable<any> {
-    const url = `${this.BASE_URL}/users/login`;
-    return this.http.post<User>(url, {email, password});
+  logIn(email: string, password: string): Observable<Auth> {
+    const url = `${this.user_api_url}/login`;
+    return this.http.post<Auth>(url, {email, password});
   }
-
-  // public logout(): void {
-  //   this.token = '';
-  //   window.localStorage.removeItem('mean-token');
-  //   this.router.navigateByUrl('/login');
-  // }
 
 }

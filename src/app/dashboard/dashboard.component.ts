@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Role } from '@login/models/role';
-import { AppState, selectRoleState } from '../app.states';
-import { LogOut } from '@login/store/actions/auth.actions';
+import { AppState, selectAuthState } from '../app.states';
+import { LogOut, FetchUserData } from '@login/store/actions/auth.actions';
 import { State } from '@app/login/store/reducers/auth.reducers';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { LocalStorageService } from '@app/services/local-storage.service';
 @Component({
   selector: 'ct-dashboard',
   templateUrl: './dashboard.component.html',
@@ -14,15 +15,16 @@ import { NgxPermissionsService } from 'ngx-permissions';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  getState: Observable<any>;
+  getState$: Observable<any>;
   errorMessage: string | null;
   subscription: Subscription;
 
   constructor(
     private store: Store<AppState>,
-    private permissionsService: NgxPermissionsService
+    private permissionsService: NgxPermissionsService,
+    private localStorageService: LocalStorageService
   ) {
-    this.getState = this.store.select(selectRoleState);
+    this.getState$ = this.store.select(selectAuthState);
   }
 
   logout() {
@@ -30,11 +32,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.getState.subscribe((state) => {
-      this.errorMessage = state.errorMessage;
+    this.subscription = this.getState$.subscribe((state) => {
+      if (state.errorMessage) {
+        this.errorMessage = state.errorMessage;
+      }
     });
-    const user_role = localStorage.getItem('role_name').split(' ');
-    this.permissionsService.loadPermissions(user_role);
   }
 
   ngOnDestroy(): void {

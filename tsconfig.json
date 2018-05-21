@@ -4,6 +4,7 @@
     "baseUrl": "src/",
     "paths": {
       "@app/*": ["app/*"],
+      "@configs/*": ["app/configs/*"],
       "@login/*": ["app/login/*"],
       "@dashboard/*": ["app/dashboard/*"]
     },

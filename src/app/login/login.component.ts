@@ -13,18 +13,18 @@ import { LogIn } from './store/actions/auth.actions';
 export class LoginComponent implements OnInit, OnDestroy {
 
   user: User = new User();
-  getState: Observable<any>;
+  getState$: Observable<any>;
   errorMessage: string | null;
   subscription: Subscription;
 
   constructor(
     private store: Store<AppState>
   ) {
-    this.getState = this.store.select(selectAuthState);
+    this.getState$ = this.store.select(selectAuthState);
   }
 
   ngOnInit() {
-    this.subscription = this.getState.subscribe((state) => {
+    this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
     });
   }

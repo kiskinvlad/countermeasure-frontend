@@ -16,13 +16,18 @@ import { AuthenticationService } from '@login/services/authentication/authentica
 import {
   AuthActionTypes,
   LogIn, LogInSuccess, LogInFailure,
-  LogOut,
+  LogOut, LogOutSuccess, LogOutFailure,
+  FetchUserData,
+  FetchUserDataFailure,
+  FetchUserDataSuccess,
 } from '../actions/auth.actions';
 import {
   RoleActionTypes,
   FetchRole, FetchRoleSuccess, FetchRoleFailure
 } from '../actions/role.actions';
 import { RoleService } from '@app/login/services/role/role.service';
+import { LocalStorageService } from '@app/services/local-storage.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Injectable()
 export class AuthEffects {
@@ -32,50 +37,31 @@ export class AuthEffects {
     private authService: AuthenticationService,
     private roleService: RoleService,
     private router: Router,
+    private localStorageService: LocalStorageService,
+    private permissionsService: NgxPermissionsService
   ) {}
 
   @Effect()
-  LogIn: Observable<any> = this.actions
+  LogIn: Observable<Action> = this.actions
     .ofType(AuthActionTypes.LOGIN)
     .map((action: LogIn) => action.payload)
-    .switchMap(payload => this.authService.logIn(payload.email, payload.password)
-    .concatMap(user => {
-      return Observable.from([
-          new LogInSuccess({token: user.token, email: payload.email, role_id: user.user.role_id}),
-          new FetchRole({role_id: user.user.role_id})
-      ]); }
-    )
-    .catch((error) => {
-      return Observable.of(new LogInFailure({ error: error }));
-    }));
-
-  @Effect()
-  FetchRole: Observable<any> = this.actions
-  .ofType(RoleActionTypes.FETCH_ROLE)
-  .map((action: FetchRole) => action.payload)
-  .switchMap(user =>
-     this.roleService.getRole(user.role_id)
-      .map((role) =>
-         new FetchRoleSuccess({role: role})
-      )
-      .catch((error) => {
-        console.log(error);
-        return Observable.of(new FetchRoleFailure({ error: error }));
-      }));
+    .switchMap(payload => {
+      return this.authService.logIn(payload.email, payload.password)
+        .map((data) => {
+          return new LogInSuccess({token: data.token, email: data.user.email, role_name: data.user.role_name});
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new LogInFailure({ error: error }));
+        });
+    });
 
   @Effect({ dispatch: false })
   LogInSuccess: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN_SUCCESS),
     tap((user) => {
-      localStorage.setItem('token', user.payload.token);
-    })
-  );
-
-  @Effect({ dispatch: false })
-  FetchRoleSuccess: Observable<any> = this.actions.pipe(
-    ofType(RoleActionTypes.FETCH_ROLE_SUCCESS),
-    tap((role) => {
-      localStorage.setItem('role_name', role.payload.role.user.role_name);
+      this.localStorageService.setUserData(user);
+      this.permissionsService.loadPermissions(this.localStorageService.getUserRole().split(' '));
       this.router.navigateByUrl('/');
     })
   );
@@ -85,12 +71,54 @@ export class AuthEffects {
     ofType(AuthActionTypes.LOGIN_FAILURE)
   );
 
+  @Effect()
+  FetchUserData: Observable<any> = this.actions
+    .ofType(AuthActionTypes.FETCH_USER_DATA)
+    .map((user) => {
+      if (!this.localStorageService.getUserRole()) {
+        return new FetchUserDataFailure({error: 'Failed fetch user from local storage.'});
+      } else {
+        return new FetchUserDataSuccess(
+          this.localStorageService.getUserData(),
+        );
+      }
+    });
+
   @Effect({ dispatch: false })
-  public LogOut: Observable<any> = this.actions.pipe(
-    ofType(AuthActionTypes.LOGOUT),
-    tap((user) => {
-      localStorage.removeItem('token');
+  FetchUserDataFailure: Observable<any> = this.actions
+    .ofType(AuthActionTypes.FETCH_USER_DATA_FAILURE)
+    .map(() => {
       this.router.navigateByUrl('/login');
-    })
-  );
+    });
+
+  @Effect({ dispatch: false })
+  FetchUserDataSuccess: Observable<any> = this.actions
+    .ofType(AuthActionTypes.FETCH_USER_DATA_SUCCESS)
+    .map((user) => {
+      this.localStorageService.setUserData(user);
+      this.permissionsService.loadPermissions(this.localStorageService.getUserRole().split(' '));
+    });
+
+  @Effect()
+  LogOut: Observable<any> = this.actions
+    .ofType(AuthActionTypes.LOGOUT)
+    .map(() => {
+      this.localStorageService.removeUserData();
+      if (!this.localStorageService.getUserRole()) {
+        return new LogOutSuccess();
+      } else {
+        return new LogOutFailure({error: 'Logout Failure'});
+      }
+    });
+
+  @Effect({ dispatch: false })
+  public LogOutSuccess: Observable<any> = this.actions
+    .ofType(AuthActionTypes.LOGOUT_SUCCESS)
+    .map((user) => {
+      this.router.navigateByUrl('/login');
+    });
+
+  @Effect({ dispatch: false })
+  public LogOutFailure: Observable<any> = this.actions
+    .ofType(AuthActionTypes.LOGOUT);
 }

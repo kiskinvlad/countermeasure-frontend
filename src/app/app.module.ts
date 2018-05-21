@@ -16,6 +16,8 @@ import { reducers } from './app.states';
 import { AuthEffects } from '@login/store/effects/auth.effects';
 import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
 import { RoleService } from '@app/login/services/role/role.service';
+import { Constants } from '@app/configs/constants';
+import { LocalStorageService } from '@app/services/local-storage.service';
 
 @NgModule({
   declarations: [
@@ -30,10 +32,10 @@ import { RoleService } from '@app/login/services/role/role.service';
     NgbModule.forRoot(),
     HttpClientModule,
     NgxPermissionsModule.forRoot(),
-    StoreModule.forRoot(reducers, {}),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([AuthEffects]),
   ],
-  providers: [AuthenticationService, AuthGuardService, RoleService, NgxPermissionsService],
+  providers: [AuthenticationService, AuthGuardService, RoleService, NgxPermissionsService, Constants, LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
