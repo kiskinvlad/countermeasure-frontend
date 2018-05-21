@@ -29,7 +29,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Docker FAQ
 
-* To build dev image use 'docker build --no-cache -t countertax-frontend:dev .'
-* To run container based on image use 'docker run -d --name countertax-frontend -p 4200:4200 countertax-frontend:dev'
-* To logs use 'docker logs -t countertax-frontend'
+* To build dev image use `docker build --no-cache -t countertax-frontend:dev .`
+* To run container based on image use `docker run -d --name countertax-frontend -p 4200:4200 countertax-frontend:dev`
+* To logs use `docker logs -t countertax-frontend`
 
