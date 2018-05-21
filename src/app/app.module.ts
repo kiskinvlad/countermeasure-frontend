@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '@login/login.component';
 import { AuthenticationService } from '@login/services/authentication/authentication.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from '@dashboard/dashboard.component';
 import { AuthGuardService } from '@login/services/guard/auth-guard.service';
 import { StoreModule } from '@ngrx/store';
@@ -18,6 +18,7 @@ import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
 import { RoleService } from '@app/login/services/role/role.service';
 import { Constants } from '@app/configs/constants';
 import { LocalStorageService } from '@app/services/local-storage.service';
+import { TokenHttpInterceptor } from '@app/services/token-http-interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,19 @@ import { LocalStorageService } from '@app/services/local-storage.service';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([AuthEffects]),
   ],
-  providers: [AuthenticationService, AuthGuardService, RoleService, NgxPermissionsService, Constants, LocalStorageService],
+  providers: [
+    AuthenticationService,
+    AuthGuardService,
+    RoleService,
+    NgxPermissionsService,
+    Constants,
+    LocalStorageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenHttpInterceptor,
+      multi: true
+    },
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
