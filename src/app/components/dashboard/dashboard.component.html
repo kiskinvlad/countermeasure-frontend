@@ -1,0 +1,47 @@
+<div class="container">
+
+  <div class="d-flex flex-row-reverse">
+    <button type="button" class="btn btn-primary"> Create Case </button>
+  </div>
+
+  <div>
+    <select name="filter_date" class="selectpicker" data-style="btn-new">
+      <option>All</option>
+      <option>Recent</option>
+    </select>
+
+    <input type="text" />
+
+    <select name="filter_sort_by" class="selectpicker" data-style="btn-new">
+      <option>Matter ID</option>
+      <option>Name</option>
+      <option>Last Updated</option>
+      <option>Amount in Dispute</option>
+    </select>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Matter ID</th>
+        <th>Name</th>
+        <th>Last Updated</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let element of response">
+        <td>{{element.matter_id}}</td>
+        <td>{{element.name}}</td>
+        <td>{{element.last_updated}}</td>
+        <td>
+          <table class="table table-bordered">
+            <th>View/Edit</th>
+            <th>Copy</th>
+            <th>Delete</th>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

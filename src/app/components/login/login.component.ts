@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { TokenPayload } from '../../interfaces/token-payload';
+import { AuthenticationService } from '../../core/services/AuthenticationService/authentication.service';
+import { TokenPayload } from '../../shared/interfaces/token-payload';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
 }
