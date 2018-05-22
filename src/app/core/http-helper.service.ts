@@ -100,7 +100,7 @@ export class HttpHelperService {
 
     this.serverError = false;
 
-    return new RequestOptions({ headers, withCredentials: true, search });
+    return new RequestOptions({ headers, withCredentials: false, search });
   }
 
   /***

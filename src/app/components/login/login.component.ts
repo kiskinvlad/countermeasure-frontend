@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
     var authService = this.auth;
     authService.login(this.credentials).subscribe((res) => {
       authService.setRoleID(res.user.role_id);
-      this.router.navigateByUrl('/');
+      console.log("success")
+      this.router.navigateByUrl('/dashboard');
     }, (err) => {
       console.log(err.error);
     });
