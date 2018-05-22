@@ -32,7 +32,13 @@ import { ApiRoutingService } from './core/api-routing.service';
     HttpModule,
     HttpClientModule
   ],
-  providers: [AuthenticationService, HttpHelperService, LocalStorageService, ApiRoutingService, AuthGuardService],
+  providers: [
+    AuthenticationService, 
+    HttpHelperService, 
+    LocalStorageService, 
+    ApiRoutingService, 
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

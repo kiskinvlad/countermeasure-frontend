@@ -15,15 +15,9 @@ export class HomeComponent implements OnInit {
   }
 
   getUserRole() {
-    switch (JSON.parse(localStorage.getItem('role'))) {
-      case 1: this.user_role = 'admin'; break;
-      case 2: this.user_role = 'manager'; break;
-      case 3: this.user_role =  'user'; break;
-    }
-    return this.user_role;
+    return this.auth.getRole();
   }
 
   ngOnInit() {
   }
-
 }

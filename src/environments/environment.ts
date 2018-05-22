@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   BASE_API_URL: "http://localhost:3000/",
   localStorage: {
-    token: 'counterMeasure'
+    token: 'counterMeasureAuthToken'
   }
 };
 

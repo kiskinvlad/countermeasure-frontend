@@ -24,6 +24,21 @@ export class AuthenticationService {
     return !!this.http.authToken();
   }
 
+  public setRoleID(role: Number) {
+    return this.http.setRoleID(role);
+  }
+
+  public getRole(): String {
+    var roleID = this.http.getRoleID();
+    switch (roleID) {
+      case 1: return 'admin';
+      case 2: return 'manager';
+      case 3: return 'user';
+      default:
+        return 'user';
+    }
+  }
+
   register(user: TokenPayload) {
     return this.http.post(
       this.apiRoutingService.getSignUpnAPIUrl(),

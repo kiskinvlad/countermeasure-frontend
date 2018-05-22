@@ -32,15 +32,23 @@ export class HttpHelperService {
     return res;
   }
 
-  removeAuthToken(){
+  removeAuthToken() {
     this.localStorage.clear(environment.localStorage.token);
     this.router.navigate(['login']);
   }
 
-  authToken(){
+  authToken() {
       return this.localStorage.retrieve(
         environment.localStorage.token
       );
+  }
+
+  setRoleID(roleID: Number) {
+    return this.localStorage.store('role', roleID);
+  }
+
+  getRoleID(): Number {
+    return this.localStorage.retrieve('role');
   }
   /***
    * generate request options

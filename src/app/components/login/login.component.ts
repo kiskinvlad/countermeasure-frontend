@@ -16,8 +16,9 @@ export class LoginComponent implements OnInit {
   constructor(private auth: AuthenticationService, private router: Router) { }
 
   login() {
-    this.auth.login(this.credentials).subscribe((res) => {
-      localStorage.setItem('role', res.user.role_id);
+    var authService = this.auth;
+    authService.login(this.credentials).subscribe((res) => {
+      authService.setRoleID(res.user.role_id);
       this.router.navigateByUrl('/');
     }, (err) => {
       console.log(err.error);
