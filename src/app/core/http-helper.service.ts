@@ -21,6 +21,7 @@ export class HttpHelperService {
   private checkAuthHeader(response: Response) {
     let res;
     const authorizationHeader = response.headers.toJSON()['Authorization'] || response.headers.toJSON()['authorization'];
+
     if (authorizationHeader) {
       this.localStorage.store(environment.localStorage.token, authorizationHeader[0]);
     }
@@ -43,13 +44,14 @@ export class HttpHelperService {
       );
   }
 
-  setRoleID(roleID: Number) {
-    return this.localStorage.store('role', roleID);
+  setLocalStorageItem(item: string, value: String){
+    return this.localStorage.store(item, value);
   }
 
-  getRoleID(): Number {
-    return this.localStorage.retrieve('role');
+  getLocalStorageItem(item: string){
+    return this.localStorage.retrieve(item);
   }
+
   /***
    * generate request options
    * @param isUrlEncoded

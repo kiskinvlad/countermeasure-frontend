@@ -25,11 +25,11 @@ export class AuthenticationService {
   }
 
   public setRoleID(role: Number) {
-    return this.http.setRoleID(role);
+    return this.http.setLocalStorageItem('role', String(role));
   }
 
   public getRole(): String {
-    var roleID = this.http.getRoleID();
+    var roleID = Number(this.http.getLocalStorageItem('role'));
     switch (roleID) {
       case 1: return 'admin';
       case 2: return 'manager';
