@@ -1,7 +1,4 @@
 export const environment = {
   production: true,
-  BASE_API_URL: "/api/",
-  localStorage: {
-    token: 'counterMeasureAuthToken'
-  }
+  BASE_API_URL: "/api/"
 };

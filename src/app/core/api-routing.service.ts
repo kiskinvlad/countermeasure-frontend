@@ -14,4 +14,12 @@ export class ApiRoutingService {
   getLoginAPIUrl(): string {
     return this.baseUrl + 'users/login';
   }
+
+  getRoleAPIUrl(): string {
+    return this.baseUrl + 'roles';
+  }
+
+  getFilteredAndSortedCasesAPIUrl(): string {
+    return this.baseUrl + 'cases';
+  }
 }

@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import { map, catchError } from 'rxjs/operators';
-import { LocalStorageService } from 'ngx-webstorage';
+import { LocalStorageService } from './services/LocalStorageService/local-storage.service';
 import { ErrorResponse } from '../shared/interfaces/const-variables';
-import { environment } from '../../environments/environment';
 
 @Injectable()
 export class HttpHelperService {
@@ -23,7 +22,7 @@ export class HttpHelperService {
     const authorizationHeader = response.headers.toJSON()['Authorization'] || response.headers.toJSON()['authorization'];
 
     if (authorizationHeader) {
-      this.localStorage.store(environment.localStorage.token, authorizationHeader[0]);
+      this.localStorage.setAuthToken(authorizationHeader[0]);
     }
     try {
       res = response.json();
@@ -31,25 +30,6 @@ export class HttpHelperService {
       res = {};
     }
     return res;
-  }
-
-  removeAuthToken() {
-    this.localStorage.clear(environment.localStorage.token);
-    this.router.navigate(['login']);
-  }
-
-  authToken() {
-      return this.localStorage.retrieve(
-        environment.localStorage.token
-      );
-  }
-
-  setLocalStorageItem(item: string, value: String){
-    return this.localStorage.store(item, value);
-  }
-
-  getLocalStorageItem(item: string){
-    return this.localStorage.retrieve(item);
   }
 
   /***
@@ -81,9 +61,7 @@ export class HttpHelperService {
     }
 
     if (requiredAuth) {
-      const token = this.localStorage.retrieve(
-        environment.localStorage.token
-      );
+      const token = this.localStorage.getAuthToken();
       headers.append('Authorization', `${token}`);
     }
 

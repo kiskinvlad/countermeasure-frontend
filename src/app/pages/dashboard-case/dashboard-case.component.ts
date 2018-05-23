@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ct-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'ct-dashboard-case',
+  templateUrl: './dashboard-case.component.html',
+  styleUrls: ['./dashboard-case.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardCaseComponent implements OnInit {
 
   public response: Array<any> = [];
   constructor() { 

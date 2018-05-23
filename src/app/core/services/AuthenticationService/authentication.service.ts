@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { LocalStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators/';
 
 import { HttpHelperService } from '../../http-helper.service';
 import { ApiRoutingService } from '../../api-routing.service';
+import { LocalStorageService } from '../LocalStorageService/local-storage.service';
 
 import { UserDetails } from '../../../shared/interfaces/user-details';
 import { TokenResponse } from '../../../shared/interfaces/token-response';
@@ -16,27 +16,14 @@ import { TokenPayload} from '../../../shared/interfaces/token-payload';
 export class AuthenticationService {
 
   constructor(    
+    private router: Router,
     private http: HttpHelperService,
     private apiRoutingService: ApiRoutingService,
+    private localStorage: LocalStorageService
   ) { }
 
   public isLoggedIn(): boolean {
-    return !!this.http.authToken();
-  }
-
-  public setRoleID(role: Number) {
-    return this.http.setLocalStorageItem('role', String(role));
-  }
-
-  public getRole(): String {
-    var roleID = Number(this.http.getLocalStorageItem('role'));
-    switch (roleID) {
-      case 1: return 'admin';
-      case 2: return 'manager';
-      case 3: return 'user';
-      default:
-        return 'user';
-    }
+    return !!this.localStorage.getAuthToken();
   }
 
   register(user: TokenPayload) {
@@ -58,7 +45,8 @@ export class AuthenticationService {
   }
 
   public logout(): void {
-    return this.http.removeAuthToken();
+    this.localStorage.removeAuthToken();
+    this.router.navigate(['login']);
   }
 
 }
