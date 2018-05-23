@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+
 import { Observable } from 'rxjs';
 import { map, filter, scan, tap, concatMap } from 'rxjs/operators';
-
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/observable/from';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 import { AuthenticationService } from '../../../core/services/AuthenticationService/authentication.service';
+import { RoleService } from '../../../core/services/UserRoleService/role.service';
+import { LocalStorageService } from '../../../core/services/LocalStorageService/local-storage.service';
 import {
   AuthActionTypes,
   LogIn, LogInSuccess, LogInFailure,
@@ -25,9 +28,6 @@ import {
   RoleActionTypes,
   FetchRole, FetchRoleSuccess, FetchRoleFailure
 } from '../actions/role.actions';
-import { RoleService } from '../../../core/services/UserRoleService/role.service';
-import { LocalStorageService } from '../../../core/services/LocalStorageService/local-storage.service';
-import { NgxPermissionsService } from 'ngx-permissions';
 
 @Injectable()
 export class AuthEffects {

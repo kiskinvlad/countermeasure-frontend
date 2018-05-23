@@ -19,7 +19,7 @@ import {
   FetchCases, FetchCasesSuccess, FetchCasesFailure
 } from '../actions/cases.actions';
 
-import { RoleService } from '../../../core/services/UserRoleService/role.service';
+import { CasesService } from '../../../core/services/CasesService/cases.service';
 import { LocalStorageService } from '../../../core/services/LocalStorageService/local-storage.service';
 import { NgxPermissionsService } from 'ngx-permissions';
 
@@ -28,8 +28,7 @@ export class CasesEffects {
 
   constructor(
     private actions: Actions,
-    private authService: AuthenticationService,
-    private roleService: RoleService,
+    private casesService: CasesService,
     private router: Router,
     private localStorageService: LocalStorageService,
     private permissionsService: NgxPermissionsService
@@ -40,9 +39,10 @@ export class CasesEffects {
     .ofType(CasesActionTypes.FETCH_CASES)
     .map((action: FetchCases) => action.payload)
     .switchMap(payload => {
-      return this.authService.login({email: payload.email, password: payload.password})
+      return this.casesService.getFilteredAndSorted(payload)
         .map((data) => {
-          return new FetchCasesSuccess({});
+          console.log("fetchCases result=", data);
+          return new FetchCasesSuccess(data);
         })
         .catch((error) => {
           console.log(error);
@@ -53,11 +53,9 @@ export class CasesEffects {
   @Effect({ dispatch: false })
   FetchCasesSuccess: Observable<any> = this.actions.pipe(
     ofType(CasesActionTypes.FETCH_CASES_SUCCESS),
-    tap(({ payload: user }) => {
-      console.log("userData = ", user);
-      this.localStorageService.setUserData(user);
-      this.permissionsService.loadPermissions(this.localStorageService.getUserRole().split(' '));
-      this.router.navigateByUrl('/');
+    tap(({payload: casesData}) => {
+      console.log("casesData = ", casesData);
+
     })
   );
 

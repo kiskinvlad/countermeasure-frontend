@@ -4,15 +4,18 @@
     <button type="button" class="btn btn-primary"> Create Case </button>
   </div>
 
-  <div>
-    <select name="filter_date" class="selectpicker" data-style="btn-new">
+  <div class="d-flex justify-content-between">
+    <select name="filter_date" class="selectpicker default-select" data-style="btn-new">
       <option>All</option>
       <option>Recent</option>
     </select>
 
-    <input type="text" />
+    <span class="search-container">
+      <input type="text" class="search-input" placeholder="Find a Case by Name or Matter ID"/>
+      <fa name="search" size="2x"></fa>
+    </span>
 
-    <select name="filter_sort_by" class="selectpicker" data-style="btn-new">
+    <select name="filter_sort_by" class="selectpicker default-select" data-style="btn-new">
       <option>Matter ID</option>
       <option>Name</option>
       <option>Last Updated</option>
@@ -30,7 +33,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let element of response">
+      <tr *ngFor="let element of cases">
         <td>{{element.matter_id}}</td>
         <td>{{element.name}}</td>
         <td>{{element.last_updated}}</td>

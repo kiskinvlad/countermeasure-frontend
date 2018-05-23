@@ -7,9 +7,8 @@ import { HttpHelperService } from '../../http-helper.service';
 import { ApiRoutingService } from '../../api-routing.service';
 import { LocalStorageService } from '../LocalStorageService/local-storage.service';
 
-import { UserDetails } from '../../../shared/interfaces/user-details';
-import { TokenResponse } from '../../../shared/interfaces/token-response';
-import { TokenPayload} from '../../../shared/interfaces/token-payload';
+import { User } from '../../../shared/models/user';
+import { Auth } from '../../../shared/models/auth';
 
 
 @Injectable()
@@ -26,7 +25,7 @@ export class AuthenticationService {
     return !!this.localStorage.getAuthToken();
   }
 
-  register(user: TokenPayload) {
+  register(user: Auth) {
     return this.http.post(
       this.apiRoutingService.getSignUpnAPIUrl(),
       user,
@@ -35,7 +34,7 @@ export class AuthenticationService {
     );
   }
 
-  login(user: TokenPayload) {
+  login(user: Auth) {
     return this.http.post(
       this.apiRoutingService.getLoginAPIUrl(),
       user,
