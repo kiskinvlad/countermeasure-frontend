@@ -1,52 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators/';
-
-import { HttpHelperService } from '../../http-helper.service';
-import { ApiRoutingService } from '../../api-routing.service';
-import { LocalStorageService } from '../LocalStorageService/local-storage.service';
-
-import { UserDetails } from '../../../shared/interfaces/user-details';
-import { TokenResponse } from '../../../shared/interfaces/token-response';
-import { TokenPayload} from '../../../shared/interfaces/token-payload';
-
-
+import { ApiRoutingService } from '@app/core/api-routing.service';
+import { HttpHelperService } from '@app/core/http-helper.service';
 @Injectable()
 export class AuthenticationService {
 
-  constructor(    
-    private router: Router,
+  private user_api_url: string;
+
+  constructor(
     private http: HttpHelperService,
-    private apiRoutingService: ApiRoutingService,
-    private localStorage: LocalStorageService
-  ) { }
-
-  public isLoggedIn(): boolean {
-    return !!this.localStorage.getAuthToken();
+    private apiRoutingService: ApiRoutingService
+  ) {
+    this.user_api_url = apiRoutingService.getLoginAPIUrl();
   }
 
-  register(user: TokenPayload) {
-    return this.http.post(
-      this.apiRoutingService.getSignUpnAPIUrl(),
-      user,
-      false,
-      null
-    );
-  }
-
-  login(user: TokenPayload) {
-    return this.http.post(
-      this.apiRoutingService.getLoginAPIUrl(),
-      user,
-      false,
-      null
-    );
-  }
-
-  public logout(): void {
-    this.localStorage.removeAuthToken();
-    this.router.navigate(['login']);
+  logIn(email: string, password: string) {
+    return this.http.post(this.user_api_url, {email, password}, false, null);
   }
 
 }

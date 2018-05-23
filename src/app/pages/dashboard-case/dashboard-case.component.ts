@@ -8,13 +8,28 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardCaseComponent implements OnInit {
 
   public response: Array<any> = [];
-  constructor() { 
+  constructor() {
     this.response.push(
-      { matter_id: '45182', name: 'Mikes Shipping Inc - T2 Dispute', last_updated: 'Tue, April 24 4:30PM by Rachel Beck', actions: ['View', 'Edit', 'Copy'] },
-      { matter_id: '45182', name: 'Mikes Shipping Inc - T2 Dispute', last_updated: 'Tue, April 24 4:30PM by Rachel Beck', actions: ['View', 'Edit', 'Copy'] },
-      { matter_id: '45182', name: 'Mikes Shipping Inc - T2 Dispute', last_updated: 'Tue, April 24 4:30PM by Rachel Beck', actions: ['View', 'Edit', 'Copy'] },
-      { matter_id: '45182', name: 'Mikes Shipping Inc - T2 Dispute', last_updated: 'Tue, April 24 4:30PM by Rachel Beck', actions: ['View', 'Edit', 'Copy'] },
-      { matter_id: '45182', name: 'Mikes Shipping Inc - T2 Dispute', last_updated: 'Tue, April 24 4:30PM by Rachel Beck', actions: ['View', 'Edit', 'Copy'] },
+      {
+        matter_id: '45182', name: 'Mikes Shipping Inc - T2 Dispute',
+        last_updated: 'Tue, April 24 4:30PM by Rachel Beck', actions: ['View', 'Edit', 'Copy']
+      },
+      {
+         matter_id: '45182', name: 'Mikes Shipping Inc - T2 Dispute',
+          last_updated: 'Tue, April 24 4:30PM by Rachel Beck', actions: ['View', 'Edit', 'Copy']
+      },
+      {
+         matter_id: '45182', name: 'Mikes Shipping Inc - T2 Dispute',
+         last_updated: 'Tue, April 24 4:30PM by Rachel Beck', actions: ['View', 'Edit', 'Copy']
+      },
+      {
+        matter_id: '45182', name: 'Mikes Shipping Inc - T2 Dispute',
+        last_updated: 'Tue, April 24 4:30PM by Rachel Beck', actions: ['View', 'Edit', 'Copy']
+       },
+      {
+         matter_id: '45182', name: 'Mikes Shipping Inc - T2 Dispute',
+          last_updated: 'Tue, April 24 4:30PM by Rachel Beck', actions: ['View', 'Edit', 'Copy']
+      },
     );
   }
 

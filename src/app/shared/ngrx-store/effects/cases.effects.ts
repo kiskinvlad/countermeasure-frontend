@@ -15,13 +15,13 @@ import 'rxjs/add/observable/from';
 import { AuthenticationService } from '../../../core/services/AuthenticationService/authentication.service';
 
 import {
-  CasesActionTypes,
   FetchCases, FetchCasesSuccess, FetchCasesFailure
 } from '../actions/cases.actions';
 
 import { RoleService } from '../../../core/services/UserRoleService/role.service';
 import { LocalStorageService } from '../../../core/services/LocalStorageService/local-storage.service';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { CasesActionTypes } from '@app/shared/ngrx-store/constants/cases';
 
 @Injectable()
 export class CasesEffects {
@@ -40,7 +40,7 @@ export class CasesEffects {
     .ofType(CasesActionTypes.FETCH_CASES)
     .map((action: FetchCases) => action.payload)
     .switchMap(payload => {
-      return this.authService.login({email: payload.email, password: payload.password})
+      return this.authService.logIn(payload.email, payload.password)
         .map((data) => {
           return new FetchCasesSuccess({});
         })
@@ -54,7 +54,6 @@ export class CasesEffects {
   FetchCasesSuccess: Observable<any> = this.actions.pipe(
     ofType(CasesActionTypes.FETCH_CASES_SUCCESS),
     tap(({ payload: user }) => {
-      console.log("userData = ", user);
       this.localStorageService.setUserData(user);
       this.permissionsService.loadPermissions(this.localStorageService.getUserRole().split(' '));
       this.router.navigateByUrl('/');

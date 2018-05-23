@@ -12,9 +12,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/observable/from';
 
-import { AuthenticationService } from '../../../core/services/AuthenticationService/authentication.service';
 import {
-  AuthActionTypes,
   LogIn, LogInSuccess, LogInFailure,
   LogOut, LogOutSuccess, LogOutFailure,
   FetchUserData,
@@ -25,9 +23,11 @@ import {
   RoleActionTypes,
   FetchRole, FetchRoleSuccess, FetchRoleFailure
 } from '../actions/role.actions';
-import { RoleService } from '../../../core/services/UserRoleService/role.service';
-import { LocalStorageService } from '../../../core/services/LocalStorageService/local-storage.service';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
+import { RoleService } from '@app/core/services/UserRoleService/role.service';
+import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
+import { AuthActionTypes } from '@app/shared/ngrx-store/constants/auth';
 
 @Injectable()
 export class AuthEffects {
@@ -46,7 +46,7 @@ export class AuthEffects {
     .ofType(AuthActionTypes.LOGIN)
     .map((action: LogIn) => action.payload)
     .switchMap(payload => {
-      return this.authService.login({email: payload.email, password: payload.password})
+      return this.authService.logIn(payload.email, payload.password)
         .map((data) => {
           return new LogInSuccess({token: data.token, email: data.user.email, role_name: data.user.role_name});
         })
@@ -59,9 +59,8 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   LogInSuccess: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN_SUCCESS),
-    tap(({ payload: user }) => {
-      console.log("userData = ", user);
-      this.localStorageService.setUserData(user);
+    tap((data) => {
+      this.localStorageService.setUserData(data.payload);
       this.permissionsService.loadPermissions(this.localStorageService.getUserRole().split(' '));
       this.router.navigateByUrl('/');
     })
@@ -93,12 +92,17 @@ export class AuthEffects {
     });
 
   @Effect({ dispatch: false })
-  FetchUserDataSuccess: Observable<any> = this.actions
-    .ofType(AuthActionTypes.FETCH_USER_DATA_SUCCESS)
-    .map((user) => {
-      this.localStorageService.setUserData(user);
+  FetchUserDataSuccess: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.FETCH_USER_DATA_SUCCESS),
+    tap((data) => {
+      this.localStorageService.setUserData(data.payload);
       this.permissionsService.loadPermissions(this.localStorageService.getUserRole().split(' '));
-    });
+    })
+  );
+
+  @Effect({ dispatch: false })
+  public LogOutFailure: Observable<any> = this.actions
+    .ofType(AuthActionTypes.LOGOUT);
 
   @Effect()
   LogOut: Observable<any> = this.actions
@@ -118,8 +122,4 @@ export class AuthEffects {
     .map((user) => {
       this.router.navigateByUrl('/login');
     });
-
-  @Effect({ dispatch: false })
-  public LogOutFailure: Observable<any> = this.actions
-    .ofType(AuthActionTypes.LOGOUT);
 }

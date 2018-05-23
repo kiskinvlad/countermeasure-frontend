@@ -1,7 +1,11 @@
 import { Action } from '@ngrx/store';
-import { RoleActionTypes } from '../constants/role'
 
-export { RoleActionTypes }
+
+export enum RoleActionTypes {
+  FETCH_ROLE = '[Role] Login',
+  FETCH_ROLE_SUCCESS = '[Role] Fetch Role Success',
+  FETCH_ROLE_FAILURE = '[Role] Fetch Role Failure'
+}
 
 export class FetchRole implements Action {
   readonly type = RoleActionTypes.FETCH_ROLE;

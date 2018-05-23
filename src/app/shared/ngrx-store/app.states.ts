@@ -1,7 +1,7 @@
 import { createFeatureSelector, ActionReducer, State, ActionReducerMap, Store, combineReducers, createSelector } from '@ngrx/store';
 
-import * as auth from './reducers/auth.reducers';
-import * as role from './reducers/role.reducers';
+import * as auth from '@shared/ngrx-store/reducers/auth.reducers';
+import * as role from '@shared/ngrx-store/reducers/role.reducers';
 export interface AppState {
   authState: auth.State;
   roleState: role.State;

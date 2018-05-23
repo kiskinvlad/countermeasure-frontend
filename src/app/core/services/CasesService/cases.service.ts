@@ -9,10 +9,14 @@ import { ApiRoutingService } from '../../api-routing.service';
 @Injectable()
 export class CasesService {
 
+  private role_api_url: string;
+
   constructor(
     private http: HttpHelperService,
     private apiRoutingService: ApiRoutingService
-  ) {  }
+  ) {
+    this.role_api_url = apiRoutingService.getFilteredAndSortedCasesAPIUrl();
+   }
 
   getFilteredAndSorted(filter_param, sort_param): Observable<any> {
     return this.http.post(

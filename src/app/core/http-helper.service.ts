@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers, Response, URLSearchParams } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import 'rxjs/Rx';
 import { map, catchError } from 'rxjs/operators';
 import { LocalStorageService } from './services/LocalStorageService/local-storage.service';
-import { ErrorResponse } from '../shared/interfaces/const-variables';
+import { ErrorResponse } from '@app/shared/interfaces/const-variables';
 
 @Injectable()
 export class HttpHelperService {
-  public serverError: boolean = false;
+  public serverError = false;
 
   constructor(
     private router: Router,
@@ -172,7 +171,7 @@ export class HttpHelperService {
       .patch(url, body, this.generateReqOptions(isUrlEncoded, requiredAuth, headers))
       .pipe(map((response: Response) => {
         return this.checkAuthHeader(response);
-      }), 
+      }),
       catchError(error => {
         return this.handleError(error);
       }));
@@ -229,8 +228,8 @@ export class HttpHelperService {
       .delete(url, this.generateReqOptions(false, requiredAuth, headers, query))
       .pipe(map((response: Response) => {
         return this.checkAuthHeader(response);
-      })
-      ,catchError(error => {
+      }),
+      catchError(error => {
         return this.handleError(error);
       }));
   }

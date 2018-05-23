@@ -1,8 +1,6 @@
 import { Action } from '@ngrx/store';
-import { User } from '../../models/user';
-import { AuthActionTypes } from '../constants/auth';
-
-export { AuthActionTypes }
+import { User } from '@app/shared/models/user';
+import { AuthActionTypes } from '@app/shared/ngrx-store/constants/auth';
 
 export class LogIn implements Action {
   readonly type = AuthActionTypes.LOGIN;

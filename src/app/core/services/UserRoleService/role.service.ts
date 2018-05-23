@@ -1,25 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Role } from '../../../shared/models/role';
-
-import { HttpHelperService } from '../../http-helper.service';
-import { ApiRoutingService } from '../../api-routing.service';
+import { HttpHelperService } from '@app/core/http-helper.service';
+import { ApiRoutingService } from '@app/core/api-routing.service';
 
 @Injectable()
 export class RoleService {
 
-  constructor(
-    private http: HttpHelperService,
-    private apiRoutingService: ApiRoutingService
-  ) {  }
+  private roles_api_url: string;
 
-  getRole(role_id: string): Observable<any> {
-    return this.http.get(
-      this.apiRoutingService.getRoleAPIUrl(),
-      {role_id},
-      false,
-      null
-    );
+  constructor(private http: HttpHelperService, private apiRouting: ApiRoutingService) {
+    this.roles_api_url = apiRouting.getLoginAPIUrl();
+  }
+
+  getRole(role_id: string) {
+    return this.http.get(this.roles_api_url, {role_id}, false, null);
   }
 }

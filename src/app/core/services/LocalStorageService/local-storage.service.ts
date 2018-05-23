@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../../shared/models/user';
 import { LocalStorageService as DLSService } from 'ngx-webstorage';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@environments/environment';
 
 @Injectable()
 export class LocalStorageService {
@@ -17,15 +17,15 @@ export class LocalStorageService {
   }
 
   /* basic localStorage functions */
-  public setItem(item: string, value: String){
+  public setItem(item: string, value: String) {
     return this.localStorage.store(item, value);
   }
 
-  public getItem(item: string){
+  public getItem(item: string) {
     return this.localStorage.retrieve(item);
   }
 
-  public clearItem(item: string){
+  public clearItem(item: string) {
     return this.localStorage.clear(item);
   }
 
@@ -36,7 +36,7 @@ export class LocalStorageService {
 
   /* Authentication functions */
   public setAuthToken(token: string) {
-    this.localStorage.store('token', token);
+    this.setItem('token', token);
     this.currentUser.token = token;
   }
 
@@ -45,7 +45,7 @@ export class LocalStorageService {
   }
 
   public removeAuthToken(): void {
-    this.localStorage.clear('token');
+    this.clearItem('token');
   }
 
   /* User informations */
@@ -62,15 +62,12 @@ export class LocalStorageService {
   }
 
   public setUserData(user) {
-    this.localStorage.store('role_name', user.role_name);
-    this.localStorage.store('email', user.email);
-
+    this.setItem('role_name', user.role_name);
+    this.setItem('email', user.email);
     this.currentUser = user;
   }
 
   public removeUserData() {
-    this.localStorage.clear('role_name');
-    this.localStorage.clear('email');
-    this.currentUser = {};
+    this.removeAllItems();
   }
 }

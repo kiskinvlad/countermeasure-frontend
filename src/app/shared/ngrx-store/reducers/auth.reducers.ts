@@ -1,5 +1,6 @@
-import { User } from '../../models/user';
-import { AuthActionTypes, All } from '../actions/auth.actions';
+import { User } from '@shared/models/user';
+import { All } from '../actions/auth.actions';
+import { AuthActionTypes } from '@app/shared/ngrx-store/constants/auth';
 
 
 export interface State {

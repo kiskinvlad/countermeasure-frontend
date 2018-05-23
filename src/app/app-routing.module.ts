@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { AuthGuardService } from './shared/guard/auth-guard.service';
-import { DashboardCaseComponent } from './pages/dashboard-case/dashboard-case.component';
+import { LoginComponent } from '@app/pages/login/login.component';
+import { DashboardComponent } from '@app/pages/dashboard/dashboard.component';
+import { DashboardCaseComponent } from '@app/pages/dashboard-case/dashboard-case.component';
+import { AuthGuardService } from '@shared/GuardService/auth-guard.service';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, canActivate: [AuthGuardService] },
+  { path: '', component: DashboardCaseComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard_case', component: DashboardCaseComponent }
 ];
 
 @NgModule({

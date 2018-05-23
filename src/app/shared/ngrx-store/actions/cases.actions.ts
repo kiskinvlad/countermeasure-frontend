@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
-import { CasesActionTypes } from '../constants/cases'
+import { CasesActionTypes } from '@app/shared/ngrx-store/constants/cases';
 
-export { CasesActionTypes }
 export class FetchCases implements Action {
   readonly type = CasesActionTypes.FETCH_CASES;
   constructor(public payload: any) {}

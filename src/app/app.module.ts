@@ -7,23 +7,23 @@ import { LocalStorageService as DLSService } from 'ngx-webstorage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LoginComponent } from './pages/login/login.component';
-import { AuthenticationService } from './core/services/AuthenticationService/authentication.service';
-import { HttpClientModule } from '@angular/common/http';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { AuthGuardService } from './shared/guard/auth-guard.service';
-import { DashboardCaseComponent } from './pages/dashboard-case/dashboard-case.component';
-import { HttpHelperService } from './core/http-helper.service';
-import { LocalStorageService } from './core/services/LocalStorageService/local-storage.service';
-import { ApiRoutingService } from './core/api-routing.service';
 
+import { LoginComponent } from '@app/pages/login/login.component';
+import { DashboardCaseComponent } from '@app/pages/dashboard-case/dashboard-case.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { reducers } from './shared/ngrx-store/app.states';
-import { AuthEffects } from './shared/ngrx-store/effects/auth.effects';
 import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
-import { RoleService } from './core/services/UserRoleService/role.service';
-
+import { DashboardComponent } from '@app/pages/dashboard/dashboard.component';
+import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
+import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
+import { RoleService } from '@app/core/services/UserRoleService/role.service';
+import { TokenHttpInterceptor } from '@app/core/token-http-interceptor';
+import { reducers } from '@app/shared/ngrx-store/app.states';
+import { AuthGuardService } from '@app/shared/GuardService/auth-guard.service';
+import { ApiRoutingService } from '@app/core/api-routing.service';
+import { HttpHelperService } from '@app/core/http-helper.service';
+import { LocalStorageService } from '@core/services/LocalStorageService/local-storage.service';
 
 @NgModule({
   declarations: [
@@ -40,19 +40,24 @@ import { RoleService } from './core/services/UserRoleService/role.service';
     HttpModule,
     HttpClientModule,
     NgxPermissionsModule.forRoot(),
-    StoreModule.forRoot(reducers, {}),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [
-    AuthenticationService, 
-    HttpHelperService, 
-    DLSService,
-    LocalStorageService, 
-    ApiRoutingService, 
+    AuthenticationService,
     AuthGuardService,
-    RoleService, 
-    NgxPermissionsService
-  ],
+    ApiRoutingService,
+    RoleService,
+    DLSService,
+    HttpHelperService,
+    NgxPermissionsService,
+    LocalStorageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenHttpInterceptor,
+      multi: true
+    },
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

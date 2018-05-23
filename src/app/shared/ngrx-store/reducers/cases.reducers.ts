@@ -1,5 +1,6 @@
 import { Case } from '../../models/case';
-import { CasesActionTypes, All } from '../actions/cases.actions';
+import { All } from '../actions/cases.actions';
+import { CasesActionTypes } from '@app/shared/ngrx-store/constants/cases';
 
 
 export interface State {

@@ -1,4 +1,4 @@
-import { Role } from '../../models/role';
+import { Role } from '@shared/models/role';
 import { RoleActionTypes, All } from '../actions/role.actions';
 
 
