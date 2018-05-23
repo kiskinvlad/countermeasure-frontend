@@ -12,24 +12,21 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/observable/from';
 
-import { AuthenticationService } from '../../../core/services/AuthenticationService/authentication.service';
 
-import {
-  FetchCases, FetchCasesSuccess, FetchCasesFailure
-} from '../actions/cases.actions';
 
-import { RoleService } from '../../../core/services/UserRoleService/role.service';
-import { LocalStorageService } from '../../../core/services/LocalStorageService/local-storage.service';
+
 import { NgxPermissionsService } from 'ngx-permissions';
 import { CasesActionTypes } from '@app/shared/ngrx-store/constants/cases';
+import { CasesService } from '@app/core/services/CasesService/cases.service';
+import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
+import { FetchCases, FetchCasesSuccess, FetchCasesFailure } from '@app/shared/ngrx-store/actions/cases.actions';
 
 @Injectable()
 export class CasesEffects {
 
   constructor(
     private actions: Actions,
-    private authService: AuthenticationService,
-    private roleService: RoleService,
+    private casesService: CasesService,
     private router: Router,
     private localStorageService: LocalStorageService,
     private permissionsService: NgxPermissionsService
@@ -40,9 +37,10 @@ export class CasesEffects {
     .ofType(CasesActionTypes.FETCH_CASES)
     .map((action: FetchCases) => action.payload)
     .switchMap(payload => {
-      return this.authService.logIn(payload.email, payload.password)
+
+      return this.casesService.getFilteredAndSorted(payload)
         .map((data) => {
-          return new FetchCasesSuccess({});
+          return new FetchCasesSuccess(data);
         })
         .catch((error) => {
           console.log(error);
@@ -53,10 +51,8 @@ export class CasesEffects {
   @Effect({ dispatch: false })
   FetchCasesSuccess: Observable<any> = this.actions.pipe(
     ofType(CasesActionTypes.FETCH_CASES_SUCCESS),
-    tap(({ payload: user }) => {
-      this.localStorageService.setUserData(user);
-      this.permissionsService.loadPermissions(this.localStorageService.getUserRole().split(' '));
-      this.router.navigateByUrl('/');
+    tap(({payload: casesData}) => {
+      console.log('casesData = ', casesData);
     })
   );
 

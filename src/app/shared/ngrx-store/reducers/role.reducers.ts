@@ -1,5 +1,6 @@
 import { Role } from '@shared/models/role';
-import { RoleActionTypes, All } from '../actions/role.actions';
+import { All } from '@app/shared/ngrx-store/actions/role.actions';
+import { RoleActionTypes } from '@app/shared/ngrx-store/constants/role';
 
 
 export interface State {

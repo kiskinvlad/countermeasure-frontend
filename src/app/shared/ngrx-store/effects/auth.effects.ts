@@ -2,15 +2,20 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+
 import { Observable } from 'rxjs';
 import { map, filter, scan, tap, concatMap } from 'rxjs/operators';
-
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/observable/from';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
+import { RoleService } from '@app/core/services/UserRoleService/role.service';
+import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
+import { AuthActionTypes } from '@app/shared/ngrx-store/constants/auth';
 
 import {
   LogIn, LogInSuccess, LogInFailure,
@@ -20,14 +25,10 @@ import {
   FetchUserDataSuccess,
 } from '../actions/auth.actions';
 import {
-  RoleActionTypes,
   FetchRole, FetchRoleSuccess, FetchRoleFailure
 } from '../actions/role.actions';
-import { NgxPermissionsService } from 'ngx-permissions';
-import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
-import { RoleService } from '@app/core/services/UserRoleService/role.service';
-import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
-import { AuthActionTypes } from '@app/shared/ngrx-store/constants/auth';
+
+
 
 @Injectable()
 export class AuthEffects {
@@ -46,7 +47,7 @@ export class AuthEffects {
     .ofType(AuthActionTypes.LOGIN)
     .map((action: LogIn) => action.payload)
     .switchMap(payload => {
-      return this.authService.logIn(payload.email, payload.password)
+      return this.authService.logIn(payload)
         .map((data) => {
           return new LogInSuccess({token: data.token, email: data.user.email, role_name: data.user.role_name});
         })

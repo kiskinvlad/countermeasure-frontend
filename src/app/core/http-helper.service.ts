@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { LocalStorageService } from './services/LocalStorageService/local-storage.service';
-import { ErrorResponse } from '@app/shared/interfaces/const-variables';
+import { ErrorResponse } from '@app/shared/models/const-variables';
 
 @Injectable()
 export class HttpHelperService {
@@ -21,6 +21,7 @@ export class HttpHelperService {
     const authorizationHeader = response.headers.toJSON()['Authorization'] || response.headers.toJSON()['authorization'];
 
     if (authorizationHeader) {
+      console.log('saved authorization header', authorizationHeader[0]);
       this.localStorage.setAuthToken(authorizationHeader[0]);
     }
     try {
@@ -61,6 +62,7 @@ export class HttpHelperService {
 
     if (requiredAuth) {
       const token = this.localStorage.getAuthToken();
+      console.log('add authorization header', token);
       headers.append('Authorization', `${token}`);
     }
 

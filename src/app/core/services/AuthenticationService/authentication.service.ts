@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiRoutingService } from '@app/core/api-routing.service';
 import { HttpHelperService } from '@app/core/http-helper.service';
+import { Auth } from '@app/shared/models/auth';
+
 @Injectable()
 export class AuthenticationService {
 
@@ -12,9 +14,17 @@ export class AuthenticationService {
   ) {
     this.user_api_url = apiRoutingService.getLoginAPIUrl();
   }
+  register(user: Auth) {
+    return this.http.post(
+      this.apiRoutingService.getSignUpnAPIUrl(),
+      user,
+      false,
+      null
+    );
+  }
 
-  logIn(email: string, password: string) {
-    return this.http.post(this.user_api_url, {email, password}, false, null);
+  logIn(user: Auth) {
+    return this.http.post(this.user_api_url, user, false, null);
   }
 
 }

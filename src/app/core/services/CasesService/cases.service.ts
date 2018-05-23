@@ -18,11 +18,12 @@ export class CasesService {
     this.role_api_url = apiRoutingService.getFilteredAndSortedCasesAPIUrl();
    }
 
-  getFilteredAndSorted(filter_param, sort_param): Observable<any> {
+  getFilteredAndSorted(payload): Observable<any> {
     return this.http.post(
       this.apiRoutingService.getFilteredAndSortedCasesAPIUrl(),
-      {filter_param, sort_param},
+      payload,
       false,
+      true,
       null
     );
   }
