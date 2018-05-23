@@ -15,15 +15,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
 import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
 import { RoleService } from '@app/core/services/UserRoleService/role.service';
-import { TokenHttpInterceptor } from '@app/core/token-http-interceptor';
 import { reducers } from '@app/shared/ngrx-store/app.states';
-import { AuthGuardService } from '@app/shared/GuardService/auth-guard.service';
 import { ApiRoutingService } from '@app/core/api-routing.service';
 import { HttpHelperService } from '@app/core/http-helper.service';
 import { LocalStorageService } from '@core/services/LocalStorageService/local-storage.service';
 import { CasesEffects } from '@app/shared/ngrx-store/effects/cases.effects';
 import { CasesService } from '@app/core/services/CasesService/cases.service';
 import { AppRoutingModule } from '@app/app-routing.module';
+import { AuthGuardService } from '@app/shared/guard/auth-guard.service';
 
 
 @NgModule({
@@ -54,12 +53,7 @@ import { AppRoutingModule } from '@app/app-routing.module';
     NgxPermissionsService,
     LocalStorageService,
     CasesService,
-    NgxPermissionsService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenHttpInterceptor,
-      multi: true
-    }
+    NgxPermissionsService
    ],
   bootstrap: [AppComponent]
 })
