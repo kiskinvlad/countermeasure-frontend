@@ -34,6 +34,7 @@ import { AuthGuardService } from '@app/shared/guard/auth-guard.service';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     NgbModule.forRoot(),
     AngularFontAwesomeModule,
