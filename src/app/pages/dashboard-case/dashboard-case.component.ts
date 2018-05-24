@@ -46,10 +46,10 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       console.log('subscription cases change', state);
-        this.cases = state.cases.map(item => {
-        const last_updated_date = (new Date(item.updatedAt))
+        this.cases = (state.cases || []).map(item => {
+        const last_updated_date = (new Date(item.updated_at))
           .toLocaleString('en-us', {weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'});
-        const last_updated = last_updated_date + ' by ' + item.updatedBy;
+        const last_updated = last_updated_date + ' by ' + item.updated_by_name;
         return {...item, last_updated };
       });
       this.errorMessage = state.errorMessage;

@@ -11,25 +11,29 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from '@app/pages/login/login.component';
 import { DashboardCaseComponent } from '@app/pages/dashboard-case/dashboard-case.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
 import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
 import { RoleService } from '@app/core/services/UserRoleService/role.service';
-import { reducers } from '@app/shared/ngrx-store/app.states';
+import { LocalStorageService } from '@core/services/LocalStorageService/local-storage.service';
+import { CasesService } from '@app/core/services/CasesService/cases.service';
 import { ApiRoutingService } from '@app/core/api-routing.service';
 import { HttpHelperService } from '@app/core/http-helper.service';
-import { LocalStorageService } from '@core/services/LocalStorageService/local-storage.service';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
+import { reducers } from '@app/shared/ngrx-store/app.states';
 import { CasesEffects } from '@app/shared/ngrx-store/effects/cases.effects';
-import { CasesService } from '@app/core/services/CasesService/cases.service';
-import { AppRoutingModule } from '@app/app-routing.module';
 import { AuthGuardService } from '@app/shared/guard/auth-guard.service';
+import { NavigationBarComponent } from '@app/shared/components/navigation-bar/navigation-bar.component';
+import { AppRoutingModule } from '@app/app-routing.module';
+import { SideBarComponent } from '@app/shared/components/sidebar/sidebar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardCaseComponent
+    DashboardCaseComponent,
+    NavigationBarComponent,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,
