@@ -62,7 +62,6 @@ export class HttpHelperService {
 
     if (requiredAuth) {
       const token = this.localStorage.getAuthToken();
-      console.log('add authorization header', token);
       headers.append('Authorization', `${token}`);
     }
 
@@ -131,7 +130,6 @@ export class HttpHelperService {
       });
       body = urlSearchParams.toString();
     }
-
     let requestOptions = this.generateReqOptions(isUrlEncoded, requiredAuth, headers);
     if (body instanceof FormData) {
       requestOptions = this.generateReqOptions(isUrlEncoded, requiredAuth, headers, null, true);

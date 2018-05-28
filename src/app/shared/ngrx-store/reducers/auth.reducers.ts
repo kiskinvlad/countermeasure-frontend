@@ -22,7 +22,6 @@ const messages = {
 };
 
 export function reducer(state: State = initialState, action: All): State {
-  console.log(action.type);
   switch (action.type) {
     case AuthActionTypes.LOGIN_SUCCESS: {
       return {
