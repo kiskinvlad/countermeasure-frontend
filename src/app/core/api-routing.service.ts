@@ -28,7 +28,7 @@ export class ApiRoutingService {
   }
 
   getFilteredAndSortedCategoriesAPIUrl(): string {
-    return this.baseUrl + 'category';
+    return this.baseUrl + 'category/all';
   }
 
   getMoveCategoryAPIUrl(): string {
@@ -37,5 +37,21 @@ export class ApiRoutingService {
 
   getDeleteCategoryAPIUrl(): string {
     return this.baseUrl + 'category/delete';
+  }
+
+  getCategoryAPIUrl(): string {
+    return this.baseUrl + 'category';
+  }
+
+  getCreateCategoryAPIUrl(): string {
+    return this.baseUrl + 'category/create';
+  }
+
+  getDisputedApiUrl(): string {
+    return this.baseUrl + 'disputes';
+  }
+
+  getDisputesApiUrl(): string {
+    return this.baseUrl + 'disputes/all';
   }
 }

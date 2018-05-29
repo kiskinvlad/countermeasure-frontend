@@ -42,7 +42,7 @@
         <td>{{element.last_updated}}</td>
         <td>
           <table class="table table-bordered">
-            <th>View/Edit</th>
+            <th [routerLink]="['/case', element.case_id, 'categories']">View/Edit</th>
             <th>Copy</th>
             <th>Delete</th>
           </table>

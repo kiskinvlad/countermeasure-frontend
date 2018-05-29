@@ -16,6 +16,21 @@ export class FetchCategoriesFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class FetchCategory implements Action {
+  readonly type = CategoriesActionTypes.FETCH_CATEGORY;
+  constructor(public payload: any) {}
+}
+
+export class FetchCategorySuccess implements Action {
+  readonly type = CategoriesActionTypes.FETCH_CATEGORY_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class FetchCategoryFailure implements Action {
+  readonly type = CategoriesActionTypes.FETCH_CATEGORY_FAILURE;
+  constructor(public payload: any) {}
+}
+
 export class MoveCategory implements Action {
   readonly type = CategoriesActionTypes.MOVE_CATEGORY;
   constructor(public payload: any) {}
@@ -28,6 +43,21 @@ export class MoveCategorySuccess implements Action {
 
 export class MoveCategoryFailure implements Action {
   readonly type = CategoriesActionTypes.MOVE_CATEGORY_FAILURE;
+  constructor(public payload: any) {}
+}
+
+export class DeleteCategoryFromList implements Action {
+  readonly type = CategoriesActionTypes.DELETE_CATEGORY_FROM_LIST;
+  constructor(public payload: any) {}
+}
+
+export class DeleteCategoryFromListSuccess implements Action {
+  readonly type = CategoriesActionTypes.DELETE_CATEGORY_FROM_LIST_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class DeleteCategoryFromListFailure implements Action {
+  readonly type = CategoriesActionTypes.DELETE_CATEGORY_FROM_LIST_FAILURE;
   constructor(public payload: any) {}
 }
 
@@ -46,6 +76,36 @@ export class DeleteCategoryFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class UpdateCategory implements Action {
+  readonly type = CategoriesActionTypes.UPDATE_CATEGORY;
+  constructor(public payload: any) {}
+}
+
+export class UpdateCategorySuccess implements Action {
+  readonly type = CategoriesActionTypes.UPDATE_CATEGORY_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class UpdateCategoryFailure implements Action {
+  readonly type = CategoriesActionTypes.UPDATE_CATEGORY_FAILURE;
+  constructor(public payload: any) {}
+}
+
+export class CreateCategory implements Action {
+  readonly type = CategoriesActionTypes.CREATE_CATEGORY;
+  constructor(public payload: any) {}
+}
+
+export class CreateCategorySuccess implements Action {
+  readonly type = CategoriesActionTypes.CREATE_CATEGORY_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class CreateCategoryFailure implements Action {
+  readonly type = CategoriesActionTypes.CREATE_CATEGORY_FAILURE;
+  constructor(public payload: any) {}
+}
+
 export type All =
   | FetchCategories
   | FetchCategoriesSuccess
@@ -53,7 +113,19 @@ export type All =
   | MoveCategory
   | MoveCategorySuccess
   | MoveCategoryFailure
+  | DeleteCategoryFromList
+  | DeleteCategoryFromListSuccess
+  | DeleteCategoryFromListFailure
+  | FetchCategory
+  | FetchCategorySuccess
+  | FetchCategoryFailure
   | DeleteCategory
   | DeleteCategorySuccess
-  | DeleteCategoryFailure;
+  | DeleteCategoryFailure
+  | UpdateCategory
+  | UpdateCategorySuccess
+  | UpdateCategoryFailure
+  | CreateCategory
+  | CreateCategorySuccess
+  | CreateCategoryFailure;
 

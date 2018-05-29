@@ -1,0 +1,58 @@
+<ct-navigation-bar></ct-navigation-bar>
+<ct-sidebar></ct-sidebar>
+<div class="container add-edit-categories">
+  <div class="d-flex justify-content-between section-title">
+    <h2>{{type === 'add' ? 'Add' : 'Edit'}} category</h2>
+  </div>
+  <form novalidate [formGroup]="categoryForm">
+    <div class="form-group">
+      <label for="email">Name</label>
+      <input type="text" class="form-control" name="name" placeholder="" formControlName="name">
+    </div>
+    <div class="form-group">
+      <label for="taxes">Personal Income Tax Year in Dispute</label>
+      <ng-select [items]="taxes"
+        placeholder=""
+        formControlName="tax">
+        <ng-template ng-label-tmp let-item="item">
+            {{item.year}} {{item.taxpayer}}
+        </ng-template>
+        <ng-template ng-option-tmp let-item="item" let-index="index">
+            {{item.year}} {{item.taxpayer}}
+        </ng-template>
+      </ng-select>
+    </div>
+    <h2>Amounts in Dispute</h2>
+    <div class="form-group">
+      <label for="income">Taxable Income</label>
+      <input type="text" class="form-control" name="income" placeholder="" formControlName="income">
+    </div>
+    <div class="form-group">
+      <label for="federal">Non-refundable Federal Tax Credits</label>
+      <input type="text" class="form-control" name="federal" placeholder="" formControlName="federal">
+    </div>
+    <div class="form-group">
+      <label for="provincial">Non-refundable Provincial Tax Credits</label>
+      <input type="text" class="form-control" name="provincial" placeholder="" formControlName="provincial">
+    </div>
+    <div class="form-group">
+      <label for="other-amounts">Other Amounts Payable</label>
+      <input type="text" class="form-control" name="other-amounts" placeholder="" formControlName="other_amounts">
+    </div>
+    <div class="form-group">
+      <label for="credits">Credits Applied on Filing</label>
+      <input type="text" class="form-control" name="credits" placeholder="" formControlName="credits">
+    </div>
+    <div class="form-group">
+      <label for="gnp">Income Subject to GNP</label>
+      <input type="text" class="form-control" name="gnp" placeholder="" formControlName="gnp">
+    </div>
+    <div class="form-group">
+      <label for="other-penalties">Other Penalties</label>
+      <input type="text" class="form-control" name="other-penalties" placeholder="" formControlName="other_penalties">
+    </div>
+  </form>
+  <button *ngIf="type === 'edit'" type="button" class="btn btn-primary" (click)="deleteCategory()"> Remove </button>
+  <button [disabled]="!isFormTouched" type="button" class="btn btn-primary" (click)="addUpdateCategory()"> Save </button>
+  <button type="button" class="btn btn-primary" (click)="cancelEdit()"> Cancel </button>
+</div>

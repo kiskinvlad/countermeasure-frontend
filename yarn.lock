@@ -209,6 +209,12 @@
     "@angular-devkit/schematics" "^0.5.4"
     typescript "~2.7.2"
 
+"@ng-select/ng-select@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-2.1.0.tgz#abef189cc31546907ff5a7f6a6e42dbbf7ea3e4a"
+  dependencies:
+    tslib "^1.9.0"
+
 "@ngrx/effects@^5.2.0":
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-5.2.0.tgz#aa762b69cb6fd4644d724a1cecd265caa42baf09"

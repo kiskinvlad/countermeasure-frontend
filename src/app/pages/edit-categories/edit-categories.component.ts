@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectCategoryState } from '@app/shared/ngrx-store/app.states';
-import { FetchCategories, MoveCategory, DeleteCategory } from '@app/shared/ngrx-store/actions/category.actions';
+import { FetchCategories, MoveCategory, DeleteCategoryFromList } from '@app/shared/ngrx-store/actions/category.actions';
 
 @Component({
   selector: 'ct-edit-categories',
@@ -12,8 +12,8 @@ import { FetchCategories, MoveCategory, DeleteCategory } from '@app/shared/ngrx-
 })
 export class EditCategoriesComponent implements OnInit, OnDestroy {
 
-  public categories: Array<any> = [];
-  private case_id: number;
+  categories: Array<any> = [];
+  case_id: number;
   getState$: Observable<any>;
   errorMessage: string | null;
   subscription: Subscription;
@@ -95,7 +95,11 @@ export class EditCategoriesComponent implements OnInit, OnDestroy {
       page_number: 1,
       items_per_page: 10
     };
-    this.store.dispatch(new DeleteCategory(payload));
+    this.store.dispatch(new DeleteCategoryFromList(payload));
+  }
+
+  getCategoryId(index: number) {
+    return this.categories[index].category_id;
   }
 
   private sortByProperty(array, propertyName) {

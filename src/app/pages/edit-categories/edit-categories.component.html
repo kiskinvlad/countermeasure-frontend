@@ -22,7 +22,7 @@
         <td>{{category.disputed.taxpayer}}</td>
         <td>
           <thead>
-              <th>Edit</th>
+              <th [routerLink]="['/case', case_id, 'categories', getCategoryId(index), 'edit']">Edit</th>
               <th (click)="moveUp(index)">Up</th>
               <th (click)="moveDown(index)">Down</th>
               <th (click)="deleteCategory(index)">Delete</th>

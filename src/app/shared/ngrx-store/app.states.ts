@@ -12,6 +12,7 @@ import * as auth from '@shared/ngrx-store/reducers/auth.reducers';
 import * as role from '@shared/ngrx-store/reducers/role.reducers';
 import * as cases from '@shared/ngrx-store/reducers/cases.reducers';
 import * as category from '@shared/ngrx-store/reducers/category.reducers';
+import * as disputes from '@shared/ngrx-store/reducers/disputes.reducers';
 
 
 export interface AppState {
@@ -19,19 +20,22 @@ export interface AppState {
   roleState: role.State;
   casesState: cases.State;
   categoryState: category.State;
+  disputesState: disputes.State;
 }
 
 export const reducers = {
   authState: auth.reducer,
   roleState: role.reducer,
   casesState: cases.reducer,
-  categoryState: category.reducer
+  categoryState: category.reducer,
+  disputesState: disputes.reducer
 };
 
 export const selectAuthState = createFeatureSelector<AppState>('authState');
 export const selectRoleState = createFeatureSelector<AppState>('roleState');
 export const selectCasesState = createFeatureSelector<AppState>('casesState');
 export const selectCategoryState = createFeatureSelector<AppState>('categoryState');
+export const selectDisputesState = createFeatureSelector<AppState>('disputesState');
 
 const combinedReducer: ActionReducer<AppState> = combineReducers(reducers);
 

@@ -7,3 +7,8 @@
     width: 80% !important;
     position: fixed !important;
 }
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~ngx-toastr/toastr-bs4-alert";
