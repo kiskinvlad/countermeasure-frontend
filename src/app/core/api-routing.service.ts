@@ -22,4 +22,8 @@ export class ApiRoutingService {
   getFilteredAndSortedCasesAPIUrl(): string {
     return this.baseUrl + 'cases';
   }
+  
+  getUsersAPIUrl(): string {
+    return this.baseUrl + 'users';
+  }
 }
