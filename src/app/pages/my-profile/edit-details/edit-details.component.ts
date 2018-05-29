@@ -5,7 +5,6 @@ import { Observable, Subscription } from 'rxjs/';
 import { User } from '@app/shared/models/user';
 import { AppState, selectUserState } from '@app/shared/ngrx-store/app.states';
 import { FetchUser, UpdateUser } from '@app/shared/ngrx-store/actions/user.actions';
-import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'ct-edit-details',
@@ -19,9 +18,8 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   errorMessage: string | null;
   subscription: Subscription;
   myProfileForm: FormGroup;
-  isUserUpdated: boolean;
   
-  constructor(private store: Store<AppState>, private fb: FormBuilder, private notification: NotificationsService) {
+  constructor(private store: Store<AppState>, private fb: FormBuilder) {
     this.getState$ = this.store.select(selectUserState);
     this.createForm();
   }
@@ -29,10 +27,9 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
-      this.isUserUpdated = state.isUserUpdated;
       this.user = state.user;
       
-      this.showNotifications();
+      if (!this.errorMessage) this.myProfileForm.reset();
       this.setFormValues();
     });
     
@@ -63,16 +60,6 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
       phone: formModel.phone
     }
     this.store.dispatch(new UpdateUser(saveUser));
-  }
-  
-  showNotifications() {
-    if (this.errorMessage) {
-      this.notification.error("Error", this.errorMessage);
-    }
-    if (this.isUserUpdated) {
-      this.notification.success("Success", "Your details have been updated.");
-      this.myProfileForm.reset();
-    }
   }
   
   setFormValues() {

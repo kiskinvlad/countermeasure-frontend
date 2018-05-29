@@ -15,6 +15,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import { UserService } from '@app/core/services/UserService/user.service';
 import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
 import { UserActionTypes } from '@app/shared/ngrx-store/constants/user';
+import { NotificationsService } from 'angular2-notifications';
 
 import {
   FetchUser,
@@ -33,7 +34,8 @@ export class UserEffects {
     private userService: UserService,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private permissionsService: NgxPermissionsService
+    private permissionsService: NgxPermissionsService,
+    private notificationsService: NotificationsService
   ) {}
     
   @Effect()
@@ -87,12 +89,14 @@ export class UserEffects {
   UpdateUserSuccess: Observable<any> = this.actions.pipe(
     ofType(UserActionTypes.UPDATE_USER_SUCCESS),
     tap((data) => {
-      //console.log('successfully updated user: ', JSON.stringify(data));
+      this.notificationsService.success("Success", "Your details have been updated.");
     })
   );
-
+  
   @Effect({ dispatch: false })
-  UpdateUserFailure: Observable<any> = this.actions.pipe(
-    ofType(UserActionTypes.UPDATE_USER_FAILURE)
-  );
+  UpdateUserFailure: Observable<any> = this.actions
+    .ofType(UserActionTypes.UPDATE_USER_FAILURE)
+    .map(() => {
+      this.notificationsService.error("Error", "Failed to update details.");
+    });
 }
