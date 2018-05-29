@@ -21,7 +21,6 @@ export class HttpHelperService {
     const authorizationHeader = response.headers.toJSON()['Authorization'] || response.headers.toJSON()['authorization'];
 
     if (authorizationHeader) {
-      console.log('saved authorization header', authorizationHeader[0]);
       this.localStorage.setAuthToken(authorizationHeader[0]);
     }
     try {

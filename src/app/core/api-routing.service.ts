@@ -20,6 +20,10 @@ export class ApiRoutingService {
   }
 
   getFilteredAndSortedCasesAPIUrl(): string {
+    return this.baseUrl + 'cases/filter';
+  }
+
+  getCreateCaseAPIUrl(): string {
     return this.baseUrl + 'cases';
   }
 
