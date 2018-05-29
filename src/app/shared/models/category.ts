@@ -10,4 +10,5 @@ export class Category {
     credits_applied_on_filing: number;
     federal_non_refundable_tax_credits: number;
     provincial_non_refundable_tax_credits: number;
+    other_penalties: number;
 }

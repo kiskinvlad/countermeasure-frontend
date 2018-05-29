@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~ngx-toastr/toastr-bs4-alert";
+
+.modal-dialog {
+    max-width: 800px !important;
+    transform: translate(-50%, -50%) !important;
+    top: 45%;
+    left: 50%;
+    width: 80% !important;
+    position: fixed !important;
+}
