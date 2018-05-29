@@ -5,9 +5,10 @@ import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { LocalStorageService as DLSService } from 'ngx-webstorage';
+import { ModalModule } from 'ngx-bootstrap';
 import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
-import { AppComponent } from './app.component';
 import { LoginComponent } from '@app/pages/login/login.component';
 import { DashboardCaseComponent } from '@app/pages/dashboard-case/dashboard-case.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -25,7 +26,8 @@ import { AuthGuardService } from '@app/shared/guard/auth-guard.service';
 import { NavigationBarComponent } from '@app/shared/components/navigation-bar/navigation-bar.component';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { SideBarComponent } from '@app/shared/components/sidebar/sidebar.component';
-
+import { DialogCreateCaseComponent } from './pages/dashboard-case/dialog-create-case/dialog-create-case.component';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
@@ -33,16 +35,19 @@ import { SideBarComponent } from '@app/shared/components/sidebar/sidebar.compone
     LoginComponent,
     DashboardCaseComponent,
     NavigationBarComponent,
-    SideBarComponent
+    SideBarComponent,
+    DialogCreateCaseComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     NgbModule.forRoot(),
     AngularFontAwesomeModule,
     HttpModule,
     HttpClientModule,
+    ModalModule.forRoot(),
     NgxPermissionsModule.forRoot(),
     StoreModule.forRoot(reducers, {}),
     EffectsModule.forRoot([AuthEffects, CasesEffects]),
@@ -57,8 +62,12 @@ import { SideBarComponent } from '@app/shared/components/sidebar/sidebar.compone
     NgxPermissionsService,
     LocalStorageService,
     CasesService,
-    NgxPermissionsService
-   ],
+    NgxPermissionsService,
+    BsModalService
+  ],
+  entryComponents: [
+    DialogCreateCaseComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

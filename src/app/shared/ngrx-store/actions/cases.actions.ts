@@ -16,7 +16,25 @@ export class FetchCasesFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class CreateCase implements Action {
+  readonly type = CasesActionTypes.CREATE_CASE;
+  constructor(public payload: any) {}
+}
+
+export class CreateCaseSuccess implements Action {
+  readonly type = CasesActionTypes.CREATE_CASE_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class CreateCaseFailure implements Action {
+  readonly type = CasesActionTypes.CREATE_CASE_FAILURE;
+  constructor(public payload: any) {}
+}
+
 export type All =
   | FetchCases
   | FetchCasesSuccess
-  | FetchCasesFailure;
+  | FetchCasesFailure
+  | CreateCase
+  | CreateCaseSuccess
+  | CreateCaseFailure;
