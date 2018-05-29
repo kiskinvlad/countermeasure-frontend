@@ -26,4 +26,16 @@ export class ApiRoutingService {
   getCreateCaseAPIUrl(): string {
     return this.baseUrl + 'cases';
   }
+
+  getFilteredAndSortedCategoriesAPIUrl(): string {
+    return this.baseUrl + 'category';
+  }
+
+  getMoveCategoryAPIUrl(): string {
+    return this.baseUrl + 'category/move';
+  }
+
+  getDeleteCategoryAPIUrl(): string {
+    return this.baseUrl + 'category/delete';
+  }
 }

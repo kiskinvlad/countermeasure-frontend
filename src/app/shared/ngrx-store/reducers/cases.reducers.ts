@@ -21,7 +21,6 @@ export const initialState: State = {
 };
 
 export function reducer(state = initialState, action: All): State {
-  console.log('cases reducer', action.type);
   switch (action.type) {
     case CasesActionTypes.FETCH_CASES_SUCCESS: {
       return {

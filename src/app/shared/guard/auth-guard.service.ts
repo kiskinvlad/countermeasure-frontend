@@ -30,7 +30,7 @@ export class AuthGuardService implements CanActivate {
   }
 
   canActivate(): boolean {
-    if (!this.isAuth) {
+    if (!this.isAuth || this.auth.isTokenExpired(this.localStorageService.getAuthToken())) {
       this.router.navigateByUrl('/login');
       return false;
     }
