@@ -12,14 +12,11 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/observable/from';
 
-
-
-
 import { NgxPermissionsService } from 'ngx-permissions';
 import { CasesActionTypes } from '@app/shared/ngrx-store/constants/cases';
 import { CasesService } from '@app/core/services/CasesService/cases.service';
 import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
-import { FetchCases, FetchCasesSuccess, FetchCasesFailure } from '@app/shared/ngrx-store/actions/cases.actions';
+import { FetchCases, FetchCasesSuccess, FetchCasesFailure, CreateCase, CreateCaseSuccess, CreateCaseFailure } from '@app/shared/ngrx-store/actions/cases.actions';
 
 @Injectable()
 export class CasesEffects {
@@ -59,6 +56,35 @@ export class CasesEffects {
   @Effect({ dispatch: false })
   FetchCasesFailure: Observable<any> = this.actions.pipe(
     ofType(CasesActionTypes.FETCH_CASES_FAILURE)
+  );
+
+  @Effect()
+  CreateCase: Observable<Action> = this.actions
+    .ofType(CasesActionTypes.CREATE_CASE)
+    .map((action: CreateCase) => action.payload)
+    .switchMap(payload => {
+
+      return this.casesService.getCreatedCase(payload)
+        .map((data) => {
+          return new CreateCaseSuccess(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new CreateCaseFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  CreateCaseSuccess: Observable<any> = this.actions.pipe(
+    ofType(CasesActionTypes.CREATE_CASE_SUCCESS),
+    tap(({payload: casesData}) => {
+      console.log('casesData = ', casesData);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  CreateCaseFailure: Observable<any> = this.actions.pipe(
+    ofType(CasesActionTypes.CREATE_CASE_FAILURE)
   );
 
 }

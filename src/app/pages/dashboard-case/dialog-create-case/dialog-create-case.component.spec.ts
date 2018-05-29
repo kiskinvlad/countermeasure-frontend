@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardCaseComponent } from './dashboard-case.component';
+import { DialogCreateCaseComponent } from './dialog-create-case.component';
 
-describe('DashboardCaseComponent', () => {
-  let component: DashboardCaseComponent;
-  let fixture: ComponentFixture<DashboardCaseComponent>;
+describe('DialogCreateCaseComponent', () => {
+  let component: DialogCreateCaseComponent;
+  let fixture: ComponentFixture<DialogCreateCaseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DashboardCaseComponent]
+      declarations: [ DialogCreateCaseComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardCaseComponent);
+    fixture = TestBed.createComponent(DialogCreateCaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
