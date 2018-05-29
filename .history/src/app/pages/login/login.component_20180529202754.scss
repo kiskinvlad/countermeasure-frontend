@@ -22,12 +22,12 @@
                 right: -170px;
                 p {
                     font-size: 12px;
-                    color: #e87575;
+                    color: $error_color;
                 }
             }
             .form-error {
                 text-align: center;
-                color: #e87575;
+                color: $error_color;
                 font-size: 12px;
             }
             label {
