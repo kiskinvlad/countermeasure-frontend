@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { AppState, selectCategoryState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
-import { FetchCategory, DeleteCategory, UpdateCategory, CreateCategory } from '@app/shared/ngrx-store/actions/category.actions';
+import { Observable, Subscription } from 'rxjs';
 import { NgOption } from '@ng-select/ng-select';
+import { Store } from '@ngrx/store';
+import { AppState, selectCategoryState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
+import { FetchCategory, DeleteCategory, UpdateCategory, CreateCategory } from '@app/shared/ngrx-store/actions/category.actions';
 import { FetchDisputes } from '@app/shared/ngrx-store/actions/disputes.actions';
 import { Category } from '@app/shared/models/category';
+import { ValidatorModule } from '@app/shared/form-validator/validator.module';
 
 @Component({
   selector: 'ct-add-edit-category',
@@ -16,26 +17,27 @@ import { Category } from '@app/shared/models/category';
 })
 export class AddEditCategoryComponent implements OnInit, OnDestroy {
 
-  category: Category;
-  case_id: number;
-  type: string;
-  category_id: number;
-  getCategoryState$: Observable<any>;
-  getDisputesState$: Observable<any>;
-  errorMessage: string | null;
-  subscription: Subscription;
-  categoryForm: FormGroup;
-  name: FormControl;
-  income: FormControl;
-  federal: FormControl;
-  provincial: FormControl;
-  other_amounts: FormControl;
-  credits: FormControl;
-  gnp: FormControl;
-  other_penalties: FormControl;
-  tax: FormControl;
-  taxes: NgOption[];
-  isFormTouched: boolean;
+  private getCategoryState$: Observable<any>;
+  private getDisputesState$: Observable<any>;
+  private errorMessage: string | null;
+  private subscription: Subscription;
+  private categoryForm: FormGroup;
+  private name: FormControl;
+  private income: FormControl;
+  private federal: FormControl;
+  private provincial: FormControl;
+  private other_amounts: FormControl;
+  private credits: FormControl;
+  private gnp: FormControl;
+  private other_penalties: FormControl;
+  private tax: FormControl;
+  private taxes: NgOption[];
+  private validator: ValidatorModule;
+  public category: Category;
+  public case_id: number;
+  public type: string;
+  public category_id: number;
+  public isFormTouched: boolean;
 
   constructor(
     private store: Store<AppState>,
@@ -45,8 +47,6 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       this.isFormTouched = false;
       this.getCategoryState$ = this.store.select(selectCategoryState);
       this.getDisputesState$ = this.store.select(selectDisputesState);
-      this.createFormControls();
-      this.createForm();
     }
 
   ngOnInit() {
@@ -54,6 +54,9 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       this.category_id = +params['category_id'];
       this.case_id = params['case_id'];
       this.type = params['type'];
+      this.validator = new ValidatorModule();
+      this.createFormControls();
+      this.createForm();
       if (this.type === 'add') {
         this.router.navigate(['/case', this.case_id, 'categories', 'add']);
       }
@@ -169,41 +172,42 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteCategory(): void {
+  private deleteCategory(): void {
     const payload = {
-      category_id: this.category_id
+      id: this.category_id,
+      name: this.category.name,
+      case_id: this.case_id
     };
     this.store.dispatch(new DeleteCategory(payload));
   }
 
-  addUpdateCategory(): void {
-    const payload = {
-      name: this.categoryForm.get('name').value,
-      disputed_t1_ta_id:  this.categoryForm.get('tax').value.disputed_t1_ta_id,
-      taxable_income: this.categoryForm.get('income').value,
-      federal_non_refundable_tax_credits: this.categoryForm.get('federal').value,
-      provincial_non_refundable_tax_credits: this.categoryForm.get('provincial').value,
-      other_amounts_payable: this.categoryForm.get('other_amounts').value,
-      credits_applied_on_filing: this.categoryForm.get('credits').value,
-      income_subject_to_gnp: this.categoryForm.get('gnp').value,
-      other_penalties: this.categoryForm.get('other_penalties').value,
-      case_id: this.case_id
-    };
-    if (this.category_id) {
+  private addUpdateCategory(): void {
+    let payload;
+    if (!this.categoryForm.valid) {
+      this.validator.validateFormFields(this.categoryForm);
+    } else {
+      payload = {
+        name: this.categoryForm.get('name').value,
+        disputed_t1_ta_id:  this.categoryForm.get('tax').value.disputed_t1_ta_id,
+        taxable_income: this.categoryForm.get('income').value,
+        federal_non_refundable_tax_credits: this.categoryForm.get('federal').value,
+        provincial_non_refundable_tax_credits: this.categoryForm.get('provincial').value,
+        other_amounts_payable: this.categoryForm.get('other_amounts').value,
+        credits_applied_on_filing: this.categoryForm.get('credits').value,
+        income_subject_to_gnp: this.categoryForm.get('gnp').value,
+        other_penalties: this.categoryForm.get('other_penalties').value,
+        case_id: this.case_id
+      };
+    }
+    if (this.category_id && this.categoryForm.valid) {
       payload['category_id'] = this.category_id;
       this.store.dispatch(new UpdateCategory(payload));
-    } else {
+    } else if (this.categoryForm.valid) {
       this.store.dispatch(new CreateCategory(payload));
     }
-  }
-
-  cancelEdit(): void {
-    // route back
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
-
 }

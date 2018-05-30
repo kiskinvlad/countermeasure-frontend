@@ -35,7 +35,7 @@ export class ApiRoutingService {
     return this.baseUrl + 'category/move';
   }
 
-  getDeleteCategoryAPIUrl(): string {
+  getDeleteCategoryFromListAPIUrl(): string {
     return this.baseUrl + 'category/delete';
   }
 

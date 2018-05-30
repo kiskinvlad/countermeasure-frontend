@@ -5,54 +5,128 @@
     <h2>{{type === 'add' ? 'Add' : 'Edit'}} category</h2>
   </div>
   <form novalidate [formGroup]="categoryForm">
-    <div class="form-group">
-      <label for="email">Name</label>
-      <input type="text" class="form-control" name="name" placeholder="" formControlName="name">
+    <div class="form-group" [ngClass]="{
+      'has-danger': name.invalid && (name.dirty || name.touched),
+      'has-success': name.valid && (name.dirty || name.touched)
+    }">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" formControlName="name">
+      </div>
+      <div class="form-control-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+        <p *ngIf="name?.errors['required']">Name is required</p>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="taxes">Personal Income Tax Year in Dispute</label>
-      <ng-select [items]="taxes"
-        placeholder=""
-        formControlName="tax">
-        <ng-template ng-label-tmp let-item="item">
+    <div class="form-group" [ngClass]="{
+      'has-danger': tax.invalid && (tax.dirty || tax.touched),
+      'has-success': tax.valid && (tax.dirty || tax.touched)
+    }">
+      <div>
+        <label for="taxes">Personal Income Tax Year in Dispute</label>
+        <ng-select [items]="taxes"
+          placeholder=""
+          formControlName="tax">
+          <ng-template ng-label-tmp let-item="item">
             {{item.year}} {{item.taxpayer}}
-        </ng-template>
-        <ng-template ng-option-tmp let-item="item" let-index="index">
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-index="index">
             {{item.year}} {{item.taxpayer}}
-        </ng-template>
-      </ng-select>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="form-control-feedback" *ngIf="tax.errors && (tax.dirty || tax.touched)">
+        <p *ngIf="tax?.errors['required']">Personal Income Tax Year in Dispute is required</p>
+      </div>
     </div>
     <h2>Amounts in Dispute</h2>
-    <div class="form-group">
-      <label for="income">Taxable Income</label>
-      <input type="text" class="form-control" name="income" placeholder="" formControlName="income">
+    <div class="form-group" [ngClass]="{
+      'has-danger': income.invalid && (income.dirty || income.touched),
+      'has-success': income.valid && (income.dirty || income.touched)
+    }">
+      <div>
+        <label for="income">Taxable Income</label>
+        <input type="text" class="form-control" name="income" formControlName="income">
+      </div>
+      <div class="form-control-feedback" *ngIf="income.errors && (income.dirty || income.touched)">
+        <p *ngIf="income?.errors['required']">Taxable Income is required</p>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="federal">Non-refundable Federal Tax Credits</label>
-      <input type="text" class="form-control" name="federal" placeholder="" formControlName="federal">
+    <div class="form-group" [ngClass]="{
+      'has-danger': federal.invalid && (federal.dirty || federal.touched),
+      'has-success': federal.valid && (federal.dirty || federal.touched)
+    }">
+      <div>
+        <label for="federal">Non-refundable Federal Tax Credits</label>
+        <input type="text" class="form-control" name="federal" formControlName="federal">
+      </div>
+      <div class="form-control-feedback" *ngIf="federal.errors && (federal.dirty || federal.touched)">
+        <p *ngIf="federal?.errors['required']">Non-refundable Federal Tax Credits is required</p>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="provincial">Non-refundable Provincial Tax Credits</label>
-      <input type="text" class="form-control" name="provincial" placeholder="" formControlName="provincial">
+    <div class="form-group" [ngClass]="{
+      'has-danger': provincial.invalid && (provincial.dirty || provincial.touched),
+      'has-success': provincial.valid && (provincial.dirty || provincial.touched)
+    }"> 
+      <div>
+        <label for="provincial">Non-refundable Provincial Tax Credits</label>
+        <input type="text" class="form-control" name="provincial" formControlName="provincial">
+      </div>
+      <div class="form-control-feedback" *ngIf="provincial.errors && (provincial.dirty || provincial.touched)">
+        <p *ngIf="provincial?.errors['required']">Non-refundable Provincial Tax Credits is required</p>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="other-amounts">Other Amounts Payable</label>
-      <input type="text" class="form-control" name="other-amounts" placeholder="" formControlName="other_amounts">
+    <div class="form-group" [ngClass]="{
+      'has-danger': other_amounts.invalid && (other_amounts.dirty || other_amounts.touched),
+      'has-success': other_amounts.valid && (other_amounts.dirty || other_amounts.touched)
+    }">
+      <div>
+        <label for="other-amounts">Other Amounts Payable</label>
+        <input type="text" class="form-control" name="other-amounts" formControlName="other_amounts">
+      </div>
+      <div class="form-control-feedback" *ngIf="other_amounts.errors && (other_amounts.dirty || other_amounts.touched)">
+        <p *ngIf="other_amounts?.errors['required']">Other Amounts Payable is required</p>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="credits">Credits Applied on Filing</label>
-      <input type="text" class="form-control" name="credits" placeholder="" formControlName="credits">
+    <div class="form-group" [ngClass]="{
+      'has-danger': credits.invalid && (credits.dirty || credits.touched),
+      'has-success': credits.valid && (credits.dirty || credits.touched)
+    }">
+      <div>
+        <label for="credits">Credits Applied on Filing</label>
+        <input type="text" class="form-control" name="credits" formControlName="credits">
+      </div>
+      <div class="form-control-feedback" *ngIf="credits.errors && (credits.dirty || credits.touched)">
+        <p *ngIf="credits?.errors['required']">Credits Applied on Filing is required</p>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="gnp">Income Subject to GNP</label>
-      <input type="text" class="form-control" name="gnp" placeholder="" formControlName="gnp">
+    <div class="form-group" [ngClass]="{
+      'has-danger': gnp.invalid && (gnp.dirty || gnp.touched),
+      'has-success': gnp.valid && (gnp.dirty || gnp.touched)
+    }">
+      <div>
+        <label for="gnp">Income Subject to GNP</label>
+        <input type="text" class="form-control" name="gnp" formControlName="gnp">
+      </div>
+      <div class="form-control-feedback" *ngIf="gnp.errors && (gnp.dirty || gnp.touched)">
+        <p *ngIf="gnp?.errors['required']">Income Subject to GNP is required</p>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="other-penalties">Other Penalties</label>
-      <input type="text" class="form-control" name="other-penalties" placeholder="" formControlName="other_penalties">
+    <div class="form-group" [ngClass]="{
+      'has-danger': other_penalties.invalid && (other_penalties.dirty || other_penalties.touched),
+      'has-success': other_penalties.valid && (other_penalties.dirty || other_penalties.touched)
+    }">
+      <div>
+        <label for="other-penalties">Other Penalties</label>
+        <input type="text" class="form-control" name="other-penalties" formControlName="other_penalties">
+      </div>
+      <div class="form-control-feedback" *ngIf="other_penalties.errors && (other_penalties.dirty || other_penalties.touched)">
+        <p *ngIf="other_penalties?.errors['required']">Other Penalties is required</p>
+      </div>
     </div>
   </form>
-  <button *ngIf="type === 'edit'" type="button" class="btn btn-primary" (click)="deleteCategory()"> Remove </button>
-  <button [disabled]="!isFormTouched" type="button" class="btn btn-primary" (click)="addUpdateCategory()"> Save </button>
-  <button type="button" class="btn btn-primary" (click)="cancelEdit()"> Cancel </button>
+  <div class="float-right">
+    <button *ngIf="type === 'edit'" type="button" class="btn btn-primary" (click)="deleteCategory()"> Remove </button>
+    <button [disabled]="!isFormTouched" type="button" class="btn btn-primary" (click)="addUpdateCategory()"> Save </button>
+    <button type="button" class="btn btn-primary" [routerLink]="['/case', case_id, 'categories']"> Cancel </button>
+  </div>
 </div>

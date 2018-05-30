@@ -66,9 +66,7 @@ export class CategoryEffects {
 
   @Effect({ dispatch: false })
   FetchCategoriesSuccess: Observable<any> = this.actions.pipe(
-    ofType(CategoriesActionTypes.FETCH_CATEGORIES_SUCCESS),
-    tap(({payload: categoryData}) => {
-    })
+    ofType(CategoriesActionTypes.FETCH_CATEGORIES_SUCCESS)
   );
 
   @Effect({ dispatch: false })
@@ -93,9 +91,7 @@ export class CategoryEffects {
 
   @Effect({ dispatch: false })
   MoveCategorySuccess: Observable<any> = this.actions.pipe(
-    ofType(CategoriesActionTypes.MOVE_CATEGORY_SUCCESS),
-    tap(({payload: categoryData}) => {
-    })
+    ofType(CategoriesActionTypes.MOVE_CATEGORY_SUCCESS)
   );
 
   @Effect({ dispatch: false })
@@ -120,9 +116,7 @@ export class CategoryEffects {
 
   @Effect({ dispatch: false })
   DeleteCategoryFromListSuccess: Observable<any> = this.actions.pipe(
-    ofType(CategoriesActionTypes.DELETE_CATEGORY_FROM_LIST_SUCCESS),
-    tap(({payload: categoryData}) => {
-    })
+    ofType(CategoriesActionTypes.DELETE_CATEGORY_FROM_LIST_SUCCESS)
   );
 
   @Effect({ dispatch: false })
@@ -147,9 +141,7 @@ export class CategoryEffects {
 
   @Effect({ dispatch: false })
   FetchCategorySuccess: Observable<any> = this.actions.pipe(
-    ofType(CategoriesActionTypes.FETCH_CATEGORY_SUCCESS),
-    tap(({payload: categoryData}) => {
-    })
+    ofType(CategoriesActionTypes.FETCH_CATEGORY_SUCCESS)
   );
 
   @Effect({ dispatch: false })
@@ -164,7 +156,7 @@ export class CategoryEffects {
     .switchMap(payload => {
       return this.categoryService.deleteCategory(payload)
         .map((data) => {
-          return new DeleteCategorySuccess(data);
+          return new DeleteCategorySuccess(payload);
         })
         .catch((error) => {
           console.log(error);
@@ -175,13 +167,18 @@ export class CategoryEffects {
   @Effect({ dispatch: false })
   DeleteCategorySuccess: Observable<any> = this.actions.pipe(
     ofType(CategoriesActionTypes.DELETE_CATEGORY_SUCCESS),
-    tap(({payload: categoryData}) => {
+    tap(({payload: data}) => {
+      this.router.navigate(['/case', data.case_id, 'categories']);
+      this.toastr.success('Successful', 'Category ' + data.name + ' deleted!');
     })
   );
 
   @Effect({ dispatch: false })
   DeleteCategoryFailure: Observable<any> = this.actions.pipe(
-    ofType(CategoriesActionTypes.DELETE_CATEGORY_FAILURE)
+    ofType(CategoriesActionTypes.DELETE_CATEGORY_FAILURE),
+    tap(() => {
+      this.toastr.error('Failure', 'Category not deleted.');
+    })
   );
 
   @Effect()
@@ -210,7 +207,10 @@ export class CategoryEffects {
 
   @Effect({ dispatch: false })
   UpdateCategoryFailure: Observable<any> = this.actions.pipe(
-    ofType(CategoriesActionTypes.UPDATE_CATEGORY_FAILURE)
+    ofType(CategoriesActionTypes.UPDATE_CATEGORY_FAILURE),
+    tap(() => {
+      this.toastr.error('Failure', 'Category not updated.');
+    })
   );
 
   @Effect()
@@ -239,7 +239,9 @@ export class CategoryEffects {
 
   @Effect({ dispatch: false })
   CreateCategoryFailure: Observable<any> = this.actions.pipe(
-    ofType(CategoriesActionTypes.CREATE_CATEGORY_FAILURE)
+    ofType(CategoriesActionTypes.CREATE_CATEGORY_FAILURE),
+    tap(() => {
+      this.toastr.error('Failure', 'Category not created.');
+    })
   );
-
 }
