@@ -26,7 +26,7 @@ export class ApiRoutingService {
   getCreateCaseAPIUrl(): string {
     return this.baseUrl + 'cases';
   }
-  
+
   getUsersAPIUrl(): string {
     return this.baseUrl + 'users';
   }

@@ -18,7 +18,7 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   errorMessage: string | null;
   subscription: Subscription;
   myProfileForm: FormGroup;
-  
+
   constructor(private store: Store<AppState>, private fb: FormBuilder) {
     this.getState$ = this.store.select(selectUserState);
     this.createForm();
@@ -28,14 +28,16 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
       this.user = state.user;
-      
-      if (!this.errorMessage) this.myProfileForm.reset();
+
+      if (!this.errorMessage) {
+        this.myProfileForm.reset();
+      }
       this.setFormValues();
     });
-    
+
     this.getUser();
   }
-  
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -47,21 +49,21 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
       phone: ''
     });
   }
-  
+
   getUser(): void {
     this.store.dispatch(new FetchUser(null));
   }
-  
+
   onSubmit() {
     const formModel = this.myProfileForm.value;
     const saveUser = {
       first_name: formModel.firstName,
       last_name: formModel.lastName,
       phone: formModel.phone
-    }
+    };
     this.store.dispatch(new UpdateUser(saveUser));
   }
-  
+
   setFormValues() {
     if (!this.errorMessage && this.user) {
       this.myProfileForm.setValue({
@@ -73,4 +75,3 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   }
 
 }
-

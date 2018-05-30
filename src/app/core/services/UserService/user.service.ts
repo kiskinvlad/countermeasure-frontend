@@ -26,7 +26,7 @@ export class UserService {
       null
     );
   }
-  
+
   updateUser(payload): Observable<any> {
     return this.http.put(
       this.users_api_url,

@@ -37,7 +37,7 @@ export class UserEffects {
     private permissionsService: NgxPermissionsService,
     private notificationsService: NotificationsService
   ) {}
-    
+
   @Effect()
   FetchUser: Observable<Action> = this.actions
     .ofType(UserActionTypes.FETCH_USER)
@@ -63,12 +63,9 @@ export class UserEffects {
 
   @Effect({ dispatch: false })
   FetchUserSuccess: Observable<any> = this.actions.pipe(
-    ofType(UserActionTypes.FETCH_USER_SUCCESS),
-    tap((data) => {
-      //console.log('successfully got user: ' + JSON.stringify(data));
-    })
+    ofType(UserActionTypes.FETCH_USER_SUCCESS)
   );
-  
+
   @Effect()
   UpdateUser: Observable<Action> = this.actions
     .ofType(UserActionTypes.UPDATE_USER)
@@ -89,14 +86,14 @@ export class UserEffects {
   UpdateUserSuccess: Observable<any> = this.actions.pipe(
     ofType(UserActionTypes.UPDATE_USER_SUCCESS),
     tap((data) => {
-      this.notificationsService.success("Success", "Your details have been updated.");
+      this.notificationsService.success('Success', 'Your details have been updated.');
     })
   );
-  
+
   @Effect({ dispatch: false })
   UpdateUserFailure: Observable<any> = this.actions
     .ofType(UserActionTypes.UPDATE_USER_FAILURE)
     .map(() => {
-      this.notificationsService.error("Error", "Failed to update details.");
+      this.notificationsService.error('Error', 'Failed to update details.');
     });
 }
