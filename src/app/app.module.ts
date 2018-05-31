@@ -38,6 +38,8 @@ import { LocalStorageService } from '@core/services/LocalStorageService/local-st
 import { EditCategoriesComponent } from './pages/edit-categories/edit-categories.component';
 import { DialogCreateCaseComponent } from './pages/dashboard-case/dialog-create-case/dialog-create-case.component';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from '@app/app-routing.module';
+import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { AppComponent } from './app.component';
     SideBarComponent,
     MyProfileEditDetailsComponent,
     EditCategoriesComponent,
-    DialogCreateCaseComponent
+    DialogCreateCaseComponent,
+    EditCasesComponent
   ],
   imports: [
     BrowserModule,

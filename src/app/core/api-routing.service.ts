@@ -30,6 +30,10 @@ export class ApiRoutingService {
   getUsersAPIUrl(): string {
     return this.baseUrl + 'users';
   }
+  
+  getDeleteCaseAPIUrl(): string {
+    return this.baseUrl + 'cases/delete';
+  }
 
   getFilteredAndSortedCategoriesAPIUrl(): string {
     return this.baseUrl + 'category';
@@ -41,5 +45,13 @@ export class ApiRoutingService {
 
   getDeleteCategoryAPIUrl(): string {
     return this.baseUrl + 'category/delete';
+  }
+
+  getCaseAPIUrl(): string {
+    return this.baseUrl + 'cases'
+  }
+
+  getUpdateCaseAPIUrl(): string {
+    return this.baseUrl + 'cases'
   }
 }
