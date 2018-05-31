@@ -31,3 +31,18 @@
     border: solid rgb(126, 126, 126) 1px;
     color: black;
 }
+.case-action {
+    padding: 0;
+    > table {
+        margin: 0;
+        border: none;
+
+        th {
+            text-align: center;
+            border-left: 1px solid #dee2e6;
+            border-right: none;
+            border-top: none;
+            border-bottom: none;
+        }
+    }
+}
