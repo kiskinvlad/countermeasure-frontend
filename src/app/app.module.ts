@@ -73,7 +73,6 @@ import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
     StoreModule.forRoot(reducers, {}),
     BrowserAnimationsModule,
     EffectsModule.forRoot([AuthEffects, CasesEffects, UserEffects, CategoryEffects, DisputesEffects]),
-    BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
   ],
   providers: [
