@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { map, filter, scan, tap, concatMap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationsService } from 'angular2-notifications';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
@@ -46,7 +46,7 @@ export class CategoryEffects {
     private actions: Actions,
     private categoryService: CategoryService,
     private router: Router,
-    private toastr: ToastrService
+    private notificationsService: NotificationsService
   ) {}
 
   @Effect()
@@ -169,7 +169,7 @@ export class CategoryEffects {
     ofType(CategoriesActionTypes.DELETE_CATEGORY_SUCCESS),
     tap(({payload: data}) => {
       this.router.navigate(['/case', data.case_id, 'categories']);
-      this.toastr.success('Successful', 'Category ' + data.name + ' deleted!');
+      this.notificationsService.success('Success', 'Category ' + data.name + ' deleted!');
     })
   );
 
@@ -177,7 +177,7 @@ export class CategoryEffects {
   DeleteCategoryFailure: Observable<any> = this.actions.pipe(
     ofType(CategoriesActionTypes.DELETE_CATEGORY_FAILURE),
     tap(() => {
-      this.toastr.error('Failure', 'Category not deleted.');
+      this.notificationsService.error('Failure', 'Category not deleted.');
     })
   );
 
@@ -201,7 +201,7 @@ export class CategoryEffects {
     ofType(CategoriesActionTypes.UPDATE_CATEGORY_SUCCESS),
     tap(({payload: data}) => {
       this.router.navigate(['/case', data.category.case_id, 'categories']);
-      this.toastr.success('Successful', 'Category ' + data.category.name + ' updated!');
+      this.notificationsService.success('Successful', 'Category ' + data.category.name + ' updated!');
     })
   );
 
@@ -209,7 +209,7 @@ export class CategoryEffects {
   UpdateCategoryFailure: Observable<any> = this.actions.pipe(
     ofType(CategoriesActionTypes.UPDATE_CATEGORY_FAILURE),
     tap(() => {
-      this.toastr.error('Failure', 'Category not updated.');
+      this.notificationsService.error('Failure', 'Category not updated.');
     })
   );
 
@@ -233,7 +233,7 @@ export class CategoryEffects {
     ofType(CategoriesActionTypes.CREATE_CATEGORY_SUCCESS),
     tap(({payload: data}) => {
       this.router.navigate(['/case', data.category.case_id, 'categories']);
-      this.toastr.success('Successful', 'Category ' + data.category.name + ' created!');
+      this.notificationsService.success('Successful', 'Category ' + data.category.name + ' created!');
     })
   );
 
@@ -241,7 +241,7 @@ export class CategoryEffects {
   CreateCategoryFailure: Observable<any> = this.actions.pipe(
     ofType(CategoriesActionTypes.CREATE_CATEGORY_FAILURE),
     tap(() => {
-      this.toastr.error('Failure', 'Category not created.');
+      this.notificationsService.error('Failure', 'Category not created.');
     })
   );
 }
