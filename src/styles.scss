@@ -4,6 +4,13 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "~ngx-toastr/toastr-bs4-alert";
+.with-sidebar {
+  margin-left: 260px;
+}
+
+.container {
+  margin-top: 15px;
+}
 
 .modal-dialog {
     max-width: 800px !important;

@@ -1,0 +1,28 @@
+<ct-navigation-bar></ct-navigation-bar>
+
+<div class="d-flex flex-row">
+  <ct-sidebar></ct-sidebar>
+
+  <div class="modal-body">
+    <h1> Details </h1>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-3">
+        <form [formGroup]="formGroup" (submit)="onSubmit()">
+          <div class="form-group">
+            <label class="control-label">Matter ID</label>
+            <input type="text" class="form-control" formControlName="matter_id"/>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Name</label>
+            <input type="text" class="form-control" formControlName="name"/>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Description</label>
+            <textarea type="text" class="form-control" formControlName="description"></textarea>
+          </div>
+          <button class="btn btn-primary pull-right" type="submit" [disabled]="!formGroup.dirty">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

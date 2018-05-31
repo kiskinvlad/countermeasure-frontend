@@ -4,7 +4,7 @@
 
   <div class="d-flex justify-content-between section-title">
     <h1>Cases</h1>
-    <button type="button" class="btn btn-primary create-case" (click)="openCreateCaseDialog()"s> Create Case </button>
+    <button type="button" class="btn btn-primary create-case" (click)="openCreateCaseDialog()" *ngIf="user_role != 4"> Create Case </button>
   </div>
 
   <div class="d-flex justify-content-between filter-bar">
@@ -36,15 +36,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let element of cases">
+      <tr *ngFor="let element of cases; let i = index;">
         <td>{{element.matter_id}}</td>
         <td>{{element.name}}</td>
         <td>{{element.last_updated}}</td>
-        <td>
+        <td class="case-action">
           <table class="table table-bordered">
-            <th [routerLink]="['/case', element.case_id, 'categories']">View/Edit</th>
-            <th>Copy</th>
-            <th>Delete</th>
+            <th *ngIf="user_role == 4">View</th>
+            <th (click)="redirectToDetail(i)"*ngIf="user_role != 4">Edit</th>
+            <th (click)="openCopyCaseDialog(i)">Copy</th>
+            <th *ngIf="user_role == 1 || user_role == 2" (click)="deleteCase(i)">Delete</th>
           </table>
         </td>
       </tr>

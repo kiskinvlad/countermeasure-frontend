@@ -33,4 +33,34 @@ export class CasesService {
       null
     );
   }
+
+  getDeletedCase(payload): Observable<any> {
+    return this.http.post(
+      this.apiRoutingService.getDeleteCaseAPIUrl(),
+      payload,
+      false,
+      true,
+      null
+    );
+  }
+
+  getCase(payload): Observable<any> {
+    console.log(payload);
+    return this.http.get(
+      this.apiRoutingService.getCaseAPIUrl(),
+      payload,
+      true,
+      null
+    );
+  }
+
+  updateCase(payload): Observable<any> {
+    return this.http.put(
+      this.apiRoutingService.getUpdateCaseAPIUrl(),
+      payload,
+      false,
+      true,
+      null
+    );
+  }
 }

@@ -493,6 +493,10 @@ angular-font-awesome@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/angular-font-awesome/-/angular-font-awesome-3.1.2.tgz#9378732612d8e8c71e0d7c2faa0faddc7f858ec9"
 
+angular2-notifications@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/angular2-notifications/-/angular2-notifications-1.0.2.tgz#93b6c6838dc582c3838d46d03a21adc333056059"
+
 ansi-html@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/ansi-html/-/ansi-html-0.0.7.tgz#813584021962a9e9e6fd039f940d12f56ca7859e"
@@ -4039,6 +4043,10 @@ neo-async@^2.5.0:
 next-tick@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
+
+ngx-bootstrap@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.9.3.tgz#28e75d14fb1beaee609383d7694de4eb3ba03b26"
 
 ngx-permissions@^5.0.0:
   version "5.0.0"

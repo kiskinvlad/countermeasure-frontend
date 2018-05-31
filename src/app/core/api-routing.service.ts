@@ -50,4 +50,12 @@ export class ApiRoutingService {
   getDisputesApiUrl(): string {
     return this.baseUrl + 'disputes/all';
   }
+
+  getCaseAPIUrl(): string {
+    return this.baseUrl + 'cases';
+  }
+
+  getUpdateCaseAPIUrl(): string {
+    return this.baseUrl + 'cases';
+  }
 }

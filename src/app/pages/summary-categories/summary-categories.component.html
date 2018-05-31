@@ -1,0 +1,46 @@
+<ct-navigation-bar></ct-navigation-bar>
+<ct-sidebar></ct-sidebar>
+<div>
+  <div class="container edit-categories" *ngFor="let categoryGroup of categories; let index = index">
+    <div class="d-flex justify-content-between section-title">
+      <h2>{{categoryGroup.taxpayer}}</h2>
+    </div>
+    <h2>Personal Income Tax Year in Dispute</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Category Name</th>
+          <th>Taxable Income</th>
+          <th>Non-refundable Federal Tax Credits</th>
+          <th>Non-refundable Provincial Tax Credits</th>
+          <th>Other Amounts Payable</th>
+          <th>Credits Applied on Filing</th>
+          <th>Income Subject to GNP</th>
+          <th>Other Penalties</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categoryGroup">
+          <td>{{category.name}}</td>
+          <td>{{category.taxable_income}}$</td>
+          <td>{{category.federal_non_refundable_tax_credits}}$</td>
+          <td>{{category.provincial_non_refundable_tax_credits}}$</td>
+          <td>{{category.other_amounts_payable}}$</td>
+          <td>{{category.credits_applied_on_filing}}$</td>
+          <td>{{category.income_subject_to_gnp}}$</td>
+          <td>{{category.other_penalties}}$</td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td>{{categoryGroup.taxable_income_total}}$</td>
+          <td>{{categoryGroup.non_refundable_federal_tax_credits_total}}$</td>
+          <td>{{categoryGroup.non_refundable_provincial_tax_credits_total}}$</td>
+          <td>{{categoryGroup.other_amounts_payable_total}}$</td>
+          <td>{{categoryGroup.credits_applied_on_filing_total}}$</td>
+          <td>{{categoryGroup.income_subject_to_gnp_total}}$</td>
+          <td>{{categoryGroup.other_penalties_total}}$</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
