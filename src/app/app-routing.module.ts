@@ -6,10 +6,13 @@ import { EditDetailsComponent as MyProfileEditDetailsComponent } from '@app/page
 import { AuthGuardService } from '@app/shared/guard/auth-guard.service';
 import { EditCasesComponent } from '@app/pages/edit-cases/edit-cases.component';
 import { EditCategoriesComponent } from '@app/pages/edit-categories/edit-categories.component';
+import { AddEditCategoryComponent } from '@app/pages/edit-categories/add-edit-category/add-edit-category.component';
 
 const routes: Routes = [
   { path: '', component: DashboardCaseComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/categories', component: EditCategoriesComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/categories/:category_id/:type', component: AddEditCategoryComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/categories/:type', component: AddEditCategoryComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/detail', component: EditCasesComponent, canActivate: [AuthGuardService]},
   { path: 'login', component: LoginComponent },
   { path: 'my-profile',

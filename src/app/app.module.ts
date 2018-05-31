@@ -6,13 +6,17 @@ import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { LocalStorageService as DLSService } from 'ngx-webstorage';
 import { ModalModule } from 'ngx-bootstrap';
 import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
-
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+import { AppComponent } from './app.component';
 import { LoginComponent } from '@app/pages/login/login.component';
 import { SideBarComponent } from '@app/shared/components/sidebar/sidebar.component';
 import { DashboardCaseComponent } from '@app/pages/dashboard-case/dashboard-case.component';
@@ -32,12 +36,13 @@ import { HttpHelperService } from '@app/core/http-helper.service';
 import { UserEffects } from '@app/shared/ngrx-store/effects/user.effects';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { EditDetailsComponent as MyProfileEditDetailsComponent } from '@app/pages/my-profile/edit-details/edit-details.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { LocalStorageService } from '@core/services/LocalStorageService/local-storage.service';
 import { EditCategoriesComponent } from './pages/edit-categories/edit-categories.component';
 import { DialogCreateCaseComponent } from './pages/dashboard-case/dialog-create-case/dialog-create-case.component';
-import { AppComponent } from './app.component';
+import { AddEditCategoryComponent } from '@app/pages/edit-categories/add-edit-category/add-edit-category.component';
+import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
+import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects';
 import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
 
 @NgModule({
@@ -50,6 +55,7 @@ import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
     MyProfileEditDetailsComponent,
     EditCategoriesComponent,
     DialogCreateCaseComponent,
+    AddEditCategoryComponent,
     EditCasesComponent
   ],
   imports: [
@@ -59,13 +65,14 @@ import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
     AppRoutingModule,
     NgbModule.forRoot(),
     AngularFontAwesomeModule,
+    NgSelectModule,
     HttpModule,
     HttpClientModule,
     ModalModule.forRoot(),
     NgxPermissionsModule.forRoot(),
     StoreModule.forRoot(reducers, {}),
-    EffectsModule.forRoot([AuthEffects, CasesEffects, UserEffects, CategoryEffects]),
     BrowserAnimationsModule,
+    EffectsModule.forRoot([AuthEffects, CasesEffects, UserEffects, CategoryEffects, DisputesEffects]),
     SimpleNotificationsModule.forRoot(),
   ],
   providers: [
@@ -75,13 +82,14 @@ import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
     RoleService,
     DLSService,
     HttpHelperService,
-    NgxPermissionsService,
     LocalStorageService,
     CasesService,
     UserService,
     CategoryService,
     JwtHelperService,
-    BsModalService
+    NgxPermissionsService,
+    BsModalService,
+    DisputesService
   ],
   entryComponents: [
     DialogCreateCaseComponent

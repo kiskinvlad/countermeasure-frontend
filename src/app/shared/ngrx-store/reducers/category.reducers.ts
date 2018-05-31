@@ -6,6 +6,7 @@ import { All } from '@app/shared/ngrx-store/actions/category.actions';
 
 export interface State {
   categories: Category[];
+  category: Category;
   totalCount: Number;
   page_number: Number;
   items_per_page: Number;
@@ -14,9 +15,10 @@ export interface State {
 
 export const initialState: State = {
   categories: [],
+  category: null,
   totalCount: 0,
   page_number: 1,
-  items_per_page: 2,
+  items_per_page: 10,
   errorMessage: null
 };
 
@@ -55,7 +57,7 @@ export function reducer(state = initialState, action: All): State {
         errorMessage: 'Cannot move category.',
       };
     }
-    case CategoriesActionTypes.DELETE_CATEGORY_SUCCESS: {
+    case CategoriesActionTypes.DELETE_CATEGORY_FROM_LIST_SUCCESS: {
       return {
         ...state,
         categories: action.payload.categories,
@@ -65,7 +67,56 @@ export function reducer(state = initialState, action: All): State {
         errorMessage: null
       };
     }
+    case CategoriesActionTypes.DELETE_CATEGORY_FROM_LIST_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot delete category.',
+      };
+    }
+    case CategoriesActionTypes.FETCH_CATEGORY_SUCCESS: {
+      return {
+        ...state,
+        category: action.payload.category,
+        errorMessage: null
+      };
+    }
+    case CategoriesActionTypes.FETCH_CATEGORY_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot fetch category.',
+      };
+    }
+    case CategoriesActionTypes.DELETE_CATEGORY_SUCCESS: {
+      return {
+        ...state,
+        errorMessage: null
+      };
+    }
     case CategoriesActionTypes.DELETE_CATEGORY_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot delete category.',
+      };
+    }
+    case CategoriesActionTypes.CREATE_CATEGORY_SUCCESS: {
+      return {
+        ...state,
+        errorMessage: null
+      };
+    }
+    case CategoriesActionTypes.CREATE_CATEGORY_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot delete category.',
+      };
+    }
+    case CategoriesActionTypes.UPDATE_CATEGORY_SUCCESS: {
+      return {
+        ...state,
+        errorMessage: null
+      };
+    }
+    case CategoriesActionTypes.UPDATE_CATEGORY_FAILURE: {
       return {
         ...state,
         errorMessage: 'Cannot delete category.',

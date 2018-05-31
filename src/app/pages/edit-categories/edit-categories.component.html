@@ -22,7 +22,7 @@
         <td>{{category.disputed.taxpayer}}</td>
         <td>
           <thead>
-              <th>Edit</th>
+              <th [routerLink]="['/case', case_id, 'categories', getCategoryId(index), 'edit']">Edit</th>
               <th (click)="moveUp(index)">Up</th>
               <th (click)="moveDown(index)">Down</th>
               <th (click)="deleteCategory(index)">Delete</th>
@@ -31,5 +31,18 @@
       </tr>
     </tbody>
   </table>
-  <button type="button" class="btn btn-primary create-case"> Add </button>
+  <button type="button" class="btn btn-primary create-case" [routerLink]="['/case', case_id, 'categories', 'add']"> Add </button>
+  <nav class="float-right" *ngIf="total_count >= items_per_page">
+    <ul class="pagination">
+      <li [ngClass]="page_number === 1 ? 'page-item disabled' : 'page-item'" (click)="getItemsByPage(page_number-1)">
+        <a class="page-link" href="javascript:">Previous</a>
+      </li>
+      <li *ngFor="let item of range()" [ngClass]="page_number == item + 1 ? 'page-item active' : 'page-item'" (click)="getItemsByPage(item+1)">
+        <a class="page-link" href="javascript:">{{item + 1}}</a>
+      </li>
+      <li [ngClass]="page_number === total_page ? 'page-item disabled' : 'page-item'" (click)="getItemsByPage(page_number+1)">
+        <a class="page-link" href="javascript:">Next</a>
+      </li>
+    </ul>
+  </nav>
 </div>

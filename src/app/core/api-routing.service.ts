@@ -30,28 +30,40 @@ export class ApiRoutingService {
   getUsersAPIUrl(): string {
     return this.baseUrl + 'users';
   }
-  
+
   getDeleteCaseAPIUrl(): string {
     return this.baseUrl + 'cases/delete';
   }
 
   getFilteredAndSortedCategoriesAPIUrl(): string {
-    return this.baseUrl + 'category';
+    return this.baseUrl + 'category/all';
   }
 
   getMoveCategoryAPIUrl(): string {
     return this.baseUrl + 'category/move';
   }
 
-  getDeleteCategoryAPIUrl(): string {
+  getDeleteCategoryFromListAPIUrl(): string {
     return this.baseUrl + 'category/delete';
   }
 
+  getCategoryAPIUrl(): string {
+    return this.baseUrl + 'category';
+  }
+
+  getDisputedApiUrl(): string {
+    return this.baseUrl + 'disputes';
+  }
+
+  getDisputesApiUrl(): string {
+    return this.baseUrl + 'disputes/all';
+  }
+
   getCaseAPIUrl(): string {
-    return this.baseUrl + 'cases'
+    return this.baseUrl + 'cases';
   }
 
   getUpdateCaseAPIUrl(): string {
-    return this.baseUrl + 'cases'
+    return this.baseUrl + 'cases';
   }
 }

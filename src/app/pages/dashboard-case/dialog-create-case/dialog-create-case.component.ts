@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs/Subject';
 
@@ -39,7 +39,7 @@ export class DialogCreateCaseComponent implements OnInit {
       ])
     });
   }
- 
+
   onSubmit() {
     this.onCloseReason.next('submit');
     this.bsModalRef.hide();
@@ -49,7 +49,7 @@ export class DialogCreateCaseComponent implements OnInit {
     this.onCloseReason.next('close');
     this.bsModalRef.hide();
   }
- 
+
   onReset() {
     this.formGroup.reset();
   }

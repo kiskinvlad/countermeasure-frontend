@@ -16,7 +16,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import { CasesActionTypes } from '@app/shared/ngrx-store/constants/cases';
 import { CasesService } from '@app/core/services/CasesService/cases.service';
 import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
-import { FetchCases, FetchCasesSuccess, FetchCasesFailure, 
+import { FetchCases, FetchCasesSuccess, FetchCasesFailure,
          CreateCase, CreateCaseSuccess, CreateCaseFailure,
          DeleteCase, DeleteCaseSuccess, DeleteCaseFailure,
          UpdateCase, UpdateCaseSuccess, UpdateCaseFailure,
