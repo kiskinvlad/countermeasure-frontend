@@ -33,6 +33,7 @@ import { EditCategoriesComponent } from './pages/edit-categories/edit-categories
 import { DialogCreateCaseComponent } from './pages/dashboard-case/dialog-create-case/dialog-create-case.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from '@app/app-routing.module';
+import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AppRoutingModule } from '@app/app-routing.module';
     NavigationBarComponent,
     SideBarComponent,
     EditCategoriesComponent,
-    DialogCreateCaseComponent
+    DialogCreateCaseComponent,
+    EditCasesComponent
   ],
   imports: [
     BrowserModule,
