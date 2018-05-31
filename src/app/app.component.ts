@@ -33,8 +33,8 @@ export class AppComponent implements OnInit {
   title = 'ct';
 
   ngOnInit(): void {
-    this.token = this.localStorageService.getAuthToken();
     this.subscription = this.getState.subscribe((state) => {
+      this.token = this.localStorageService.getAuthToken();
       if (state.errorMessage) {
         this.errorMessage = state.errorMessage;
       }

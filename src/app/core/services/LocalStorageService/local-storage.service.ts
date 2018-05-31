@@ -13,6 +13,9 @@ export class LocalStorageService {
   ) {
     this.currentUser.token = this.localStorage.retrieve('token');
     this.currentUser.email = this.localStorage.retrieve('email');
+    this.currentUser.first_name = this.localStorage.retrieve('first_name');
+    this.currentUser.last_name = this.localStorage.retrieve('last_name');
+    this.currentUser.role_id = this.localStorage.retrieve('role_id');
     this.currentUser.role_name = this.localStorage.retrieve('role_name');
   }
 
@@ -57,6 +60,18 @@ export class LocalStorageService {
     return this.currentUser.role_name;
   }
 
+  public getUserFirstName(): string {
+    return this.currentUser.first_name;
+  }
+
+  public getUserLastName(): string {
+    return this.currentUser.last_name;
+  }
+
+  public getUserRoleId(): string {
+    return this.currentUser.role_id;
+  }
+
   public getUserData(): User {
     return this.currentUser;
   }
@@ -64,6 +79,9 @@ export class LocalStorageService {
   public setUserData(user) {
     this.setItem('role_name', user.role_name);
     this.setItem('email', user.email);
+    this.setItem('first_name', user.first_name);
+    this.setItem('last_name', user.last_name);
+    this.setItem('role_id', user.role_id);
     this.currentUser = user;
   }
 
