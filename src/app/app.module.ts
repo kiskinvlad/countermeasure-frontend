@@ -82,7 +82,6 @@ import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
     RoleService,
     DLSService,
     HttpHelperService,
-    NgxPermissionsService,
     LocalStorageService,
     CasesService,
     UserService,
