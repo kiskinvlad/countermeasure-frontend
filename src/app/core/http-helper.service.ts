@@ -19,12 +19,17 @@ export class HttpHelperService {
   private checkAuthHeader(response: Response) {
     let res;
     const authorizationHeader = response.headers.toJSON()['Authorization'] || response.headers.toJSON()['authorization'];
+    const contentTypeHeader = response.headers.toJSON()['Content-Type'] || response.headers.toJSON()['content-type'];
 
     if (authorizationHeader) {
       this.localStorage.setAuthToken(authorizationHeader[0]);
     }
     try {
-      res = response.json();
+      if (contentTypeHeader[0].includes('text/csv')) {
+        res = response['_body'];
+      } else {
+        res = response.json();
+      }
     } catch (e) {
       res = {};
     }

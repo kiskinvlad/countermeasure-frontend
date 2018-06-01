@@ -110,7 +110,7 @@ export class EditCategoriesComponent implements OnInit, OnDestroy {
   private getCategoryPayload(): object {
     return {
       filter_param: { 'id': this.case_id },
-      sort_param: {'category_id': 1, field: 'order_position'},
+      sort_param: { field: 'order_position' },
       page_number: this.page_number,
       items_per_page: this.items_per_page
     };

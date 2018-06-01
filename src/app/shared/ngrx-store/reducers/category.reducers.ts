@@ -23,7 +23,6 @@ export const initialState: State = {
 };
 
 export function reducer(state = initialState, action: All): State {
-  console.log('category reducer', action.type);
   switch (action.type) {
     case CategoriesActionTypes.FETCH_CATEGORIES_SUCCESS: {
       return {
@@ -120,6 +119,18 @@ export function reducer(state = initialState, action: All): State {
       return {
         ...state,
         errorMessage: 'Cannot delete category.',
+      };
+    }
+    case CategoriesActionTypes.CREATE_CATEGORIES_SUMMARY_CSV_SUCCESS: {
+      return {
+        ...state,
+        errorMessage: null
+      };
+    }
+    case CategoriesActionTypes.CREATE_CATEGORIES_SUMMARY_CSV_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot download csv.',
       };
     }
     default: {
