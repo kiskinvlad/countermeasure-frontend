@@ -107,7 +107,7 @@
     "@angular-devkit/core" "0.5.13"
     rxjs "^6.0.0"
 
-"@angular/animations@^6.0.2":
+"@angular/animations@^6.0.3":
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-6.0.3.tgz#703f18c3b72d1df446a2b5059b8e51098fd5c899"
   dependencies:
@@ -4051,6 +4051,12 @@ ngx-bootstrap@^1.9.3:
 ngx-permissions@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/ngx-permissions/-/ngx-permissions-5.0.0.tgz#a5ad8752a5fb3eddd992129c80362da779033d87"
+
+ngx-toastr@^8.7.3:
+  version "8.7.3"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-8.7.3.tgz#d3b7a8077ba1c860dd8a44779ccad38c5ea15c92"
+  dependencies:
+    tslib "^1.9.0"
 
 ngx-webstorage@^2.0.1:
   version "2.0.1"

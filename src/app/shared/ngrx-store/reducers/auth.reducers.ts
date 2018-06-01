@@ -30,6 +30,9 @@ export function reducer(state: State = initialState, action: All): State {
         user: {
           token: action.payload.token,
           email: action.payload.email,
+          first_name: action.payload.first_name,
+          last_name: action.payload.last_name,
+          role_id: action.payload.role_id,
           role_name: action.payload.role_name
         },
         errorMessage: null
@@ -48,6 +51,9 @@ export function reducer(state: State = initialState, action: All): State {
         user: {
           token: action.payload.token,
           email: action.payload.email,
+          first_name: action.payload.first_name,
+          last_name: action.payload.last_name,
+          role_id: action.payload.role_id,
           role_name: action.payload.role_name
         },
         errorMessage: null
@@ -78,4 +84,3 @@ export function reducer(state: State = initialState, action: All): State {
     }
   }
 }
-
