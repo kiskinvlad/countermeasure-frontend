@@ -7,6 +7,8 @@ import { AuthGuardService } from '@app/shared/guard/auth-guard.service';
 import { EditCasesComponent } from '@app/pages/edit-cases/edit-cases.component';
 import { EditCategoriesComponent } from '@app/pages/edit-categories/edit-categories.component';
 import { AddEditCategoryComponent } from '@app/pages/edit-categories/add-edit-category/add-edit-category.component';
+import { MyProfileComponent } from '@app/pages/my-profile/my-profile.component';
+import { ChangePasswordComponent } from '@app/pages/my-profile/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', component: DashboardCaseComponent, canActivate: [AuthGuardService] },
@@ -15,10 +17,11 @@ const routes: Routes = [
   { path: 'case/:case_id/categories/:type', component: AddEditCategoryComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/detail', component: EditCasesComponent, canActivate: [AuthGuardService]},
   { path: 'login', component: LoginComponent },
-  { path: 'my-profile',
+  { path: 'my-profile', component: MyProfileComponent,
     children: [
       { path: '', redirectTo: 'edit-details', pathMatch: 'full', canActivate: [AuthGuardService] },
-      { path: 'edit-details', component: MyProfileEditDetailsComponent, canActivate: [AuthGuardService] }
+      { path: 'edit-details', component: MyProfileEditDetailsComponent, canActivate: [AuthGuardService] },
+      { path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthGuardService] }
     ]
   },
 ];

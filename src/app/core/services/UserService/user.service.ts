@@ -10,12 +10,14 @@ import { HttpHelperService } from '@app/core/http-helper.service';
 export class UserService {
 
   private users_api_url: string;
+  private password_api_url: string;
 
   constructor(
     private http: HttpHelperService,
     private apiRoutingService: ApiRoutingService
   ) {
     this.users_api_url = apiRoutingService.getUsersAPIUrl();
+    this.password_api_url = apiRoutingService.getUpdatePasswordAPIUrl();
   }
 
   getUser(payload): Observable<any> {
@@ -34,6 +36,15 @@ export class UserService {
       false,
       true,
       null
+    );
+  }
+
+  updatePassword(payload): Observable<any> {
+    return this.http.patch(
+      this.password_api_url,
+      payload,
+      false,
+      true
     );
   }
 }

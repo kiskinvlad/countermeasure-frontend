@@ -3,7 +3,21 @@
         <div class="sidebar-inner slimscrollleft">
             <!--- Divider -->
             <div class="sidebar-menu">
-                <ul>
+                <!-- Menu itmes for My Profile -->
+                <ul *ngIf="menuType === 'my-profile'">
+                    <li class="back-to-dashboard">
+                        <a class="waves-effect" routerLink="/"><i class="fa fa-arrow-left"></i> Back to dashboard</a>
+                    </li><!-- Menu title-->
+                    <li class="text-muted menu-title">My Profile</li><!-- Menu title-->
+                    <li class="has_sub">
+                        <a class="waves-effect" [routerLink]="['/my-profile','edit-details']"><span> Edit Details </span> </a>
+                    </li>
+                    <li class="has_sub">
+                        <a class="waves-effect" [routerLink]="['/my-profile','change-password']"><span> Change Password </span> </a>
+                    </li>
+                </ul>
+                <!-- Default Menu Items -->
+                <ul *ngIf="!menuType">
                     <li class="text-muted menu-title">Back to dashboard</li><!-- Menu title-->
                     <li class="text-muted menu-title">Case</li><!-- Menu title-->
 

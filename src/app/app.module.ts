@@ -44,6 +44,8 @@ import { AddEditCategoryComponent } from '@app/pages/edit-categories/add-edit-ca
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects';
 import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
+import { MyProfileComponent } from './pages/my-profile/my-profile.component';
+import { ChangePasswordComponent } from './pages/my-profile/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
     EditCategoriesComponent,
     DialogCreateCaseComponent,
     AddEditCategoryComponent,
-    EditCasesComponent
+    EditCasesComponent,
+    MyProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

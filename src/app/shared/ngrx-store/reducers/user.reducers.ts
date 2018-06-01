@@ -16,7 +16,8 @@ export const initialState: State = {
 
 const messages = {
   ERR_FAILED_GET_USER: 'Failed to fetch user.',
-  ERR_FAILED_UPDATE_USER: 'Failed to update user.'
+  ERR_FAILED_UPDATE_USER: 'Failed to update user.',
+  ERR_FAILED_UPDATE_PASSWORD: 'Failed to update password.'
 };
 
 export function reducer(state: State = initialState, action: All): State {
@@ -48,9 +49,21 @@ export function reducer(state: State = initialState, action: All): State {
         errorMessage: messages.ERR_FAILED_UPDATE_USER
       };
     }
+    case UserActionTypes.UPDATE_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        user:  action.payload.user,
+        errorMessage: null
+      };
+    }
+    case UserActionTypes.UPDATE_PASSWORD_FAILURE: {
+      return {
+        ...state,
+        errorMessage: messages.ERR_FAILED_UPDATE_PASSWORD
+      };
+    }
     default: {
       return state;
     }
   }
 }
-
