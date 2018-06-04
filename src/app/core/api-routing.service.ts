@@ -55,6 +55,22 @@ export class ApiRoutingService {
     return this.baseUrl + 'disputes';
   }
 
+  getCreateDisputedAPIUrl(): string {
+    return this.baseUrl + 'disputes/create';
+  }
+
+  getUpdateDisputedAPIUrl(): string {
+    return this.baseUrl + 'disputes/update';
+  }
+
+  getRemoveDisputedAPIUrl(): string {
+    return this.baseUrl + 'disputes/remove';
+  }
+
+  getDisputesByCaseAPIUrl(): string {
+    return this.baseUrl + 'disputes/case'
+  }
+
   getDisputesApiUrl(): string {
     return this.baseUrl + 'disputes/all';
   }

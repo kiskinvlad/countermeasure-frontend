@@ -15,14 +15,13 @@ import 'rxjs/add/observable/from';
 import { DisputesActionTypes } from '@app/shared/ngrx-store/constants/disputes';
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
-import {
-     FetchDisputed,
-     FetchDisputedSuccess,
-     FetchDisputedFailure,
-     FetchDisputes,
-     FetchDisputesSuccess,
-     FetchDisputesFailure
-    } from '@app/shared/ngrx-store/actions/disputes.actions';
+  import {
+    CreateDisputed, CreateDisputedSuccess, CreateDisputedFailure,
+    UpdateDisputed, UpdateDisputedSuccess, UpdateDisputedFailure,
+    RemoveDisputed, RemoveDisputedSuccess, RemoveDisputedFailure,
+    FetchDisputed, FetchDisputedSuccess, FetchDisputedFailure,
+    FetchDisputes, FetchDisputesSuccess, FetchDisputesFailure,
+    FetchDisputesByCase, FetchDisputesByCaseSuccess, FetchDisputesByCaseFailure } from '@app/shared/ngrx-store/actions/disputes.actions';
 
 @Injectable()
 export class DisputesEffects {
@@ -63,6 +62,90 @@ export class DisputesEffects {
   );
 
   @Effect()
+  CreateDisputed: Observable<Action> = this.actions
+    .ofType(DisputesActionTypes.CREATE_DISPUTED)
+    .map((action: CreateDisputed) => action.payload)
+    .switchMap(payload => {
+      return this.disputesService.createDisputed(payload)
+        .map((data) => {
+          return new CreateDisputedSuccess(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new CreateDisputedFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  CreateDisputedSuccess: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.CREATE_DISPUTED_SUCCESS),
+    tap(({payload: disputed_data}) => {
+      console.log('casesData = ', disputed_data);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  CreateDisputedFailure: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.CREATE_DISPUTED_FAILURE)
+  );
+
+  @Effect()
+  UpdateDisputed: Observable<Action> = this.actions
+    .ofType(DisputesActionTypes.UPDATE_DISPUTED)
+    .map((action: UpdateDisputed) => action.payload)
+    .switchMap(payload => {
+      return this.disputesService.updateDisputed(payload)
+        .map((data) => {
+          return new UpdateDisputedSuccess(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new UpdateDisputedFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  UpdateDisputedSuccess: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.UPDATE_DISPUTED_SUCCESS),
+    tap(({payload: disputed_data}) => {
+      console.log('casesData = ', disputed_data);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  UpdateDisputedFailure: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.UPDATE_DISPUTED_FAILURE)
+  );
+
+  @Effect()
+  RemoveDisputed: Observable<Action> = this.actions
+    .ofType(DisputesActionTypes.REMOVE_DISPUTED)
+    .map((action: RemoveDisputed) => action.payload)
+    .switchMap(payload => {
+      return this.disputesService.removeDisputed(payload)
+        .map((data) => {
+          return new RemoveDisputedSuccess(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new RemoveDisputedFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  RemoveDisputedSuccess: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.REMOVE_DISPUTED_SUCCESS),
+    tap(({payload: disputed_data}) => {
+      console.log('casesData = ', disputed_data);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  RemoveDisputedFailure: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.REMOVE_DISPUTED_FAILURE)
+  );
+
+  @Effect()
   FetchDisputes: Observable<Action> = this.actions
     .ofType(DisputesActionTypes.FETCH_DISPUTES)
     .map((action: FetchDisputes) => action)
@@ -90,4 +173,32 @@ export class DisputesEffects {
     ofType(DisputesActionTypes.FETCH_DISPUTES_FAILURE)
   );
 
+  @Effect()
+  FetchDisputesByCase: Observable<Action> = this.actions
+    .ofType(DisputesActionTypes.FETCH_DISPUTES_BY_CASE)
+    .map((action: FetchDisputesByCase) => action.payload)
+    .switchMap(payload => {
+      console.log(payload);
+      return this.disputesService.getDisputesByCase(payload)
+        .map((data) => {
+          return new FetchDisputesByCaseSuccess(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new FetchDisputesByCaseFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  FetchDisputesByCaseSuccess: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.FETCH_DISPUTES_BY_CASE_SUCCESS),
+    tap(({payload: disputes_data}) => {
+      console.log('disputesData = ', disputes_data);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  FetchDisputesByCaseFailure: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.FETCH_DISPUTES_BY_CASE_FAILURE)
+  );
 }
