@@ -1,0 +1,181 @@
+
+
+<div class="modal-header">
+  {{dialogTitle}}
+  <button type="button" class="close pull-right" aria-label="Close" (click)="onClose()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+  
+<div class="modal-body">
+  <div class="d-flex flex-row">
+
+    <div class="tax-section">
+      <div class="d-flex justify-content-between section-title">
+        <h1>Personal Income Tax Years in Dispute</h1>
+      </div>
+
+      <div class="d-flex justify-content-start">
+        <div class="p-3 pyp-section" style="width: 20%">
+          <p> Taxpayer </p>
+          <input type="text" placeholder="Taxpayer" [(ngModel)]="disputed['taxpayer']"/>
+          <p> Taxyear </p>
+          <input type="number" placeholder="Taxyear" [(ngModel)]="disputed['year']"/>
+          <p> Province </p>
+          <input type="text" placeholder="Province" [(ngModel)]="disputed['province']"/>
+        </div>
+
+        <div class="p-3" style="width: 80%">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Taxpayer Position</th>
+                <th>Government Position</th>
+                <th>Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Taxable Income</td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_taxable_income']"/></td>
+                <td>$<input type="number" [(ngModel)]="disputed['GP_taxable_income']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['GP_taxable_income']- disputed['TP_taxable_income']"/></td>
+              </tr>
+              <tr class="header-style">
+                <td>Federal Taxes</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Federal Non-Refundable Tax Credits</td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_federal_non_refundable_tax_credits']"/></td>
+                <td>$<input type="number" [(ngModel)]="disputed['GP_federal_non_refundable_tax_credits']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_federal_non_refundable_tax_credits']"/></td>
+              </tr>
+              <tr>
+                <td>Net Federal Tax</td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_net_federal_tax']"/></td>
+                <td>$<input type="number" [(ngModel)]="disputed['GP_net_federal_tax']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_net_federal_tax']"/></td>
+              </tr>
+              <tr class="header-style">
+                <td>Provincial Taxes</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Provincial Non-Refundable Tax Credits</td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_provincial_non_refundable_tax_credits']"/></td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_provincial_non_refundable_tax_credits']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['TP_provincial_non_refundable_tax_credits']"/></td>
+              </tr>
+              <tr>
+                <td>Net Provincial Tax</td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_net_provincial_tax']"/></td>
+                <td>$<input type="number" [(ngModel)]="disputed['GP_net_provincial_tax']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_net_provincial_tax']"/></td>
+              </tr>
+              <tr class="header-style">
+                <td>Payables</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Other Amounts Payable</td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_other_amounts_payable']"/></td>
+                <td>$<input type="number" [(ngModel)]="disputed['GP_other_amounts_payable']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_other_amounts_payable']"/></td>
+              </tr>
+              <tr>
+                <td>Total Payable</td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['TP_total_payable']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['GP_total_payable']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_total_payable']"/></td>
+              </tr>
+              <tr>
+                <td>Credits Applied on Filling</td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_credits_applied_on_filing']"/></td>
+                <td>$<input type="number" [(ngModel)]="disputed['GP_credits_applied_on_filing']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_credits_applied_on_filing']"/></td>
+              </tr>
+              <tr>
+                <td>Balance Before Penalties and Interest</td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['TP_balance_before_penalties_and_interest']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['GP_balance_before_penalties_and_interest']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_balance_before_penalties_and_interest']"/></td>
+              </tr>
+              <tr class="header-style">
+                <td>Penalties</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Income Subject to Gross-Negligence Penalty</td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_income_subject_to_gnp']"/></td>
+                <td>$<input type="number" [(ngModel)]="disputed['GP_income_subject_to_gnp']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_income_subject_to_gnp']"/></td>
+              </tr>
+              <tr>
+                <td>Gross-Negligence Penalty</td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_gross_negligence_penalty']"/></td>
+                <td>$<input type="number" [(ngModel)]="disputed['GP_gross_negligence_penalty']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_gross_negligence_penalty']"/></td>
+              </tr>
+              <tr>
+                <td>Late Filing Penalty</td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_late_filing_penalty']"></td>
+                <td>$<input type="number" [(ngModel)]="disputed['GP_late_filing_penalty']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_late_filing_penalty']"/></td>
+              </tr>
+              <tr>
+                <td>Other Penalties</td>
+                <td>$<input type="number" [(ngModel)]="disputed['TP_other_penalties']"/></td>
+                <td>$<input type="number" [(ngModel)]="disputed['GP_other_penalties']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_other_penalties']"/></td>
+              </tr>
+              <tr>
+                <td>Total Tax and Penalties</td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['TP_total_penalties']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['GP_total_penalties']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_total_penalties']"/></td>
+              </tr>
+              <tr class="header-style">
+                <td>Interest</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Estimated Interest</td>
+                <td></td>
+                <td>$<input type="number" [(ngModel)]="disputed['GP_estimated_interest']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_estimated_interest']"/></td>
+              </tr>
+              <tr class="header-style">
+                <td>Total</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Balance</td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['TP_total_debt']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['GP_total_debt']"/></td>
+                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_total_debt']"/></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary pull-right" type="submit" (click)="onClose()">Cancel</button>
+  <button class="btn btn-primary pull-right" type="submit" (click)="onSubmit()">Save</button>
+  <button class="btn btn-primary pull-right" type="submit" (click)="onRemove()">Remove</button>
+</div>

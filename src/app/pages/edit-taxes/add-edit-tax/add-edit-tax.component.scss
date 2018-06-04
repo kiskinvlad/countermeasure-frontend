@@ -1,0 +1,60 @@
+ct-sidebar {
+    width: 300px;
+}
+
+.section-title {
+    margin-top: 50px;
+}
+
+.second-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.tax-section {
+    width: 100%;
+}
+
+.header-style {
+    font-family: 'CircularStd', sans-serif;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: left;
+    color: #FFF;
+    background-color: #082948;
+    padding: 0.5em;
+
+    > td {
+        border: none!important;
+    }
+}
+
+th {
+    font-family: 'CircularStd', sans-serif;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: left;
+    color: #FFF;
+    background-color: #082948;
+    padding: 0.5em;
+    width: 25%;
+}
+
+.pyp-section {
+    > p {
+        margin-bottom: 0!important;
+    }
+
+    > input {
+        margin-bottom: 1em;
+    }
+}
+
+.btn-primary {
+    margin-right: 20px;
+}
+
+input:disabled {
+    border: 1px solid #ddd!important;
+    background: #ddd;
+}
