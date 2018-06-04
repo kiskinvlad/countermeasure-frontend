@@ -52,6 +52,7 @@ import { ScenarioService } from '@app/core/services/ScenarioService/scenario.ser
 
 import { AppRoutingModule } from '@app/app-routing.module';
 import { LocalStorageService } from '@core/services/LocalStorageService/local-storage.service';
+import { AddEditScenarioComponent } from './pages/edit-scenarios/add-edit-scenario/add-edit-scenario.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { LocalStorageService } from '@core/services/LocalStorageService/local-st
     EditCasesComponent,
     EditScenariosComponent,
     EditTaxesComponent,
-    AddEditTaxComponent
+    AddEditTaxComponent,
+    AddEditScenarioComponent
   ],
   imports: [
     BrowserModule,
