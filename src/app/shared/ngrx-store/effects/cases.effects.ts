@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { map, filter, scan, tap, concatMap } from 'rxjs/operators';
+import { NotificationsService } from 'angular2-notifications';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
@@ -30,7 +31,8 @@ export class CasesEffects {
     private casesService: CasesService,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private permissionsService: NgxPermissionsService
+    private permissionsService: NgxPermissionsService,
+    private notificationsService: NotificationsService
   ) {}
 
   @Effect()
@@ -54,12 +56,16 @@ export class CasesEffects {
     ofType(CasesActionTypes.FETCH_CASES_SUCCESS),
     tap(({payload: casesData}) => {
       console.log('casesData = ', casesData);
+      this.notificationsService.success('Success', 'Cases have been loaded.');
     })
   );
 
   @Effect({ dispatch: false })
   FetchCasesFailure: Observable<any> = this.actions.pipe(
-    ofType(CasesActionTypes.FETCH_CASES_FAILURE)
+    ofType(CasesActionTypes.FETCH_CASES_FAILURE),
+    tap(() => {
+      this.notificationsService.success('Error', 'Loading Cases is failed.');
+    })
   );
 
   @Effect()
@@ -83,12 +89,16 @@ export class CasesEffects {
     ofType(CasesActionTypes.CREATE_CASE_SUCCESS),
     tap(({payload: casesData}) => {
       console.log('casesData = ', casesData);
+      this.notificationsService.success('Success', 'Case have been created.');
     })
   );
 
   @Effect({ dispatch: false })
   CreateCaseFailure: Observable<any> = this.actions.pipe(
-    ofType(CasesActionTypes.CREATE_CASE_FAILURE)
+    ofType(CasesActionTypes.CREATE_CASE_FAILURE),
+    tap(() => {
+      this.notificationsService.success('Error', 'Creating case is failed.');
+    })
   );
 
   @Effect()
@@ -112,12 +122,16 @@ export class CasesEffects {
     ofType(CasesActionTypes.DELETE_CASE_SUCCESS),
     tap(({payload: casesData}) => {
       console.log('casesData = ', casesData);
+      this.notificationsService.success('Success', 'Case have been deleted.');
     })
   );
 
   @Effect({ dispatch: false })
   DeleteCaseFailure: Observable<any> = this.actions.pipe(
-    ofType(CasesActionTypes.DELETE_CASE_FAILURE)
+    ofType(CasesActionTypes.DELETE_CASE_FAILURE),
+    tap(() => {
+      this.notificationsService.success('Error', 'Removing case is failed.');
+    })
   );
 
   @Effect()
@@ -146,7 +160,10 @@ export class CasesEffects {
 
   @Effect({ dispatch: false })
   GetCaseFailure: Observable<any> = this.actions.pipe(
-    ofType(CasesActionTypes.GET_CASE_FAILURE)
+    ofType(CasesActionTypes.GET_CASE_FAILURE),
+    tap(() => {
+      this.notificationsService.success('Error', 'Getting case is failed.');
+    })
   );
 
   @Effect()
@@ -170,12 +187,16 @@ export class CasesEffects {
     ofType(CasesActionTypes.UPDATE_CASE_SUCCESS),
     tap(({payload: casesData}) => {
       console.log('casesData = ', casesData);
+      this.notificationsService.success('Success', 'Case have been updated.');
     })
   );
 
   @Effect({ dispatch: false })
   UpdateCaseFailure: Observable<any> = this.actions.pipe(
-    ofType(CasesActionTypes.UPDATE_CASE_FAILURE)
+    ofType(CasesActionTypes.UPDATE_CASE_FAILURE),
+    tap(() => {
+      this.notificationsService.success('Error', 'Updating case is failed.');
+    })
   );
 
 }

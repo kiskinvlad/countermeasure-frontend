@@ -28,6 +28,8 @@ import { AddEditCategoryComponent } from '@app/pages/edit-categories/add-edit-ca
 import { EditDetailsComponent as MyProfileEditDetailsComponent } from '@app/pages/my-profile/edit-details/edit-details.component';
 import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
 import { EditScenariosComponent } from './pages/edit-scenarios/edit-scenarios.component';
+import { EditTaxesComponent } from '@app/pages/edit-taxes/edit-taxes.component';
+import { AddEditTaxComponent } from '@app/pages/edit-taxes/add-edit-tax/add-edit-tax.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -51,7 +53,6 @@ import { ScenarioService } from '@app/core/services/ScenarioService/scenario.ser
 import { AppRoutingModule } from '@app/app-routing.module';
 import { LocalStorageService } from '@core/services/LocalStorageService/local-storage.service';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +65,9 @@ import { LocalStorageService } from '@core/services/LocalStorageService/local-st
     DialogCreateCaseComponent,
     AddEditCategoryComponent,
     EditCasesComponent,
-    EditScenariosComponent
+    EditScenariosComponent,
+    EditTaxesComponent,
+    AddEditTaxComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +104,7 @@ import { LocalStorageService } from '@core/services/LocalStorageService/local-st
     ScenarioService
   ],
   entryComponents: [
+    AddEditTaxComponent,
     DialogCreateCaseComponent
   ],
   bootstrap: [AppComponent]
