@@ -254,6 +254,10 @@
     semver "^5.3.0"
     semver-intersect "^1.1.2"
 
+"@types/file-saver@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@types/file-saver/-/file-saver-1.3.0.tgz#0ef213077e704fc3f4e7a86cfd31c9de4f4f47a7"
+
 "@types/jasmine@*", "@types/jasmine@~2.8.6":
   version "2.8.7"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.8.7.tgz#3fe583928ae0a22cdd34cedf930eeffeda2602fd"
@@ -2287,6 +2291,10 @@ file-loader@^1.1.11:
   dependencies:
     loader-utils "^1.0.2"
     schema-utils "^0.4.5"
+
+file-saver@^1.3.8:
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-1.3.8.tgz#e68a30c7cb044e2fb362b428469feb291c2e09d8"
 
 filename-regex@^2.0.0:
   version "2.0.1"

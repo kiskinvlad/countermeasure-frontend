@@ -33,7 +33,8 @@ export function reducer(state: State = initialState, action: All): State {
           first_name: action.payload.first_name,
           last_name: action.payload.last_name,
           role_id: action.payload.role_id,
-          role_name: action.payload.role_name
+          role_name: action.payload.role_name,
+          org_id: action.payload.org_id
         },
         errorMessage: null
       };
@@ -54,7 +55,8 @@ export function reducer(state: State = initialState, action: All): State {
           first_name: action.payload.first_name,
           last_name: action.payload.last_name,
           role_id: action.payload.role_id,
-          role_name: action.payload.role_name
+          role_name: action.payload.role_name,
+          org_id: action.payload.org_id
         },
         errorMessage: null
       };

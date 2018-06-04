@@ -49,6 +49,10 @@ import { ChangePasswordComponent } from './pages/my-profile/change-password/chan
 import { SummaryCategoriesComponent } from './pages/summary-categories/summary-categories.component';
 import { EditTaxesComponent } from './pages/edit-taxes/edit-taxes.component';
 import { AddEditTaxComponent } from './pages/edit-taxes/add-edit-tax/add-edit-tax.component';
+import { OrganizationEffects } from '@app/shared/ngrx-store/effects/organization.effects';
+import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
+import { OrganizationComponent } from './pages/organization/organization.component';
+import { EditDetailsComponent as OrgEditDetailsComponent } from './pages/organization/edit-details/edit-details.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +70,10 @@ import { AddEditTaxComponent } from './pages/edit-taxes/add-edit-tax/add-edit-ta
     ChangePasswordComponent,
     SummaryCategoriesComponent,
     EditTaxesComponent,
-    AddEditTaxComponent
+    AddEditTaxComponent,
+    EditCasesComponent,
+    OrganizationComponent,
+    OrgEditDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +89,7 @@ import { AddEditTaxComponent } from './pages/edit-taxes/add-edit-tax/add-edit-ta
     NgxPermissionsModule.forRoot(),
     StoreModule.forRoot(reducers, {}),
     BrowserAnimationsModule,
-    EffectsModule.forRoot([AuthEffects, CasesEffects, UserEffects, CategoryEffects, DisputesEffects]),
+    EffectsModule.forRoot([AuthEffects, CasesEffects, UserEffects, CategoryEffects, DisputesEffects, OrganizationEffects]),
     SimpleNotificationsModule.forRoot(),
   ],
   providers: [
@@ -100,6 +107,7 @@ import { AddEditTaxComponent } from './pages/edit-taxes/add-edit-tax/add-edit-ta
     NgxPermissionsService,
     BsModalService,
     DisputesService,
+    OrganizationService
   ],
   entryComponents: [
     AddEditTaxComponent,

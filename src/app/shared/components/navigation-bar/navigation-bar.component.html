@@ -17,7 +17,7 @@
       <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{userName}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <a routerLink="/my-profile" class="dropdown-item">My Profile</a>
-        <a *ngIf="userRole == 'OA'" routerLink="/" class="dropdown-item">Manage Organization</a>
+        <a *ngIf="userRole == 'OA'" [routerLink]="['/organization', userOrg]" class="dropdown-item">Manage Organization</a>
         <button (click)=logOut() class="dropdown-item">Log Out</button>
       </div>
     </div>

@@ -16,6 +16,7 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   userName: string;
   userRole: string;
+  userOrg: number;
 
   constructor(
     private store: Store<AppState>
@@ -30,6 +31,7 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
       if (state.user) {
         this.userName = [state.user.first_name, state.user.last_name].join(' ');
         this.userRole = state.user.role_id;
+        this.userOrg = state.user.org_id;
       }
     });
   }

@@ -3,7 +3,7 @@
         <div class="sidebar-inner slimscrollleft">
             <!--- Divider -->
             <div class="sidebar-menu">
-                <!-- Menu itmes for My Profile -->
+                <!-- Menu items for My Profile -->
                 <ul *ngIf="menuType === 'my-profile'">
                     <li class="back-to-dashboard">
                         <a class="waves-effect" routerLink="/"><i class="fa fa-arrow-left"></i> Back to dashboard</a>
@@ -72,6 +72,22 @@
                         <a class="waves-effect"> <span> Principled Settlement </span> </a>
                     </li>
 
+                </ul>
+                <!-- Menu items for Manage Organization -->
+                <ul *ngIf="menuType === 'manage-organization'">
+                    <li class="back-to-dashboard">
+                        <a class="waves-effect" routerLink="/"><i class="fa fa-arrow-left"></i> Back to dashboard</a>
+                    </li>
+                    <li class="text-muted menu-title">Manage Organization</li>
+                    <li class="has_sub">
+                        <a class="waves-effect" [routerLink]="['/organization', userOrg]"><span> Edit Details </span> </a>
+                    </li>
+                    <li class="has_sub">
+                        <a class="waves-effect" [routerLink]="['/organization', userOrg]"><span> Members </span> </a>
+                    </li>
+                    <li class="has_sub">
+                        <a class="waves-effect" [routerLink]="['/organization', userOrg]"><span> Guests </span> </a>
+                    </li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
