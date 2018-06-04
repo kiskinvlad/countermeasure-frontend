@@ -31,6 +31,10 @@ export class ApiRoutingService {
     return this.baseUrl + 'users';
   }
 
+  getUpdatePasswordAPIUrl(): string {
+    return this.baseUrl + 'users/password';
+  }
+
   getDeleteCaseAPIUrl(): string {
     return this.baseUrl + 'cases/delete';
   }

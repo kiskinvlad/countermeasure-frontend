@@ -23,7 +23,10 @@ import {
   FetchUserSuccess,
   UpdateUser,
   UpdateUserFailure,
-  UpdateUserSuccess
+  UpdateUserSuccess,
+  UpdatePassword,
+  UpdatePasswordFailure,
+  UpdatePasswordSuccess
 } from '../actions/user.actions';
 
 @Injectable()
@@ -95,5 +98,36 @@ export class UserEffects {
     .ofType(UserActionTypes.UPDATE_USER_FAILURE)
     .map(() => {
       this.notificationsService.error('Error', 'Failed to update details.');
+    });
+
+  @Effect()
+  UpdatePassword: Observable<Action> = this.actions
+    .ofType(UserActionTypes.UPDATE_PASSWORD)
+    .map((action: UpdatePassword) => action.payload)
+    .switchMap(payload => {
+
+      return this.userService.updatePassword(payload)
+        .map((data) => {
+          return new UpdatePasswordSuccess(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new UpdatePasswordFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  UpdatePasswordSuccess: Observable<any> = this.actions.pipe(
+    ofType(UserActionTypes.UPDATE_PASSWORD_SUCCESS),
+    tap((data) => {
+      this.notificationsService.success('Success', 'Your password has been updated.');
+    })
+  );
+
+  @Effect({ dispatch: false })
+  UpdatePasswordFailure: Observable<any> = this.actions
+    .ofType(UserActionTypes.UPDATE_PASSWORD_FAILURE)
+    .map(() => {
+      this.notificationsService.error('Error', 'Please make sure your current password was entered correctly.');
     });
 }

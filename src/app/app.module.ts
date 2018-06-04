@@ -12,10 +12,13 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { LocalStorageService as DLSService } from 'ngx-webstorage';
+import { LocalStorageService } from '@core/services/LocalStorageService/local-storage.service';
 import { ModalModule } from 'ngx-bootstrap';
 import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgSelectModule } from '@ng-select/ng-select';
+
+import { AppRoutingModule } from '@app/app-routing.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from '@app/pages/login/login.component';
@@ -32,6 +35,8 @@ import { EditTaxesComponent } from '@app/pages/edit-taxes/edit-taxes.component';
 import { AddEditTaxComponent } from '@app/pages/edit-taxes/add-edit-tax/add-edit-tax.component';
 import { AddEditScenarioComponent } from './pages/edit-scenarios/add-edit-scenario/add-edit-scenario.component';
 import { SummaryCategoriesComponent } from './pages/summary-categories/summary-categories.component';
+import { MyProfileComponent } from './pages/my-profile/my-profile.component';
+import { ChangePasswordComponent } from './pages/my-profile/change-password/change-password.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -52,9 +57,6 @@ import { HttpHelperService } from '@app/core/http-helper.service';
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { ScenarioService } from '@app/core/services/ScenarioService/scenario.service';
 
-import { AppRoutingModule } from '@app/app-routing.module';
-import { LocalStorageService } from '@core/services/LocalStorageService/local-storage.service';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +73,12 @@ import { LocalStorageService } from '@core/services/LocalStorageService/local-st
     EditTaxesComponent,
     AddEditTaxComponent,
     AddEditScenarioComponent,
-    SummaryCategoriesComponent
+    SummaryCategoriesComponent,
+    MyProfileComponent,
+    ChangePasswordComponent,
+    SummaryCategoriesComponent,
+    EditTaxesComponent,
+    AddEditTaxComponent
   ],
   imports: [
     BrowserModule,
