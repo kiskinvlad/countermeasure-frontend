@@ -30,6 +30,8 @@ import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
 import { EditScenariosComponent } from './pages/edit-scenarios/edit-scenarios.component';
 import { EditTaxesComponent } from '@app/pages/edit-taxes/edit-taxes.component';
 import { AddEditTaxComponent } from '@app/pages/edit-taxes/add-edit-tax/add-edit-tax.component';
+import { AddEditScenarioComponent } from './pages/edit-scenarios/add-edit-scenario/add-edit-scenario.component';
+import { SummaryCategoriesComponent } from './pages/summary-categories/summary-categories.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -52,7 +54,6 @@ import { ScenarioService } from '@app/core/services/ScenarioService/scenario.ser
 
 import { AppRoutingModule } from '@app/app-routing.module';
 import { LocalStorageService } from '@core/services/LocalStorageService/local-storage.service';
-import { AddEditScenarioComponent } from './pages/edit-scenarios/add-edit-scenario/add-edit-scenario.component';
 
 @NgModule({
   declarations: [
@@ -69,8 +70,8 @@ import { AddEditScenarioComponent } from './pages/edit-scenarios/add-edit-scenar
     EditScenariosComponent,
     EditTaxesComponent,
     AddEditTaxComponent,
-
-    AddEditScenarioComponent
+    AddEditScenarioComponent,
+    SummaryCategoriesComponent
   ],
   imports: [
     BrowserModule,

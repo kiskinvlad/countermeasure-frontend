@@ -20,4 +20,7 @@ export enum CategoriesActionTypes {
     CREATE_CATEGORY = '[Categories] Create Category Action',
     CREATE_CATEGORY_SUCCESS = '[Categories] Create Category Success Action',
     CREATE_CATEGORY_FAILURE = '[Categories] Create Category Failure Action',
+    CREATE_CATEGORIES_SUMMARY_CSV = '[Categories] Create Categories Summary CSV Action',
+    CREATE_CATEGORIES_SUMMARY_CSV_SUCCESS = '[Categories] Create Categories Summary CSV Succes Action',
+    CREATE_CATEGORIES_SUMMARY_CSV_FAILURE = '[Categories] Create Categories Summary CSV Failure Action',
 }
