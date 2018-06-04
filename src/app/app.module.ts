@@ -69,6 +69,7 @@ import { AddEditScenarioComponent } from './pages/edit-scenarios/add-edit-scenar
     EditScenariosComponent,
     EditTaxesComponent,
     AddEditTaxComponent,
+
     AddEditScenarioComponent
   ],
   imports: [
