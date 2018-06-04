@@ -13,11 +13,15 @@ import { ChangePasswordComponent } from '@app/pages/my-profile/change-password/c
 import { SummaryCategoriesComponent } from '@app/pages/summary-categories/summary-categories.component';
 import { EditTaxesComponent } from '@app/pages/edit-taxes/edit-taxes.component';
 import { AddEditTaxComponent } from '@app/pages/edit-taxes/add-edit-tax/add-edit-tax.component';
+import { AddEditScenarioComponent } from '@app/pages/edit-scenarios/add-edit-scenario/add-edit-scenario.component';
 
 const routes: Routes = [
   { path: '', component: DashboardCaseComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/categories', component: EditCategoriesComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/scenaries', component: EditScenariosComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/scenaries/:scenario_id/edit/:type', component: AddEditScenarioComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/scenaries/edit/:type', component: AddEditScenarioComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/scenaries/summary', component: EditScenariosComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/detail', component: EditCasesComponent, canActivate: [AuthGuardService]},
   { path: 'case/:case_id/categories/:category_id/edit/:type', component: AddEditCategoryComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/categories/edit/:type', component: AddEditCategoryComponent, canActivate: [AuthGuardService] },
@@ -33,7 +37,6 @@ const routes: Routes = [
     ]
   },
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

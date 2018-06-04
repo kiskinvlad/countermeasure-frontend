@@ -77,11 +77,10 @@
         <p *ngIf="interest?.errors['required']">Interest is required</p>
       </div>
     </div>
-
   </form>
   <div class="float-right">
-    <button *ngIf="type === 'edit'" type="button" class="btn btn-primary" (click)="deleteCategory()"> Remove </button>
-    <button [disabled]="!isFormTouched" type="button" class="btn btn-primary" (click)="addUpdateCategory()"> Save </button>
-    <button type="button" class="btn btn-primary" [routerLink]="['/case', case_id, 'categories']"> Cancel </button>
+    <button *ngIf="type === 'edit'" type="button" class="btn btn-primary" (click)="deleteScenario()"> Remove </button>
+    <button [disabled]="!isFormTouched" type="button" class="btn btn-primary" (click)="addUpdateScenario()"> Save </button>
+    <button type="button" class="btn btn-primary" [routerLink]="['/case', case_id, 'scenaries']"> Cancel </button>
   </div>
 </div>

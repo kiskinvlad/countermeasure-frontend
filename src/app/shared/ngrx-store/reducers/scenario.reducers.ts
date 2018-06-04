@@ -54,7 +54,7 @@ export function reducer(state = initialState, action: All): State {
     case SceneriesActionTypes.MOVE_SCENARIO_FAILURE: {
       return {
         ...state,
-        errorMessage: 'Cannot move category.',
+        errorMessage: 'Cannot move scenario.',
       };
     }
     case SceneriesActionTypes.DELETE_SCENARIO_FROM_LIST_SUCCESS: {
@@ -107,7 +107,7 @@ export function reducer(state = initialState, action: All): State {
     case SceneriesActionTypes.CREATE_SCENARIO_FAILURE: {
       return {
         ...state,
-        errorMessage: 'Cannot delete category.',
+        errorMessage: 'Cannot delete scenario.',
       };
     }
     case SceneriesActionTypes.UPDATE_SCENARIO_SUCCESS: {

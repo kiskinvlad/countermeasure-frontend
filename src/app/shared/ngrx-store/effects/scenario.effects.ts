@@ -168,7 +168,7 @@ export class ScenarioEffects {
   DeleteScenarioSuccess: Observable<any> = this.actions.pipe(
     ofType(SceneriesActionTypes.DELETE_SCENARIO_SUCCESS),
     tap(({payload: data}) => {
-      this.router.navigate(['/case', data.case_id, 'Sceneries']);
+      this.router.navigate(['/case', data.case_id, 'scenaries']);
       this.notificationsService.success('Success', 'Scenario ' + data.name + ' deleted!');
     })
   );
@@ -200,8 +200,8 @@ export class ScenarioEffects {
   UpdateScenarioSuccess: Observable<any> = this.actions.pipe(
     ofType(SceneriesActionTypes.UPDATE_SCENARIO_SUCCESS),
     tap(({payload: data}) => {
-      this.router.navigate(['/case', data.Scenario.case_id, 'Sceneries']);
-      this.notificationsService.success('Successful', 'Scenario ' + data.Scenario.name + ' updated!');
+      this.router.navigate(['/case', data.scenario.case_id, 'scenaries']);
+      this.notificationsService.success('Successful', 'Scenario ' + data.scenario.name + ' updated!');
     })
   );
 
@@ -232,8 +232,8 @@ export class ScenarioEffects {
   CreateScenarioSuccess: Observable<any> = this.actions.pipe(
     ofType(SceneriesActionTypes.CREATE_SCENARIO_SUCCESS),
     tap(({payload: data}) => {
-      this.router.navigate(['/case', data.Scenario.case_id, 'Sceneries']);
-      this.notificationsService.success('Successful', 'Scenario ' + data.Scenario.name + ' created!');
+      this.router.navigate(['/case', data.scenario.case_id, 'scenaries']);
+      this.notificationsService.success('Successful', 'Scenario ' + data.scenario.name + ' created!');
     })
   );
 

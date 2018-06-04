@@ -30,7 +30,7 @@
         <td>{{scenario.probability}}%</td>
         <td>
           <thead>
-              <th [routerLink]="['/case', case_id, 'scenaries', getScenarioId(index), 'edit']">Edit</th>
+              <th [routerLink]="['/case', case_id, 'scenaries', getScenarioId(index), 'edit', 'edit']">Edit</th>
               <th (click)="moveUp(index)">Up</th>
               <th (click)="moveDown(index)">Down</th>
               <th (click)="deleteScenario(index)">Delete</th>
@@ -39,7 +39,7 @@
       </tr>
     </tbody>
   </table>
-  <button type="button" class="btn btn-primary create-case" [routerLink]="['/case', case_id, 'scenaries', 'add']"> Add </button>
+  <button type="button" class="btn btn-primary create-case" [routerLink]="['/case', case_id, 'scenaries', 'edit', 'add']"> Add </button>
   <nav class="float-right" *ngIf="total_count >= items_per_page">
     <ul class="pagination">
       <li [ngClass]="page_number === 1 ? 'page-item disabled' : 'page-item'" (click)="getItemsByPage(page_number-1)">
