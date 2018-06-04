@@ -1,0 +1,57 @@
+ct-sidebar {
+    width: 300px;
+}
+
+.section-title {
+    margin-top: 50px;
+}
+
+.second-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.tax-section {
+    width: 70%;
+}
+
+.table-bordered {
+    border: none;
+}
+th {
+    font-family: 'CircularStd', sans-serif;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: left;
+    color: #FFF;
+    background-color: #082948;
+    padding: 0.5em;
+}
+
+.add-item {
+    color: rgb(112, 112, 112);
+
+    i {
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        background-color: #ccc;
+        border-radius: 50%;
+    }
+}
+
+.remove-item {
+    background-color: transparent;
+    border: none;
+    color: rgb(112, 112, 112);
+
+    i {
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        background-color: #ccc;
+        border-radius: 50%;
+    }
+}
+
+

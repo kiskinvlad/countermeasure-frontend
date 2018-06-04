@@ -33,18 +33,70 @@ export function reducer(state = initialState, action: All): State {
       };
     }
     case DisputesActionTypes.FETCH_DISPUTES_SUCCESS: {
-        return {
-          ...state,
-          disputes: action.payload.disputes,
-          errorMessage: null
-        };
-      }
-      case DisputesActionTypes.FETCH_DISPUTES_FAILURE: {
-        return {
-          ...state,
-          errorMessage: 'Cannot fetch disputes.'
-        };
-      }
+      return {
+        ...state,
+        disputes: action.payload.disputes,
+        errorMessage: null
+      };
+    }
+    case DisputesActionTypes.FETCH_DISPUTES_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot fetch disputes.'
+      };
+    }
+    case DisputesActionTypes.FETCH_DISPUTES_BY_CASE_SUCCESS: {
+      return {
+        ...state,
+        disputes: action.payload.disputes,
+        errorMessage: null
+      };
+    }
+    case DisputesActionTypes.FETCH_DISPUTES_BY_CASE_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot fetch disputes.'
+      };
+    }
+    case DisputesActionTypes.CREATE_DISPUTED_SUCCESS: {
+      return {
+        ...state,
+        disputes: action.payload.disputes,
+        errorMessage: null
+      };
+    }
+    case DisputesActionTypes.CREATE_DISPUTED_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot fetch disputes.'
+      };
+    }
+    case DisputesActionTypes.UPDATE_DISPUTED_SUCCESS: {
+      return {
+        ...state,
+        disputes: action.payload.disputes,
+        errorMessage: null
+      };
+    }
+    case DisputesActionTypes.UPDATE_DISPUTED_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot fetch disputes.'
+      };
+    }
+    case DisputesActionTypes.REMOVE_DISPUTED_SUCCESS: {
+      return {
+        ...state,
+        disputes: action.payload.disputes,
+        errorMessage: null
+      };
+    }
+    case DisputesActionTypes.REMOVE_DISPUTED_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot fetch disputes.'
+      };
+    }
     default: {
       return state;
     }

@@ -8,12 +8,12 @@
 }
 
 .modal-dialog {
-    max-width: 800px !important;
-    transform: translate(-50%, -50%) !important;
-    top: 45%;
-    left: 50%;
-    width: 80% !important;
-    position: fixed !important;
+    max-width: 1200px !important;
+    // transform: translate(-50%, -50%) !important;
+    // top: 45%;
+    // left: 50%;
+    // width: 80% !important;
+    // position: fixed !important;
 }
 
 .form-control-feedback {
@@ -29,4 +29,8 @@
 
 .toast-container {
     font-size: 12px;
+}
+
+button.dropdown-item {
+  cursor: pointer;
 }

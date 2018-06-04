@@ -45,6 +45,9 @@ import { DisputesService } from '@app/core/services/DisputesService/disputes.ser
 import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects';
 import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
 import { SummaryCategoriesComponent } from './pages/summary-categories/summary-categories.component';
+import { EditTaxesComponent } from './pages/edit-taxes/edit-taxes.component';
+import { AddEditTaxComponent } from './pages/edit-taxes/add-edit-tax/add-edit-tax.component';
+
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import { SummaryCategoriesComponent } from './pages/summary-categories/summary-c
     DialogCreateCaseComponent,
     AddEditCategoryComponent,
     EditCasesComponent,
-    SummaryCategoriesComponent
+    SummaryCategoriesComponent,
+    EditTaxesComponent,
+    AddEditTaxComponent
+
   ],
   imports: [
     BrowserModule,
@@ -94,6 +100,7 @@ import { SummaryCategoriesComponent } from './pages/summary-categories/summary-c
     DisputesService,
   ],
   entryComponents: [
+    AddEditTaxComponent,
     DialogCreateCaseComponent
   ],
   bootstrap: [AppComponent]

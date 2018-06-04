@@ -49,7 +49,10 @@ export class AuthEffects {
     .switchMap(payload => {
       return this.authService.logIn(payload)
         .map((data) => {
-          return new LogInSuccess({token: data.token, email: data.user.email, role_name: data.user.role_name});
+          return new LogInSuccess({
+            token: data.token, email: data.user.email, first_name: data.user.first_name,
+            last_name: data.user.last_name, role_name: data.user.role_name, role_id: data.user.role_id
+          });
         })
         .catch((error) => {
           console.log(error);
