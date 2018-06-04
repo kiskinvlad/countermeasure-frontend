@@ -5,6 +5,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { map, filter, scan, tap, concatMap } from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
+import { saveAs } from 'file-saver';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
@@ -36,11 +37,16 @@ import {
     UpdateCategoryFailure,
     CreateCategory,
     CreateCategorySuccess,
-    CreateCategoryFailure
+    CreateCategoryFailure,
+    CreateCategoriesSummaryCsv,
+    CreateCategoriesSummaryCsvSuccess,
+    CreateCategoriesSummaryCsvFailure
     } from '@app/shared/ngrx-store/actions/category.actions';
 
 @Injectable()
 export class CategoryEffects {
+
+  private case_id: number;
 
   constructor(
     private actions: Actions,
@@ -242,6 +248,40 @@ export class CategoryEffects {
     ofType(CategoriesActionTypes.CREATE_CATEGORY_FAILURE),
     tap(() => {
       this.notificationsService.error('Failure', 'Category not created.');
+    })
+  );
+
+  @Effect()
+  CreateCategoriesSummaryCsv: Observable<Action> = this.actions
+    .ofType(CategoriesActionTypes.CREATE_CATEGORIES_SUMMARY_CSV)
+    .map((action: CreateCategoriesSummaryCsv) => action.payload)
+    .switchMap(payload => {
+      this.case_id = payload.case_id;
+      return this.categoryService.createCsv(payload.json)
+        .map((data) => {
+          const csv = new Blob([data], { type: 'text/csv' });
+          return new CreateCategoriesSummaryCsvSuccess(csv);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new CreateCategoriesSummaryCsvFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  CreateCategoriesSummaryCsvSuccess: Observable<any> = this.actions.pipe(
+    ofType(CategoriesActionTypes.CREATE_CATEGORIES_SUMMARY_CSV_SUCCESS),
+    tap(({payload: data}) => {
+      saveAs(data, 'Case_' + this.case_id + '_categories_summary.csv');
+      this.notificationsService.success('Successful', 'Download started');
+    })
+  );
+
+  @Effect({ dispatch: false })
+  CreateCategoriesSummaryCsvFailure: Observable<any> = this.actions.pipe(
+    ofType(CategoriesActionTypes.CREATE_CATEGORIES_SUMMARY_CSV_FAILURE),
+    tap(() => {
+      this.notificationsService.error('Failure', 'Download failed');
     })
   );
 }

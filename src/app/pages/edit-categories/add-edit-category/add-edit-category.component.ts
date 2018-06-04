@@ -21,23 +21,23 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
   private getDisputesState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
-  private categoryForm: FormGroup;
-  private name: FormControl;
-  private income: FormControl;
-  private federal: FormControl;
-  private provincial: FormControl;
-  private other_amounts: FormControl;
-  private credits: FormControl;
-  private gnp: FormControl;
-  private other_penalties: FormControl;
-  private tax: FormControl;
-  private taxes: NgOption[];
   private validator: ValidatorModule;
   public category: Category;
   public case_id: number;
   public type: string;
   public category_id: number;
   public isFormTouched: boolean;
+  public categoryForm: FormGroup;
+  public name: FormControl;
+  public taxes: NgOption[];
+  public tax: FormControl;
+  public income: FormControl;
+  public federal: FormControl;
+  public provincial: FormControl;
+  public other_amounts: FormControl;
+  public credits: FormControl;
+  public gnp: FormControl;
+  public other_penalties: FormControl;
 
   constructor(
     private store: Store<AppState>,
@@ -58,7 +58,7 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       this.createFormControls();
       this.createForm();
       if (this.type === 'add') {
-        this.router.navigate(['/case', this.case_id, 'categories', 'add']);
+        this.router.navigate(['/case', this.case_id, 'categories', 'edit', 'add']);
       }
     });
 
