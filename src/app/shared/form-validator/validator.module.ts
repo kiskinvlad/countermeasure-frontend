@@ -19,4 +19,15 @@ export class ValidatorModule {
           }
       });
    }
+
+   public isFieldValid(formGroup: FormGroup, field: string) {
+     return !formGroup.get(field).valid && formGroup.get(field).touched;
+   }
+
+   // Return bootstrap class for invalid form field
+   public displayFieldCss(formGroup: FormGroup, field: string) {
+     return {
+       'is-invalid': this.isFieldValid(formGroup, field)
+     };
+   }
 }

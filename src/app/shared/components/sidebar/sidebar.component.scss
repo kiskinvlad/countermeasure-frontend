@@ -4,14 +4,14 @@
     width: 250px;
     z-index: 2;
     background: #f8f9fa;
-   
+
   }
   .side-menu.left {
     box-shadow: 0 8px 42px 0 rgba(0, 0, 0, 0.08);
     position: absolute;
     top: 42px;
   }
-  
+
   .sidebar-inner {
     height: 100%;
     background-color: rgb(242,242,242);
@@ -90,11 +90,12 @@
     color: #fe6271 !important;
   }
   .menu-title {
-    padding: 12px 20px !important;
-    letter-spacing: .035em;
     pointer-events: none;
     cursor: default;
+  }
+  .side-menu .sidebar-menu .back-to-dashboard a, .menu-title {
+    padding: 12px 20px !important;
+    letter-spacing: .035em;
     font-size: 13px;
     background-color: rgb(242,242,242);
   }
-  

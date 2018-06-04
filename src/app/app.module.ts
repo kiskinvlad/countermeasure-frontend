@@ -44,10 +44,11 @@ import { AddEditCategoryComponent } from '@app/pages/edit-categories/add-edit-ca
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects';
 import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
+import { MyProfileComponent } from './pages/my-profile/my-profile.component';
+import { ChangePasswordComponent } from './pages/my-profile/change-password/change-password.component';
 import { SummaryCategoriesComponent } from './pages/summary-categories/summary-categories.component';
 import { EditTaxesComponent } from './pages/edit-taxes/edit-taxes.component';
 import { AddEditTaxComponent } from './pages/edit-taxes/add-edit-tax/add-edit-tax.component';
-
 
 @NgModule({
   declarations: [
@@ -61,10 +62,11 @@ import { AddEditTaxComponent } from './pages/edit-taxes/add-edit-tax/add-edit-ta
     DialogCreateCaseComponent,
     AddEditCategoryComponent,
     EditCasesComponent,
+    MyProfileComponent,
+    ChangePasswordComponent,
     SummaryCategoriesComponent,
     EditTaxesComponent,
     AddEditTaxComponent
-
   ],
   imports: [
     BrowserModule,

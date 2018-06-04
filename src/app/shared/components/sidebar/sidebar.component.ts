@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs/';
 import { AppState } from '../../ngrx-store/app.states';
@@ -12,6 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 export class SideBarComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public case_id: string;
+
+  @Input()
+  menuType: string;
 
   constructor(
     private store: Store<AppState>,
