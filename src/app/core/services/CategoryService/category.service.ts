@@ -11,6 +11,7 @@ export class CategoryService {
   private delete_category_from_list_api_url: string;
   private get_category_api_url: string;
   private create_category_api_url: string;
+  private get_summary_create_csv_url: string;
 
   constructor(
     private http: HttpHelperService,
@@ -20,6 +21,7 @@ export class CategoryService {
     this.move_categories_api_url = apiRoutingService.getMoveCategoryAPIUrl();
     this.delete_category_from_list_api_url = apiRoutingService.getDeleteCategoryFromListAPIUrl();
     this.get_category_api_url = apiRoutingService.getCategoryAPIUrl();
+    this.get_summary_create_csv_url = apiRoutingService.getSummaryCreateCsvURL();
   }
 
   getFilteredAndSorted(payload): Observable<any> {
@@ -85,6 +87,16 @@ export class CategoryService {
     return this.http.delete(
       this.get_category_api_url,
       payload,
+      true,
+      null
+    );
+  }
+
+  createCsv(payload): Observable<any> {
+    return this.http.post(
+      this.get_summary_create_csv_url,
+      payload,
+      false,
       true,
       null
     );

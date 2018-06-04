@@ -82,4 +82,8 @@ export class ApiRoutingService {
   getUpdateCaseAPIUrl(): string {
     return this.baseUrl + 'cases';
   }
+
+  getSummaryCreateCsvURL(): string {
+    return this.baseUrl + 'category/csv';
+  }
 }

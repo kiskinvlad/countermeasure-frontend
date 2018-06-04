@@ -44,8 +44,10 @@ import { AddEditCategoryComponent } from '@app/pages/edit-categories/add-edit-ca
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects';
 import { EditCasesComponent } from './pages/edit-cases/edit-cases.component';
+import { SummaryCategoriesComponent } from './pages/summary-categories/summary-categories.component';
 import { EditTaxesComponent } from './pages/edit-taxes/edit-taxes.component';
 import { AddEditTaxComponent } from './pages/edit-taxes/add-edit-tax/add-edit-tax.component';
+
 
 @NgModule({
   declarations: [
@@ -59,8 +61,10 @@ import { AddEditTaxComponent } from './pages/edit-taxes/add-edit-tax/add-edit-ta
     DialogCreateCaseComponent,
     AddEditCategoryComponent,
     EditCasesComponent,
+    SummaryCategoriesComponent,
     EditTaxesComponent,
     AddEditTaxComponent
+
   ],
   imports: [
     BrowserModule,
@@ -93,7 +97,7 @@ import { AddEditTaxComponent } from './pages/edit-taxes/add-edit-tax/add-edit-ta
     JwtHelperService,
     NgxPermissionsService,
     BsModalService,
-    DisputesService
+    DisputesService,
   ],
   entryComponents: [
     AddEditTaxComponent,
