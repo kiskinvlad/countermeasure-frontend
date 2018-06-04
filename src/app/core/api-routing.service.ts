@@ -66,4 +66,20 @@ export class ApiRoutingService {
   getUpdateCaseAPIUrl(): string {
     return this.baseUrl + 'cases';
   }
+
+  getFilteredAndSortedSceneriesAPIUrl(): string {
+    return this.baseUrl + 'scenario/all';
+  }
+
+  getMoveScenarioAPIUrl(): string {
+    return this.baseUrl + 'scenario/move';
+  }
+
+  getDeleteScenarioFromListAPIUrl(): string {
+    return this.baseUrl + 'scenario/delete';
+  }
+
+  getScenarioAPIUrl(): string {
+    return this.baseUrl + 'scenario';
+  }
 }

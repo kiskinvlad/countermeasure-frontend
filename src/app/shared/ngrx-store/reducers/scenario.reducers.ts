@@ -1,12 +1,12 @@
 
-import { CategoriesActionTypes } from '@app/shared/ngrx-store/constants/category';
-import { Category } from '@app/shared/models/category';
-import { All } from '@app/shared/ngrx-store/actions/category.actions';
+import { SceneriesActionTypes } from '@app/shared/ngrx-store/constants/scenario';
+import { Scenario } from '@app/shared/models/scenario';
+import { All } from '@app/shared/ngrx-store/actions/scenario.actions';
 
 
 export interface State {
-  categories: Category[];
-  category: Category;
+  sceneries: Scenario[];
+  scenario: Scenario;
   totalCount: Number;
   page_number: Number;
   items_per_page: Number;
@@ -14,8 +14,8 @@ export interface State {
 }
 
 export const initialState: State = {
-  categories: [],
-  category: null,
+  sceneries: [],
+  scenario: null,
   totalCount: 0,
   page_number: 1,
   items_per_page: 10,
@@ -23,102 +23,103 @@ export const initialState: State = {
 };
 
 export function reducer(state = initialState, action: All): State {
+  console.log('scenario reducer', action.type);
   switch (action.type) {
-    case CategoriesActionTypes.FETCH_CATEGORIES_SUCCESS: {
+    case SceneriesActionTypes.FETCH_SCENERIES_SUCCESS: {
       return {
         ...state,
-        categories: action.payload.categories,
+        sceneries: action.payload.sceneries,
         page_number: action.payload.page_number,
         totalCount: action.payload.totalCount,
         items_per_page: action.payload.items_per_page,
         errorMessage: null
       };
     }
-    case CategoriesActionTypes.FETCH_CATEGORIES_FAILURE: {
+    case SceneriesActionTypes.FETCH_SCENERIES_FAILURE: {
       return {
         ...state,
-        errorMessage: 'Cannot fetch categories.'
+        errorMessage: 'Cannot fetch sceneries.'
       };
     }
-    case CategoriesActionTypes.MOVE_CATEGORY_SUCCESS: {
+    case SceneriesActionTypes.MOVE_SCENARIO_SUCCESS: {
       return {
         ...state,
-        categories: action.payload.categories,
+        sceneries: action.payload.sceneries,
         page_number: action.payload.page_number,
         totalCount: action.payload.totalCount,
         items_per_page: action.payload.items_per_page,
         errorMessage: null
       };
     }
-    case CategoriesActionTypes.MOVE_CATEGORY_FAILURE: {
+    case SceneriesActionTypes.MOVE_SCENARIO_FAILURE: {
       return {
         ...state,
         errorMessage: 'Cannot move category.',
       };
     }
-    case CategoriesActionTypes.DELETE_CATEGORY_FROM_LIST_SUCCESS: {
+    case SceneriesActionTypes.DELETE_SCENARIO_FROM_LIST_SUCCESS: {
       return {
         ...state,
-        categories: action.payload.categories,
+        sceneries: action.payload.sceneries,
         page_number: action.payload.page_number,
         totalCount: action.payload.totalCount,
         items_per_page: action.payload.items_per_page,
         errorMessage: null
       };
     }
-    case CategoriesActionTypes.DELETE_CATEGORY_FROM_LIST_FAILURE: {
+    case SceneriesActionTypes.DELETE_SCENARIO_FROM_LIST_FAILURE: {
       return {
         ...state,
-        errorMessage: 'Cannot delete category.',
+        errorMessage: 'Cannot delete scenario.',
       };
     }
-    case CategoriesActionTypes.FETCH_CATEGORY_SUCCESS: {
+    case SceneriesActionTypes.FETCH_SCENARIO_SUCCESS: {
       return {
         ...state,
-        category: action.payload.category,
+        scenario: action.payload.scenario,
         errorMessage: null
       };
     }
-    case CategoriesActionTypes.FETCH_CATEGORY_FAILURE: {
+    case SceneriesActionTypes.FETCH_SCENARIO_FAILURE: {
       return {
         ...state,
-        errorMessage: 'Cannot fetch category.',
+        errorMessage: 'Cannot fetch scenario.',
       };
     }
-    case CategoriesActionTypes.DELETE_CATEGORY_SUCCESS: {
-      return {
-        ...state,
-        errorMessage: null
-      };
-    }
-    case CategoriesActionTypes.DELETE_CATEGORY_FAILURE: {
-      return {
-        ...state,
-        errorMessage: 'Cannot delete category.',
-      };
-    }
-    case CategoriesActionTypes.CREATE_CATEGORY_SUCCESS: {
+    case SceneriesActionTypes.DELETE_SCENARIO_SUCCESS: {
       return {
         ...state,
         errorMessage: null
       };
     }
-    case CategoriesActionTypes.CREATE_CATEGORY_FAILURE: {
+    case SceneriesActionTypes.DELETE_SCENARIO_FAILURE: {
       return {
         ...state,
-        errorMessage: 'Cannot delete category.',
+        errorMessage: 'Cannot delete scenario.',
       };
     }
-    case CategoriesActionTypes.UPDATE_CATEGORY_SUCCESS: {
+    case SceneriesActionTypes.CREATE_SCENARIO_SUCCESS: {
       return {
         ...state,
         errorMessage: null
       };
     }
-    case CategoriesActionTypes.UPDATE_CATEGORY_FAILURE: {
+    case SceneriesActionTypes.CREATE_SCENARIO_FAILURE: {
       return {
         ...state,
         errorMessage: 'Cannot delete category.',
+      };
+    }
+    case SceneriesActionTypes.UPDATE_SCENARIO_SUCCESS: {
+      return {
+        ...state,
+        errorMessage: null
+      };
+    }
+    case SceneriesActionTypes.UPDATE_SCENARIO_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot delete scenario.',
       };
     }
     default: {
