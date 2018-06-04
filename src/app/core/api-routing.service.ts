@@ -83,7 +83,6 @@ export class ApiRoutingService {
     return this.baseUrl + 'cases';
   }
 
-<<<<<<< HEAD
   getFilteredAndSortedSceneriesAPIUrl(): string {
     return this.baseUrl + 'scenario/all';
   }
@@ -98,9 +97,9 @@ export class ApiRoutingService {
 
   getScenarioAPIUrl(): string {
     return this.baseUrl + 'scenario';
-=======
+  }
+
   getSummaryCreateCsvURL(): string {
     return this.baseUrl + 'category/csv';
->>>>>>> origin/master
   }
 }
