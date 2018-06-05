@@ -37,6 +37,7 @@ import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { ChangePasswordComponent } from './pages/my-profile/change-password/change-password.component';
 import { OrganizationComponent } from './pages/organization/organization.component';
 import { EditDetailsComponent as OrgEditDetailsComponent } from './pages/organization/edit-details/edit-details.component';
+import { MembersComponent } from './pages/organization/members/members.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -79,7 +80,8 @@ import { OrganizationService } from '@app/core/services/OrganizationService/orga
     MyProfileComponent,
     ChangePasswordComponent,
     OrganizationComponent,
-    OrgEditDetailsComponent
+    OrgEditDetailsComponent,
+    MembersComponent
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,7 @@ import { AddEditTaxComponent } from '@app/pages/edit-taxes/add-edit-tax/add-edit
 import { AddEditScenarioComponent } from '@app/pages/edit-scenarios/add-edit-scenario/add-edit-scenario.component';
 import { OrganizationComponent } from '@app/pages/organization/organization.component';
 import { EditDetailsComponent as OrgEditDetailsComponent } from '@app/pages/organization/edit-details/edit-details.component';
+import { MembersComponent } from '@app/pages/organization/members/members.component';
 
 const routes: Routes = [
   { path: '', component: DashboardCaseComponent, canActivate: [AuthGuardService] },
@@ -41,7 +42,8 @@ const routes: Routes = [
   { path: 'organization/:org_id', component: OrganizationComponent,
     children: [
         { path: '', redirectTo: 'details', pathMatch: 'full', canActivate: [AuthGuardService] },
-        { path: 'details', component: OrgEditDetailsComponent, canActivate: [AuthGuardService] }
+        { path: 'details', component: OrgEditDetailsComponent, canActivate: [AuthGuardService] },
+        { path: 'members', component: MembersComponent, canActivate: [AuthGuardService] },
     ]
   },
 ];

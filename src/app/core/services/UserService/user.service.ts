@@ -11,6 +11,7 @@ export class UserService {
 
   private users_api_url: string;
   private password_api_url: string;
+  private all_users_api_url: string;
 
   constructor(
     private http: HttpHelperService,
@@ -18,6 +19,7 @@ export class UserService {
   ) {
     this.users_api_url = apiRoutingService.getUsersAPIUrl();
     this.password_api_url = apiRoutingService.getUpdatePasswordAPIUrl();
+    this.all_users_api_url = apiRoutingService.getAllUsersAPIUrl();
   }
 
   getUser(payload): Observable<any> {
@@ -44,6 +46,14 @@ export class UserService {
       this.password_api_url,
       payload,
       false,
+      true
+    );
+  }
+
+  getUsers(payload): Observable<any> {
+    return this.http.get(
+      this.all_users_api_url,
+      payload,
       true
     );
   }

@@ -31,6 +31,10 @@ export class ApiRoutingService {
     return this.baseUrl + 'users';
   }
 
+  getAllUsersAPIUrl(): string {
+    return this.baseUrl + 'users/all';
+  }
+
   getUpdatePasswordAPIUrl(): string {
     return this.baseUrl + 'users/password';
   }

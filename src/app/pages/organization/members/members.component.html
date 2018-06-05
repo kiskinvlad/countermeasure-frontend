@@ -1,0 +1,31 @@
+<div class="with-sidebar">
+  <div class="container">
+    <h2 class="members-title">Members</h2>
+
+    <a class="btn btn-primary float-right" [routerLink]="['/organization', orgId, 'members', 'edit']">Add Member</a>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Account Status</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of members">
+          <td>{{[user.first_name, user.last_name].join(' ')}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.enabled ? 'Enabled' : 'Disabled'}}</td>
+          <td>{{user.role_id === 'OM' ? 'Member' : 'Admin'}}</td>
+          <td><a [routerLink]="['/organization', orgId, 'members', 'edit', user.userid]">Edit</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <ngb-pagination [collectionSize]="totalCount" [pageSize]="itemsPerPage" [(page)]="currentPage" [maxSize]="5" (pageChange)="loadPage($event)" class="d-flex justify-content-end"></ngb-pagination>
+
+    <p class="text-right">{{totalEnabled}} of {{memberLimit}} user accounts in use</p>
+  </div>
+</div>
