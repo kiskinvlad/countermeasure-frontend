@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { map, filter, scan, tap, concatMap } from 'rxjs/operators';
+import { NotificationsService } from 'angular2-notifications';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
@@ -31,6 +32,7 @@ export class DisputesEffects {
     private disputesService: DisputesService,
     private router: Router,
     private localStorageService: LocalStorageService,
+    private notificationsService: NotificationsService
   ) {}
 
   @Effect()
@@ -80,13 +82,16 @@ export class DisputesEffects {
   CreateDisputedSuccess: Observable<any> = this.actions.pipe(
     ofType(DisputesActionTypes.CREATE_DISPUTED_SUCCESS),
     tap(({payload: disputed_data}) => {
-      console.log('casesData = ', disputed_data);
+      this.notificationsService.success('Success', 'Disputed has been successfully created.');
     })
   );
 
   @Effect({ dispatch: false })
   CreateDisputedFailure: Observable<any> = this.actions.pipe(
-    ofType(DisputesActionTypes.CREATE_DISPUTED_FAILURE)
+    ofType(DisputesActionTypes.CREATE_DISPUTED_FAILURE),
+    tap(() => {
+      this.notificationsService.error('Error', "Disputed was not created.");
+    })
   );
 
   @Effect()
@@ -108,13 +113,16 @@ export class DisputesEffects {
   UpdateDisputedSuccess: Observable<any> = this.actions.pipe(
     ofType(DisputesActionTypes.UPDATE_DISPUTED_SUCCESS),
     tap(({payload: disputed_data}) => {
-      console.log('casesData = ', disputed_data);
+      this.notificationsService.success('Success', 'Disputed has been successfully updated.');
     })
   );
 
   @Effect({ dispatch: false })
   UpdateDisputedFailure: Observable<any> = this.actions.pipe(
-    ofType(DisputesActionTypes.UPDATE_DISPUTED_FAILURE)
+    ofType(DisputesActionTypes.UPDATE_DISPUTED_FAILURE),
+    tap(() => {
+      this.notificationsService.error('Error', "Disputed was not updated.");
+    })
   );
 
   @Effect()
@@ -136,13 +144,16 @@ export class DisputesEffects {
   RemoveDisputedSuccess: Observable<any> = this.actions.pipe(
     ofType(DisputesActionTypes.REMOVE_DISPUTED_SUCCESS),
     tap(({payload: disputed_data}) => {
-      console.log('casesData = ', disputed_data);
+      this.notificationsService.success('Success', 'Disputed has been successfully removed.');
     })
   );
 
   @Effect({ dispatch: false })
   RemoveDisputedFailure: Observable<any> = this.actions.pipe(
-    ofType(DisputesActionTypes.REMOVE_DISPUTED_FAILURE)
+    ofType(DisputesActionTypes.REMOVE_DISPUTED_FAILURE),
+    tap(() => {
+      this.notificationsService.error('Error', "Disputed was not removed.");
+    })
   );
 
   @Effect()
