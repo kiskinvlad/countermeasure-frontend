@@ -37,6 +37,7 @@ import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { ChangePasswordComponent } from './pages/my-profile/change-password/change-password.component';
 import { OrganizationComponent } from './pages/organization/organization.component';
 import { EditDetailsComponent as OrgEditDetailsComponent } from './pages/organization/edit-details/edit-details.component';
+import { SummaryScenariosComponent } from './pages/summary-scenarios/summary-scenarios.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -57,7 +58,6 @@ import { ApiRoutingService } from '@app/core/api-routing.service';
 import { HttpHelperService } from '@app/core/http-helper.service';
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { ScenarioService } from '@app/core/services/ScenarioService/scenario.service';
-import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects';
 import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
 
 @NgModule({
@@ -80,7 +80,8 @@ import { OrganizationService } from '@app/core/services/OrganizationService/orga
     MyProfileComponent,
     ChangePasswordComponent,
     OrganizationComponent,
-    OrgEditDetailsComponent
+    OrgEditDetailsComponent,
+    SummaryScenariosComponent
   ],
   imports: [
     BrowserModule,

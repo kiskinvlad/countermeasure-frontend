@@ -1,0 +1,62 @@
+<ct-navigation-bar></ct-navigation-bar>
+<ct-sidebar></ct-sidebar>
+<div>
+  <div class="container summary-scenarios">
+    <div class="d-flex justify-content-between section-title">
+      <h2>Amount In Dispute</h2>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Total payable</td>
+          <td>value $</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h2>Proposed Scenarios</h2>
+  <div class="container summary-scenarios" *ngFor="let scenario of scenarios; let index = index">
+    <div class="d-flex justify-content-between section-title">
+        <h2>scenario.name</h2>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Total Reduction To Dept</th>
+            <th>Remaining Amount Payable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Reduction to Income</td>
+            <td>Reduction to Taxes</td>
+            <td>Reduction to Penalties</td>
+            <td>Reduction to Interest</td>
+            <td>Total</td>
+          </tr>
+          <tr>
+            <td>{{scenario.taxable_income}}</td>
+            <td>{{scenario.taxes}}</td>
+            <td>{{scenario.penalties}}</td>
+            <td>{{scenario.interest}}</td>
+            <td>totalreduction.value</td>
+          </tr>
+          <tr>
+            <td>income.value</td>
+            <td>taxes.value</td>
+            <td>penalties.value</td>
+            <td>interest.value</td>
+            <td>totalreduction.value</td>
+            </tr>
+        </tbody>
+      </table>
+    <button type="button" class="btn btn-primary" (click)='create_csv()'> Create CVS </button>
+  </div>
+</div>
