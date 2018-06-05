@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs/';
 import { AppState } from '../../ngrx-store/app.states';
 import { ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
 
 @Component({
   selector: 'ct-sidebar',
@@ -12,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class SideBarComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public case_id: string;
+  public userOrg: number;
 
   @Input()
   menuType: string;
@@ -19,7 +21,9 @@ export class SideBarComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
+    private localStorageService: LocalStorageService,
   ) {
+    this.userOrg = this.localStorageService.getUserOrgId();
   }
 
   ngOnInit() {
