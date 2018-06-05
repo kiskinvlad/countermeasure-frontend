@@ -47,6 +47,7 @@ import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects
 import { ScenarioEffects } from '@app/shared/ngrx-store/effects/scenario.effects';
 import { UserEffects } from '@app/shared/ngrx-store/effects/user.effects';
 import { OrganizationEffects } from '@app/shared/ngrx-store/effects/organization.effects';
+import { CsvEffects } from '@app/shared/ngrx-store/effects/csv.effects';
 
 import { UserService } from '@app/core/services/UserService/user.service';
 import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
@@ -59,6 +60,7 @@ import { HttpHelperService } from '@app/core/http-helper.service';
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { ScenarioService } from '@app/core/services/ScenarioService/scenario.service';
 import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
+import { CsvService } from '@app/core/services/CsvService/csv.service';
 
 @NgModule({
   declarations: [
@@ -97,7 +99,16 @@ import { OrganizationService } from '@app/core/services/OrganizationService/orga
     NgxPermissionsModule.forRoot(),
     StoreModule.forRoot(reducers, {}),
     BrowserAnimationsModule,
-    EffectsModule.forRoot([AuthEffects, CasesEffects, UserEffects, CategoryEffects, DisputesEffects, OrganizationEffects, ScenarioEffects]),
+    EffectsModule.forRoot([
+      AuthEffects,
+      CasesEffects,
+      UserEffects,
+      CategoryEffects,
+      DisputesEffects,
+      OrganizationEffects,
+      ScenarioEffects,
+      CsvEffects
+    ]),
     SimpleNotificationsModule.forRoot(),
   ],
   providers: [
@@ -116,7 +127,8 @@ import { OrganizationService } from '@app/core/services/OrganizationService/orga
     BsModalService,
     DisputesService,
     ScenarioService,
-    OrganizationService
+    OrganizationService,
+    CsvService
   ],
   entryComponents: [
     AddEditTaxComponent,

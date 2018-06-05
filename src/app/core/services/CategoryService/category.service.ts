@@ -91,14 +91,4 @@ export class CategoryService {
       null
     );
   }
-
-  createCsv(payload): Observable<any> {
-    return this.http.post(
-      this.get_summary_create_csv_url,
-      payload,
-      false,
-      true,
-      null
-    );
-  }
 }
