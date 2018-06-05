@@ -72,7 +72,7 @@ export class ApiRoutingService {
   }
 
   getDisputesByCaseAPIUrl(): string {
-    return this.baseUrl + 'disputes/case'
+    return this.baseUrl + 'disputes/case';
   }
 
   getDisputesApiUrl(): string {
@@ -105,5 +105,9 @@ export class ApiRoutingService {
 
   getSummaryCreateCsvURL(): string {
     return this.baseUrl + 'category/csv';
+  }
+
+  getOrganizationAPIUrl(): string {
+    return this.baseUrl + 'organizations';
   }
 }

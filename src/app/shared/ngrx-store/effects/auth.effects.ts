@@ -51,7 +51,8 @@ export class AuthEffects {
         .map((data) => {
           return new LogInSuccess({
             token: data.token, email: data.user.email, first_name: data.user.first_name,
-            last_name: data.user.last_name, role_name: data.user.role_name, role_id: data.user.role_id
+            last_name: data.user.last_name, role_name: data.user.role_name,
+            role_id: data.user.role_id, org_id: data.user.org_id
           });
         })
         .catch((error) => {

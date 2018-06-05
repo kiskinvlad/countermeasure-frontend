@@ -8,7 +8,6 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { LocalStorageService as DLSService } from 'ngx-webstorage';
@@ -19,7 +18,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppRoutingModule } from '@app/app-routing.module';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from '@app/pages/login/login.component';
 import { SideBarComponent } from '@app/shared/components/sidebar/sidebar.component';
@@ -37,6 +35,8 @@ import { AddEditScenarioComponent } from './pages/edit-scenarios/add-edit-scenar
 import { SummaryCategoriesComponent } from './pages/summary-categories/summary-categories.component';
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { ChangePasswordComponent } from './pages/my-profile/change-password/change-password.component';
+import { OrganizationComponent } from './pages/organization/organization.component';
+import { EditDetailsComponent as OrgEditDetailsComponent } from './pages/organization/edit-details/edit-details.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -45,6 +45,7 @@ import { CategoryEffects } from '@app/shared/ngrx-store/effects/category.effects
 import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects';
 import { ScenarioEffects } from '@app/shared/ngrx-store/effects/scenario.effects';
 import { UserEffects } from '@app/shared/ngrx-store/effects/user.effects';
+import { OrganizationEffects } from '@app/shared/ngrx-store/effects/organization.effects';
 
 import { UserService } from '@app/core/services/UserService/user.service';
 import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
@@ -56,6 +57,8 @@ import { ApiRoutingService } from '@app/core/api-routing.service';
 import { HttpHelperService } from '@app/core/http-helper.service';
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { ScenarioService } from '@app/core/services/ScenarioService/scenario.service';
+import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects';
+import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
 
 @NgModule({
   declarations: [
@@ -76,9 +79,8 @@ import { ScenarioService } from '@app/core/services/ScenarioService/scenario.ser
     SummaryCategoriesComponent,
     MyProfileComponent,
     ChangePasswordComponent,
-    SummaryCategoriesComponent,
-    EditTaxesComponent,
-    AddEditTaxComponent
+    OrganizationComponent,
+    OrgEditDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +96,7 @@ import { ScenarioService } from '@app/core/services/ScenarioService/scenario.ser
     NgxPermissionsModule.forRoot(),
     StoreModule.forRoot(reducers, {}),
     BrowserAnimationsModule,
-    EffectsModule.forRoot([AuthEffects, CasesEffects, UserEffects, CategoryEffects, DisputesEffects, ScenarioEffects]),
+    EffectsModule.forRoot([AuthEffects, CasesEffects, UserEffects, CategoryEffects, DisputesEffects, OrganizationEffects, ScenarioEffects]),
     SimpleNotificationsModule.forRoot(),
   ],
   providers: [
@@ -112,7 +114,8 @@ import { ScenarioService } from '@app/core/services/ScenarioService/scenario.ser
     NgxPermissionsService,
     BsModalService,
     DisputesService,
-    ScenarioService
+    ScenarioService,
+    OrganizationService
   ],
   entryComponents: [
     AddEditTaxComponent,

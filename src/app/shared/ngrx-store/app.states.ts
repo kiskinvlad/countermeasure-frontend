@@ -15,6 +15,7 @@ import * as user from '@shared/ngrx-store/reducers/user.reducers';
 import * as category from '@shared/ngrx-store/reducers/category.reducers';
 import * as disputes from '@shared/ngrx-store/reducers/disputes.reducers';
 import * as scenario from '@shared/ngrx-store/reducers/scenario.reducers';
+import * as organization from '@shared/ngrx-store/reducers/organization.reducers';
 
 export interface AppState {
   authState: auth.State;
@@ -24,6 +25,7 @@ export interface AppState {
   categoryState: category.State;
   disputesState: disputes.State;
   scenarioState: scenario.State;
+  organizationState: organization.State;
 }
 
 export const reducers = {
@@ -33,7 +35,8 @@ export const reducers = {
   disputesState: disputes.reducer,
   userState: user.reducer,
   categoryState: category.reducer,
-  scenarioState: scenario.reducer
+  scenarioState: scenario.reducer,
+  organizationState: organization.reducer
 };
 
 export const selectAuthState = createFeatureSelector<AppState>('authState');
@@ -43,6 +46,7 @@ export const selectUserState = createFeatureSelector<AppState>('userState');
 export const selectCategoryState = createFeatureSelector<AppState>('categoryState');
 export const selectDisputesState = createFeatureSelector<AppState>('disputesState');
 export const selectScenarioState = createFeatureSelector<AppState>('scenarioState');
+export const selectOrganizationState = createFeatureSelector<AppState>('organizationState');
 
 const combinedReducer: ActionReducer<AppState> = combineReducers(reducers);
 
@@ -57,4 +61,3 @@ export function reducer(state: any, action: any) {
 }
 
 export const getAuthState = (state: AppState) => state.authState;
-

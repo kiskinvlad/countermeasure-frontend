@@ -1,0 +1,59 @@
+<div class="with-sidebar">
+  <div class="container">
+    <h2>Details</h2>
+    <form [formGroup]="orgForm" (ngSubmit)="onSubmit()">
+      <div class="card card-borderless">
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="org-name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="org-name" formControlName="orgName">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          Primary Contact
+        </div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="first-name" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="first-name" formControlName="firstName">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="last-name" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="last-name" formControlName="lastName">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="phone-number" class="col-sm-2 col-form-label">Phone Number</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" [ngClass]="validator.displayFieldCss(orgForm, 'phone')" id="phone-number" formControlName="phone">
+              <div class="invalid-feedback">
+                Phone number cannot be longer than 15 characters.
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" [ngClass]="validator.displayFieldCss(orgForm, 'email')" id="email" formControlName="email">
+              <div class="invalid-feedback">
+                Email is invalid.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="orgForm.pristine || !orgForm.valid">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -69,6 +69,7 @@ export class EditTaxesComponent implements OnInit {
   openAddTaxDialog(): void {
     this.disputedDlgRef = this.addEditDlgService.show(AddEditTaxComponent, this.dialogConfig);
     this.disputedDlgRef.content.dialogTitle = "Add Personal Income Tax Year in";
+    this.disputedDlgRef.content.btn_remove = false;
     this.disputedDlgRef.content.onCloseReason.subscribe(result => {
       if (result == 'submit') {
         var payload = {
@@ -86,11 +87,15 @@ export class EditTaxesComponent implements OnInit {
     this.disputedDlgRef.content.disputed = this.disputed[index];
     this.disputedDlgRef.content.dialogTitle = "Edit Personal Income Tax Year in";
     this.disputedDlgRef.content.onCloseReason.subscribe(result => {
-      if (result == 'save') {
+      if (result == 'submit') {
+        console.log(this.disputedDlgRef.content.disputed);
         const payload = {
+          case_id: this.case_id,
           disputed: this.disputedDlgRef.content.disputed
         }
         this.store.dispatch(new UpdateDisputed(payload));
+      } else if (result == 'remove') {
+        this.removeDisputed(index);
       }
     });
   }
