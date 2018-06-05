@@ -57,7 +57,6 @@ import { ApiRoutingService } from '@app/core/api-routing.service';
 import { HttpHelperService } from '@app/core/http-helper.service';
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { ScenarioService } from '@app/core/services/ScenarioService/scenario.service';
-import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects';
 import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
 
 @NgModule({
