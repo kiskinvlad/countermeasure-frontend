@@ -62,6 +62,21 @@ export class FetchUsersFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class CreateUser implements Action {
+  readonly type = UserActionTypes.CREATE_USER;
+  constructor(public payload: any) {}
+}
+
+export class CreateUserSuccess implements Action {
+  readonly type = UserActionTypes.CREATE_USER_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class CreateUserFailure implements Action {
+  readonly type = UserActionTypes.CREATE_USER_FAILURE;
+  constructor(public payload: any) {}
+}
+
 export type All =
   | FetchUser
   | FetchUserSuccess
@@ -74,4 +89,7 @@ export type All =
   | UpdatePasswordFailure
   | FetchUsers
   | FetchUsersSuccess
-  | FetchUsersFailure;
+  | FetchUsersFailure
+  | CreateUser
+  | CreateUserSuccess
+  | CreateUserFailure;

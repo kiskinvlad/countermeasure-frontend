@@ -11,6 +11,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/observable/from';
+import 'rxjs/add/observable/throw';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { UserService } from '@app/core/services/UserService/user.service';
 import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
@@ -29,7 +30,10 @@ import {
   UpdatePasswordSuccess,
   FetchUsers,
   FetchUsersFailure,
-  FetchUsersSuccess
+  FetchUsersSuccess,
+  CreateUser,
+  CreateUserFailure,
+  CreateUserSuccess,
 } from '../actions/user.actions';
 
 @Injectable()
@@ -64,7 +68,6 @@ export class UserEffects {
   FetchUserFailure: Observable<any> = this.actions
     .ofType(UserActionTypes.FETCH_USER_FAILURE)
     .map(() => {
-      this.router.navigateByUrl('/login');
     });
 
   @Effect({ dispatch: false })
@@ -92,7 +95,7 @@ export class UserEffects {
   UpdateUserSuccess: Observable<any> = this.actions.pipe(
     ofType(UserActionTypes.UPDATE_USER_SUCCESS),
     tap((data) => {
-      this.notificationsService.success('Success', 'Your details have been updated.');
+      this.notificationsService.success('Success', 'User details have been updated.');
     })
   );
 
@@ -161,4 +164,37 @@ export class UserEffects {
     FetchUsersSuccess: Observable<any> = this.actions.pipe(
       ofType(UserActionTypes.FETCH_USERS_SUCCESS)
     );
+
+    @Effect()
+    CreateUser: Observable<Action> = this.actions
+      .ofType(UserActionTypes.CREATE_USER)
+      .map((action: CreateUser) => action.payload)
+      .switchMap(payload => {
+
+        return this.userService.createUser(payload)
+          .map((data) => {
+            return new CreateUserSuccess(data);
+          })
+          .catch((error) => {
+            console.log(error);
+            return Observable.of(new CreateUserFailure({ error: error }));
+          });
+      });
+
+    @Effect({ dispatch: false })
+    CreateUserSuccess: Observable<any> = this.actions.pipe(
+      ofType(UserActionTypes.CREATE_USER_SUCCESS),
+      tap((data) => {
+        this.notificationsService.success('Success', 'New user has been created.');
+        const user = data.payload.user;
+        this.router.navigateByUrl('/organization/' + user.org_id + '/members/edit/' + user.user_id);
+      })
+    );
+
+    @Effect({ dispatch: false })
+    CreateUserFailure: Observable<any> = this.actions
+      .ofType(UserActionTypes.CREATE_USER_FAILURE)
+      .map(() => {
+        this.notificationsService.error('Error', 'Failed to create new user.');
+      });
 }

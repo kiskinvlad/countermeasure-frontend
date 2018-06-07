@@ -11,4 +11,7 @@ export enum UserActionTypes {
     FETCH_USERS = '[User] Fetch Users Action',
     FETCH_USERS_SUCCESS = '[User] Fetch Users Success Action',
     FETCH_USERS_FAILURE = '[User] Fetch Users Failure Action',
+    CREATE_USER = '[User] Create User Action',
+    CREATE_USER_SUCCESS = '[User] Create User Success Action',
+    CREATE_USER_FAILURE = '[User] Create User Failure Action',
 }

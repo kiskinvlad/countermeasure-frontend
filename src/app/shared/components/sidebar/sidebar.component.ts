@@ -23,7 +23,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private localStorageService: LocalStorageService,
   ) {
-    this.userOrg = this.localStorageService.getUserOrgId();
+    this.userOrg = this.localStorageService.getUserOrgID();
   }
 
   ngOnInit() {

@@ -18,6 +18,7 @@ export class LocalStorageService {
     this.currentUser.role_id = this.localStorage.retrieve('role_id');
     this.currentUser.role_name = this.localStorage.retrieve('role_name');
     this.currentUser.org_id = this.localStorage.retrieve('org_id');
+    this.currentUser.user_id = this.localStorage.retrieve('user_id');
   }
 
   /* basic localStorage functions */
@@ -73,8 +74,12 @@ export class LocalStorageService {
     return this.currentUser.role_id;
   }
 
-  public getUserOrgId(): number {
+  public getUserOrgID(): number {
     return this.currentUser.org_id;
+  }
+
+  public getUserID(): number {
+    return this.currentUser.user_id;
   }
 
   public getUserData(): User {
@@ -88,6 +93,7 @@ export class LocalStorageService {
     this.setItem('last_name', user.last_name);
     this.setItem('role_id', user.role_id);
     this.setItem('org_id', user.org_id);
+    this.setItem('user_id', user.user_id);
     this.currentUser = user;
   }
 

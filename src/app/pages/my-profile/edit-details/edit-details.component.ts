@@ -5,6 +5,7 @@ import { Observable, Subscription } from 'rxjs/';
 import { User } from '@app/shared/models/user';
 import { AppState, selectUserState } from '@app/shared/ngrx-store/app.states';
 import { FetchUser, UpdateUser } from '@app/shared/ngrx-store/actions/user.actions';
+import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
 
 @Component({
   selector: 'ct-edit-details',
@@ -18,9 +19,15 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   errorMessage: string | null;
   subscription: Subscription;
   myProfileForm: FormGroup;
+  userID: number;
 
-  constructor(private store: Store<AppState>, private fb: FormBuilder) {
+  constructor(
+    private store: Store<AppState>,
+    private fb: FormBuilder,
+    private localStorageService: LocalStorageService
+  ) {
     this.getState$ = this.store.select(selectUserState);
+    this.userID = this.localStorageService.getUserID();
     this.createForm();
   }
 
@@ -51,7 +58,7 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   }
 
   getUser(): void {
-    this.store.dispatch(new FetchUser(null));
+    this.store.dispatch(new FetchUser({user_id: this.userID}));
   }
 
   onSubmit() {

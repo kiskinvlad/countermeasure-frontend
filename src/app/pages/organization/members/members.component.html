@@ -2,7 +2,7 @@
   <div class="container">
     <h2 class="members-title">Members</h2>
 
-    <a class="btn btn-primary float-right" [routerLink]="['/organization', orgId, 'members', 'edit']">Add Member</a>
+    <a class="btn btn-primary float-right" [routerLink]="['/organization', orgID, 'members', 'edit']">Add Member</a>
 
     <table class="table table-bordered">
       <thead>
@@ -20,7 +20,7 @@
           <td>{{user.email}}</td>
           <td>{{user.enabled ? 'Enabled' : 'Disabled'}}</td>
           <td>{{user.role_id === 'OM' ? 'Member' : 'Admin'}}</td>
-          <td><a [routerLink]="['/organization', orgId, 'members', 'edit', user.userid]">Edit</a></td>
+          <td><a [routerLink]="['/organization', orgID, 'members', 'edit', user.user_id]">Edit</a></td>
         </tr>
       </tbody>
     </table>
