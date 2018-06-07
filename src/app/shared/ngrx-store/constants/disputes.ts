@@ -16,5 +16,8 @@ export enum DisputesActionTypes {
     FETCH_DISPUTES_FAILURE = '[Disputes] Fetch Disputes Failure Action',
     FETCH_DISPUTES_BY_CASE = '[Disputes] Fetch Disputes By Case Action',
     FETCH_DISPUTES_BY_CASE_SUCCESS = '[Disputes] Fetch Disputes By Case Success Action',
-    FETCH_DISPUTES_BY_CASE_FAILURE = '[Disputes] Fetch Disputes By Case Failure Action'
+    FETCH_DISPUTES_BY_CASE_FAILURE = '[Disputes] Fetch Disputes By Case Failure Action',
+    FETCH_DISPUTES_BY_SUMMARY = '[Disputes] Fetch Disputes By Summary Action',
+    FETCH_DISPUTES_BY_SUMMARY_SUCCESS = '[Disputes] Fetch Disputes By Summary Success Action',
+    FETCH_DISPUTES_BY_SUMMARY_FAILURE = '[Disputes] Fetch Disputes By Summary Failure Action'
 }
