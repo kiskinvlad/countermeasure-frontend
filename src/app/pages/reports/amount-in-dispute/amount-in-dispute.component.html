@@ -1,0 +1,45 @@
+<ct-navigation-bar></ct-navigation-bar>
+<ct-sidebar></ct-sidebar>
+<div class="container amount-in-dispute">
+  <div>
+    <div class="amount-in-dispute__header" #header>
+      <hr/>
+      <h1>Amount In Dispute</h1>
+      <h2>{{total_disputed['total'] | number:'1.2-2'}}$</h2>
+      <hr/>
+    </div>
+    <div [hidden]="!chart">
+      <canvas id="canvas" #canvas>{{ chart }}</canvas>
+    </div>
+    <div class="container edit-categories">
+      <table class="table table-bordered" #pdf>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Tax</th>
+            <th>Penalties</th>
+            <th>Interest</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let disputed_group of grouped_disputed; let index = index">
+            <td>{{disputed_group.param}}</td>
+            <td>{{disputed_group.taxes | number:'1.2-2'}}$</td>
+            <td>{{disputed_group.penalties | number:'1.2-2'}}$</td>
+            <td>{{disputed_group.interest | number:'1.2-2'}}$</td>
+            <td>{{disputed_group.total | number:'1.2-2'}}$</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>{{total_disputed['taxes'] | number:'1.2-2'}}$</td>
+            <td>{{total_disputed['penalties'] | number:'1.2-2'}}$</td>
+            <td>{{total_disputed['interest'] | number:'1.2-2'}}$</td>
+            <td>{{total_disputed['total'] | number:'1.2-2'}}$</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary float-right" (click)="downloadPdf()"> Print </button>
+</div>

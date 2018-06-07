@@ -37,6 +37,7 @@ import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { ChangePasswordComponent } from './pages/my-profile/change-password/change-password.component';
 import { OrganizationComponent } from './pages/organization/organization.component';
 import { EditDetailsComponent as OrgEditDetailsComponent } from './pages/organization/edit-details/edit-details.component';
+import { AmountInDisputeComponent } from './pages/reports/amount-in-dispute/amount-in-dispute.component';
 import { SummaryScenariosComponent } from './pages/summary-scenarios/summary-scenarios.component';
 import { MembersComponent } from './pages/organization/members/members.component';
 import { SummaryTaxesComponent } from './pages/summary-taxes/summary-taxes.component';
@@ -85,6 +86,7 @@ import { CsvService } from '@app/core/services/CsvService/csv.service';
     ChangePasswordComponent,
     OrganizationComponent,
     OrgEditDetailsComponent,
+    AmountInDisputeComponent,
     SummaryScenariosComponent,
     MembersComponent,
     SummaryTaxesComponent

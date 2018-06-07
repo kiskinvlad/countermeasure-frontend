@@ -16,6 +16,7 @@ import { AddEditTaxComponent } from '@app/pages/edit-taxes/add-edit-tax/add-edit
 import { AddEditScenarioComponent } from '@app/pages/edit-scenarios/add-edit-scenario/add-edit-scenario.component';
 import { OrganizationComponent } from '@app/pages/organization/organization.component';
 import { EditDetailsComponent as OrgEditDetailsComponent } from '@app/pages/organization/edit-details/edit-details.component';
+import { AmountInDisputeComponent } from '@app/pages/reports/amount-in-dispute/amount-in-dispute.component';
 import { SummaryScenariosComponent } from '@app/pages/summary-scenarios/summary-scenarios.component';
 import { MembersComponent } from '@app/pages/organization/members/members.component';
 import { SummaryTaxesComponent } from '@app/pages/summary-taxes/summary-taxes.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'case/:case_id/detail', component: EditCasesComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/taxes', component: EditTaxesComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/taxes/summary', component: SummaryTaxesComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/amount-in-dispute', component: AmountInDisputeComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   { path: 'my-profile', component: MyProfileComponent,
     children: [
