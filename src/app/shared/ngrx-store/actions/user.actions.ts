@@ -47,6 +47,21 @@ export class UpdatePasswordFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class FetchUsers implements Action {
+  readonly type = UserActionTypes.FETCH_USERS;
+  constructor(public payload: any) {}
+}
+
+export class FetchUsersSuccess implements Action {
+  readonly type = UserActionTypes.FETCH_USERS_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class FetchUsersFailure implements Action {
+  readonly type = UserActionTypes.FETCH_USERS_FAILURE;
+  constructor(public payload: any) {}
+}
+
 export type All =
   | FetchUser
   | FetchUserSuccess
@@ -56,4 +71,7 @@ export type All =
   | UpdateUserFailure
   | UpdatePassword
   | UpdatePasswordSuccess
-  | UpdatePasswordFailure;
+  | UpdatePasswordFailure
+  | FetchUsers
+  | FetchUsersSuccess
+  | FetchUsersFailure;

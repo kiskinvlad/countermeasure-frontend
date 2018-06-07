@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { Organization } from '@app/shared/models/organization';
 import { OrganizationActionTypes } from '@app/shared/ngrx-store/constants/organization';
 
 export class FetchOrganization implements Action {

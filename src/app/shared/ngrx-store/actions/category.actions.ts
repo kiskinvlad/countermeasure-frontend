@@ -106,21 +106,6 @@ export class CreateCategoryFailure implements Action {
   constructor(public payload: any) {}
 }
 
-export class CreateCategoriesSummaryCsv implements Action {
-  readonly type = CategoriesActionTypes.CREATE_CATEGORIES_SUMMARY_CSV;
-  constructor(public payload: any) {}
-}
-
-export class CreateCategoriesSummaryCsvSuccess implements Action {
-  readonly type = CategoriesActionTypes.CREATE_CATEGORIES_SUMMARY_CSV_SUCCESS;
-  constructor(public payload: any) {}
-}
-
-export class CreateCategoriesSummaryCsvFailure implements Action {
-  readonly type = CategoriesActionTypes.CREATE_CATEGORIES_SUMMARY_CSV_FAILURE;
-  constructor(public payload: any) {}
-}
-
 export type All =
   | FetchCategories
   | FetchCategoriesSuccess
@@ -142,8 +127,5 @@ export type All =
   | UpdateCategoryFailure
   | CreateCategory
   | CreateCategorySuccess
-  | CreateCategoryFailure
-  | CreateCategoriesSummaryCsv
-  | CreateCategoriesSummaryCsvSuccess
-  | CreateCategoriesSummaryCsvFailure;
+  | CreateCategoryFailure;
 
