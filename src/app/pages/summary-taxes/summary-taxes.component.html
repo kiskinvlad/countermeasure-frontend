@@ -1,0 +1,55 @@
+<ct-navigation-bar></ct-navigation-bar>
+
+<div class="d-flex flex-row">
+  <ct-sidebar></ct-sidebar>
+
+  <div class="tax-section">
+    <div class="d-flex justify-content-between section-title">
+      <h1>Edit Taxes</h1>
+    </div>
+
+    <div class="summary-section" *ngFor="let dis of disputed;">
+
+      <div class="d-flex justify-content-between second-title">
+        <h6>{{dis[0].taxpayer}} Taxpayer</h6>
+      </div>
+
+      <div class="d-flex justify-content-between second-title">
+        <h6>Personal Income Tax Years in Dispute</h6>
+      </div>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Province</th>
+            <th>Taxable Income</th>
+            <th>Taxes</th>
+            <th>Penalties</th>
+            <th>Interest</th>
+            <th>Amount in Dispute</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tax of dis; let i = index">
+            <td *ngIf="i != dis.length-1">{{tax.year}}</td>
+            <td *ngIf="i != dis.length-1">{{tax.province}}</td>
+            <td *ngIf="i != dis.length-1">{{tax.DIFF_taxable_income}}</td>
+            <td *ngIf="i != dis.length-1">{{tax.DIFF_balance_before_penalties_and_interest | number: '3.2'}}</td>
+            <td *ngIf="i != dis.length-1">{{tax.DIFF_total_tax_and_penalties - tax.DIFF_balance_before_penalties_and_interest}}</td>
+            <td *ngIf="i != dis.length-1">{{tax.DIFF_estimated_interest}}</td>
+            <td *ngIf="i != dis.length-1">{{tax.DIFF_total_debt}}</td>
+
+            <td *ngIf="i == dis.length-1" class="total-section">Total</td>
+            <td *ngIf="i == dis.length-1" class="total-section"></td>
+            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_taxable_income}}</td>
+            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_balance_before_penalties_and_interest | number: '3.2'}}</td>
+            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_total_tax_and_penalties - tax.DIFF_balance_before_penalties_and_interest}}</td>
+            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_estimated_interest}}</td>
+            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_total_debt}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -29,6 +29,15 @@ export class DisputesService {
     );
   }
 
+  getDisputesBySummary(payload): Observable<any> {
+    return this.http.get(
+      this.apiRoutingService.getDisputesBySummaryAPIUrl(),
+      payload,
+      true,
+      null
+    );
+  }
+
   getDisputed(payload): Observable<any> {
     return this.http.get(
       this.apiRoutingService.getDisputedApiUrl(),
