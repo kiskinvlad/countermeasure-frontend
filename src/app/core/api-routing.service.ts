@@ -31,6 +31,10 @@ export class ApiRoutingService {
     return this.baseUrl + 'users';
   }
 
+  getAllUsersAPIUrl(): string {
+    return this.baseUrl + 'users/all';
+  }
+
   getUpdatePasswordAPIUrl(): string {
     return this.baseUrl + 'users/password';
   }
@@ -73,6 +77,10 @@ export class ApiRoutingService {
 
   getDisputesByCaseAPIUrl(): string {
     return this.baseUrl + 'disputes/case';
+  }
+
+  getDisputesBySummaryAPIUrl(): string {
+    return this.baseUrl + 'disputes/summary';
   }
 
   getDisputesApiUrl(): string {

@@ -38,6 +38,8 @@ import { ChangePasswordComponent } from './pages/my-profile/change-password/chan
 import { OrganizationComponent } from './pages/organization/organization.component';
 import { EditDetailsComponent as OrgEditDetailsComponent } from './pages/organization/edit-details/edit-details.component';
 import { SummaryScenariosComponent } from './pages/summary-scenarios/summary-scenarios.component';
+import { MembersComponent } from './pages/organization/members/members.component';
+import { SummaryTaxesComponent } from './pages/summary-taxes/summary-taxes.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -83,7 +85,9 @@ import { CsvService } from '@app/core/services/CsvService/csv.service';
     ChangePasswordComponent,
     OrganizationComponent,
     OrgEditDetailsComponent,
-    SummaryScenariosComponent
+    SummaryScenariosComponent,
+    MembersComponent,
+    SummaryTaxesComponent
   ],
   imports: [
     BrowserModule,
