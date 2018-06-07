@@ -48,11 +48,11 @@
                     <li class="text-muted menu-title">Scenarios</li><!-- Menu title-->
 
                     <li class="has_sub">
-                        <a class="waves-effect"> <span> Edit </span></a>
+                        <a class="waves-effect" [routerLink]="['/case', case_id, 'scenaries']"> <span> Edit </span></a>
                     </li>
 
                     <li class="has_sub">
-                        <a class="waves-effect"> <span> Summary </span> </a>
+                        <a class="waves-effect" [routerLink]="['/case', case_id, 'scenaries', 'summary']"> <span> Summary </span> </a>
                     </li>
 
                     <li class="text-muted menu-title"> Reports </li><!-- Menu title-->
@@ -83,7 +83,7 @@
                         <a class="waves-effect" [routerLink]="['/organization', userOrg]"><span> Edit Details </span> </a>
                     </li>
                     <li class="has_sub">
-                        <a class="waves-effect" [routerLink]="['/organization', userOrg]"><span> Members </span> </a>
+                        <a class="waves-effect" [routerLink]="['/organization', userOrg, 'members']"><span> Members </span> </a>
                     </li>
                     <li class="has_sub">
                         <a class="waves-effect" [routerLink]="['/organization', userOrg]"><span> Guests </span> </a>

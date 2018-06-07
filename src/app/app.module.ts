@@ -38,6 +38,10 @@ import { ChangePasswordComponent } from './pages/my-profile/change-password/chan
 import { OrganizationComponent } from './pages/organization/organization.component';
 import { EditDetailsComponent as OrgEditDetailsComponent } from './pages/organization/edit-details/edit-details.component';
 import { AmountInDisputeComponent } from './pages/reports/amount-in-dispute/amount-in-dispute.component';
+import { SummaryScenariosComponent } from './pages/summary-scenarios/summary-scenarios.component';
+import { MembersComponent } from './pages/organization/members/members.component';
+import { SummaryTaxesComponent } from './pages/summary-taxes/summary-taxes.component';
+import { IssuesInDisputeComponent } from './pages/reports/issues-in-dispute/issues-in-dispute.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -47,6 +51,7 @@ import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects
 import { ScenarioEffects } from '@app/shared/ngrx-store/effects/scenario.effects';
 import { UserEffects } from '@app/shared/ngrx-store/effects/user.effects';
 import { OrganizationEffects } from '@app/shared/ngrx-store/effects/organization.effects';
+import { CsvEffects } from '@app/shared/ngrx-store/effects/csv.effects';
 
 import { UserService } from '@app/core/services/UserService/user.service';
 import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
@@ -59,7 +64,7 @@ import { HttpHelperService } from '@app/core/http-helper.service';
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { ScenarioService } from '@app/core/services/ScenarioService/scenario.service';
 import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
-import { IssuesInDisputeComponent } from './pages/reports/issues-in-dispute/issues-in-dispute.component';
+import { CsvService } from '@app/core/services/CsvService/csv.service';
 
 @NgModule({
   declarations: [
@@ -83,7 +88,10 @@ import { IssuesInDisputeComponent } from './pages/reports/issues-in-dispute/issu
     OrganizationComponent,
     OrgEditDetailsComponent,
     AmountInDisputeComponent,
-    IssuesInDisputeComponent
+    IssuesInDisputeComponent,
+    SummaryScenariosComponent,
+    MembersComponent,
+    SummaryTaxesComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +107,16 @@ import { IssuesInDisputeComponent } from './pages/reports/issues-in-dispute/issu
     NgxPermissionsModule.forRoot(),
     StoreModule.forRoot(reducers, {}),
     BrowserAnimationsModule,
-    EffectsModule.forRoot([AuthEffects, CasesEffects, UserEffects, CategoryEffects, DisputesEffects, OrganizationEffects, ScenarioEffects]),
+    EffectsModule.forRoot([
+      AuthEffects,
+      CasesEffects,
+      UserEffects,
+      CategoryEffects,
+      DisputesEffects,
+      OrganizationEffects,
+      ScenarioEffects,
+      CsvEffects
+    ]),
     SimpleNotificationsModule.forRoot(),
   ],
   providers: [
@@ -118,7 +135,8 @@ import { IssuesInDisputeComponent } from './pages/reports/issues-in-dispute/issu
     BsModalService,
     DisputesService,
     ScenarioService,
-    OrganizationService
+    OrganizationService,
+    CsvService
   ],
   entryComponents: [
     AddEditTaxComponent,

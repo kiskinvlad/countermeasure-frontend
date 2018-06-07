@@ -31,6 +31,21 @@ export class FetchDisputesByCaseFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class FetchDisputesBySummary implements Action {
+  readonly type = DisputesActionTypes.FETCH_DISPUTES_BY_SUMMARY;
+  constructor(public payload: any) {}
+}
+
+export class FetchDisputesBySummarySuccess implements Action {
+  readonly type = DisputesActionTypes.FETCH_DISPUTES_BY_SUMMARY_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class FetchDisputesBySummaryFailure implements Action {
+  readonly type = DisputesActionTypes.FETCH_DISPUTES_BY_SUMMARY_FAILURE;
+  constructor(public payload: any) {}
+}
+
 export class FetchDisputes implements Action {
   readonly type = DisputesActionTypes.FETCH_DISPUTES;
   constructor() {}
@@ -107,6 +122,9 @@ export type All =
   | FetchDisputesByCase
   | FetchDisputesByCaseSuccess
   | FetchDisputesByCaseFailure
+  | FetchDisputesBySummary
+  | FetchDisputesBySummarySuccess
+  | FetchDisputesBySummaryFailure
   | FetchDisputes
   | FetchDisputesSuccess
   | FetchDisputesFailure;

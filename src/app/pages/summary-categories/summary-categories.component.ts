@@ -3,8 +3,9 @@ import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectCategoryState } from '@app/shared/ngrx-store/app.states';
 import { ActivatedRoute } from '@angular/router';
-import { FetchCategories, CreateCategoriesSummaryCsv } from '@app/shared/ngrx-store/actions/category.actions';
+import { FetchCategories } from '@app/shared/ngrx-store/actions/category.actions';
 import { Category } from '@app/shared/models/category';
+import { CreateCsv } from '@app/shared/ngrx-store/actions/csv.actions';
 
 @Component({
   selector: 'ct-summary-categories',
@@ -158,7 +159,7 @@ export class SummaryCategoriesComponent implements OnInit {
 
   public create_csv(): void {
     const json = this.generateJsonForCvs(this.groupedCategories, this.combinedCategories, this.combinedCategoriesTotals);
-    this.store.dispatch(new CreateCategoriesSummaryCsv({json: json, case_id: this.case_id}));
+    this.store.dispatch(new CreateCsv({json: json, case_id: this.case_id, type: 'categories'}));
   }
 
   private generateJsonForCvs(gc, cc, cct): Array<any> {
