@@ -125,7 +125,7 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
         datasets: [
           {
             label: 'Total',
-            backgroundColor: ['#3e95cd', '#8e5ea2', '#3cba9f'],
+            backgroundColor: ['#082948', '#699bc5', '#c46158'],
             data: values
           }
         ]
@@ -140,7 +140,7 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
           render: function (args) {
             return args.percentage + '%';
           },
-          fontColor: '#000',
+          fontColor: '#082948',
           fontSize: 18,
           position: 'outside',
           segment: true,
@@ -161,10 +161,10 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
     doc.line(130, 25, 480, 25);
     doc.fromHTML(header, 130, 25);
     doc.line(130, 115, 480, 115);
-    doc.addImage(imgData, 'PNG', -20, 150, 620, 320, undefined, 'FAST');
+    doc.addImage(imgData, 'PNG', -20, 150, 620, 270, undefined, 'FAST');
     const table = doc.autoTableHtmlToJson(content);
     doc.autoTable(table.columns, table.data, {
-      startY: 500,
+      startY: 420,
       margin: 130,
       tableWidth: 350,
       headerStyles: {
