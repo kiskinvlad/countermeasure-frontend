@@ -41,6 +41,7 @@ import { AmountInDisputeComponent } from './pages/reports/amount-in-dispute/amou
 import { SummaryScenariosComponent } from './pages/summary-scenarios/summary-scenarios.component';
 import { MembersComponent } from './pages/organization/members/members.component';
 import { SummaryTaxesComponent } from './pages/summary-taxes/summary-taxes.component';
+import { IssuesInDisputeComponent } from './pages/reports/issues-in-dispute/issues-in-dispute.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -87,6 +88,7 @@ import { CsvService } from '@app/core/services/CsvService/csv.service';
     OrganizationComponent,
     OrgEditDetailsComponent,
     AmountInDisputeComponent,
+    IssuesInDisputeComponent,
     SummaryScenariosComponent,
     MembersComponent,
     SummaryTaxesComponent

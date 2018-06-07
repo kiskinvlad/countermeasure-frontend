@@ -1,0 +1,44 @@
+<ct-navigation-bar></ct-navigation-bar>
+<ct-sidebar></ct-sidebar>
+<div class="container amount-in-dispute">
+  <div>
+    <div class="amount-in-dispute__header" #header>
+      <hr/>
+      <h1>Issues In Dispute</h1>
+      <hr/>
+    </div>
+    <div [hidden]="!issue_chart">
+      <canvas id="canvas" #canvas>{{ issue_chart }}</canvas>
+    </div>
+    <div class="container edit-categories">
+      <table class="table table-bordered" #pdf>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Tax</th>
+            <th>Penalties</th>
+            <th>Interest</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category_group of grouped_categories; let index = index">
+            <td>{{category_group.param}}</td>
+            <td>{{category_group.taxes | number:'1.2-2'}}$</td>
+            <td>{{category_group.penalties | number:'1.2-2'}}$</td>
+            <td>{{category_group.interest | number:'1.2-2'}}$</td>
+            <td>{{category_group.total | number:'1.2-2'}}$</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>{{total_issues['taxes'] | number:'1.2-2'}}$</td>
+            <td>{{total_issues['penalties'] | number:'1.2-2'}}$</td>
+            <td>{{total_issues['interest'] | number:'1.2-2'}}$</td>
+            <td>{{total_issues['total'] | number:'1.2-2'}}$</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary float-right" (click)="downloadPdf()"> Print </button>
+</div>
