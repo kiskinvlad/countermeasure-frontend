@@ -16,6 +16,7 @@ import { AddEditTaxComponent } from '@app/pages/edit-taxes/add-edit-tax/add-edit
 import { AddEditScenarioComponent } from '@app/pages/edit-scenarios/add-edit-scenario/add-edit-scenario.component';
 import { OrganizationComponent } from '@app/pages/organization/organization.component';
 import { EditDetailsComponent as OrgEditDetailsComponent } from '@app/pages/organization/edit-details/edit-details.component';
+import { SummaryScenariosComponent } from '@app/pages/summary-scenarios/summary-scenarios.component';
 import { MembersComponent } from '@app/pages/organization/members/members.component';
 import { SummaryTaxesComponent } from '@app/pages/summary-taxes/summary-taxes.component';
 
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'case/:case_id/scenaries', component: EditScenariosComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/scenaries/:scenario_id/edit/:type', component: AddEditScenarioComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/scenaries/edit/:type', component: AddEditScenarioComponent, canActivate: [AuthGuardService] },
-  { path: 'case/:case_id/scenaries/summary', component: EditScenariosComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/scenaries/summary', component: SummaryScenariosComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/detail', component: EditCasesComponent, canActivate: [AuthGuardService]},
   { path: 'case/:case_id/categories/:category_id/edit/:type', component: AddEditCategoryComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/categories/edit/:type', component: AddEditCategoryComponent, canActivate: [AuthGuardService] },

@@ -112,7 +112,7 @@ export class ApiRoutingService {
   }
 
   getSummaryCreateCsvURL(): string {
-    return this.baseUrl + 'category/csv';
+    return this.baseUrl + 'csv';
   }
 
   getOrganizationAPIUrl(): string {

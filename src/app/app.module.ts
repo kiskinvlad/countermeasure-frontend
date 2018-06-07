@@ -37,6 +37,7 @@ import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { ChangePasswordComponent } from './pages/my-profile/change-password/change-password.component';
 import { OrganizationComponent } from './pages/organization/organization.component';
 import { EditDetailsComponent as OrgEditDetailsComponent } from './pages/organization/edit-details/edit-details.component';
+import { SummaryScenariosComponent } from './pages/summary-scenarios/summary-scenarios.component';
 import { MembersComponent } from './pages/organization/members/members.component';
 import { SummaryTaxesComponent } from './pages/summary-taxes/summary-taxes.component';
 
@@ -48,6 +49,7 @@ import { DisputesEffects } from '@app/shared/ngrx-store/effects/disputes.effects
 import { ScenarioEffects } from '@app/shared/ngrx-store/effects/scenario.effects';
 import { UserEffects } from '@app/shared/ngrx-store/effects/user.effects';
 import { OrganizationEffects } from '@app/shared/ngrx-store/effects/organization.effects';
+import { CsvEffects } from '@app/shared/ngrx-store/effects/csv.effects';
 
 import { UserService } from '@app/core/services/UserService/user.service';
 import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
@@ -60,6 +62,7 @@ import { HttpHelperService } from '@app/core/http-helper.service';
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { ScenarioService } from '@app/core/services/ScenarioService/scenario.service';
 import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
+import { CsvService } from '@app/core/services/CsvService/csv.service';
 
 @NgModule({
   declarations: [
@@ -82,6 +85,7 @@ import { OrganizationService } from '@app/core/services/OrganizationService/orga
     ChangePasswordComponent,
     OrganizationComponent,
     OrgEditDetailsComponent,
+    SummaryScenariosComponent,
     MembersComponent,
     SummaryTaxesComponent
   ],
@@ -99,7 +103,16 @@ import { OrganizationService } from '@app/core/services/OrganizationService/orga
     NgxPermissionsModule.forRoot(),
     StoreModule.forRoot(reducers, {}),
     BrowserAnimationsModule,
-    EffectsModule.forRoot([AuthEffects, CasesEffects, UserEffects, CategoryEffects, DisputesEffects, OrganizationEffects, ScenarioEffects]),
+    EffectsModule.forRoot([
+      AuthEffects,
+      CasesEffects,
+      UserEffects,
+      CategoryEffects,
+      DisputesEffects,
+      OrganizationEffects,
+      ScenarioEffects,
+      CsvEffects
+    ]),
     SimpleNotificationsModule.forRoot(),
   ],
   providers: [
@@ -118,7 +131,8 @@ import { OrganizationService } from '@app/core/services/OrganizationService/orga
     BsModalService,
     DisputesService,
     ScenarioService,
-    OrganizationService
+    OrganizationService,
+    CsvService
   ],
   entryComponents: [
     AddEditTaxComponent,
