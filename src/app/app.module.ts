@@ -59,6 +59,7 @@ import { HttpHelperService } from '@app/core/http-helper.service';
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { ScenarioService } from '@app/core/services/ScenarioService/scenario.service';
 import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
+import { IssuesInDisputeComponent } from './pages/reports/issues-in-dispute/issues-in-dispute.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { OrganizationService } from '@app/core/services/OrganizationService/orga
     ChangePasswordComponent,
     OrganizationComponent,
     OrgEditDetailsComponent,
-    AmountInDisputeComponent
+    AmountInDisputeComponent,
+    IssuesInDisputeComponent
   ],
   imports: [
     BrowserModule,
