@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectCategoryState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
@@ -15,7 +15,7 @@ import 'jspdf-autotable';
   templateUrl: './issues-in-dispute.component.html',
   styleUrls: ['./issues-in-dispute.component.scss']
 })
-export class IssuesInDisputeComponent implements OnInit {
+export class IssuesInDisputeComponent implements OnInit, OnDestroy {
   @ViewChild('pdf') pdf: ElementRef;
   @ViewChild('header') header: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
@@ -178,6 +178,10 @@ export class IssuesInDisputeComponent implements OnInit {
     });
     window.open(URL.createObjectURL(doc.output('blob')));
     // doc.save('case_' + this.case_id + '_amount_in_dispute.pdf');
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }
