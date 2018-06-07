@@ -58,6 +58,19 @@ export function reducer(state = initialState, action: All): State {
         errorMessage: 'Cannot fetch disputes.'
       };
     }
+    case DisputesActionTypes.FETCH_DISPUTES_BY_SUMMARY_SUCCESS: {
+      return {
+        ...state,
+        disputes: action.payload.disputes,
+        errorMessage: null
+      };
+    }
+    case DisputesActionTypes.FETCH_DISPUTES_BY_SUMMARY_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot fetch disputes.'
+      };
+    }
     case DisputesActionTypes.CREATE_DISPUTED_SUCCESS: {
       return {
         ...state,

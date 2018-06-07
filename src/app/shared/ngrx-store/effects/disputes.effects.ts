@@ -22,7 +22,8 @@ import { LocalStorageService } from '@app/core/services/LocalStorageService/loca
     RemoveDisputed, RemoveDisputedSuccess, RemoveDisputedFailure,
     FetchDisputed, FetchDisputedSuccess, FetchDisputedFailure,
     FetchDisputes, FetchDisputesSuccess, FetchDisputesFailure,
-    FetchDisputesByCase, FetchDisputesByCaseSuccess, FetchDisputesByCaseFailure } from '@app/shared/ngrx-store/actions/disputes.actions';
+    FetchDisputesByCase, FetchDisputesByCaseSuccess, FetchDisputesByCaseFailure,
+    FetchDisputesBySummary, FetchDisputesBySummarySuccess, FetchDisputesBySummaryFailure } from '@app/shared/ngrx-store/actions/disputes.actions';
 
 @Injectable()
 export class DisputesEffects {
@@ -211,5 +212,34 @@ export class DisputesEffects {
   @Effect({ dispatch: false })
   FetchDisputesByCaseFailure: Observable<any> = this.actions.pipe(
     ofType(DisputesActionTypes.FETCH_DISPUTES_BY_CASE_FAILURE)
+  );
+
+  @Effect()
+  FetchDisputesBySummary: Observable<Action> = this.actions
+    .ofType(DisputesActionTypes.FETCH_DISPUTES_BY_SUMMARY)
+    .map((action: FetchDisputesBySummary) => action.payload)
+    .switchMap(payload => {
+      console.log(payload);
+      return this.disputesService.getDisputesBySummary(payload)
+        .map((data) => {
+          return new FetchDisputesBySummarySuccess(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new FetchDisputesBySummaryFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  FetchDisputesBySummarySuccess: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.FETCH_DISPUTES_BY_SUMMARY_SUCCESS),
+    tap(({payload: disputes_data}) => {
+      console.log('disputesData = ', disputes_data);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  FetchDisputesBySummaryFailure: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.FETCH_DISPUTES_BY_SUMMARY_FAILURE)
   );
 }
