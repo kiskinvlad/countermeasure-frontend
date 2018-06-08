@@ -31,6 +31,10 @@ export class ApiRoutingService {
     return this.baseUrl + 'users';
   }
 
+  getAllUsersAPIUrl(): string {
+    return this.baseUrl + 'users/all';
+  }
+
   getUpdatePasswordAPIUrl(): string {
     return this.baseUrl + 'users/password';
   }
@@ -75,6 +79,10 @@ export class ApiRoutingService {
     return this.baseUrl + 'disputes/case';
   }
 
+  getDisputesBySummaryAPIUrl(): string {
+    return this.baseUrl + 'disputes/summary';
+  }
+
   getDisputesApiUrl(): string {
     return this.baseUrl + 'disputes/all';
   }
@@ -104,7 +112,7 @@ export class ApiRoutingService {
   }
 
   getSummaryCreateCsvURL(): string {
-    return this.baseUrl + 'category/csv';
+    return this.baseUrl + 'csv';
   }
 
   getOrganizationAPIUrl(): string {

@@ -7,5 +7,8 @@ export enum UserActionTypes {
     UPDATE_USER_FAILURE = '[User] Update User Failure Action',
     UPDATE_PASSWORD = '[User] Update Password Action',
     UPDATE_PASSWORD_SUCCESS = '[User] Update Password Success Action',
-    UPDATE_PASSWORD_FAILURE = '[User] Update Password Failure Action'
+    UPDATE_PASSWORD_FAILURE = '[User] Update Password Failure Action',
+    FETCH_USERS = '[User] Fetch Users Action',
+    FETCH_USERS_SUCCESS = '[User] Fetch Users Success Action',
+    FETCH_USERS_FAILURE = '[User] Fetch Users Failure Action',
 }

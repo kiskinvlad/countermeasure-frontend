@@ -33,16 +33,19 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
+    this.disputed['DIFF_total_debt'] = this.disputed['GP_total_debt'] - this.disputed['TP_total_debt'];
     this.onCloseReason.next('submit');
     this.bsModalRef.hide();
   }
 
   onClose() {
+    this.disputed['DIFF_total_debt'] = this.disputed['GP_total_debt'] - this.disputed['TP_total_debt'];
     this.onCloseReason.next('close');
     this.bsModalRef.hide();
   }
 
   onRemove() {
+    this.disputed['DIFF_total_debt'] = this.disputed['GP_total_debt'] - this.disputed['TP_total_debt'];
     this.onCloseReason.next('remove');
     this.bsModalRef.hide();
   }

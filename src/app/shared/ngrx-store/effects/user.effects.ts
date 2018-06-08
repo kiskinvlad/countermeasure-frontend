@@ -26,7 +26,10 @@ import {
   UpdateUserSuccess,
   UpdatePassword,
   UpdatePasswordFailure,
-  UpdatePasswordSuccess
+  UpdatePasswordSuccess,
+  FetchUsers,
+  FetchUsersFailure,
+  FetchUsersSuccess
 } from '../actions/user.actions';
 
 @Injectable()
@@ -130,4 +133,32 @@ export class UserEffects {
     .map(() => {
       this.notificationsService.error('Error', 'Please make sure your current password was entered correctly.');
     });
+
+    @Effect()
+    FetchUsers: Observable<Action> = this.actions
+      .ofType(UserActionTypes.FETCH_USERS)
+      .map((action: FetchUsers) => action.payload)
+      .switchMap(payload => {
+
+        return this.userService.getUsers(payload)
+          .map((data) => {
+            return new FetchUsersSuccess(data);
+          })
+          .catch((error) => {
+            console.log(error);
+            return Observable.of(new FetchUsersFailure({ error: error }));
+          });
+      });
+
+    @Effect({ dispatch: false })
+    FetchUsersFailure: Observable<any> = this.actions
+      .ofType(UserActionTypes.FETCH_USERS_FAILURE)
+      .map(() => {
+        this.notificationsService.error('Error', 'Unable to fetch users.');
+      });
+
+    @Effect({ dispatch: false })
+    FetchUsersSuccess: Observable<any> = this.actions.pipe(
+      ofType(UserActionTypes.FETCH_USERS_SUCCESS)
+    );
 }

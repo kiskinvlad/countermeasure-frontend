@@ -5,11 +5,17 @@ import { All } from '@app/shared/ngrx-store/actions/user.actions';
 
 export interface State {
   user: User;
+  users: User[];
+  totalCount: Number;
+  totalEnabled: Number;
   errorMessage: string;
 }
 
 export const initialState: State = {
   user: null,
+  users: [],
+  totalCount: 0,
+  totalEnabled: null,
   errorMessage: null
 };
 
@@ -17,7 +23,8 @@ export const initialState: State = {
 const messages = {
   ERR_FAILED_GET_USER: 'Failed to fetch user.',
   ERR_FAILED_UPDATE_USER: 'Failed to update user.',
-  ERR_FAILED_UPDATE_PASSWORD: 'Failed to update password.'
+  ERR_FAILED_UPDATE_PASSWORD: 'Failed to update password.',
+  ERR_FAILED_GET_USERS: 'Failed to fetch users.'
 };
 
 export function reducer(state: State = initialState, action: All): State {
@@ -60,6 +67,24 @@ export function reducer(state: State = initialState, action: All): State {
       return {
         ...state,
         errorMessage: messages.ERR_FAILED_UPDATE_PASSWORD
+      };
+    }
+    case UserActionTypes.FETCH_USERS_SUCCESS: {
+      return {
+        ...state,
+        users:  action.payload.users,
+        totalCount: action.payload.count,
+        totalEnabled: action.payload.total_enabled,
+        errorMessage: null
+      };
+    }
+    case UserActionTypes.FETCH_USERS_FAILURE: {
+      return {
+        ...state,
+        users: [],
+        totalCount: 0,
+        totalEnabled: null,
+        errorMessage: messages.ERR_FAILED_GET_USERS
       };
     }
     default: {
