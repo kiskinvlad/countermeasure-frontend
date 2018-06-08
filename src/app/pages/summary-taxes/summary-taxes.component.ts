@@ -7,6 +7,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 
 import { AppState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
 import { FetchDisputesBySummary} from '@app/shared/ngrx-store/actions/disputes.actions';
+import { CreateCsv } from '@app/shared/ngrx-store/actions/csv.actions';
 
 @Component({
   selector: 'ct-summary-taxes',
@@ -46,5 +47,10 @@ export class SummaryTaxesComponent implements OnInit {
       case_id: this.case_id
     };
     this.store.dispatch(new FetchDisputesBySummary(payload));
+  }
+
+  downloadCSV() {
+    var json = JSON.stringify(this.disputed);
+    this.store.dispatch(new CreateCsv({json: json, case_id: this.case_id, type: 'Taxes'}));
   }
 }
