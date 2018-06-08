@@ -83,10 +83,12 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
       group.total = 0;
       group.item.forEach((category) => {
         const current_dispute = this.disputes.find(d => d.disputed_t1_ta_id === category.disputed_t1_ta_id);
-        group.taxes += +current_dispute.DIFF_net_federal_tax + +current_dispute.DIFF_net_provincial_tax;
-        group.penalties += +current_dispute.DIFF_gross_negligence_penalty + +current_dispute.DIFF_late_filing_penalty
-          + +current_dispute.DIFF_other_penalties;
-        group.interest += +current_dispute.DIFF_estimated_interest;
+        group.taxes += (+current_dispute.DIFF_taxable_income / +category.taxable_income)
+          * (+current_dispute.DIFF_net_federal_tax + +current_dispute.DIFF_net_provincial_tax);
+        group.penalties += (+current_dispute.DIFF_taxable_income / +category.taxable_income)
+          * (+current_dispute.DIFF_gross_negligence_penalty + +current_dispute.DIFF_late_filing_penalty
+          + +current_dispute.DIFF_other_penalties + +current_dispute.DIFF_total_penalties);
+        group.interest += (+current_dispute.DIFF_taxable_income / +category.taxable_income) * +current_dispute.DIFF_estimated_interest;
       });
       group.total += group.taxes + group.penalties + group.interest;
       this.total_issues['taxes'] += group.taxes;
