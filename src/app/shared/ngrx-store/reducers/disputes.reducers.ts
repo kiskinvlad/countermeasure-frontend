@@ -8,13 +8,15 @@ import { Disputed } from '@app/shared/models/disputed';
 export interface State {
   disputes: Disputed[];
   disputed: Disputed;
+  summaries: Disputed[];
   errorMessage: string | null;
 }
 
 export const initialState: State = {
   disputes: [],
   disputed: null,
-  errorMessage: null
+  errorMessage: null,
+  summaries: []
 };
 
 export function reducer(state = initialState, action: All): State {
@@ -61,7 +63,7 @@ export function reducer(state = initialState, action: All): State {
     case DisputesActionTypes.FETCH_DISPUTES_BY_SUMMARY_SUCCESS: {
       return {
         ...state,
-        disputes: action.payload.disputes,
+        summaries: action.payload.disputes,
         errorMessage: null
       };
     }
