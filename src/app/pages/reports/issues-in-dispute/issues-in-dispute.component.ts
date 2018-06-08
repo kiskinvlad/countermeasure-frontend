@@ -20,11 +20,12 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
   @ViewChild('header') header: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
 
-  public issue_chart = [];
+  public issue_chart: Chart;
   public categories: Array<any> = [];
   public disputes: Array<any> = [];
   public grouped_categories: Array<any> = [];
   public total_issues: any = [];
+  public ctx: any;
   private getCategoryState$: Observable<any>;
   private getDisputesState$: Observable<any>;
   private errorMessage: string | null;
@@ -118,7 +119,8 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
       labels.push(el.param);
       values.push(el.total);
     });
-    this.issue_chart = new Chart('canvas', {
+    this.ctx = this.canvas.nativeElement.getContext('2d');
+    this.issue_chart = new Chart(this.ctx, {
       type: 'pie',
       data: {
         labels: labels,
@@ -181,6 +183,8 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.ctx.clearRect(0, 0, 100, 100);
+    this.issue_chart.destroy();
     this.subscription.unsubscribe();
   }
 

@@ -19,7 +19,8 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
   @ViewChild('header') header: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
 
-  public chart = [];
+  public chart: Chart;
+  public ctx: any;
   public disputed: Array<any> = [];
   public grouped_disputed: Array<any> = [];
   public total_disputed: object = {};
@@ -97,15 +98,18 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
   }
 
   private createChart(data): void {
-    this.chart = new Chart('canvas', {
+    const data_set = [data.taxes, data.penalties, data.interest];
+    const labels_set = ['Taxes', 'Penalties', 'Interest'];
+    this.ctx = this.canvas.nativeElement.getContext('2d');
+    this.chart = new Chart(this.ctx, {
       type: 'doughnut',
       data: {
-        labels: ['Taxes', 'Penalties', 'Interest'],
+        labels: labels_set,
         datasets: [
           {
             label: 'Total',
             backgroundColor: ['#082948', '#699bc5', '#c46158'],
-            data: [data.taxes, data.penalties, data.interest]
+            data: data_set
           }
         ]
       },
@@ -160,6 +164,8 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.ctx.clearRect(0, 0, 100, 100);
+    this.chart.destroy();
     this.subscription.unsubscribe();
   }
 
