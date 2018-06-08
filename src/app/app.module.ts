@@ -42,6 +42,7 @@ import { SummaryScenariosComponent } from './pages/summary-scenarios/summary-sce
 import { MembersComponent } from './pages/organization/members/members.component';
 import { SummaryTaxesComponent } from './pages/summary-taxes/summary-taxes.component';
 import { IssuesInDisputeComponent } from './pages/reports/issues-in-dispute/issues-in-dispute.component';
+import { EditMemberComponent } from './pages/organization/edit-member/edit-member.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -91,7 +92,9 @@ import { CsvService } from '@app/core/services/CsvService/csv.service';
     IssuesInDisputeComponent,
     SummaryScenariosComponent,
     MembersComponent,
-    SummaryTaxesComponent
+    SummaryTaxesComponent,
+    OrgEditDetailsComponent,
+    EditMemberComponent,
   ],
   imports: [
     BrowserModule,

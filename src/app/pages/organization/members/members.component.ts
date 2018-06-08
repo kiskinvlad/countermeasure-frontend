@@ -19,7 +19,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   private errorMessage: string | null;
   private subscription: Subscription;
   private orgSubscription: Subscription;
-  public orgId: number;
+  public orgID: number;
   public itemsPerPage = 10;
   public members: Array<User> = [];
   public currentPage = 1;
@@ -51,7 +51,7 @@ export class MembersComponent implements OnInit, OnDestroy {
     });
 
     this.route.parent.params.subscribe(params => {
-      this.orgId = params['org_id'];
+      this.orgID = params['org_id'];
       this.getOrganization();
     });
 
@@ -73,7 +73,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   loadData() {
     const offset = (this.currentPage - 1) * this.itemsPerPage;
     const payload = {
-      org_id: this.orgId,
+      org_id: this.orgID,
       offset: offset,
       limit: this.itemsPerPage,
       type: 'member'
@@ -82,7 +82,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   getOrganization(): void {
-    this.store.dispatch(new FetchOrganization({org_id: this.orgId}));
+    this.store.dispatch(new FetchOrganization({org_id: this.orgID}));
   }
 
 }

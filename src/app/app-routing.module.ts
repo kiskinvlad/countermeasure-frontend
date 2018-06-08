@@ -21,6 +21,7 @@ import { IssuesInDisputeComponent } from '@app/pages/reports/issues-in-dispute/i
 import { SummaryScenariosComponent } from '@app/pages/summary-scenarios/summary-scenarios.component';
 import { MembersComponent } from '@app/pages/organization/members/members.component';
 import { SummaryTaxesComponent } from '@app/pages/summary-taxes/summary-taxes.component';
+import { EditMemberComponent } from '@app/pages/organization/edit-member/edit-member.component';
 
 const routes: Routes = [
   { path: '', component: DashboardCaseComponent, canActivate: [AuthGuardService] },
@@ -51,6 +52,8 @@ const routes: Routes = [
         { path: '', redirectTo: 'details', pathMatch: 'full', canActivate: [AuthGuardService] },
         { path: 'details', component: OrgEditDetailsComponent, canActivate: [AuthGuardService] },
         { path: 'members', component: MembersComponent, canActivate: [AuthGuardService] },
+        { path: 'members/edit', component: EditMemberComponent, canActivate: [AuthGuardService] },
+        { path: 'members/edit/:user_id', component: EditMemberComponent, canActivate: [AuthGuardService] },
     ]
   },
 ];

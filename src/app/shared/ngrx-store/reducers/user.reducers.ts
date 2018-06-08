@@ -40,6 +40,7 @@ export function reducer(state: State = initialState, action: All): State {
     case UserActionTypes.FETCH_USER_FAILURE: {
       return {
         ...state,
+        user: null,
         errorMessage: messages.ERR_FAILED_GET_USER
       };
     }
@@ -51,9 +52,14 @@ export function reducer(state: State = initialState, action: All): State {
       };
     }
     case UserActionTypes.UPDATE_USER_FAILURE: {
+      let err = action.payload.error;
+      if (err._body) {
+        err  = JSON.parse(err._body).error;
+      }
+
       return {
         ...state,
-        errorMessage: messages.ERR_FAILED_UPDATE_USER
+        errorMessage: err
       };
     }
     case UserActionTypes.UPDATE_PASSWORD_SUCCESS: {
@@ -85,6 +91,24 @@ export function reducer(state: State = initialState, action: All): State {
         totalCount: 0,
         totalEnabled: null,
         errorMessage: messages.ERR_FAILED_GET_USERS
+      };
+    }
+    case UserActionTypes.CREATE_USER_SUCCESS: {
+      return {
+        ...state,
+        user:  action.payload.user,
+        errorMessage: null
+      };
+    }
+    case UserActionTypes.CREATE_USER_FAILURE: {
+      let err = action.payload.error;
+      if (err._body) {
+        err  = JSON.parse(err._body).error;
+      }
+
+      return {
+        ...state,
+        errorMessage: err
       };
     }
     default: {

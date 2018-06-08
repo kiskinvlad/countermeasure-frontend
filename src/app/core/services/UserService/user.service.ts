@@ -19,12 +19,11 @@ export class UserService {
   ) {
     this.users_api_url = apiRoutingService.getUsersAPIUrl();
     this.password_api_url = apiRoutingService.getUpdatePasswordAPIUrl();
-    this.all_users_api_url = apiRoutingService.getAllUsersAPIUrl();
   }
 
   getUser(payload): Observable<any> {
     return this.http.get(
-      this.users_api_url,
+      this.users_api_url + '/' + payload.user_id,
       payload,
       true,
       null
@@ -32,8 +31,9 @@ export class UserService {
   }
 
   updateUser(payload): Observable<any> {
+    const url = (payload && payload.user_id) ? (this.users_api_url + '/' + payload.user_id) : this.users_api_url;
     return this.http.put(
-      this.users_api_url,
+      url,
       payload,
       false,
       true,
@@ -52,8 +52,17 @@ export class UserService {
 
   getUsers(payload): Observable<any> {
     return this.http.get(
-      this.all_users_api_url,
+      this.users_api_url,
       payload,
+      true
+    );
+  }
+
+  createUser(payload): Observable<any> {
+    return this.http.post(
+      this.users_api_url,
+      payload,
+      false,
       true
     );
   }

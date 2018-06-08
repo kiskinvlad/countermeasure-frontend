@@ -20,7 +20,7 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   errorMessage: string | null;
   subscription: Subscription;
   orgForm: FormGroup;
-  orgId: number;
+  orgID: number;
   validator: ValidatorModule;
 
   constructor(private store: Store<AppState>, private fb: FormBuilder, private route: ActivatedRoute) {
@@ -41,7 +41,7 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
     });
 
     this.route.parent.params.subscribe(params => {
-      this.orgId = params['org_id'];
+      this.orgID = params['org_id'];
       this.getOrganization();
     });
   }
@@ -61,13 +61,13 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   }
 
   getOrganization(): void {
-    this.store.dispatch(new FetchOrganization({org_id: this.orgId}));
+    this.store.dispatch(new FetchOrganization({org_id: this.orgID}));
   }
 
   onSubmit() {
     const formModel = this.orgForm.value;
     const data = {
-      org_id: this.orgId,
+      org_id: this.orgID,
       org_name: formModel.orgName,
       first_name: formModel.firstName,
       last_name: formModel.lastName,
