@@ -41,7 +41,7 @@
         <td>{{element.name}}</td>
         <td>{{element.last_updated}}</td>
         <td class="case-action">
-          <table class="table table-bordered">
+          <table class="table table-bordered actions">
             <th *ngIf="user_role == 'OG'">View</th>
             <th (click)="redirectToDetail(i)"*ngIf="user_role != 'OG'">Edit</th>
             <th (click)="openCopyCaseDialog(i)">Copy</th>
