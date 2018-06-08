@@ -1,56 +1,56 @@
 <ct-navigation-bar></ct-navigation-bar>
-<ct-sidebar></ct-sidebar>
-<div class="container edit-categories">
-
-  <div class="d-flex justify-content-between section-title">
-    <h1>Edit scenarios</h1>
-  </div>
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Taxable Income / Sales</th>
-        <th>Taxes</th>
-        <th>Penalties</th>
-        <th>Interest</th>
-        <th>Amount in Dispute</th>
-        <th>Probability</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let scenario of sceneries; let index = index">
-        <td>{{scenario.name}}</td>
-        <td>${{scenario.taxable_income | number:'1.2-2'}}</td>
-        <td>${{scenario.taxes | number:'1.2-2'}}</td>
-        <td>${{scenario.penalties | number:'1.2-2'}}</td>
-        <td>${{scenario.interest | number:'1.2-2'}}</td>
-        <td>${{+scenario.taxes + +scenario.penalties + +scenario.interest | number:'1.2-2'}}</td>
-        <td>{{scenario.probability}}%</td>
-        <td>
+<div class="edit-categories d-flex flex-row">
+  <ct-sidebar></ct-sidebar>
+  <div class="wrapper">
+      <div class="d-flex justify-content-between section-title">
+          <h1>Edit scenarios</h1>
+      </div>
+      <div class="table-wrapper">
+        <table class="table table-bordered">
           <thead>
-              <th [routerLink]="['/case', case_id, 'scenaries', getScenarioId(index), 'edit', 'edit']">Edit</th>
-              <th (click)="moveUp(index)">Up</th>
-              <th (click)="moveDown(index)">Down</th>
-              <th (click)="deleteScenario(index)">Delete</th>
+            <tr>
+              <th>Name</th>
+              <th>Taxable Income / Sales</th>
+              <th>Taxes</th>
+              <th>Penalties</th>
+              <th>Interest</th>
+              <th>Amount in Dispute</th>
+              <th>Probability</th>
+              <th>Actions</th>
+            </tr>
           </thead>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <button type="button" class="btn btn-primary create-case" [routerLink]="['/case', case_id, 'scenaries', 'edit', 'add']"> Add </button>
-  <nav class="float-right" *ngIf="total_count >= items_per_page">
-    <ul class="pagination">
-      <li [ngClass]="page_number === 1 ? 'page-item disabled' : 'page-item'" (click)="getItemsByPage(page_number-1)">
-        <a class="page-link" href="javascript:">Previous</a>
-      </li>
-      <li *ngFor="let item of range()" [ngClass]="page_number == item + 1 ? 'page-item active' : 'page-item'" (click)="getItemsByPage(item+1)">
-        <a class="page-link" href="javascript:">{{item + 1}}</a>
-      </li>
-      <li [ngClass]="page_number === total_page ? 'page-item disabled' : 'page-item'" (click)="getItemsByPage(page_number+1)">
-        <a class="page-link" href="javascript:">Next</a>
-      </li>
-    </ul>
-  </nav>
+          <tbody>
+            <tr *ngFor="let scenario of sceneries; let index = index">
+              <td>{{scenario.name}}</td>
+              <td>${{scenario.taxable_income | number:'1.2-2'}}</td>
+              <td>${{scenario.taxes | number:'1.2-2'}}</td>
+              <td>${{scenario.penalties | number:'1.2-2'}}</td>
+              <td>${{scenario.interest | number:'1.2-2'}}</td>
+              <td>${{+scenario.taxes + +scenario.penalties + +scenario.interest | number:'1.2-2'}}</td>
+              <td>{{scenario.probability}}%</td>
+              <td class="action-col">
+                  <button [routerLink]="['/case', case_id, 'scenaries', getScenarioId(index), 'edit', 'edit']">Edit</button>
+                  <button (click)="moveUp(index)">Up</button>
+                  <button (click)="moveDown(index)">Down</button>
+                  <button (click)="deleteScenario(index)">Delete</button>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button type="button" class="btn btn-primary create-case" [routerLink]="['/case', case_id, 'scenaries', 'edit', 'add']"> Add </button>
+      <nav class="float-right" *ngIf="total_count >= items_per_page">
+        <ul class="pagination">
+          <li [ngClass]="page_number === 1 ? 'page-item disabled' : 'page-item'" (click)="getItemsByPage(page_number-1)">
+            <a class="page-link" href="javascript:">Previous</a>
+          </li>
+          <li *ngFor="let item of range()" [ngClass]="page_number == item + 1 ? 'page-item active' : 'page-item'" (click)="getItemsByPage(item+1)">
+            <a class="page-link" href="javascript:">{{item + 1}}</a>
+          </li>
+          <li [ngClass]="page_number === total_page ? 'page-item disabled' : 'page-item'" (click)="getItemsByPage(page_number+1)">
+            <a class="page-link" href="javascript:">Next</a>
+          </li>
+        </ul>
+      </nav>
+  </div>
 </div>

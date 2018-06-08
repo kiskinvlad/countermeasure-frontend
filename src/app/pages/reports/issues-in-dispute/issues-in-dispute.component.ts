@@ -20,11 +20,12 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
   @ViewChild('header') header: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
 
-  public issue_chart = [];
+  public issue_chart: Chart;
   public categories: Array<any> = [];
   public disputes: Array<any> = [];
   public grouped_categories: Array<any> = [];
   public total_issues: any = [];
+  public ctx: any;
   private getCategoryState$: Observable<any>;
   private getDisputesState$: Observable<any>;
   private errorMessage: string | null;
@@ -118,14 +119,15 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
       labels.push(el.param);
       values.push(el.total);
     });
-    this.issue_chart = new Chart('canvas', {
+    this.ctx = this.canvas.nativeElement.getContext('2d');
+    this.issue_chart = new Chart(this.ctx, {
       type: 'pie',
       data: {
         labels: labels,
         datasets: [
           {
             label: 'Total',
-            backgroundColor: ['#3e95cd', '#8e5ea2', '#3cba9f'],
+            backgroundColor: ['#082948', '#699bc5', '#c46158'],
             data: values
           }
         ]
@@ -140,7 +142,7 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
           render: function (args) {
             return args.percentage + '%';
           },
-          fontColor: '#000',
+          fontColor: '#082948',
           fontSize: 18,
           position: 'outside',
           segment: true,
@@ -161,10 +163,10 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
     doc.line(130, 25, 480, 25);
     doc.fromHTML(header, 130, 25);
     doc.line(130, 115, 480, 115);
-    doc.addImage(imgData, 'PNG', -20, 150, 620, 320, undefined, 'FAST');
+    doc.addImage(imgData, 'PNG', -20, 150, 620, 270, undefined, 'FAST');
     const table = doc.autoTableHtmlToJson(content);
     doc.autoTable(table.columns, table.data, {
-      startY: 500,
+      startY: 420,
       margin: 130,
       tableWidth: 350,
       headerStyles: {
@@ -181,6 +183,8 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.ctx.clearRect(0, 0, 100, 100);
+    this.issue_chart.destroy();
     this.subscription.unsubscribe();
   }
 

@@ -1,86 +1,92 @@
 <ct-navigation-bar></ct-navigation-bar>
-<ct-sidebar></ct-sidebar>
-<div class="container add-edit-categories">
-  <div class="d-flex justify-content-between section-title">
-    <h2>{{type === 'add' ? 'Add' : 'Edit'}} scenario</h2>
-  </div>
-  <form novalidate [formGroup]="scenarioForm">
-    <div class="form-group" [ngClass]="{
-      'has-danger': name.invalid && (name.dirty || name.touched),
-      'has-success': name.valid && (name.dirty || name.touched)
-    }">
-      <div>
-        <label for="name">Name</label>
-        <input type="text" class="form-control" name="name" formControlName="name">
+<div class="wadd-edit-categories d-flex flex-row">
+  <ct-sidebar></ct-sidebar>
+  <div class="wrapper">
+    <div class="form-container">
+      <div class="d-flex justify-content-between section-title">
+        <h2>{{type === 'add' ? 'Add' : 'Edit'}} scenario</h2>
       </div>
-      <div class="form-control-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
-        <p *ngIf="name?.errors['required']">Name is required</p>
+      <div class="form-wrapper"> 
+        <form novalidate [formGroup]="scenarioForm">
+          <div class="form-group" [ngClass]="{
+            'has-danger': name.invalid && (name.dirty || name.touched),
+            'has-success': name.valid && (name.dirty || name.touched)
+          }">
+            <div>
+              <label for="name">Name</label>
+              <input type="text" class="form-control" name="name" formControlName="name">
+            </div>
+            <div class="form-control-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+              <p *ngIf="name?.errors['required']">Name is required</p>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{
+            'has-danger': probability.invalid && (probability.dirty || probability.touched),
+            'has-success': probability.valid && (probability.dirty || probability.touched)
+          }">
+            <div>
+              <label for="probability">Probability</label>
+              <input type="text" class="form-control" name="probability" formControlName="probability">
+            </div>
+            <div class="form-control-feedback" *ngIf="probability.errors && (probability.dirty || probability.touched)">
+              <p *ngIf="probability?.errors['required']">Probability is required</p>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{
+            'has-danger': description.invalid && (description.dirty || description.touched),
+            'has-success': description.valid && (description.dirty || description.touched)
+          }">
+            <div>
+              <label for="description">Description</label>
+              <textarea type="text" class="form-control" name="description" formControlName="description" cols="40" rows="5"></textarea>
+            </div>
+            <div class="form-control-feedback" *ngIf="description.errors && (description.dirty || description.touched)">
+              <p *ngIf="description?.errors['required']">Description is required</p>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{
+            'has-danger': taxes.invalid && (taxes.dirty || taxes.touched),
+            'has-success': taxes.valid && (taxes.dirty || taxes.touched)
+          }"> 
+            <div>
+              <label for="taxes">Taxes</label>
+              <input type="text" class="form-control" name="taxes" formControlName="taxes">
+            </div>
+            <div class="form-control-feedback" *ngIf="taxes.errors && (taxes.dirty || taxes.touched)">
+              <p *ngIf="taxes?.errors['required']">Taxes is required</p>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{
+            'has-danger': penalties.invalid && (penalties.dirty || penalties.touched),
+            'has-success': penalties.valid && (penalties.dirty || penalties.touched)
+          }">
+            <div>
+              <label for="other-amounts">Penalties</label>
+              <input type="text" class="form-control" name="penalties" formControlName="penalties">
+            </div>
+            <div class="form-control-feedback" *ngIf="penalties.errors && (penalties.dirty || penalties.touched)">
+              <p *ngIf="penalties?.errors['required']">Penalties is required</p>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{
+            'has-danger': interest.invalid && (interest.dirty || interest.touched),
+            'has-success': interest.valid && (interest.dirty || interest.touched)
+          }">
+            <div>
+              <label for="interest">Interest</label>
+              <input type="text" class="form-control" name="interest" formControlName="interest">
+            </div>
+            <div class="form-control-feedback" *ngIf="interest.errors && (interest.dirty || interest.touched)">
+              <p *ngIf="interest?.errors['required']">Interest is required</p>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-    <div class="form-group" [ngClass]="{
-      'has-danger': probability.invalid && (probability.dirty || probability.touched),
-      'has-success': probability.valid && (probability.dirty || probability.touched)
-    }">
-      <div>
-        <label for="probability">Probability</label>
-        <input type="text" class="form-control" name="probability" formControlName="probability">
+    <div class="float-right">
+        <button *ngIf="type === 'edit'" type="button" class="btn btn-primary" (click)="deleteScenario()"> Remove </button>
+        <button [disabled]="!isFormTouched" type="button" class="btn btn-primary" (click)="addUpdateScenario()"> Save </button>
+        <button type="button" class="btn btn-primary" [routerLink]="['/case', case_id, 'scenaries']"> Cancel </button>
       </div>
-      <div class="form-control-feedback" *ngIf="probability.errors && (probability.dirty || probability.touched)">
-        <p *ngIf="probability?.errors['required']">Probability is required</p>
-      </div>
-    </div>
-    <div class="form-group" [ngClass]="{
-      'has-danger': description.invalid && (description.dirty || description.touched),
-      'has-success': description.valid && (description.dirty || description.touched)
-    }">
-      <div>
-        <label for="description">Description</label>
-        <textarea type="text" class="form-control" name="description" formControlName="description" cols="40" rows="5"></textarea>
-      </div>
-      <div class="form-control-feedback" *ngIf="description.errors && (description.dirty || description.touched)">
-        <p *ngIf="description?.errors['required']">Description is required</p>
-      </div>
-    </div>
-    <div class="form-group" [ngClass]="{
-      'has-danger': taxes.invalid && (taxes.dirty || taxes.touched),
-      'has-success': taxes.valid && (taxes.dirty || taxes.touched)
-    }"> 
-      <div>
-        <label for="taxes">Taxes</label>
-        <input type="text" class="form-control" name="taxes" formControlName="taxes">
-      </div>
-      <div class="form-control-feedback" *ngIf="taxes.errors && (taxes.dirty || taxes.touched)">
-        <p *ngIf="taxes?.errors['required']">Taxes is required</p>
-      </div>
-    </div>
-    <div class="form-group" [ngClass]="{
-      'has-danger': penalties.invalid && (penalties.dirty || penalties.touched),
-      'has-success': penalties.valid && (penalties.dirty || penalties.touched)
-    }">
-      <div>
-        <label for="other-amounts">Penalties</label>
-        <input type="text" class="form-control" name="penalties" formControlName="penalties">
-      </div>
-      <div class="form-control-feedback" *ngIf="penalties.errors && (penalties.dirty || penalties.touched)">
-        <p *ngIf="penalties?.errors['required']">Penalties is required</p>
-      </div>
-    </div>
-    <div class="form-group" [ngClass]="{
-      'has-danger': interest.invalid && (interest.dirty || interest.touched),
-      'has-success': interest.valid && (interest.dirty || interest.touched)
-    }">
-      <div>
-        <label for="interest">Interest</label>
-        <input type="text" class="form-control" name="interest" formControlName="interest">
-      </div>
-      <div class="form-control-feedback" *ngIf="interest.errors && (interest.dirty || interest.touched)">
-        <p *ngIf="interest?.errors['required']">Interest is required</p>
-      </div>
-    </div>
-  </form>
-  <div class="float-right">
-    <button *ngIf="type === 'edit'" type="button" class="btn btn-primary" (click)="deleteScenario()"> Remove </button>
-    <button [disabled]="!isFormTouched" type="button" class="btn btn-primary" (click)="addUpdateScenario()"> Save </button>
-    <button type="button" class="btn btn-primary" [routerLink]="['/case', case_id, 'scenaries']"> Cancel </button>
   </div>
 </div>

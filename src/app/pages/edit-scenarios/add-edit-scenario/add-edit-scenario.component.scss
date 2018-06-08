@@ -3,6 +3,24 @@
         position: relative;
     }
     .form-control-feedback {
-        top: 33px;
+        top: 0;
     }
+}
+.wrapper {
+    width: 100%;
+    padding: 1rem;
+    input, 
+    label,
+    .ng-select {
+        width: 50%;
+        vertical-align: middle;
+        display: inline-block;
+    }
+    .form-container {
+        width: 50%;
+    }
+}
+
+.form-wrapper {
+    padding: 1rem;
 }

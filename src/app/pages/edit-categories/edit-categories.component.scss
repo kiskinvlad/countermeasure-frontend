@@ -1,0 +1,20 @@
+.wrapper {
+    padding: 1rem;
+    width: 100%;
+}
+.table-wrapper {
+    padding: 1rem;
+}
+.action-col {
+    padding: 0;
+    button {
+        height: 45px;
+        background: none;
+        padding: 0 10px;
+        border: none;
+        border-right: 1px solid #dee2e6;
+        border-left: none;
+        border-bottom: none;
+        border-top: none;
+    }
+}
