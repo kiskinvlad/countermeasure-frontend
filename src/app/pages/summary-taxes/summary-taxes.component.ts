@@ -34,8 +34,7 @@ export class SummaryTaxesComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
-      console.log(state.disputes);
-      this.disputed = (state.disputes).map(item => {
+      this.disputed = (state.summaries).map(item => {
         return [...item];
       });
     });
