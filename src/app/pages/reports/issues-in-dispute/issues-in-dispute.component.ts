@@ -119,7 +119,7 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
     const values = [];
     data.forEach(el => {
       labels.push(el.param);
-      values.push(el.total);
+      values.push(parseFloat(el.total).toFixed(2));
     });
     this.ctx = this.canvas.nativeElement.getContext('2d');
     this.issue_chart = new Chart(this.ctx, {
@@ -135,6 +135,17 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
         ]
       },
        options: {
+        tooltips: {
+          callbacks: {
+             label: function(tooltipItem, data_labels) {
+                const label = data_labels.labels[tooltipItem.index];
+                return label + ' : ' + parseFloat(data_labels.datasets[0].data[tooltipItem.index]).toFixed(2) + ' $';
+             },
+             title: function() {
+              return false;
+            },
+          }
+       },
         legend: {
           labels: {
             fontSize: 18
