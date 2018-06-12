@@ -43,6 +43,8 @@ import { MembersComponent } from './pages/organization/members/members.component
 import { SummaryTaxesComponent } from './pages/summary-taxes/summary-taxes.component';
 import { IssuesInDisputeComponent } from './pages/reports/issues-in-dispute/issues-in-dispute.component';
 import { EditMemberComponent } from './pages/organization/edit-member/edit-member.component';
+import { GuestsComponent } from './pages/organization/guests/guests.component';
+import { EditGuestComponent } from './pages/organization/edit-guest/edit-guest.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -96,7 +98,9 @@ import { AnticipatedLitigationComponent } from './pages/reports/anticipated-liti
     SummaryTaxesComponent,
     OrgEditDetailsComponent,
     EditMemberComponent,
-    AnticipatedLitigationComponent,
+    GuestsComponent,
+    EditGuestComponent,
+    AnticipatedLitigationComponent
   ],
   imports: [
     BrowserModule,

@@ -54,7 +54,9 @@ export class EditMemberComponent implements OnInit, OnDestroy {
       if (!this.errorMessage) {
         this.memberForm.reset();
       }
-      this.setFormValues();
+      if (this.userID) {
+        this.setFormValues();
+      }
     });
 
     this.route.params.subscribe(params => {

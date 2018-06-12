@@ -12,6 +12,7 @@ export class UserService {
   private users_api_url: string;
   private password_api_url: string;
   private all_users_api_url: string;
+  private org_api_url: string;
 
   constructor(
     private http: HttpHelperService,
@@ -19,6 +20,7 @@ export class UserService {
   ) {
     this.users_api_url = apiRoutingService.getUsersAPIUrl();
     this.password_api_url = apiRoutingService.getUpdatePasswordAPIUrl();
+    this.org_api_url = apiRoutingService.getOrganizationAPIUrl();
   }
 
   getUser(payload): Observable<any> {
@@ -63,6 +65,32 @@ export class UserService {
       this.users_api_url,
       payload,
       false,
+      true
+    );
+  }
+
+  getGuestPermissions(payload): Observable<any> {
+    return this.http.get(
+      this.org_api_url + '/' + payload.org_id + '/permissions',
+      payload,
+      true,
+      null
+    );
+  }
+
+  addGuestPermissions(payload): Observable<any> {
+    return this.http.post(
+      this.users_api_url + '/' + payload.user_id + '/permissions',
+      payload,
+      false,
+      true
+    );
+  }
+
+  deleteGuestPermissions(payload): Observable<any> {
+    return this.http.delete(
+      this.users_api_url + '/' + payload.user_id + '/permissions',
+      payload,
       true
     );
   }

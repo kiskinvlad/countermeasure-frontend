@@ -17,6 +17,7 @@ import { UserService } from '@app/core/services/UserService/user.service';
 import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
 import { UserActionTypes } from '@app/shared/ngrx-store/constants/user';
 import { NotificationsService } from 'angular2-notifications';
+import { AppState } from '@app/shared/ngrx-store/app.states';
 
 import {
   FetchUser,
@@ -34,6 +35,15 @@ import {
   CreateUser,
   CreateUserFailure,
   CreateUserSuccess,
+  FetchPermissions,
+  FetchPermissionsSuccess,
+  FetchPermissionsFailure,
+  AddPermissions,
+  AddPermissionsSuccess,
+  AddPermissionsFailure,
+  DeletePermissions,
+  DeletePermissionsSuccess,
+  DeletePermissionsFailure,
 } from '../actions/user.actions';
 
 @Injectable()
@@ -45,7 +55,8 @@ export class UserEffects {
     private router: Router,
     private localStorageService: LocalStorageService,
     private permissionsService: NgxPermissionsService,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsService,
+    private store: Store<AppState>
   ) {}
 
   @Effect()
@@ -187,7 +198,11 @@ export class UserEffects {
       tap((data) => {
         this.notificationsService.success('Success', 'New user has been created.');
         const user = data.payload.user;
-        this.router.navigateByUrl('/organization/' + user.org_id + '/members/edit/' + user.user_id);
+        let role = 'members';
+        if (user.role_id === 'OG') {
+          role = 'guests';
+        }
+        this.router.navigateByUrl('/organization/' + user.org_id + '/' + role + '/edit/' + user.user_id);
       })
     );
 
@@ -197,4 +212,104 @@ export class UserEffects {
       .map(() => {
         this.notificationsService.error('Error', 'Failed to create new user.');
       });
+
+    @Effect()
+    FetchPermissions: Observable<Action> = this.actions
+      .ofType(UserActionTypes.FETCH_PERMISSIONS)
+      .map((action: FetchPermissions) => action.payload)
+      .switchMap(payload => {
+
+        return this.userService.getGuestPermissions(payload)
+          .map((data) => {
+            return new FetchPermissionsSuccess(data);
+          })
+          .catch((error) => {
+            console.log(error);
+            return Observable.of(new FetchPermissionsFailure({ error: error }));
+          });
+      });
+
+    @Effect({ dispatch: false })
+    FetchPermissionsFailure: Observable<any> = this.actions
+      .ofType(UserActionTypes.FETCH_PERMISSIONS_FAILURE)
+      .map(() => {
+        this.notificationsService.error('Error', 'Unable to fetch guest permissions.');
+      });
+
+    @Effect({ dispatch: false })
+    FetchPermissionsSuccess: Observable<any> = this.actions.pipe(
+      ofType(UserActionTypes.FETCH_PERMISSIONS_SUCCESS)
+    );
+
+    @Effect()
+    AddPermissions: Observable<Action> = this.actions
+      .ofType(UserActionTypes.ADD_PERMISSIONS)
+      .map((action: AddPermissions) => action.payload)
+      .switchMap(payload => {
+
+        return this.userService.addGuestPermissions(payload)
+          .map((data) => {
+            return new AddPermissionsSuccess(data);
+          })
+          .catch((error) => {
+            console.log(error);
+            return Observable.of(new AddPermissionsFailure({ error: error }));
+          });
+      });
+
+    @Effect({ dispatch: false })
+    AddPermissionsFailure: Observable<any> = this.actions
+      .ofType(UserActionTypes.ADD_PERMISSIONS_FAILURE)
+      .map(() => {
+        this.notificationsService.error('Error', 'Unable to add guest permissions.');
+      });
+
+    /*@Effect({ dispatch: false })
+    AddPermissionsSuccess: Observable<any> = this.actions.pipe(
+      ofType(UserActionTypes.ADD_PERMISSIONS_SUCCESS),
+      tap((data) => {
+        const user_id = data.payload.user_id;
+        const payload = {
+          user_id: data.payload.userID,
+          org_id: data.payload.orgID,
+          offset: data.payload.offset,
+          limit: data.payload.this.itemsPerPage,
+          cases: JSON.stringify(this.addedCases)
+        };
+        this.store.dispatch(new FetchUser(payload));
+      })
+    );*/
+
+    @Effect({ dispatch: false })
+    AddPermissionsSuccess: Observable<any> = this.actions.pipe(
+      ofType(UserActionTypes.ADD_PERMISSIONS_SUCCESS)
+    );
+
+    @Effect()
+    DeletePermissions: Observable<Action> = this.actions
+      .ofType(UserActionTypes.DELETE_PERMISSIONS)
+      .map((action: DeletePermissions) => action.payload)
+      .switchMap(payload => {
+
+        return this.userService.deleteGuestPermissions(payload)
+          .map((data) => {
+            return new DeletePermissionsSuccess(data);
+          })
+          .catch((error) => {
+            console.log(error);
+            return Observable.of(new DeletePermissionsFailure({ error: error }));
+          });
+      });
+
+    @Effect({ dispatch: false })
+    DeletePermissionsFailure: Observable<any> = this.actions
+      .ofType(UserActionTypes.DELETE_PERMISSIONS_FAILURE)
+      .map(() => {
+        this.notificationsService.error('Error', 'Unable to delete guest permissions.');
+      });
+
+    @Effect({ dispatch: false })
+    DeletePermissionsSuccess: Observable<any> = this.actions.pipe(
+      ofType(UserActionTypes.DELETE_PERMISSIONS_SUCCESS)
+    );
 }

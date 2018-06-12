@@ -1,0 +1,95 @@
+<div class="with-sidebar">
+  <div class="container">
+    <h2>{{userID ? 'Edit' : 'Add'}} Guest</h2>
+    <form [formGroup]="guestForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.target.tagName == 'TEXTAREA'">
+      <div class="row">
+        <div class="form-group col">
+          <label for="first-name">First Name</label>
+          <input type="text" class="form-control" id="first-name" formControlName="firstName">
+        </div>
+        <div class="form-group col">
+          <label for="last-name">Last Name</label>
+          <input type="text" class="form-control" id="last-name" formControlName="lastName">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" [ngClass]="validator.displayFieldCss(guestForm, 'email')" id="email" formControlName="email">
+        <div class="invalid-feedback">
+          Valid email is required.
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="form-group col-sm-6">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" [ngClass]="validator.displayFieldCss(guestForm, 'password')" id="password" formControlName="password">
+          <div class="invalid-feedback">
+            Please enter a password.
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="enabled" formControlName="enabled">
+            <label class="form-check-label" for="enabled">Enabled</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="permissions-container">
+        <label>Permissions</label>
+        <div class="row">
+          <div class="col-sm-3">
+            <select class="form-control" formControlName="filterParam" (change)="onChangeFilter($event)">
+              <option value="all">All</option>
+              <option value="recent">Recent</option>
+            </select>
+          </div>
+          <div class="col-sm-6">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+              </div>
+              <input type="text" class="form-control" formControlName="searchParam" placeholder="Find Guest by Name or E-mail" (keyup.enter)="searchPermissions($event)">
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <select class="form-control" formControlName="sortParam" (change)="onChangeSort($event)">
+              <option value="matter_id">Matter ID</option>
+              <option value="name">Name</option>
+              <option value="updated_at">Last Updated</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Matter ID</th>
+            <th>Name</th>
+            <th>Last Updated</th>
+            <th>Access</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of permissions">
+            <td>{{p.matter_id}}</td>
+            <td>{{p.name}}</td>
+            <td>{{[p.updated_at, p.updated_by].join(' by ')}}</td>
+            <td><input type="checkbox" [checked]="accessChecked(p.access, p.case_id)" (change)="changeAccess($event)" name={{p.case_id}}></td>
+          </tr>
+        </tbody>
+      </table>
+      <ngb-pagination [collectionSize]="totalCount" [pageSize]="itemsPerPage" [(page)]="currentPage" [maxSize]="5" (pageChange)="loadPage($event)" class="d-flex justify-content-end"></ngb-pagination>
+
+      <div class="pull-right">
+        <button type="button" class="btn btn-outline-secondary" (click)="cancel()" id="cancel-button">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="isSaveDisabled()">Save</button>
+      </div>
+      <div class="clearfix"></div>
+      <div *ngIf="showErrorMsg" class="alert alert-danger" role="alert">
+        {{errorMessage}}
+      </div>
+    </form>
+  </div>
+</div>
