@@ -77,7 +77,6 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
           return {...scenario };
         });
         this.scenarios = this.sortBySavings(this.scenarios, 'savings');
-        console.log(this.scenarios)
       });
     });
 
