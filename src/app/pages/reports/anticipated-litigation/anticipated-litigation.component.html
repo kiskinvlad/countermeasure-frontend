@@ -1,0 +1,55 @@
+<ct-navigation-bar></ct-navigation-bar>
+<div class="anticipate-litigation d-flex flex-row">
+  <ct-sidebar></ct-sidebar>
+  <div class="wrapper">
+    <div class="container">
+      <div class="anticipate-litigation__header">
+          <hr/>
+          <h1 #header>Anticipated Litigation Result</h1>
+          <br/>
+          <hr/>
+          <div #headerpolicy>
+            <p>We trust that you understand and accept the limits on out ability to accurately predict
+                litigation results. If not, please read our <u>Tax Court Appeal Forecasting</u> article.
+            </p>
+            <p>Althought tax litigation contains the uncertain and unknowable, we want to bring our
+              best guess into the light of day where we can inspect and discuss it. This way, we can
+              work together to make the best descisions and maximise your return on investment.
+            </p>
+            <p>
+              We believe - based on our current understanding of the facts, evidence, and law - that
+              if you litigated the metter to the fullest extent possible, you would achieve a scenario
+              within the highlighted range below.
+            </p>
+          </div>
+      </div>
+      <div [hidden]="!chart">
+        <canvas id="canvas" #canvas height="125">{{ chart }}</canvas>
+      </div>
+      <div class="table-wrapper">
+        <table class="table table-bordered" #pdf>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Tax</th>
+              <th>Penalties</th>
+              <th>Interest</th>
+              <th>Savings</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let scenario of scenarios; let index = index">
+              <td>Scenario {{index + 1}}</td>
+              <td>{{+scenario.taxes | number:'1.2-2'}}$</td>
+              <td>{{+scenario.penalties | number:'1.2-2'}}$</td>
+              <td>{{+scenario.interest | number:'1.2-2'}}$</td>
+              <td>{{+scenario.savings | number:'1.2-2'}}$</td>
+            </tr>
+          </tbody>
+        </table>
+        <small>* See Principled Settlement Report or detailed breakdown of each scenario.</small>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary float-right" (click)="downloadPdf()"> Print </button>
+  </div>
+</div>

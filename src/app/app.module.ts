@@ -68,6 +68,7 @@ import { DisputesService } from '@app/core/services/DisputesService/disputes.ser
 import { ScenarioService } from '@app/core/services/ScenarioService/scenario.service';
 import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
 import { CsvService } from '@app/core/services/CsvService/csv.service';
+import { AnticipatedLitigationComponent } from './pages/reports/anticipated-litigation/anticipated-litigation.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { CsvService } from '@app/core/services/CsvService/csv.service';
     EditMemberComponent,
     GuestsComponent,
     EditGuestComponent,
+    AnticipatedLitigationComponent
   ],
   imports: [
     BrowserModule,
