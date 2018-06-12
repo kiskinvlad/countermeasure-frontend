@@ -22,6 +22,8 @@ import { SummaryScenariosComponent } from '@app/pages/summary-scenarios/summary-
 import { MembersComponent } from '@app/pages/organization/members/members.component';
 import { SummaryTaxesComponent } from '@app/pages/summary-taxes/summary-taxes.component';
 import { EditMemberComponent } from '@app/pages/organization/edit-member/edit-member.component';
+import { GuestsComponent } from '@app/pages/organization/guests/guests.component';
+import { EditGuestComponent } from '@app/pages/organization/edit-guest/edit-guest.component';
 
 const routes: Routes = [
   { path: '', component: DashboardCaseComponent, canActivate: [AuthGuardService] },
@@ -54,6 +56,9 @@ const routes: Routes = [
         { path: 'members', component: MembersComponent, canActivate: [AuthGuardService] },
         { path: 'members/edit', component: EditMemberComponent, canActivate: [AuthGuardService] },
         { path: 'members/edit/:user_id', component: EditMemberComponent, canActivate: [AuthGuardService] },
+        { path: 'guests', component: GuestsComponent, canActivate: [AuthGuardService] },
+        { path: 'guests/edit', component: EditGuestComponent, canActivate: [AuthGuardService] },
+        { path: 'guests/edit/:user_id', component: EditGuestComponent, canActivate: [AuthGuardService] },
     ]
   },
 ];
