@@ -21,7 +21,10 @@
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" formControlName="password">
+        <input type="password" class="form-control" [ngClass]="validator.displayFieldCss(memberForm, 'password')" id="password" formControlName="password">
+        <div class="invalid-feedback">
+          Please enter a password.
+        </div>
       </div>
       <div class="form-group">
         <label for="role">Role</label>

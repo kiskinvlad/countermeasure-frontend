@@ -77,6 +77,51 @@ export class CreateUserFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class FetchPermissions implements Action {
+  readonly type = UserActionTypes.FETCH_PERMISSIONS;
+  constructor(public payload: any) {}
+}
+
+export class FetchPermissionsSuccess implements Action {
+  readonly type = UserActionTypes.FETCH_PERMISSIONS_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class FetchPermissionsFailure implements Action {
+  readonly type = UserActionTypes.FETCH_PERMISSIONS_FAILURE;
+  constructor(public payload: any) {}
+}
+
+export class AddPermissions implements Action {
+  readonly type = UserActionTypes.ADD_PERMISSIONS;
+  constructor(public payload: any) {}
+}
+
+export class AddPermissionsSuccess implements Action {
+  readonly type = UserActionTypes.ADD_PERMISSIONS_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class AddPermissionsFailure implements Action {
+  readonly type = UserActionTypes.ADD_PERMISSIONS_FAILURE;
+  constructor(public payload: any) {}
+}
+
+export class DeletePermissions implements Action {
+  readonly type = UserActionTypes.DELETE_PERMISSIONS;
+  constructor(public payload: any) {}
+}
+
+export class DeletePermissionsSuccess implements Action {
+  readonly type = UserActionTypes.DELETE_PERMISSIONS_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class DeletePermissionsFailure implements Action {
+  readonly type = UserActionTypes.DELETE_PERMISSIONS_FAILURE;
+  constructor(public payload: any) {}
+}
+
 export type All =
   | FetchUser
   | FetchUserSuccess
@@ -92,4 +137,13 @@ export type All =
   | FetchUsersFailure
   | CreateUser
   | CreateUserSuccess
-  | CreateUserFailure;
+  | CreateUserFailure
+  | FetchPermissions
+  | FetchPermissionsSuccess
+  | FetchPermissionsFailure
+  | AddPermissions
+  | AddPermissionsSuccess
+  | AddPermissionsFailure
+  | DeletePermissions
+  | DeletePermissionsSuccess
+  | DeletePermissionsFailure;
