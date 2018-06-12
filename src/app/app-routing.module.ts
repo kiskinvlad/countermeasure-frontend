@@ -25,6 +25,7 @@ import { EditMemberComponent } from '@app/pages/organization/edit-member/edit-me
 import { GuestsComponent } from '@app/pages/organization/guests/guests.component';
 import { EditGuestComponent } from '@app/pages/organization/edit-guest/edit-guest.component';
 import { AnticipatedLitigationComponent } from '@app/pages/reports/anticipated-litigation/anticipated-litigation.component';
+import { PrincipledSettlementComponent } from '@app/pages/reports/principled-settlement/principled-settlement.component';
 
 const routes: Routes = [
   { path: '', component: DashboardCaseComponent, canActivate: [AuthGuardService] },
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'case/:case_id/amount-in-dispute', component: AmountInDisputeComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/issues-in-dispute', component: IssuesInDisputeComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/anticipated-litigation', component: AnticipatedLitigationComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/principled-settlement', component: PrincipledSettlementComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   { path: 'my-profile', component: MyProfileComponent,
     children: [

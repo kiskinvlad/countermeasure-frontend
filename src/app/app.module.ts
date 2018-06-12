@@ -69,6 +69,7 @@ import { ScenarioService } from '@app/core/services/ScenarioService/scenario.ser
 import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
 import { CsvService } from '@app/core/services/CsvService/csv.service';
 import { AnticipatedLitigationComponent } from './pages/reports/anticipated-litigation/anticipated-litigation.component';
+import { PrincipledSettlementComponent } from './pages/reports/principled-settlement/principled-settlement.component';
 
 @NgModule({
   declarations: [
@@ -98,9 +99,10 @@ import { AnticipatedLitigationComponent } from './pages/reports/anticipated-liti
     SummaryTaxesComponent,
     OrgEditDetailsComponent,
     EditMemberComponent,
+    AnticipatedLitigationComponent,
+    PrincipledSettlementComponent,
     GuestsComponent,
-    EditGuestComponent,
-    AnticipatedLitigationComponent
+    EditGuestComponent
   ],
   imports: [
     BrowserModule,
