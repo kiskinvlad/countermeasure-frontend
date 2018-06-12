@@ -130,7 +130,13 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
           {
             label: 'Total',
             backgroundColor: ['#082948', '#699bc5', '#c46158'],
-            data: values
+            data: values,
+            datalabels: {
+              display: true,
+              formatter: function(value, context) {
+                return value + '$';
+              }
+            }
           }
         ]
       },

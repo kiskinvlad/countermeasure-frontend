@@ -1,0 +1,39 @@
+<ct-navigation-bar></ct-navigation-bar>
+<div class="d-flex flex-row principled-settlement">
+  <ct-sidebar></ct-sidebar>
+  <div class="wrapper">
+    <div class="container">
+      <div class="principled-settlement__header" #header>
+          <hr/>
+          <h1>Principled Settlement Report</h1>
+          <br/>
+          <hr/>
+      </div>
+      <div class="row" *ngFor="let scenario of scenarios; let index = index">
+        <div class="col">
+          <div class="scenario_data">
+            <h6>Scenario {{index + 1}}</h6>
+            <p>Tax <span>{{scenario.total_tax_percents}}%</span></p>
+            <p>Penalties <span>{{scenario.total_penalties_percents}}%</span></p>
+            <p>Interest <span>{{scenario.total_interest_percents}}%</span></p>
+          </div>
+          <div class="scenario_total_data">
+            <h6>Total Savings ({{scenario.total_savings_percents}}%)</h6>
+            <p>$ {{scenario.savings}}</p>
+            <h6>Outstanding Amount ({{scenario.total_other_amounts_percents}}%)</h6>
+            <p>$ {{scenario.total_other_amounts}}</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="chart-wrapper">
+            <canvas id="canvas{{index}}" #canvas height="155">{{ charts }}</canvas>
+          </div>
+        </div>
+        <hr/>
+      </div>
+    </div>
+    <div class="container">
+        <button type="button" class="btn btn-primary float-right" (click)="downloadPdf()"> Print </button>
+    </div>
+  </div>
+</div>

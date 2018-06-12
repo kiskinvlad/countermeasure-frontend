@@ -109,7 +109,13 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
           {
             label: 'Total',
             backgroundColor: ['#082948', '#699bc5', '#c46158'],
-            data: data_set
+            data: data_set,
+            datalabels: {
+              display: true,
+              formatter: function(value, context) {
+                return value + '$';
+              }
+            }
           }
         ]
       },

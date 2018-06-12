@@ -1,0 +1,54 @@
+.principled-settlement {
+  .principled-settlement__header {
+    margin: 25px auto;
+    color: #082948;
+    hr {
+        border-top: 1px solid #082948;
+    }
+  }
+}
+.wrapper {
+  padding: 1rem;
+  width: 100%;
+  p {
+    margin: 0;
+    span {
+      float: right;
+    }
+  }
+  h6 {
+    color: #082948;
+  }
+  hr {
+    width: 100%;
+    background: #082948;
+  }
+  .scenario_data {
+    margin: 25px 0;
+  }
+  .scenario_total_data {
+    margin-top: 50px;
+  }
+  .scenario_total_data {
+    h6 {
+      margin: 0;
+    }
+    p {
+      margin-bottom: 10px;
+    }
+  }
+  .row {
+    hr {
+      margin-right: 15px;
+      margin-left: 15px;
+    }
+  }
+  .row:last-child {
+    hr {
+      display: none;
+    }
+  }
+  .chart-wrapper {
+    padding: 25px 0;
+  }
+}
