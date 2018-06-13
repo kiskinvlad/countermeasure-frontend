@@ -28,7 +28,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
   
   private createCaseDlgRef: BsModalRef;
   private total_count: number;
-  private total_page: number;  
+  private total_page: number;
   private items_per_page: number;
   private user_role: string;
   private dialogConfig = {
@@ -60,8 +60,8 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
       });
       this.errorMessage = state.errorMessage;
     });
-    this.filter_param = "All";
-    this.sort_param = "Matter ID";
+    this.filter_param = 'All';
+    this.sort_param = 'Matter ID';
     this.page_number = 1;
 
     const payload = {
@@ -77,12 +77,12 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
     this.createCaseDlgRef = this.detailDlgService.show(DialogCreateCaseComponent, this.dialogConfig);
     this.createCaseDlgRef.content.dialogTitle = "Create Case";
     this.createCaseDlgRef.content.onCloseReason.subscribe(result => {
-      if (result == 'submit') {
+      if (result === 'submit') {
         const payload = {
           matter_id: this.createCaseDlgRef.content.formGroup.value.matter_id,
           name: this.createCaseDlgRef.content.formGroup.value.name,
           description: this.createCaseDlgRef.content.formGroup.value.description,
-          filter_param: { 'id': this.filter_param == 'All' ? 1 : 2 },
+          filter_param: { 'id': this.filter_param === 'All' ? 1 : 2 },
           sort_param: this.sort_param,
           page_number: this.page_number,
           items_per_page: 5,
@@ -103,12 +103,12 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
     });
     this.createCaseDlgRef.content.onCloseReason.subscribe(result => {
       
-      if (result == 'submit') {
+      if (result === 'submit') {
         const payload = {
           matter_id: this.createCaseDlgRef.content.formGroup.value.matter_id,
           name: this.createCaseDlgRef.content.formGroup.value.name,
           description: this.createCaseDlgRef.content.formGroup.value.description,
-          filter_param: { 'id': this.filter_param == 'All' ? 1 : 2 },
+          filter_param: { 'id': this.filter_param === 'All' ? 1 : 2 },
           sort_param: this.sort_param,
           page_number: this.page_number,
           items_per_page: 5,
@@ -125,7 +125,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
 
   deleteCase(i): void {
     const payload = {
-      filter_param: { 'id': this.filter_param == 'All' ? 1 : 2 },
+      filter_param: { 'id': this.filter_param === 'All' ? 1 : 2 },
       sort_param: this.sort_param,
       page_number: this.page_number,
       items_per_page: 5,
@@ -140,12 +140,12 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
   }
 
   range(): any[] {
-    return Array.from(Array(Math.ceil(this.total_count/this.items_per_page)).keys());
+    return Array.from(Array(Math.ceil(this.total_count / this.items_per_page)).keys());
   }
 
   getItems(): void {
     const payload = {
-      filter_param: { 'id': this.filter_param == 'All' ? 1 : 2 },
+      filter_param: { 'id': this.filter_param === 'All' ? 1 : 2 },
       sort_param: this.sort_param,
       page_number: this.page_number,
       items_per_page: 5,
@@ -156,7 +156,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
   }
 
   getItemsByPage(page_no): boolean {
-    if (page_no == 0 || page_no == Math.ceil(this.total_count/this.items_per_page) + 1) {
+    if (page_no === 0 || page_no === Math.ceil(this.total_count / this.items_per_page) + 1) {
       return false;
     }
     this.page_number = page_no;

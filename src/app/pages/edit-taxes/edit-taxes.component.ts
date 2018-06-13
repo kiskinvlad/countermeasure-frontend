@@ -21,9 +21,6 @@ export class EditTaxesComponent implements OnInit {
   private subscription: Subscription;
   private next_category: any;
   private disputedDlgRef: BsModalRef;
-
-  public disputed: Array<any> = [];
-  public case_id: number;
   private dialogConfig = {
     animated: true,
     keyboard: true,
@@ -31,7 +28,9 @@ export class EditTaxesComponent implements OnInit {
     ignoreBackdropClick: false
   };
 
-
+  public disputed: Array<any> = [];
+  public case_id: number;
+ 
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -55,27 +54,30 @@ export class EditTaxesComponent implements OnInit {
     const payload = {
       case_id: this.case_id
     };
+
     this.store.dispatch(new FetchDisputesByCase(payload));
   }
 
   removeDisputed(index): void {
-    var payload = {
+    const payload = {
       disputed_id: this.disputed[index]['disputed_t1_ta_id'],
       case_id: this.case_id
-    }
+    };
+
     this.store.dispatch(new RemoveDisputed(payload));    
   }
 
   openAddTaxDialog(): void {
     this.disputedDlgRef = this.addEditDlgService.show(AddEditTaxComponent, this.dialogConfig);
-    this.disputedDlgRef.content.dialogTitle = "Add Personal Income Tax Year in";
+    this.disputedDlgRef.content.dialogTitle = 'Add Personal Income Tax Year in';
     this.disputedDlgRef.content.btn_remove = false;
     this.disputedDlgRef.content.onCloseReason.subscribe(result => {
-      if (result == 'submit') {
-        var payload = {
+      if (result === 'submit') {
+        const payload = {
           disputed: this.disputedDlgRef.content.disputed,
           case_id: this.case_id
-        }
+        };
+
         this.store.dispatch(new CreateDisputed(payload));
       }
     });
@@ -85,16 +87,17 @@ export class EditTaxesComponent implements OnInit {
 
     this.disputedDlgRef = this.addEditDlgService.show(AddEditTaxComponent, this.dialogConfig);
     this.disputedDlgRef.content.disputed = this.disputed[index];
-    this.disputedDlgRef.content.dialogTitle = "Edit Personal Income Tax Year in";
+    this.disputedDlgRef.content.dialogTitle = 'Edit Personal Income Tax Year in';
     this.disputedDlgRef.content.onCloseReason.subscribe(result => {
-      if (result == 'submit') {
+      if (result === 'submit') {
         console.log(this.disputedDlgRef.content.disputed);
         const payload = {
           case_id: this.case_id,
           disputed: this.disputedDlgRef.content.disputed
-        }
+        };
+
         this.store.dispatch(new UpdateDisputed(payload));
-      } else if (result == 'remove') {
+      } else if (result === 'remove') {
         this.removeDisputed(index);
       }
     });

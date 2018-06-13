@@ -16,14 +16,14 @@ import 'rxjs/add/observable/from';
 import { DisputesActionTypes } from '@app/shared/ngrx-store/constants/disputes';
 import { DisputesService } from '@app/core/services/DisputesService/disputes.service';
 import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
-  import {
-    CreateDisputed, CreateDisputedSuccess, CreateDisputedFailure,
-    UpdateDisputed, UpdateDisputedSuccess, UpdateDisputedFailure,
-    RemoveDisputed, RemoveDisputedSuccess, RemoveDisputedFailure,
-    FetchDisputed, FetchDisputedSuccess, FetchDisputedFailure,
-    FetchDisputes, FetchDisputesSuccess, FetchDisputesFailure,
-    FetchDisputesByCase, FetchDisputesByCaseSuccess, FetchDisputesByCaseFailure,
-    FetchDisputesBySummary, FetchDisputesBySummarySuccess, FetchDisputesBySummaryFailure } from '@app/shared/ngrx-store/actions/disputes.actions';
+import {
+  CreateDisputed, CreateDisputedSuccess, CreateDisputedFailure,
+  UpdateDisputed, UpdateDisputedSuccess, UpdateDisputedFailure,
+  RemoveDisputed, RemoveDisputedSuccess, RemoveDisputedFailure,
+  FetchDisputed, FetchDisputedSuccess, FetchDisputedFailure,
+  FetchDisputes, FetchDisputesSuccess, FetchDisputesFailure,
+  FetchDisputesByCase, FetchDisputesByCaseSuccess, FetchDisputesByCaseFailure,
+  FetchDisputesBySummary, FetchDisputesBySummarySuccess, FetchDisputesBySummaryFailure} from '@app/shared/ngrx-store/actions/disputes.actions';
 
 @Injectable()
 export class DisputesEffects {
@@ -91,7 +91,7 @@ export class DisputesEffects {
   CreateDisputedFailure: Observable<any> = this.actions.pipe(
     ofType(DisputesActionTypes.CREATE_DISPUTED_FAILURE),
     tap(() => {
-      this.notificationsService.error('Error', "Disputed was not created.");
+      this.notificationsService.error('Error', 'Disputed was not created.');
     })
   );
 
@@ -122,7 +122,7 @@ export class DisputesEffects {
   UpdateDisputedFailure: Observable<any> = this.actions.pipe(
     ofType(DisputesActionTypes.UPDATE_DISPUTED_FAILURE),
     tap(() => {
-      this.notificationsService.error('Error', "Disputed was not updated.");
+      this.notificationsService.error('Error', 'Disputed was not updated.');
     })
   );
 
@@ -153,7 +153,7 @@ export class DisputesEffects {
   RemoveDisputedFailure: Observable<any> = this.actions.pipe(
     ofType(DisputesActionTypes.REMOVE_DISPUTED_FAILURE),
     tap(() => {
-      this.notificationsService.error('Error', "Disputed was not removed.");
+      this.notificationsService.error('Error', 'Disputed was not removed.');
     })
   );
 
