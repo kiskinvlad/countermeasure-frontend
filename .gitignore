@@ -11,6 +11,7 @@
 # IDEs and editors
 /.idea
 /.history
+/.vscode
 .project
 .classpath
 .c9/

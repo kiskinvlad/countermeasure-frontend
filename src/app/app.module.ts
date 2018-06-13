@@ -72,6 +72,7 @@ import { OrganizationService } from '@app/core/services/OrganizationService/orga
 import { CsvService } from '@app/core/services/CsvService/csv.service';
 import { AnticipatedLitigationComponent } from './pages/reports/anticipated-litigation/anticipated-litigation.component';
 import { DialogCreateOrgComponent } from './pages/dashboard-organizations/dialog-create-org/dialog-create-org.component';
+import { PrincipledSettlementComponent } from './pages/reports/principled-settlement/principled-settlement.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { DialogCreateOrgComponent } from './pages/dashboard-organizations/dialog
     SummaryTaxesComponent,
     OrgEditDetailsComponent,
     EditMemberComponent,
+    PrincipledSettlementComponent,
     GuestsComponent,
     EditGuestComponent,
     AnticipatedLitigationComponent,

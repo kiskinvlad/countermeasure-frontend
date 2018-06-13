@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectScenarioState } from '@app/shared/ngrx-store/app.states';
@@ -9,13 +9,12 @@ import * as jsPDF from 'jspdf';
 import 'chart.piecelabel.js';
 import 'jspdf-autotable';
 import 'chartjs-plugin-datalabels';
-
 @Component({
   selector: 'ct-anticipated-litigation',
   templateUrl: './anticipated-litigation.component.html',
   styleUrls: ['./anticipated-litigation.component.scss']
 })
-export class AnticipatedLitigationComponent implements OnInit {
+export class AnticipatedLitigationComponent implements OnInit, OnDestroy {
   @ViewChild('pdf') pdf: ElementRef;
   @ViewChild('header') header: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
@@ -187,6 +186,12 @@ export class AnticipatedLitigationComponent implements OnInit {
 
   private sortBySavings(array: Array<any>, x): Array<any> {
     return array.sort((a, b) => b[x] - a[x]);
+  }
+
+  ngOnDestroy(): void {
+    this.ctx.clearRect(0, 0, 100, 100);
+    this.chart.destroy();
+    this.subscription.unsubscribe();
   }
 
 }
