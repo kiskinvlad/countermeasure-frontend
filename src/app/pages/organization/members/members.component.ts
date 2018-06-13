@@ -4,8 +4,10 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectUserState, selectOrganizationState } from '@app/shared/ngrx-store/app.states';
 import { FetchUsers } from '@app/shared/ngrx-store/actions/user.actions';
-import { FetchOrganization } from '@app/shared/ngrx-store/actions/organization.actions';
+import { FetchOrganization, UpdateOrganization } from '@app/shared/ngrx-store/actions/organization.actions';
 import { User } from '@shared/models/user';
+import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ct-members',
@@ -27,13 +29,19 @@ export class MembersComponent implements OnInit, OnDestroy {
   public totalCount = 0;
   public totalEnabled: number;
   public memberLimit: number;
+  public roleID: string;
+  public orgForm: FormGroup;
 
   constructor(
     private store: Store<AppState>,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private localStorageService: LocalStorageService,
+    private fb: FormBuilder
   ) {
     this.getState$ = this.store.select(selectUserState);
     this.getOrgState$ = this.store.select(selectOrganizationState);
+    this.roleID = localStorageService.getUserRoleID();
+    this.createForm();
   }
 
   ngOnInit() {
@@ -47,6 +55,10 @@ export class MembersComponent implements OnInit, OnDestroy {
     this.orgSubscription = this.getOrgState$.subscribe((state) => {
       if (state.organization) {
         this.memberLimit = state.organization.member_limit;
+        if (!this.errorMessage) {
+          this.orgForm.reset();
+        }
+        this.setFormValues();
       }
     });
 
@@ -85,4 +97,26 @@ export class MembersComponent implements OnInit, OnDestroy {
     this.store.dispatch(new FetchOrganization({org_id: this.orgID}));
   }
 
+  createForm() {
+    this.orgForm = this.fb.group ({
+      memberLimit: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]]
+    });
+  }
+
+  onSubmit() {
+    const formModel = this.orgForm.value;
+    const data = {
+      org_id: this.orgID,
+      member_limit: formModel.memberLimit
+    };
+    this.store.dispatch(new UpdateOrganization(data));
+  }
+
+  setFormValues() {
+    if (this.memberLimit) {
+      this.orgForm.setValue({
+        memberLimit: this.memberLimit
+      });
+    }
+  }
 }

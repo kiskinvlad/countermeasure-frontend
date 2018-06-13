@@ -26,6 +26,23 @@
     </table>
     <ngb-pagination [collectionSize]="totalCount" [pageSize]="itemsPerPage" [(page)]="currentPage" [maxSize]="5" (pageChange)="loadPage($event)" class="d-flex justify-content-end"></ngb-pagination>
 
-    <p class="text-right">{{totalEnabled}} of {{memberLimit}} user accounts in use</p>
+    <p class="text-right" *ngIf="roleID === 'OA'">{{totalEnabled}} of {{memberLimit}} user accounts in use</p>
+
+    <form [formGroup]="orgForm" (ngSubmit)="onSubmit()" *ngIf="roleID === 'CA'">
+      <div class="form-group row">
+        <label for="org-name" class="col-sm-2 col-form-label limit-label">Member Limit </label>
+        <div class="col-sm-1 col-form-label text-right enabled-label">
+          {{totalEnabled}} of
+        </div>
+        <div class="col-sm-1">
+          <input type="text" class="form-control" id="org-name" formControlName="memberLimit">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-12 clearfix">
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="orgForm.pristine || !orgForm.valid">Save</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
