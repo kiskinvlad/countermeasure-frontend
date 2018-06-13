@@ -1,0 +1,48 @@
+<ct-navigation-bar></ct-navigation-bar>
+
+<div class="container">
+  <h2 class="container-title">Organizations</h2>
+
+  <button class="btn btn-primary float-right" (click)="onClickCreateOrganization()">Create Organization</button>
+
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-sm-6 form-group">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+          </div>
+          <input type="text" class="form-control" formControlName="searchVal" placeholder="Find an organization by name" aria-label="Search" aria-describedby="basic-addon1">
+        </div>
+      </div>
+      <div class="col-sm-3 form-group">
+        <select class="form-control" formControlName="searchBy">
+          <option value="name">Name</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="d-none">hidden submit</button>
+  </form>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Users</th>
+        <th>Cases</th>
+        <th>Scenarios</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let org of organizations">
+        <td>{{org.org_name}}</td>
+        <td>{{org.enabled_members}} of {{org.member_limit}}</td>
+        <td>{{org.total_cases}}</td>
+        <td>{{org.total_scenarios}}</td>
+        <td><a [routerLink]="['/organization', org.org_id, 'details']">Edit</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <ngb-pagination [collectionSize]="totalCount" [pageSize]="itemsPerPage" [(page)]="currentPage" [maxSize]="5" (pageChange)="loadPage($event)" class="d-flex justify-content-end"></ngb-pagination>
+</div>

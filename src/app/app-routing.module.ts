@@ -4,6 +4,7 @@ import { LoginComponent } from '@app/pages/login/login.component';
 import { DashboardCaseComponent } from '@app/pages/dashboard-case/dashboard-case.component';
 import { EditDetailsComponent as MyProfileEditDetailsComponent } from '@app/pages/my-profile/edit-details/edit-details.component';
 import { AuthGuardService } from '@app/shared/guard/auth-guard.service';
+import { DashboardGuardService } from '@app/shared/guard/dashboard-guard.service';
 import { EditCasesComponent } from '@app/pages/edit-cases/edit-cases.component';
 import { EditCategoriesComponent } from '@app/pages/edit-categories/edit-categories.component';
 import { AddEditCategoryComponent } from '@app/pages/edit-categories/add-edit-category/add-edit-category.component';
@@ -25,9 +26,10 @@ import { EditMemberComponent } from '@app/pages/organization/edit-member/edit-me
 import { GuestsComponent } from '@app/pages/organization/guests/guests.component';
 import { EditGuestComponent } from '@app/pages/organization/edit-guest/edit-guest.component';
 import { AnticipatedLitigationComponent } from '@app/pages/reports/anticipated-litigation/anticipated-litigation.component';
+import { DashboardOrganizationsComponent } from '@app/pages/dashboard-organizations/dashboard-organizations.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardCaseComponent, canActivate: [AuthGuardService] },
+  { path: '', component: DashboardCaseComponent, canActivate: [DashboardGuardService] },
   { path: 'case/:case_id/categories', component: EditCategoriesComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/scenaries', component: EditScenariosComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/scenaries/:scenario_id/edit/:type', component: AddEditScenarioComponent, canActivate: [AuthGuardService] },
@@ -63,6 +65,7 @@ const routes: Routes = [
         { path: 'guests/edit/:user_id', component: EditGuestComponent, canActivate: [AuthGuardService] },
     ]
   },
+  { path: 'organizations', component: DashboardOrganizationsComponent, canActivate: [AuthGuardService] },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
