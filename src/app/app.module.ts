@@ -56,6 +56,7 @@ import { ScenarioEffects } from '@app/shared/ngrx-store/effects/scenario.effects
 import { UserEffects } from '@app/shared/ngrx-store/effects/user.effects';
 import { OrganizationEffects } from '@app/shared/ngrx-store/effects/organization.effects';
 import { CsvEffects } from '@app/shared/ngrx-store/effects/csv.effects';
+import { PermissionEffects } from '@app/shared/ngrx-store/effects/permission.effects';
 
 import { UserService } from '@app/core/services/UserService/user.service';
 import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
@@ -70,6 +71,7 @@ import { DisputesService } from '@app/core/services/DisputesService/disputes.ser
 import { ScenarioService } from '@app/core/services/ScenarioService/scenario.service';
 import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
 import { CsvService } from '@app/core/services/CsvService/csv.service';
+import { PermissionService } from '@app/core/services/PermissionService/permission.service';
 import { AnticipatedLitigationComponent } from './pages/reports/anticipated-litigation/anticipated-litigation.component';
 import { DialogCreateOrgComponent } from './pages/dashboard-organizations/dialog-create-org/dialog-create-org.component';
 import { PrincipledSettlementComponent } from './pages/reports/principled-settlement/principled-settlement.component';
@@ -131,7 +133,8 @@ import { PrincipledSettlementComponent } from './pages/reports/principled-settle
       DisputesEffects,
       OrganizationEffects,
       ScenarioEffects,
-      CsvEffects
+      CsvEffects,
+      PermissionEffects
     ]),
     SimpleNotificationsModule.forRoot(),
   ],
@@ -153,7 +156,8 @@ import { PrincipledSettlementComponent } from './pages/reports/principled-settle
     DisputesService,
     ScenarioService,
     OrganizationService,
-    CsvService
+    CsvService,
+    PermissionService
   ],
   entryComponents: [
     AddEditTaxComponent,
