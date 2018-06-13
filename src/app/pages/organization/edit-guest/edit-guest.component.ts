@@ -34,7 +34,7 @@ export class EditGuestComponent implements OnInit, OnDestroy {
   currentPage = 1;
   previousPage = 0;
   totalCount = 0;
-  itemsPerPage = 2;
+  itemsPerPage = 10;
   addedCases = Array<number>();
   removedCases = Array<number>();
   submitted = false;
