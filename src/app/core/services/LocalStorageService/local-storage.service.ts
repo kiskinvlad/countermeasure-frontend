@@ -70,7 +70,7 @@ export class LocalStorageService {
     return this.currentUser.last_name;
   }
 
-  public getUserRoleId(): string {
+  public getUserRoleID(): string {
     return this.currentUser.role_id;
   }
 

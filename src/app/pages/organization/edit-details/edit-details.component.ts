@@ -7,6 +7,7 @@ import { Organization } from '@app/shared/models/organization';
 import { AppState, selectOrganizationState } from '@app/shared/ngrx-store/app.states';
 import { FetchOrganization, UpdateOrganization } from '@app/shared/ngrx-store/actions/organization.actions';
 import { ValidatorModule } from '@app/shared/form-validator/validator.module';
+import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
 
 @Component({
   selector: 'ct-edit-details',
@@ -22,11 +23,18 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   orgForm: FormGroup;
   orgID: number;
   validator: ValidatorModule;
+  roleID: string;
 
-  constructor(private store: Store<AppState>, private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(
+    private store: Store<AppState>,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private localStorageService: LocalStorageService
+  ) {
     this.getState$ = this.store.select(selectOrganizationState);
     this.createForm();
     this.validator = new ValidatorModule();
+    this.roleID = localStorageService.getUserRoleID();
   }
 
   ngOnInit() {
@@ -56,7 +64,8 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
       firstName: '',
       lastName: '',
       phone: ['', Validators.maxLength(15)],
-      email: ['', Validators.email]
+      email: ['', Validators.email],
+      enabled: ''
     });
   }
 
@@ -72,7 +81,8 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
       first_name: formModel.firstName,
       last_name: formModel.lastName,
       phone: formModel.phone,
-      email: formModel.email
+      email: formModel.email,
+      enabled: formModel.enabled
     };
     this.store.dispatch(new UpdateOrganization(data));
   }
@@ -84,7 +94,8 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
         firstName: this.org.first_name,
         lastName: this.org.last_name,
         phone: this.org.phone,
-        email: this.org.email
+        email: this.org.email,
+        enabled: this.org.enabled
       });
     }
   }
