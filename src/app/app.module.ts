@@ -45,6 +45,7 @@ import { IssuesInDisputeComponent } from './pages/reports/issues-in-dispute/issu
 import { EditMemberComponent } from './pages/organization/edit-member/edit-member.component';
 import { GuestsComponent } from './pages/organization/guests/guests.component';
 import { EditGuestComponent } from './pages/organization/edit-guest/edit-guest.component';
+import { DashboardOrganizationsComponent } from './pages/dashboard-organizations/dashboard-organizations.component';
 
 import { reducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
@@ -59,6 +60,7 @@ import { CsvEffects } from '@app/shared/ngrx-store/effects/csv.effects';
 import { UserService } from '@app/core/services/UserService/user.service';
 import { AuthenticationService } from '@app/core/services/AuthenticationService/authentication.service';
 import { AuthGuardService } from '@app/shared/guard/auth-guard.service';
+import { DashboardGuardService } from '@app/shared/guard/dashboard-guard.service';
 import { RoleService } from '@app/core/services/UserRoleService/role.service';
 import { CasesService } from '@app/core/services/CasesService/cases.service';
 import { CategoryService } from '@app/core/services/CategoryService/category.service';
@@ -69,6 +71,7 @@ import { ScenarioService } from '@app/core/services/ScenarioService/scenario.ser
 import { OrganizationService } from '@app/core/services/OrganizationService/organization.service';
 import { CsvService } from '@app/core/services/CsvService/csv.service';
 import { AnticipatedLitigationComponent } from './pages/reports/anticipated-litigation/anticipated-litigation.component';
+import { DialogCreateOrgComponent } from './pages/dashboard-organizations/dialog-create-org/dialog-create-org.component';
 import { PrincipledSettlementComponent } from './pages/reports/principled-settlement/principled-settlement.component';
 
 @NgModule({
@@ -99,10 +102,12 @@ import { PrincipledSettlementComponent } from './pages/reports/principled-settle
     SummaryTaxesComponent,
     OrgEditDetailsComponent,
     EditMemberComponent,
-    AnticipatedLitigationComponent,
     PrincipledSettlementComponent,
     GuestsComponent,
-    EditGuestComponent
+    EditGuestComponent,
+    AnticipatedLitigationComponent,
+    DashboardOrganizationsComponent,
+    DialogCreateOrgComponent,
   ],
   imports: [
     BrowserModule,
@@ -133,6 +138,7 @@ import { PrincipledSettlementComponent } from './pages/reports/principled-settle
   providers: [
     AuthenticationService,
     AuthGuardService,
+    DashboardGuardService,
     ApiRoutingService,
     RoleService,
     DLSService,
@@ -151,7 +157,8 @@ import { PrincipledSettlementComponent } from './pages/reports/principled-settle
   ],
   entryComponents: [
     AddEditTaxComponent,
-    DialogCreateCaseComponent
+    DialogCreateCaseComponent,
+    DialogCreateOrgComponent
   ],
   bootstrap: [AppComponent]
 })

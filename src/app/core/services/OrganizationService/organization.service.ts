@@ -10,12 +10,14 @@ import { HttpHelperService } from '@app/core/http-helper.service';
 export class OrganizationService {
 
   private organization_api_url: string;
+  private org_stats_api_url: string;
 
   constructor(
     private http: HttpHelperService,
     private apiRoutingService: ApiRoutingService
   ) {
     this.organization_api_url = apiRoutingService.getOrganizationAPIUrl();
+    this.org_stats_api_url = apiRoutingService.getOrganizationStatsAPIUrl();
   }
 
   getOrganization(payload): Observable<any> {
@@ -34,6 +36,23 @@ export class OrganizationService {
       false,
       true,
       null
+    );
+  }
+
+  getOrganizations(payload): Observable<any> {
+    return this.http.get(
+      this.org_stats_api_url,
+      payload,
+      true
+    );
+  }
+
+  createOrganization(payload): Observable<any> {
+    return this.http.post(
+      this.organization_api_url,
+      payload,
+      false,
+      true
     );
   }
 }

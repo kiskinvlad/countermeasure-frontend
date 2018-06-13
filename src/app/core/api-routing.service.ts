@@ -114,4 +114,8 @@ export class ApiRoutingService {
   getOrganizationAPIUrl(): string {
     return this.baseUrl + 'organizations';
   }
+
+  getOrganizationStatsAPIUrl(): string {
+    return this.baseUrl + 'organizations/statistics';
+  }
 }

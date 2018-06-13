@@ -20,7 +20,13 @@ import {
   FetchOrganizationSuccess,
   UpdateOrganization,
   UpdateOrganizationFailure,
-  UpdateOrganizationSuccess
+  UpdateOrganizationSuccess,
+  FetchOrganizations,
+  FetchOrganizationsSuccess,
+  FetchOrganizationsFailure,
+  CreateOrganization,
+  CreateOrganizationSuccess,
+  CreateOrganizationFailure
 } from '../actions/organization.actions';
 
 @Injectable()
@@ -89,5 +95,64 @@ export class OrganizationEffects {
     .ofType(OrganizationActionTypes.UPDATE_ORGANIZATION_FAILURE)
     .map(() => {
       this.notificationsService.error('Error', 'Failed to update details.');
+    });
+
+  @Effect()
+  FetchOrganizations: Observable<Action> = this.actions
+    .ofType(OrganizationActionTypes.FETCH_ORGANIZATIONS)
+    .map((action: FetchOrganizations) => action.payload)
+    .switchMap(payload => {
+
+      return this.organizationService.getOrganizations(payload)
+        .map((data) => {
+          return new FetchOrganizationsSuccess(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new FetchOrganizationsFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  FetchOrganizationsFailure: Observable<any> = this.actions
+    .ofType(OrganizationActionTypes.FETCH_ORGANIZATIONS_FAILURE)
+    .map(() => {
+      this.notificationsService.error('Error', 'Failed to fetch organizations.');
+    });
+
+  @Effect({ dispatch: false })
+  FetchOrganizationsSuccess: Observable<any> = this.actions.pipe(
+    ofType(OrganizationActionTypes.FETCH_ORGANIZATIONS_SUCCESS)
+  );
+
+  @Effect()
+  CreateOrganization: Observable<Action> = this.actions
+    .ofType(OrganizationActionTypes.CREATE_ORGANIZATION)
+    .map((action: CreateOrganization) => action.payload)
+    .switchMap(payload => {
+
+      return this.organizationService.createOrganization(payload)
+        .map((data) => {
+          return new CreateOrganizationSuccess(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new CreateOrganizationFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  CreateOrganizationSuccess: Observable<any> = this.actions.pipe(
+    ofType(OrganizationActionTypes.CREATE_ORGANIZATION_SUCCESS),
+    tap((data) => {
+      this.notificationsService.success('Success', 'Organization has been created.');
+    })
+  );
+
+  @Effect({ dispatch: false })
+  CreateOrganizationFailure: Observable<any> = this.actions
+    .ofType(OrganizationActionTypes.CREATE_ORGANIZATION_FAILURE)
+    .map(() => {
+      this.notificationsService.error('Error', 'Failed to create organization.');
     });
 }

@@ -4,17 +4,23 @@ import { All } from '@app/shared/ngrx-store/actions/organization.actions';
 
 export interface State {
   organization: Organization;
+  organizations: any[];
+  totalCount: number;
   errorMessage: string;
 }
 
 export const initialState: State = {
   organization: null,
+  organizations: [],
+  totalCount: 0,
   errorMessage: null
 };
 
 const messages = {
   ERR_FAILED_GET_ORGANIZATION: 'Failed to fetch organization.',
-  ERR_FAILED_UPDATE_ORGANIZATION: 'Failed to update organization.'
+  ERR_FAILED_UPDATE_ORGANIZATION: 'Failed to update organization.',
+  ERR_FAILED_GET_ORGANIZATIONS: 'Failed to fetch organizations.',
+  ERR_FAILED_CREATE_ORGANIZATION: 'Failed to create organization.'
 };
 
 export function reducer(state: State = initialState, action: All): State {
@@ -44,6 +50,35 @@ export function reducer(state: State = initialState, action: All): State {
       return {
         ...state,
         errorMessage: messages.ERR_FAILED_UPDATE_ORGANIZATION
+      };
+    }
+    case OrganizationActionTypes.FETCH_ORGANIZATIONS_SUCCESS: {
+      return {
+        ...state,
+        organizations:  action.payload.organizations,
+        totalCount: action.payload.count,
+        errorMessage: null
+      };
+    }
+    case OrganizationActionTypes.FETCH_ORGANIZATIONS_FAILURE: {
+      return {
+        ...state,
+        organizations: [],
+        totalCount: 0,
+        errorMessage: messages.ERR_FAILED_GET_ORGANIZATIONS
+      };
+    }
+    case OrganizationActionTypes.CREATE_ORGANIZATION_SUCCESS: {
+      return {
+        ...state,
+        organization:  action.payload.organization,
+        errorMessage: null
+      };
+    }
+    case OrganizationActionTypes.CREATE_ORGANIZATION_FAILURE: {
+      return {
+        ...state,
+        errorMessage: messages.ERR_FAILED_CREATE_ORGANIZATION
       };
     }
     default: {
