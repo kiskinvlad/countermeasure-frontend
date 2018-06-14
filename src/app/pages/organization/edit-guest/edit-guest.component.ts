@@ -6,9 +6,9 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs/';
 import { User } from '@app/shared/models/user';
 import { Permission } from '@app/shared/models/permission';
-import { AppState, selectUserState } from '@app/shared/ngrx-store/app.states';
-import { FetchUser, UpdateUser, CreateUser, FetchPermissions, AddPermissions,
-   DeletePermissions } from '@app/shared/ngrx-store/actions/user.actions';
+import { AppState, selectUserState, selectPermissionState } from '@app/shared/ngrx-store/app.states';
+import { FetchUser, UpdateUser, CreateUser } from '@app/shared/ngrx-store/actions/user.actions';
+import { FetchPermissions, AddPermissions, DeletePermissions } from '@app/shared/ngrx-store/actions/permission.actions';
 import { ValidatorModule } from '@app/shared/form-validator/validator.module';
 
 @Component({
@@ -20,8 +20,11 @@ export class EditGuestComponent implements OnInit, OnDestroy {
 
   guest: User = new User();
   getState$: Observable<any>;
+  getPermState$: Observable<any>;
   errorMessage: string | null;
+  permErrorMessage: string | null;
   subscription: Subscription;
+  permSubscription: Subscription;
   guestForm: FormGroup;
   userID: number;
   orgID: number;
@@ -46,12 +49,14 @@ export class EditGuestComponent implements OnInit, OnDestroy {
     private location: Location
   ) {
     this.getState$ = this.store.select(selectUserState);
+    this.getPermState$ = this.store.select(selectPermissionState);
     this.createForm();
     this.validator = new ValidatorModule();
   }
 
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
+      this.guest = state.user;
       this.errorMessage = state.errorMessage;
       if (this.errorMessage === 'User already exists with that email.') {
         this.showErrorMsg = true;
@@ -59,20 +64,27 @@ export class EditGuestComponent implements OnInit, OnDestroy {
         this.showErrorMsg = false;
       }
 
-      this.totalCount = state.totalCount;
-      this.guest = state.user;
-      this.permissions = state.permissions;
-
-      if (!this.errorMessage && this.submitted) {
+      if (!this.errorMessage) {
         this.guestForm.reset();
-        this.submitted = false;
-        if (!this.userID) {
-          this.addGuestPermissions(this.guest.user_id);
+
+        if (this.submitted) {
+          this.submitted = false;
+          // Add permissions for newly created guest
+          if (!this.userID && this.guest) {
+            this.addGuestPermissions(this.guest.user_id);
+          }
+        }
+
+        if (this.userID) {
+          this.setFormValues();
         }
       }
-      if (this.userID && !this.errorMessage && this.guestForm.pristine) {
-        this.setFormValues();
-      }
+    });
+
+    this.permSubscription = this.getPermState$.subscribe((state) => {
+      this.permErrorMessage = state.errorMessage;
+      this.totalCount = state.totalCount;
+      this.permissions = state.permissions;
     });
 
     this.route.params.subscribe(params => {
@@ -133,37 +145,34 @@ export class EditGuestComponent implements OnInit, OnDestroy {
   }
 
   addGuestPermissions(userID) {
+    if (this.addedCases.length) {
+      const payload = this.getPermissionsPayload(userID, this.addedCases);
+      this.store.dispatch(new AddPermissions(payload));
+      this.addedCases = [];
+    }
+  }
+
+  removeGuestPermissions() {
+    if (this.removedCases.length) {
+      const payload = this.getPermissionsPayload(this.userID, this.removedCases);
+      this.store.dispatch(new DeletePermissions(payload));
+      this.removedCases = [];
+    }
+  }
+
+  getPermissionsPayload(userID, cases) {
     const offset = (this.currentPage - 1) * this.itemsPerPage;
     const payload = {
       user_id: userID,
       org_id: this.orgID,
       offset: offset,
       limit: this.itemsPerPage,
-      cases: JSON.stringify(this.addedCases),
+      cases: JSON.stringify(cases),
       filter: this.filterParam,
       search: this.searchParam,
       sort_by: this.sortParam
     };
-
-    this.store.dispatch(new AddPermissions(payload));
-    this.addedCases = [];
-  }
-
-  removeGuestPermissions() {
-    const offset = (this.currentPage - 1) * this.itemsPerPage;
-    const payload = {
-      user_id: this.userID,
-      org_id: this.orgID,
-      offset: offset,
-      limit: this.itemsPerPage,
-      cases: JSON.stringify(this.removedCases),
-      filter: this.filterParam,
-      search: this.searchParam,
-      sort_by: this.sortParam
-    };
-
-    this.store.dispatch(new DeletePermissions(payload));
-    this.removedCases = [];
+    return payload;
   }
 
   cancel() {
@@ -207,6 +216,7 @@ export class EditGuestComponent implements OnInit, OnDestroy {
     this.store.dispatch(new FetchPermissions(payload));
   }
 
+  // Update arrays of added/removed cases
   changeAccess($event) {
     const isChecked = $event.target.checked;
     const caseID = parseInt($event.target.name, 10);

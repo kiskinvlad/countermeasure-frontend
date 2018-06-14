@@ -82,13 +82,13 @@
                     </li>
                     <li class="text-muted menu-title">Manage Organization</li>
                     <li class="has_sub" [routerLinkActive]="['active']">
-                        <a class="waves-effect" [routerLink]="['/organization', userOrg, 'details']"><span> Edit Details </span> </a>
+                        <a class="waves-effect" [routerLink]="['/organization', org_id, 'details']"><span> Edit Details </span> </a>
                     </li>
                     <li class="has_sub" [routerLinkActive]="['active']">
-                        <a class="waves-effect" [routerLink]="['/organization', userOrg, 'members']"><span> Members </span> </a>
+                        <a class="waves-effect" [routerLink]="['/organization', org_id, 'members']"><span> Members </span> </a>
                     </li>
                     <li class="has_sub" [routerLinkActive]="['active']">
-                        <a class="waves-effect" [routerLink]="['/organization', userOrg, 'guests']"><span> Guests </span> </a>
+                        <a class="waves-effect" [routerLink]="['/organization', org_id, 'guests']"><span> Guests </span> </a>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
