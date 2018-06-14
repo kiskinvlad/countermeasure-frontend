@@ -1,3 +1,11 @@
+$primary: #082948;
+$secondary: #E1E1E1;
+$success: #4A8363;
+$danger: #C46158;
+$warning: #DF7D58;
+$info: #699BC5;
+@import '../node_modules/bootstrap/scss/bootstrap';
+
 /* You can add global styles to this file, and also import other style files */
 @import "~@ng-select/ng-select/themes/default.theme.css";
 .with-sidebar {
@@ -60,4 +68,8 @@ tr {
     font-weight: normal;
     text-align: left;
     padding: 0.5em;
+}
+
+table tr a {
+    text-decoration: underline;
 }
