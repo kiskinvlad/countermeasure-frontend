@@ -79,8 +79,8 @@ export class EditMemberComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.memberForm = this.fb.group ({
-      firstName: '',
-      lastName: '',
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.email, Validators.required]],
       password: ['', Validators.required],
       role: ['', Validators.required],
