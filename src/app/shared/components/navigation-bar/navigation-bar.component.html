@@ -14,7 +14,7 @@
       <a class="nav-link">BEC Lawyers</a>
     </li>
     <div ngbDropdown class="d-inline-block" placement="bottom-right">
-      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{userName}}</button>
+      <button class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>{{userName}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <a routerLink="/my-profile" class="dropdown-item">My Profile</a>
         <a *ngIf="userRole == 'OA'" [routerLink]="['/organization', userOrg]" class="dropdown-item">Manage Organization</a>
