@@ -17,6 +17,7 @@ import * as disputes from '@shared/ngrx-store/reducers/disputes.reducers';
 import * as scenario from '@shared/ngrx-store/reducers/scenario.reducers';
 import * as organization from '@shared/ngrx-store/reducers/organization.reducers';
 import * as csv from '@shared/ngrx-store/reducers/csv.reducers';
+import * as permission from '@shared/ngrx-store/reducers/permission.reducers';
 
 export interface AppState {
   authState: auth.State;
@@ -28,6 +29,7 @@ export interface AppState {
   scenarioState: scenario.State;
   organizationState: organization.State;
   csvState: csv.State;
+  permissionState: permission.State;
 }
 
 export const reducers = {
@@ -39,7 +41,8 @@ export const reducers = {
   categoryState: category.reducer,
   scenarioState: scenario.reducer,
   organizationState: organization.reducer,
-  csvState: csv.reducer
+  csvState: csv.reducer,
+  permissionState: permission.reducer
 };
 
 export const selectAuthState = createFeatureSelector<AppState>('authState');
@@ -51,6 +54,7 @@ export const selectDisputesState = createFeatureSelector<AppState>('disputesStat
 export const selectScenarioState = createFeatureSelector<AppState>('scenarioState');
 export const selectOrganizationState = createFeatureSelector<AppState>('organizationState');
 export const selectCsvState = createFeatureSelector<AppState>('csvState');
+export const selectPermissionState = createFeatureSelector<AppState>('permissionState');
 
 const combinedReducer: ActionReducer<AppState> = combineReducers(reducers);
 
