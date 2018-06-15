@@ -51,10 +51,8 @@ export class EditMemberComponent implements OnInit, OnDestroy {
 
       this.member = state.user;
 
-      if (!this.errorMessage) {
+      if (!this.errorMessage && this.userID) {
         this.memberForm.reset();
-      }
-      if (this.userID) {
         this.setFormValues();
       }
     });
@@ -84,7 +82,7 @@ export class EditMemberComponent implements OnInit, OnDestroy {
       email: ['', [Validators.email, Validators.required]],
       password: ['', Validators.required],
       role: ['', Validators.required],
-      enabled: ''
+      enabled: 1
     });
   }
 
