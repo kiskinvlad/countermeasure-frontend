@@ -10,9 +10,8 @@
 
   }
   .side-menu.left {
-    box-shadow: 0 8px 42px 0 rgba(0, 0, 0, 0.08);
     position: absolute;
-    top: 42px;
+    top: 40px;
   }
 
   .sidebar-inner {
@@ -34,11 +33,11 @@
   }
   .sidebar-menu li
   {
-    border-bottom: solid rgb(204, 204, 204) 2px;
+    border-bottom: solid rgb(204, 204, 204) 1px;
   }
   .side-menu
   {
-    border: solid rgb(204, 204, 204) 2px;
+    border: solid rgb(204, 204, 204) 1px;
   }
   .sidebar-menu {
     width: 100%;
@@ -83,7 +82,7 @@
       background-color: white;
   }
   .sidebar-menu > ul > li > a:hover {
-    color: #000 !important;
+    color: #000;
     text-decoration: none;
   }
   .sidebar-menu > ul > li > a > span {
@@ -101,4 +100,8 @@
     letter-spacing: .035em;
     font-size: 13px;
     background-color: rgb(242,242,242);
+  }
+  .side-menu .sidebar-menu li.active a, .side-menu .sidebar-menu li.active a:hover {
+    font-weight: bold;
+    color: #082948;
   }
