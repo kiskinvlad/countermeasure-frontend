@@ -49,7 +49,7 @@ export class PermissionEffects {
       .ofType(PermissionActionTypes.FETCH_PERMISSIONS)
       .map((action: FetchPermissions) => action.payload)
       .switchMap(payload => {
-        console.log("called getGuestPermissions: " + JSON.stringify(payload));
+        console.log('called getGuestPermissions: ' + JSON.stringify(payload));
         return this.permissionService.getGuestPermissions(payload)
           .map((data) => {
             return new FetchPermissionsSuccess(data);

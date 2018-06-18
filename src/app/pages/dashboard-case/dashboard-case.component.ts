@@ -25,7 +25,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
   public filter_param: string;
   public sort_param: string;
   public search_name: string;
-  
+
   private createCaseDlgRef: BsModalRef;
   private total_count: number;
   private total_page: number;
@@ -75,7 +75,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
 
   openCreateCaseDialog(): void {
     this.createCaseDlgRef = this.detailDlgService.show(DialogCreateCaseComponent, this.dialogConfig);
-    this.createCaseDlgRef.content.dialogTitle = "Create Case";
+    this.createCaseDlgRef.content.dialogTitle = 'Create Case';
     this.createCaseDlgRef.content.onCloseReason.subscribe(result => {
       if (result === 'submit') {
         const payload = {
@@ -87,7 +87,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
           page_number: this.page_number,
           items_per_page: 5,
           search_name: this.search_name
-        }
+        };
         this.store.dispatch(new CreateCase(payload));
       }
     });
@@ -95,14 +95,14 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
 
   openCopyCaseDialog(i): void {
     this.createCaseDlgRef = this.detailDlgService.show(DialogCreateCaseComponent, this.dialogConfig);
-    this.createCaseDlgRef.content.dialogTitle = "Copy Case - Copying Matter " + this.cases[i].matter_id + ", " + this.cases[i].name;
+    this.createCaseDlgRef.content.dialogTitle = 'Copy Case - Copying Matter ' + this.cases[i].matter_id + ', ' + this.cases[i].name;
     this.createCaseDlgRef.content.formGroup.setValue({
       matter_id: this.cases[i].matter_id,
       name: '',
       description: ''
     });
     this.createCaseDlgRef.content.onCloseReason.subscribe(result => {
-      
+
       if (result === 'submit') {
         const payload = {
           matter_id: this.createCaseDlgRef.content.formGroup.value.matter_id,
@@ -113,10 +113,10 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
           page_number: this.page_number,
           items_per_page: 5,
           search_name: this.search_name
-        }
+        };
         this.store.dispatch(new CreateCase(payload));
       }
-    })
+    });
   }
 
   redirectToDetail(index): void {
@@ -131,7 +131,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
       items_per_page: 5,
       search_name: this.search_name,
       case_id: this.cases[i].case_id
-    }
+    };
     this.store.dispatch(new DeleteCase(payload));
   }
 

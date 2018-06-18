@@ -49,7 +49,7 @@ export class SummaryTaxesComponent implements OnInit {
   }
 
   downloadCSV() {
-    var json = JSON.stringify(this.disputed);
+    const json = JSON.stringify(this.disputed);
     this.store.dispatch(new CreateCsv({json: json, case_id: this.case_id, type: 'Taxes'}));
   }
 }
