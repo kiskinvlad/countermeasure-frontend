@@ -65,8 +65,6 @@ export class EditGuestComponent implements OnInit, OnDestroy {
       }
 
       if (!this.errorMessage) {
-        this.guestForm.reset();
-
         if (this.submitted) {
           this.submitted = false;
           // Add permissions for newly created guest
@@ -76,6 +74,7 @@ export class EditGuestComponent implements OnInit, OnDestroy {
         }
 
         if (this.userID) {
+          this.guestForm.reset();
           this.setFormValues();
         }
       }
@@ -115,7 +114,7 @@ export class EditGuestComponent implements OnInit, OnDestroy {
       lastName: '',
       email: ['', [Validators.email, Validators.required]],
       password: ['', Validators.required],
-      enabled: '',
+      enabled: 1,
       filterParam: 'all',
       searchParam: '',
       sortParam: 'matter_id'
@@ -190,7 +189,10 @@ export class EditGuestComponent implements OnInit, OnDestroy {
         lastName: this.guest.last_name,
         email: this.guest.email,
         password: '',
-        enabled: this.guest.enabled
+        enabled: this.guest.enabled,
+        filterParam: this.filterParam,
+        searchParam: this.searchParam,
+        sortParam: this.sortParam
       });
     }
   }
