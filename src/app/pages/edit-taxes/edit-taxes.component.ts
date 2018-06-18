@@ -7,7 +7,13 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 
 import { AppState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
 import { AddEditTaxComponent } from './add-edit-tax/add-edit-tax.component';
-import { FetchDisputesByCase, FetchDisputed, CreateDisputed, UpdateDisputed, RemoveDisputed } from '@app/shared/ngrx-store/actions/disputes.actions';
+import {
+  FetchDisputesByCase,
+  FetchDisputed,
+  CreateDisputed,
+  UpdateDisputed,
+  RemoveDisputed
+} from '@app/shared/ngrx-store/actions/disputes.actions';
 
 @Component({
   selector: 'ct-edit-taxes',
@@ -30,7 +36,7 @@ export class EditTaxesComponent implements OnInit {
 
   public disputed: Array<any> = [];
   public case_id: number;
- 
+
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -64,7 +70,7 @@ export class EditTaxesComponent implements OnInit {
       case_id: this.case_id
     };
 
-    this.store.dispatch(new RemoveDisputed(payload));    
+    this.store.dispatch(new RemoveDisputed(payload));
   }
 
   openAddTaxDialog(): void {

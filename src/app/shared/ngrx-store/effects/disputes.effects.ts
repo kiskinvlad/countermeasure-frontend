@@ -23,7 +23,8 @@ import {
   FetchDisputed, FetchDisputedSuccess, FetchDisputedFailure,
   FetchDisputes, FetchDisputesSuccess, FetchDisputesFailure,
   FetchDisputesByCase, FetchDisputesByCaseSuccess, FetchDisputesByCaseFailure,
-  FetchDisputesBySummary, FetchDisputesBySummarySuccess, FetchDisputesBySummaryFailure} from '@app/shared/ngrx-store/actions/disputes.actions';
+  FetchDisputesBySummary, FetchDisputesBySummarySuccess,
+  FetchDisputesBySummaryFailure} from '@app/shared/ngrx-store/actions/disputes.actions';
 
 @Injectable()
 export class DisputesEffects {
