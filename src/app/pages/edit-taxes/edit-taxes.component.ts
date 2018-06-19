@@ -20,8 +20,21 @@ import {
   templateUrl: './edit-taxes.component.html',
   styleUrls: ['./edit-taxes.component.scss']
 })
-export class EditTaxesComponent implements OnInit {
-
+/**
+ * Edit taxes component
+ * @implements {OnInit, OnDestroy}
+ */
+export class EditTaxesComponent implements OnInit, OnDestroy {
+/**
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {any} next_category Next scenario in list param
+ * @param {BsModalRef} disputedDlgRef Bootstrap modal reference param
+ * @param {object} dialogConfig Modal options param
+ * @param {Array<any>} disputed Taxes array param
+ * @param {number} case_id Current case id param
+ */
   private getState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
@@ -36,7 +49,12 @@ export class EditTaxesComponent implements OnInit {
 
   public disputed: Array<any> = [];
   public case_id: number;
-
+/**
+ * @constructor
+ * @param {ActivatedRoute} route Current route state service
+ * @param {Store<AppState>} store App state store service
+ * @param {addEditDlgService} addEditDlgService Add edit dialog service
+ */
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -44,7 +62,9 @@ export class EditTaxesComponent implements OnInit {
   ) {
     this.getState$ = this.store.select(selectDisputesState);
   }
-
+/**
+ * Initialize add-edit component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
@@ -63,8 +83,11 @@ export class EditTaxesComponent implements OnInit {
 
     this.store.dispatch(new FetchDisputesByCase(payload));
   }
-
-  removeDisputed(index): void {
+/**
+ * Remove tax method
+ * @param {number} index Tax index
+ */
+  removeDisputed(index: number): void {
     const payload = {
       disputed_id: this.disputed[index]['disputed_t1_ta_id'],
       case_id: this.case_id
@@ -72,7 +95,9 @@ export class EditTaxesComponent implements OnInit {
 
     this.store.dispatch(new RemoveDisputed(payload));
   }
-
+/**
+ * Open add tax modal method
+ */
   openAddTaxDialog(): void {
     this.disputedDlgRef = this.addEditDlgService.show(AddEditTaxComponent, this.dialogConfig);
     this.disputedDlgRef.content.dialogTitle = 'Add Personal Income Tax Year in';
@@ -88,8 +113,11 @@ export class EditTaxesComponent implements OnInit {
       }
     });
   }
-
-  openEditTaxDialog(index): void {
+/**
+ * Open edit tax modal method
+ * @param {number} index Tax index
+ */
+  openEditTaxDialog(index: number): void {
 
     this.disputedDlgRef = this.addEditDlgService.show(AddEditTaxComponent, this.dialogConfig);
     this.disputedDlgRef.content.disputed = this.disputed[index];
@@ -107,5 +135,12 @@ export class EditTaxesComponent implements OnInit {
         this.removeDisputed(index);
       }
     });
+  }
+
+/**
+ * Destroy edit-taxes component life cycle method
+ */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

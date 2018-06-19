@@ -14,8 +14,29 @@ import { DialogCreateCaseComponent } from './dialog-create-case/dialog-create-ca
   templateUrl: './dashboard-case.component.html',
   styleUrls: ['./dashboard-case.component.scss']
 })
+/**
+ * Dashboard case component
+ * @implements {OnInit, OnDestroy}
+ */
 export class DashboardCaseComponent implements OnInit, OnDestroy {
-
+/**
+ * @param {Array<any>} cases Cases array param
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ *
+ * @param {number} page_number Current page number param
+ * @param {string} filter_param Filter param for fetch cases param
+ * @param {string} sort_param Sort param for cases param
+ * @param {string} search_name Case name param
+ *
+ * @param {BsModalRef} createCaseDlgRef Bootstrap modal reference param
+ * @param {number} total_count Cases count param
+ * @param {number} total_page Page count param
+ * @param {number} items_per_page Items count per page param
+ * @param {string} user_role User role param
+ * @param {object} dialogConfig Bootstrap modal dialog options param
+ */
   public cases: Array<any> = [];
   getState$: Observable<any>;
   errorMessage: string | null;
@@ -37,7 +58,12 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
     backdrop: true,
     ignoreBackdropClick: false
   };
-
+/**
+ * @constructor
+ * @param {Router} router App router service
+ * @param {BsModalService} detailDlgService Bootstrap modal service
+ * @param {Store<AppState>} store App state store service
+ */
   constructor(
     private router: Router,
     private detailDlgService: BsModalService,
@@ -45,8 +71,10 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
   ) {
     this.getState$ = this.store.select(selectCasesState);
   }
-
-  ngOnInit() {
+/**
+ * Initialize dashboard-case component life cycle method
+ */
+  ngOnInit(): void {
     this.subscription = this.getState$.subscribe((state) => {
       this.total_count = state.totalCount;
       this.total_page = Math.ceil(state.totalCount / state.items_per_page);
@@ -72,7 +100,9 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
     };
     this.store.dispatch(new FetchCases(payload));
   }
-
+/**
+ * Open create case dialog method
+ */
   openCreateCaseDialog(): void {
     this.createCaseDlgRef = this.detailDlgService.show(DialogCreateCaseComponent, this.dialogConfig);
     this.createCaseDlgRef.content.dialogTitle = 'Create Case';
@@ -92,8 +122,11 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  openCopyCaseDialog(i): void {
+/**
+ * Open copy case dialog method
+ * @param {number} i Case index
+ */
+  openCopyCaseDialog(i: number): void {
     this.createCaseDlgRef = this.detailDlgService.show(DialogCreateCaseComponent, this.dialogConfig);
     this.createCaseDlgRef.content.dialogTitle = 'Copy Case - Copying Matter ' + this.cases[i].matter_id + ', ' + this.cases[i].name;
     this.createCaseDlgRef.content.formGroup.setValue({
@@ -118,12 +151,18 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  redirectToDetail(index): void {
+/**
+ * Redirect to detail component method
+ * @param {number} i Case index
+ */
+  redirectToDetail(index: number): void {
     this.router.navigate(['/case/' + (index + 1) + '/detail']);
   }
-
-  deleteCase(i): void {
+/**
+ * Delete case method
+ * @param {number} i Case index
+ */
+  deleteCase(i: number): void {
     const payload = {
       filter_param: { 'id': this.filter_param === 'All' ? 1 : 2 },
       sort_param: this.sort_param,
@@ -134,15 +173,22 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
     };
     this.store.dispatch(new DeleteCase(payload));
   }
-
+/**
+ * Destroy dashboard-case component life cycle method
+ */
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
+/**
+ * Get cases array per page method
+ * @returns {any[]}
+ */
   range(): any[] {
     return Array.from(Array(Math.ceil(this.total_count / this.items_per_page)).keys());
   }
-
+/**
+ * Get cases array method
+ */
   getItems(): void {
     const payload = {
       filter_param: { 'id': this.filter_param === 'All' ? 1 : 2 },
@@ -154,8 +200,12 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(new FetchCases(payload));
   }
-
-  getItemsByPage(page_no): boolean {
+/**
+ * Get cases per page array method
+ * @param {number} page_no Page number
+ * @returns {boolean}
+ */
+  getItemsByPage(page_no: number): boolean {
     if (page_no === 0 || page_no === Math.ceil(this.total_count / this.items_per_page) + 1) {
       return false;
     }

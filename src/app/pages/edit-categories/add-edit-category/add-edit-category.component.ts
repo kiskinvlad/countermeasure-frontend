@@ -15,8 +15,34 @@ import { ValidatorModule } from '@app/shared/form-validator/validator.module';
   templateUrl: './add-edit-category.component.html',
   styleUrls: ['./add-edit-category.component.scss']
 })
+/**
+ * Add/Edit category component
+ * @implements {OnInit, OnDestroy}
+ */
 export class AddEditCategoryComponent implements OnInit, OnDestroy {
-
+/**
+ * @param {Observable<any>} getCategoryState$ Category state observable param
+ * @param {Observable<any>} getDisputesState$ Taxes state observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {ValidatorModule} validator Form validaor module param
+ * @param {Category} category Current category object param
+ * @param {number} case_id Current case id param
+ * @param {string} type Component type param
+ * @param {number} category_id Current category id param
+ * @param {boolean} isFormTouched Form touched state param
+ * @param {FormGroup} categoryForm Category form param
+ * @param {FormControl} name Form name control param
+ * @param {NgOption[]} taxes Form taxes options param
+ * @param {FormControl} tax Form tax control param
+ * @param {FormControl} income Form income control param
+ * @param {FormControl} federal Form federal control param
+ * @param {FormControl} provincial Form provincial control param
+ * @param {FormControl} other_amounts Form other_amounts control param
+ * @param {FormControl} credits Form credits control param
+ * @param {FormControl} gnp Form gnp control param
+ * @param {FormControl} credits Form other_penalties control param
+ */
   private getCategoryState$: Observable<any>;
   private getDisputesState$: Observable<any>;
   private errorMessage: string | null;
@@ -38,7 +64,12 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
   public credits: FormControl;
   public gnp: FormControl;
   public other_penalties: FormControl;
-
+/**
+ * @constructor
+ * @param {ActivatedRoute} route Current route state service
+ * @param {Store<AppState>} store App state store service
+ * @param {Router} router  App router service
+ */
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -48,7 +79,9 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       this.getCategoryState$ = this.store.select(selectCategoryState);
       this.getDisputesState$ = this.store.select(selectDisputesState);
     }
-
+/**
+ * Initialize add-edit-categories component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
       this.category_id = +params['category_id'];
@@ -105,7 +138,9 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       });
     });
   }
-
+/**
+ * Create form controls method
+ */
   private createFormControls(): void {
     this.name = new FormControl('', [
       Validators.required,
@@ -135,7 +170,9 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       Validators.required
     ]);
   }
-
+/**
+ * Create form method
+ */
   private createForm(): void {
     this.categoryForm = new FormGroup({
       name: this.name,
@@ -149,14 +186,19 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       other_penalties: this.other_penalties
     });
   }
-
+/**
+ * Get form data method
+ * @param {object} payload Http request data
+ */
   private getFormData(payload: object): void {
     if (this.type === 'edit') {
       this.store.dispatch(new FetchCategory(payload));
     }
     this.store.dispatch(new FetchDisputes());
   }
-
+/**
+ * Set form data method
+ */
   private setFormData(): void {
     const current_tax = this.taxes.find(tax => tax.disputed_t1_ta_id === this.category.disputed_t1_ta_id);
     this.name.setValue(this.category.name);
@@ -171,7 +213,9 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       this.tax.setValue(current_tax);
     }
   }
-
+/**
+ * Delete category
+ */
   private deleteCategory(): void {
     const payload = {
       id: this.category_id,
@@ -180,7 +224,9 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
     };
     this.store.dispatch(new DeleteCategory(payload));
   }
-
+/**
+ * Add/update category
+ */
   private addUpdateCategory(): void {
     let payload;
     if (!this.categoryForm.valid) {
@@ -206,7 +252,9 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       this.store.dispatch(new CreateCategory(payload));
     }
   }
-
+/**
+ * Destroy add-edit-categories component life cycle method
+ */
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

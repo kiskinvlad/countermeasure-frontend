@@ -7,14 +7,25 @@ import { HttpHelperService } from '../../http-helper.service';
 import { ApiRoutingService } from '../../api-routing.service';
 
 @Injectable()
+/**
+ * Case Service for cases CRUD operations
+ */
 export class CasesService {
-
+/**
+ * @constructor
+ * @param {HttpHelperService} http Http service
+ * @param {ApiRoutingService} apiRoutingService Api routing service
+ */
   constructor(
     private http: HttpHelperService,
     private apiRoutingService: ApiRoutingService
   ) { }
-
-  getFilteredAndSorted(payload): Observable<any> {
+/**
+ * Get filtered and sorted cases method
+ * @param {any} payload Http request data
+ * @returns {Observable<any>}
+ */
+  getFilteredAndSorted(payload: any): Observable<any> {
     return this.http.post(
       this.apiRoutingService.getFilteredAndSortedCasesAPIUrl(),
       payload,
@@ -23,8 +34,12 @@ export class CasesService {
       null
     );
   }
-
-  getCreatedCase(payload): Observable<any> {
+/**
+ * Create new case method
+ * @param {any} payload Http request data
+ * @returns {Observable<any>}
+ */
+  getCreatedCase(payload: any): Observable<any> {
     return this.http.post(
       this.apiRoutingService.getCreateCaseAPIUrl(),
       payload,
@@ -33,7 +48,11 @@ export class CasesService {
       null
     );
   }
-
+/**
+ * Delete case method
+ * @param {any} payload Http request data
+ * @returns {Observable<any>}
+ */
   getDeletedCase(payload): Observable<any> {
     return this.http.post(
       this.apiRoutingService.getDeleteCaseAPIUrl(),
@@ -43,8 +62,12 @@ export class CasesService {
       null
     );
   }
-
-  getCase(payload): Observable<any> {
+/**
+ * Get case method
+ * @param {any} payload Http request data
+ * @returns {Observable<any>}
+ */
+  getCase(payload: any): Observable<any> {
     console.log(payload);
     return this.http.get(
       this.apiRoutingService.getCaseAPIUrl(),
@@ -53,8 +76,12 @@ export class CasesService {
       null
     );
   }
-
-  updateCase(payload): Observable<any> {
+/**
+ * Update case method
+ * @param {any} payload Http request data
+ * @returns {Observable<any>}
+ */
+  updateCase(payload: any): Observable<any> {
     return this.http.put(
       this.apiRoutingService.getUpdateCaseAPIUrl(),
       payload,

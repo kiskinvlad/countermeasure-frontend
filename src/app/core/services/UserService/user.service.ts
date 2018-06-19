@@ -5,14 +5,27 @@ import { User } from '@app/shared/models/user';
 
 import { ApiRoutingService } from '@app/core/api-routing.service';
 import { HttpHelperService } from '@app/core/http-helper.service';
-
+/**
+ * User Service for users CRUD operations
+ */
 @Injectable()
+/**
+ * User Service for users CRUD operations
+ */
 export class UserService {
-
+/**
+ * @param {string} users_api_url
+ * @param {string} password_api_url
+ * @param {string} all_users_api_url
+ */
   private users_api_url: string;
   private password_api_url: string;
   private all_users_api_url: string;
-
+/**
+ * @constructor
+ * @param {HttpHelperService} http
+ * @param {ApiRoutingService} apiRoutingService
+ */
   constructor(
     private http: HttpHelperService,
     private apiRoutingService: ApiRoutingService
@@ -20,8 +33,12 @@ export class UserService {
     this.users_api_url = apiRoutingService.getUsersAPIUrl();
     this.password_api_url = apiRoutingService.getUpdatePasswordAPIUrl();
   }
-
-  getUser(payload): Observable<any> {
+/**
+ * Get user method
+ * @param {string} role_id
+ * @returns {Observable<any>}
+ */
+  getUser(payload: any): Observable<any> {
     return this.http.get(
       this.users_api_url + '/' + payload.user_id,
       payload,
@@ -29,8 +46,12 @@ export class UserService {
       null
     );
   }
-
-  updateUser(payload): Observable<any> {
+/**
+ * Update user method
+ * @param {string} role_id
+ * @returns {Observable<any>}
+ */
+  updateUser(payload: any): Observable<any> {
     const url = (payload && payload.user_id) ? (this.users_api_url + '/' + payload.user_id) : this.users_api_url;
     return this.http.put(
       url,
@@ -40,8 +61,12 @@ export class UserService {
       null
     );
   }
-
-  updatePassword(payload): Observable<any> {
+/**
+ * Update user password method
+ * @param {string} role_id
+ * @returns {Observable<any>}
+ */
+  updatePassword(payload: any): Observable<any> {
     return this.http.patch(
       this.password_api_url,
       payload,
@@ -49,16 +74,24 @@ export class UserService {
       true
     );
   }
-
-  getUsers(payload): Observable<any> {
+/**
+ * Get users method
+ * @param {string} role_id
+ * @returns {Observable<any>}
+ */
+  getUsers(payload: any): Observable<any> {
     return this.http.get(
       this.users_api_url,
       payload,
       true
     );
   }
-
-  createUser(payload): Observable<any> {
+/**
+ * Create user method
+ * @param {string} role_id
+ * @returns {Observable<any>}
+ */
+  createUser(payload: any): Observable<any> {
     return this.http.post(
       this.users_api_url,
       payload,

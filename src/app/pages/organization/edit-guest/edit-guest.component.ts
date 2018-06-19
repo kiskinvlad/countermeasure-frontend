@@ -16,8 +16,35 @@ import { ValidatorModule } from '@app/shared/form-validator/validator.module';
   templateUrl: './edit-guest.component.html',
   styleUrls: ['./edit-guest.component.scss']
 })
+/**
+ * Edit guest component
+ * @implements {OnInit, OnDestroy}
+ */
 export class EditGuestComponent implements OnInit, OnDestroy {
-
+/**
+ * @param {User} guest User model for edit guest param
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {string | null} permErrorMessage Permission error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {Subscription} permSubscription Permission subscription param
+ * @param {FormGroup} guestForm Edit guest form param
+ * @param {number} userID Current user id param
+ * @param {number} orgID Current organization id param
+ * @param {ValidatorModule} validator Form validator module param
+ * @param {boolean} showErrorMsg Error message state param
+ * @param {Permission[]} permissions Permissions array param
+ * @param {number} currentPage Current page number param
+ * @param {number} previousPage Previous page number param
+ * @param {number} totalCount Total count of users param
+ * @param {number} itemsPerPage User count per page param
+ * @param {Array<number>()} addedCases Added cases array param
+ * @param {Array<number>()} removedCases Removed cases array param
+ * @param {boolean} submited Form submited state param
+ * @param {string | null} filterParam Filter for guests param
+ * @param {string | null} searchParam Search condition for guests param
+ * @param {string | null} sortParam Sort condition for guests param
+ */
   guest: User = new User();
   getState$: Observable<any>;
   getPermState$: Observable<any>;
@@ -41,7 +68,13 @@ export class EditGuestComponent implements OnInit, OnDestroy {
   filterParam: string | null;
   searchParam: string | null;
   sortParam: string | null;
-
+/**
+ * @constructor
+ * @param {Store<AppState>} store App state store service
+ * @param {FormBuilder} fb Edit details form builder service
+ * @param {ActivatedRoute} route Current route state service
+ * @param {LocalStorageService} localStorageService Local storage service
+ */
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
@@ -53,7 +86,9 @@ export class EditGuestComponent implements OnInit, OnDestroy {
     this.createForm();
     this.validator = new ValidatorModule();
   }
-
+/**
+ * Initialize edit-guest component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.guest = state.user;
@@ -103,11 +138,16 @@ export class EditGuestComponent implements OnInit, OnDestroy {
       this.loadData();
     }
   }
-
+/**
+ * Destroy edit-guest component life cycle method
+ */
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.permSubscription.unsubscribe();
   }
-
+/**
+ * Create form method
+ */
   createForm() {
     this.guestForm = this.fb.group ({
       firstName: '',
@@ -120,7 +160,9 @@ export class EditGuestComponent implements OnInit, OnDestroy {
       sortParam: 'matter_id'
     });
   }
-
+/**
+ * Form submit method
+ */
   onSubmit() {
     this.submitted = true;
     const formModel = this.guestForm.value;
@@ -142,7 +184,9 @@ export class EditGuestComponent implements OnInit, OnDestroy {
       this.store.dispatch(new CreateUser(data));
     }
   }
-
+/**
+ * Add guest permissions method
+ */
   addGuestPermissions(userID) {
     if (this.addedCases.length) {
       const payload = this.getPermissionsPayload(userID, this.addedCases);
@@ -150,7 +194,9 @@ export class EditGuestComponent implements OnInit, OnDestroy {
       this.addedCases = [];
     }
   }
-
+/**
+ * Remove guest permissions method
+ */
   removeGuestPermissions() {
     if (this.removedCases.length) {
       const payload = this.getPermissionsPayload(this.userID, this.removedCases);
@@ -158,7 +204,9 @@ export class EditGuestComponent implements OnInit, OnDestroy {
       this.removedCases = [];
     }
   }
-
+/**
+ * Get permissions http request payload method
+ */
   getPermissionsPayload(userID, cases) {
     const offset = (this.currentPage - 1) * this.itemsPerPage;
     const payload = {
@@ -173,15 +221,21 @@ export class EditGuestComponent implements OnInit, OnDestroy {
     };
     return payload;
   }
-
+/**
+ * Cencel form edit method
+ */
   cancel() {
     this.location.back();
   }
-
+/**
+ * Get guest user method
+ */
   getGuest(): void {
     this.store.dispatch(new FetchUser({user_id: this.userID}));
   }
-
+/**
+ * Initialize form data method
+ */
   setFormValues() {
     if (!this.errorMessage && this.guest) {
       this.guestForm.patchValue({
@@ -196,14 +250,18 @@ export class EditGuestComponent implements OnInit, OnDestroy {
       });
     }
   }
-
+/**
+ * Load edit-guest component method
+ */
   loadPage(page: number) {
     if (page !== this.previousPage) {
       this.previousPage = page;
       this.loadData();
     }
   }
-
+/**
+ * Load data for edit-guest component method
+ */
   loadData() {
     const offset = (this.currentPage - 1) * this.itemsPerPage;
     const payload = {
@@ -218,7 +276,9 @@ export class EditGuestComponent implements OnInit, OnDestroy {
     this.store.dispatch(new FetchPermissions(payload));
   }
 
-  // Update arrays of added/removed cases
+/**
+ * Change cases access method
+ */
   changeAccess($event) {
     const isChecked = $event.target.checked;
     const caseID = parseInt($event.target.name, 10);
@@ -240,7 +300,9 @@ export class EditGuestComponent implements OnInit, OnDestroy {
       }
     }
   }
-
+/**
+ * Check cases access method
+ */
   accessChecked(access, case_id) {
     const iAdded = this.addedCases.indexOf(parseInt(case_id, 10));
     const iRemoved = this.removedCases.indexOf(parseInt(case_id, 10));
@@ -249,7 +311,9 @@ export class EditGuestComponent implements OnInit, OnDestroy {
     }
     return false;
   }
-
+/**
+ * Save button state method
+ */
   isSaveDisabled() {
     return !this.guestForm.valid || (!this.addedCases.length && !this.removedCases.length
       && this.guestForm.pristine);
