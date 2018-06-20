@@ -21,11 +21,25 @@ import { CsvActionTypes } from '@app/shared/ngrx-store/constants/csv';
 import { CsvService } from '@app/core/services/CsvService/csv.service';
 
 @Injectable()
+/**
+ * Csv side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class CsvEffects {
-
-private case_id: number;
-private type: string;
-
+/**
+ * @param {number} case_id Current case id
+ * @param {string} type Type of table
+ */
+  private case_id: number;
+  private type: string;
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {CsvService} csvService Comma separated values service
+ * @param {Router} router App router service
+ * @param {LocalStorageService} localStorageService Local storage service
+ * @param {NgxPermissionsService} permissionsService User ermissions service
+ * @param {NotificationsService} notificationsService App notification service
+ */
   constructor(
     private actions: Actions,
     private csvService: CsvService,

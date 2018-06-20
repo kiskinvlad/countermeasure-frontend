@@ -1,3 +1,6 @@
+/**
+ * Authentication action types enumeration.
+ */
 export enum AuthActionTypes {
     LOGIN = '[Auth] Login Action',
     LOGIN_SUCCESS = '[Auth] Login Success Action',

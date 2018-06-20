@@ -32,8 +32,20 @@ import {
 } from '../actions/permission.actions';
 
 @Injectable()
+/**
+ * Permission side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class PermissionEffects {
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {PermissionService} permissionService Permission service
+ * @param {Router} router App router service
+ * @param {LocalStorageService} localStorageService Local storage service
+ * @param {NgxPermissionsService} permissionsService User ermissions service
+ * @param {NotificationsService} notificationsService App notification service
+ * @param {Store<AppState>} store App store service
+ */
   constructor(
     private actions: Actions,
     private permissionService: PermissionService,

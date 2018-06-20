@@ -24,8 +24,19 @@ import { FetchCases, FetchCasesSuccess, FetchCasesFailure,
          GetCase, GetCaseSuccess, GetCaseFailure, } from '@app/shared/ngrx-store/actions/cases.actions';
 
 @Injectable()
+/**
+ * Cases side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class CasesEffects {
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {CasesService} casesService Cases service
+ * @param {Router} router App router service
+ * @param {LocalStorageService} localStorageService  App local storage service
+ * @param {NgxPermissionsService} permissionsService User permissions service
+ * @param {NotificationsService} notificationsService App notification service
+ */
   constructor(
     private actions: Actions,
     private casesService: CasesService,

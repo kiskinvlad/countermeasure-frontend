@@ -1,3 +1,6 @@
+/**
+ * Permission action types enumeration.
+ */
 export enum PermissionActionTypes {
     FETCH_PERMISSIONS= '[Permission] Fetch Permissions Action',
     FETCH_PERMISSIONS_SUCCESS = '[Permission] Fetch Permissions Success Action',

@@ -1,3 +1,6 @@
+/**
+ * Taxes model.
+ */
 export class Disputed {
     disputed_t1_ta_id: number;
     case_id: number;

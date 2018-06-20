@@ -2,13 +2,23 @@ import { User } from '@shared/models/user';
 import { AuthActionTypes } from '@app/shared/ngrx-store/constants/auth';
 import { All } from '@app/shared/ngrx-store/actions/auth.actions';
 
-
+/**
+ * Authentication state interface
+ */
 export interface State {
+/**
+ * State params
+ * @param {boolean} isAuthenticated User auth state
+ * @param {User} user User model
+ * @param errorMessage Error message param
+ */
   isAuthenticated: boolean;
   user: User;
   errorMessage: string;
 }
-
+/**
+ * Initial state
+ */
 export const initialState: State = {
   isAuthenticated: false,
   user: null,
@@ -20,7 +30,11 @@ const messages = {
   ERR_CANNOT_GET_USER: 'Failed fetch user from local storage.',
   ERR_FAILED_LOGOUT: 'Failed logout user.'
 };
-
+/**
+ * Authentication state reducer
+ * @param {State} state
+ * @param {All} action
+ */
 export function reducer(state: State = initialState, action: All): State {
   switch (action.type) {
     case AuthActionTypes.LOGIN_SUCCESS: {

@@ -1,3 +1,6 @@
+/**
+ * User action types enumeration.
+ */
 export enum UserActionTypes {
     FETCH_USER = '[User] Fetch User Action',
     FETCH_USER_SUCCESS = '[User] Fetch User Success Action',
