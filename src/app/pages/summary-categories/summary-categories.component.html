@@ -24,23 +24,23 @@
         <tbody>
           <tr *ngFor="let category of categoryGroup">
             <td>{{category.name}}</td>
-            <td>{{category.taxable_income | number:'1.2-2'}}$</td>
-            <td>{{category.federal_non_refundable_tax_credits | number:'1.2-2'}}$</td>
-            <td>{{category.provincial_non_refundable_tax_credits | number:'1.2-2'}}$</td>
-            <td>{{category.other_amounts_payable | number:'1.2-2'}}$</td>
-            <td>{{category.credits_applied_on_filing | number:'1.2-2'}}$</td>
-            <td>{{category.income_subject_to_gnp | number:'1.2-2'}}$</td>
-            <td>{{category.other_penalties | number:'1.2-2'}}$</td>
+            <td>{{category.taxable_income | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.federal_non_refundable_tax_credits | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.provincial_non_refundable_tax_credits | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.other_amounts_payable | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.credits_applied_on_filing | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.income_subject_to_gnp | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.other_penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
           </tr>
           <tr>
-            <td>Total</td>
-            <td>{{categoryGroup.taxable_income_total | number:'1.2-2'}}$</td>
-            <td>{{categoryGroup.non_refundable_federal_tax_credits_total | number:'1.2-2'}}$</td>
-            <td>{{categoryGroup.non_refundable_provincial_tax_credits_total | number:'1.2-2'}}$</td>
-            <td>{{categoryGroup.other_amounts_payable_total | number:'1.2-2'}}$</td>
-            <td>{{categoryGroup.credits_applied_on_filing_total | number:'1.2-2'}}$</td>
-            <td>{{categoryGroup.income_subject_to_gnp_total | number:'1.2-2'}}$</td>
-            <td>{{categoryGroup.other_penalties_total | number:'1.2-2'}}$</td>
+            <td class="total-section">Total</td>
+            <td class="total-section">{{categoryGroup.taxable_income_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{categoryGroup.non_refundable_federal_tax_credits_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{categoryGroup.non_refundable_provincial_tax_credits_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{categoryGroup.other_amounts_payable_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{categoryGroup.credits_applied_on_filing_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{categoryGroup.income_subject_to_gnp_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{categoryGroup.other_penalties_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
           </tr>
         </tbody>
       </table>
@@ -66,23 +66,23 @@
         <tbody>
           <tr *ngFor="let category of combinedCategories">
             <td>{{category.name}}</td>
-            <td>{{category.taxable_income_grouped || category.taxable_income | number:'1.2-2'}}$</td>
-            <td>{{category.federal_non_refundable_tax_credits_grouped || category.federal_non_refundable_tax_credits | number:'1.2-2'}}$</td>
-            <td>{{category.provincial_non_refundable_tax_credits_grouped || category.provincial_non_refundable_tax_credits | number:'1.2-2'}}$</td>
-            <td>{{category.other_amounts_payable_grouped || category.other_amounts_payable | number:'1.2-2'}}$</td>
-            <td>{{category.credits_applied_on_filing_grouped || category.credits_applied_on_filing | number:'1.2-2'}}$</td>
-            <td>{{category.income_subject_to_gnp_grouped || category.income_subject_to_gnp | number:'1.2-2'}}$</td>
-            <td>{{category.other_penalties_grouped || category.other_penalties | number:'1.2-2'}}$</td>
+            <td>{{category.taxable_income_grouped || category.taxable_income | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.federal_non_refundable_tax_credits_grouped || category.federal_non_refundable_tax_credits | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.provincial_non_refundable_tax_credits_grouped || category.provincial_non_refundable_tax_credits | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.other_amounts_payable_grouped || category.other_amounts_payable | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.credits_applied_on_filing_grouped || category.credits_applied_on_filing | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.income_subject_to_gnp_grouped || category.income_subject_to_gnp | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td>{{category.other_penalties_grouped || category.other_penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
           </tr>
           <tr>
-            <td>Total</td>
-            <td>{{combinedCategoriesTotals.taxable_income_total | number:'1.2-2'}}$</td>
-            <td>{{combinedCategoriesTotals.non_refundable_federal_tax_credits_total | number:'1.2-2'}}$</td>
-            <td>{{combinedCategoriesTotals.non_refundable_provincial_tax_credits_total | number:'1.2-2'}}$</td>
-            <td>{{combinedCategoriesTotals.other_amounts_payable_total | number:'1.2-2'}}$</td>
-            <td>{{combinedCategoriesTotals.credits_applied_on_filing_total | number:'1.2-2'}}$</td>
-            <td>{{combinedCategoriesTotals.income_subject_to_gnp_total | number:'1.2-2'}}$</td>
-            <td>{{combinedCategoriesTotals.other_penalties_total | number:'1.2-2'}}$</td>
+            <td class="total-section">Total</td>
+            <td class="total-section">{{combinedCategoriesTotals.taxable_income_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{combinedCategoriesTotals.non_refundable_federal_tax_credits_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{combinedCategoriesTotals.non_refundable_provincial_tax_credits_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{combinedCategoriesTotals.other_amounts_payable_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{combinedCategoriesTotals.credits_applied_on_filing_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{combinedCategoriesTotals.income_subject_to_gnp_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td class="total-section">{{combinedCategoriesTotals.other_penalties_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
           </tr>
         </tbody>
       </table>

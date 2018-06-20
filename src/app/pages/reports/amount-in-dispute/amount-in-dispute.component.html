@@ -26,17 +26,17 @@
           <tbody>
             <tr *ngFor="let disputed_group of grouped_disputed; let index = index">
               <td>{{disputed_group.param}}</td>
-              <td>{{disputed_group.taxes | number:'1.2-2'}}$</td>
-              <td>{{disputed_group.penalties | number:'1.2-2'}}$</td>
-              <td>{{disputed_group.interest | number:'1.2-2'}}$</td>
-              <td>{{disputed_group.total | number:'1.2-2'}}$</td>
+              <td>{{disputed_group.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{disputed_group.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{disputed_group.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{disputed_group.total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
             </tr>
             <tr>
-              <td>Total</td>
-              <td>{{total_disputed['taxes'] | number:'1.2-2'}}$</td>
-              <td>{{total_disputed['penalties'] | number:'1.2-2'}}$</td>
-              <td>{{total_disputed['interest'] | number:'1.2-2'}}$</td>
-              <td>{{total_disputed['total'] | number:'1.2-2'}}$</td>
+              <td class="total-section">Total</td>
+              <td class="total-section">{{total_disputed['taxes'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section">{{total_disputed['penalties'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section">{{total_disputed['interest'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section">{{total_disputed['total'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
             </tr>
           </tbody>
         </table>

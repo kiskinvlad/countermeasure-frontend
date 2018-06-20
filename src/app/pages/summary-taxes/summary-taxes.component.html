@@ -42,19 +42,19 @@
           <tr *ngFor="let tax of dis; let i = index">
             <td *ngIf="i != dis.length-1">{{tax.year}}</td>
             <td *ngIf="i != dis.length-1">{{tax.province}}</td>
-            <td *ngIf="i != dis.length-1">{{tax.DIFF_taxable_income}}</td>
-            <td *ngIf="i != dis.length-1">{{tax.DIFF_balance_before_penalties_and_interest | number: '3.2'}}</td>
-            <td *ngIf="i != dis.length-1">{{tax.DIFF_total_tax_and_penalties - tax.DIFF_balance_before_penalties_and_interest}}</td>
-            <td *ngIf="i != dis.length-1">{{tax.DIFF_estimated_interest}}</td>
-            <td *ngIf="i != dis.length-1">{{tax.DIFF_total_debt}}</td>
+            <td *ngIf="i != dis.length-1">{{tax.DIFF_taxable_income | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td *ngIf="i != dis.length-1">{{tax.DIFF_balance_before_penalties_and_interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td *ngIf="i != dis.length-1">{{tax.DIFF_total_tax_and_penalties - tax.DIFF_balance_before_penalties_and_interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td *ngIf="i != dis.length-1">{{tax.DIFF_estimated_interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td *ngIf="i != dis.length-1">{{tax.DIFF_total_debt | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
 
             <td *ngIf="i == dis.length-1" class="total-section">Total</td>
             <td *ngIf="i == dis.length-1" class="total-section"></td>
-            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_taxable_income}}</td>
-            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_balance_before_penalties_and_interest | number: '3.2'}}</td>
-            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_total_tax_and_penalties - tax.DIFF_balance_before_penalties_and_interest}}</td>
-            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_estimated_interest}}</td>
-            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_total_debt}}</td>
+            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_taxable_income | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_balance_before_penalties_and_interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_total_tax_and_penalties - tax.DIFF_balance_before_penalties_and_interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_estimated_interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+            <td *ngIf="i == dis.length-1" class="total-section">{{tax.DIFF_total_debt | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
           </tr>
         </tbody>
       </table>
