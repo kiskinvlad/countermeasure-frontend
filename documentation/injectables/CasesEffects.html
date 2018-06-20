@@ -1552,6 +1552,81 @@
                                 </td>
                             </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <ul class="jsdoc-params">
+                                                        <li>
+                                                            <div>
+                                                                <b>actions</b>
+                                                                    :     <code>Actions</code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App ngrx action service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>casesService</b>
+                                                                    :     <code><a href="../injectables/CasesService.html" target="_self" >CasesService</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>Cases service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>router</b>
+                                                                    :     <code><a href="https://angular.io/docs/ts/latest/api/router/index/Router-class.html" target="_blank" >Router</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App router service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>localStorageService</b>
+                                                                    :     <code><a href="../injectables/LocalStorageService.html" target="_self" >LocalStorageService</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App local storage service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>permissionsService</b>
+                                                                    :     <code><a href="../classes/Permission.html" target="_self" >NgxPermissionsService</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>User permissions service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>notificationsService</b>
+                                                                    :     <code>NotificationsService</code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App notification service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1813,8 +1888,19 @@ import { FetchCases, FetchCasesSuccess, FetchCasesFailure,
          GetCase, GetCaseSuccess, GetCaseFailure, } from &#x27;@app/shared/ngrx-store/actions/cases.actions&#x27;;
 
 @Injectable()
+/**
+ * Cases side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class CasesEffects {
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {CasesService} casesService Cases service
+ * @param {Router} router App router service
+ * @param {LocalStorageService} localStorageService  App local storage service
+ * @param {NgxPermissionsService} permissionsService User permissions service
+ * @param {NotificationsService} notificationsService App notification service
+ */
   constructor(
     private actions: Actions,
     private casesService: CasesService,

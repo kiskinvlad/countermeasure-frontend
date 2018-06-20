@@ -1543,6 +1543,13 @@
             <code>src/app/shared/ngrx-store/actions/permission.actions.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Fetch permissions data action<br>Called when try to fetch permissions data</p>
+
+            </p>
 
             <section>
                 <h3 id="constructor">Constructor</h3>
@@ -1597,52 +1604,82 @@
     <div class="tab-pane fade tab-source-code" id="source">
         <pre><code class="hljs javascript">import { Action } from &#x27;@ngrx/store&#x27;;
 import { PermissionActionTypes } from &#x27;@app/shared/ngrx-store/constants/permission&#x27;;
-
+/**
+ * Fetch permissions data action
+ * Called when try to fetch permissions data
+ */
 export class FetchPermissions implements Action {
   readonly type &#x3D; PermissionActionTypes.FETCH_PERMISSIONS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Fetch permissions data success action
+ * Called when fetch permissions data successful
+ */
 export class FetchPermissionsSuccess implements Action {
   readonly type &#x3D; PermissionActionTypes.FETCH_PERMISSIONS_SUCCESS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Fetch permissions data failure action
+ * Called when try to fetch permissions data failure
+ */
 export class FetchPermissionsFailure implements Action {
   readonly type &#x3D; PermissionActionTypes.FETCH_PERMISSIONS_FAILURE;
   constructor(public payload: any) {}
 }
-
+/**
+ * Add permissions action
+ * Called when try to add permissions
+ */
 export class AddPermissions implements Action {
   readonly type &#x3D; PermissionActionTypes.ADD_PERMISSIONS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Add permissions success action
+ * Called when add permissions successful
+ */
 export class AddPermissionsSuccess implements Action {
   readonly type &#x3D; PermissionActionTypes.ADD_PERMISSIONS_SUCCESS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Add permissions failure action
+ * Called when add permissions failure
+ */
 export class AddPermissionsFailure implements Action {
   readonly type &#x3D; PermissionActionTypes.ADD_PERMISSIONS_FAILURE;
   constructor(public payload: any) {}
 }
-
+/**
+ * Delete permissions action
+ * Called when try to delete permissions
+ */
 export class DeletePermissions implements Action {
   readonly type &#x3D; PermissionActionTypes.DELETE_PERMISSIONS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Delete permissions success action
+ * Called when delete permissions successful
+ */
 export class DeletePermissionsSuccess implements Action {
   readonly type &#x3D; PermissionActionTypes.DELETE_PERMISSIONS_SUCCESS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Delete permissions action
+ * Called when delete permissions failure
+ */
 export class DeletePermissionsFailure implements Action {
   readonly type &#x3D; PermissionActionTypes.DELETE_PERMISSIONS_FAILURE;
   constructor(public payload: any) {}
 }
-
+/**
+ * Action types
+ * Export action types
+ */
 export type All &#x3D;
   | FetchPermissions
   | FetchPermissionsSuccess

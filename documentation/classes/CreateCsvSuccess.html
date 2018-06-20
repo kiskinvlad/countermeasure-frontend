@@ -1543,6 +1543,13 @@
             <code>src/app/shared/ngrx-store/actions/csv.actions.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Create comma separated values table action<br>Called when try to create comma separated values table</p>
+
+            </p>
 
             <section>
                 <h3 id="constructor">Constructor</h3>
@@ -1597,22 +1604,34 @@
     <div class="tab-pane fade tab-source-code" id="source">
         <pre><code class="hljs javascript">import { Action } from &#x27;@ngrx/store&#x27;;
 import { CsvActionTypes } from &#x27;@app/shared/ngrx-store/constants/csv&#x27;;
-
+/**
+ * Create comma separated values table action
+ * Called when try to create comma separated values table
+ */
 export class CreateCsv implements Action {
   readonly type &#x3D; CsvActionTypes.CREATE_CSV;
   constructor(public payload: any) {}
 }
-
+/**
+ * Create comma separated values table success action
+ * Called when create comma separated values table successful
+ */
 export class CreateCsvSuccess implements Action {
   readonly type &#x3D; CsvActionTypes.CREATE_CSV_SUCCESS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Create comma separated values table failure action
+ * Called when create comma separated values table failure
+ */
 export class CreateCsvFailure implements Action {
   readonly type &#x3D; CsvActionTypes.CREATE_CSV_FAILURE;
   constructor(public payload: any) {}
 }
-
+/**
+ * Action types
+ * Export action types
+ */
 export type All &#x3D;
   | CreateCsv
   | CreateCsvSuccess

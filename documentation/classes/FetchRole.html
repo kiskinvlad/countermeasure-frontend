@@ -1543,6 +1543,13 @@
             <code>src/app/shared/ngrx-store/actions/role.actions.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Fetch role data action<br>Called when try to fetch role data</p>
+
+            </p>
 
             <section>
                 <h3 id="constructor">Constructor</h3>
@@ -1597,22 +1604,34 @@
     <div class="tab-pane fade tab-source-code" id="source">
         <pre><code class="hljs javascript">import { Action } from &#x27;@ngrx/store&#x27;;
 import { RoleActionTypes } from &#x27;@app/shared/ngrx-store/constants/role&#x27;;
-
+/**
+ * Fetch role data action
+ * Called when try to fetch role data
+ */
 export class FetchRole implements Action {
   readonly type &#x3D; RoleActionTypes.FETCH_ROLE;
   constructor(public payload: any) {}
 }
-
+/**
+ * Fetch role data success action
+ * Called when role data fetched successful
+ */
 export class FetchRoleSuccess implements Action {
   readonly type &#x3D; RoleActionTypes.FETCH_ROLE_SUCCESS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Fetch role data failure action
+ * Called when role data fetched failure
+ */
 export class FetchRoleFailure implements Action {
   readonly type &#x3D; RoleActionTypes.FETCH_ROLE_FAILURE;
   constructor(public payload: any) {}
 }
-
+/**
+ * Action types
+ * Export action types
+ */
 export type All &#x3D;
   | FetchRole
   | FetchRoleSuccess

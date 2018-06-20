@@ -1568,7 +1568,14 @@ import { FormGroup, FormControl } from &#x27;@angular/forms&#x27;;
   ],
   declarations: []
 })
+/**
+ * Form validation module. Module validate form before sumbit
+ */
 export class ValidatorModule {
+/**
+ * Form validate method
+ * @param {FormGroup} formGroup Form group for validation
+ */
   public validateFormFields(formGroup: FormGroup): void {
       Object.keys(formGroup.controls).forEach(field &#x3D;&gt; {
           const control &#x3D; formGroup.get(field);
@@ -1579,17 +1586,27 @@ export class ValidatorModule {
           }
       });
    }
+/**
+ * Check if form field is valid method
+ * @param {FormGroup} formGroup Form group for validation
+ * @param {string} field Form field for validation
+ * @returns {boolean}
+ */
+  public isFieldValid(formGroup: FormGroup, field: string): boolean {
+    return !formGroup.get(field).valid &amp;&amp; formGroup.get(field).touched;
+  }
 
-   public isFieldValid(formGroup: FormGroup, field: string) {
-     return !formGroup.get(field).valid &amp;&amp; formGroup.get(field).touched;
-   }
-
-   // Return bootstrap class for invalid form field
-   public displayFieldCss(formGroup: FormGroup, field: string) {
-     return {
-       &#x27;is-invalid&#x27;: this.isFieldValid(formGroup, field)
-     };
-   }
+/**
+ * Return validation style class for form field method
+ * @param {FormGroup} formGroup Form group for validation
+ * @param {string} field Form field for validation
+ * @returns {object}
+ */
+  public displayFieldCss(formGroup: FormGroup, field: string): object {
+    return {
+      &#x27;is-invalid&#x27;: this.isFieldValid(formGroup, field)
+    };
+  }
 }
 </code></pre>
     </div>

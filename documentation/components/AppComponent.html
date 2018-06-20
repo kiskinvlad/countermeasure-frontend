@@ -1591,6 +1591,59 @@
                         </td>
                     </tr>
     
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <ul class="jsdoc-params">
+                                                <li>
+                                                    <div>
+                                                        <b>store</b>
+                                                            :     <code>Store</code>
+    
+                                                    </div>
+                                                    <div>
+                                                        <p>App store service</p>
+    
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <b>permissionsService</b>
+                                                            :     <code><a href="../classes/Permission.html" target="_self" >NgxPermissionsService</a></code>
+    
+                                                    </div>
+                                                    <div>
+                                                        <p>User permissions service</p>
+    
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <b>localStorageService</b>
+                                                            :     <code><a href="../injectables/LocalStorageService.html" target="_self" >LocalStorageService</a></code>
+    
+                                                    </div>
+                                                    <div>
+                                                        <p>Local storage service</p>
+    
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <b>auth</b>
+                                                            :     <code><a href="../injectables/AuthenticationService.html" target="_self" >AuthenticationService</a></code>
+    
+                                                    </div>
+                                                    <div>
+                                                        <p>Authentication service</p>
+    
+                                                    </div>
+                                                </li>
+                                        </ul>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -1697,12 +1750,23 @@ import { AuthenticationService } from &#x27;@app/core/services/AuthenticationSer
   styleUrls: [&#x27;./app.component.scss&#x27;]
 })
 export class AppComponent implements OnInit {
-
+/**
+ * @param {Observable&lt;any&gt;} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {string} token Authentication token param
+ */
   getState: Observable&lt;any&gt;;
   errorMessage: string | null;
   subscription: Subscription;
   token: string;
-
+/**
+ * @constructor
+ * @param {Store&lt;AppState&gt;} store App store service
+ * @param {NgxPermissionsService} permissionsService User permissions service
+ * @param {LocalStorageService} localStorageService Local storage service
+ * @param {AuthenticationService} auth Authentication service
+ */
   constructor(
     private store: Store&lt;AppState&gt;,
     private permissionsService: NgxPermissionsService,
@@ -1714,7 +1778,9 @@ export class AppComponent implements OnInit {
   }
 
   title &#x3D; &#x27;ct&#x27;;
-
+/**
+ * Initialize app component life cycle method
+ */
   ngOnInit(): void {
     this.subscription &#x3D; this.getState.subscribe((state) &#x3D;&gt; {
       this.token &#x3D; this.localStorageService.getAuthToken();

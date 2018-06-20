@@ -1552,6 +1552,59 @@
                                 </td>
                             </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <ul class="jsdoc-params">
+                                                        <li>
+                                                            <div>
+                                                                <b>actions</b>
+                                                                    :     <code>Actions</code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App ngrx action service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>categoryService</b>
+                                                                    :     <code><a href="../injectables/CategoryService.html" target="_self" >CategoryService</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>Category service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>router</b>
+                                                                    :     <code><a href="https://angular.io/docs/ts/latest/api/router/index/Router-class.html" target="_blank" >Router</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App router service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>notificationsService</b>
+                                                                    :     <code>NotificationsService</code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App notification service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1934,10 +1987,21 @@ import {
     } from &#x27;@app/shared/ngrx-store/actions/category.actions&#x27;;
 
 @Injectable()
+/**
+ * Category side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class CategoryEffects {
-
+/**
+ * @param {number} case_id Current case id
+ */
   private case_id: number;
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {CategoryService} categoryService Category service
+ * @param {Router} router App router service
+ * @param {NotificationsService} notificationsService App notification service
+ */
   constructor(
     private actions: Actions,
     private categoryService: CategoryService,

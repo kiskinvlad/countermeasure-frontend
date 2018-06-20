@@ -1552,6 +1552,70 @@
                                 </td>
                             </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <ul class="jsdoc-params">
+                                                        <li>
+                                                            <div>
+                                                                <b>actions</b>
+                                                                    :     <code>Actions</code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App ngrx action service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>disputesService</b>
+                                                                    :     <code><a href="../injectables/DisputesService.html" target="_self" >DisputesService</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>Taxes service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>router</b>
+                                                                    :     <code><a href="https://angular.io/docs/ts/latest/api/router/index/Router-class.html" target="_blank" >Router</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App router service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>localStorageService</b>
+                                                                    :     <code><a href="../injectables/LocalStorageService.html" target="_self" >LocalStorageService</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>Local storage service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>notificationsService</b>
+                                                                    :     <code>NotificationsService</code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App notification service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1906,8 +1970,18 @@ import {
   FetchDisputesBySummaryFailure} from &#x27;@app/shared/ngrx-store/actions/disputes.actions&#x27;;
 
 @Injectable()
+/**
+ * Taxes side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class DisputesEffects {
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {DisputesService} disputesService Taxes service
+ * @param {Router} router App router service
+ * @param {LocalStorageService} localStorageService Local storage service
+ * @param {NotificationsService} notificationsService App notification service
+ */
   constructor(
     private actions: Actions,
     private disputesService: DisputesService,

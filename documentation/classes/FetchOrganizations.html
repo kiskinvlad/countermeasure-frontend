@@ -1543,6 +1543,13 @@
             <code>src/app/shared/ngrx-store/actions/organization.actions.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Fetch organization data action<br>Called when try to fetch organization data</p>
+
+            </p>
 
             <section>
                 <h3 id="constructor">Constructor</h3>
@@ -1598,67 +1605,106 @@
         <pre><code class="hljs javascript">import { Action } from &#x27;@ngrx/store&#x27;;
 import { Organization } from &#x27;@app/shared/models/organization&#x27;;
 import { OrganizationActionTypes } from &#x27;@app/shared/ngrx-store/constants/organization&#x27;;
-
+/**
+ * Fetch organization data action
+ * Called when try to fetch organization data
+ */
 export class FetchOrganization implements Action {
   readonly type &#x3D; OrganizationActionTypes.FETCH_ORGANIZATION;
   constructor(public payload: any) {}
 }
-
+/**
+ * Fetch organization data success action
+ * Called when fetch organization data successful
+ */
 export class FetchOrganizationSuccess implements Action {
   readonly type &#x3D; OrganizationActionTypes.FETCH_ORGANIZATION_SUCCESS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Fetch organization data failure action
+ * Called when fetch organization data failure
+ */
 export class FetchOrganizationFailure implements Action {
   readonly type &#x3D; OrganizationActionTypes.FETCH_ORGANIZATION_FAILURE;
   constructor(public payload: any) {}
 }
-
+/**
+ * Update organization action
+ * Called when try to update organization
+ */
 export class UpdateOrganization implements Action {
   readonly type &#x3D; OrganizationActionTypes.UPDATE_ORGANIZATION;
   constructor(public payload: any) {}
 }
-
+/**
+ * Update organization success action
+ * Called when update organization successful
+ */
 export class UpdateOrganizationSuccess implements Action {
   readonly type &#x3D; OrganizationActionTypes.UPDATE_ORGANIZATION_SUCCESS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Update organization failure action
+ * Called when update organization failure
+ */
 export class UpdateOrganizationFailure implements Action {
   readonly type &#x3D; OrganizationActionTypes.UPDATE_ORGANIZATION_FAILURE;
   constructor(public payload: any) {}
 }
-
+/**
+ * Fetch organizations data action
+ * Called when try to fetch organizations data
+ */
 export class FetchOrganizations implements Action {
   readonly type &#x3D; OrganizationActionTypes.FETCH_ORGANIZATIONS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Fetch organizations data success action
+ * Called when fetch organizations data successful
+ */
 export class FetchOrganizationsSuccess implements Action {
   readonly type &#x3D; OrganizationActionTypes.FETCH_ORGANIZATIONS_SUCCESS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Fetch organizations data failure action
+ * Called when fetch organizations data failure
+ */
 export class FetchOrganizationsFailure implements Action {
   readonly type &#x3D; OrganizationActionTypes.FETCH_ORGANIZATIONS_FAILURE;
   constructor(public payload: any) {}
 }
-
+/**
+ * Create organization action
+ * Called when try to create organization
+ */
 export class CreateOrganization implements Action {
   readonly type &#x3D; OrganizationActionTypes.CREATE_ORGANIZATION;
   constructor(public payload: any) {}
 }
-
+/**
+ * Create organization success action
+ * Called when create organization successful
+ */
 export class CreateOrganizationSuccess implements Action {
   readonly type &#x3D; OrganizationActionTypes.CREATE_ORGANIZATION_SUCCESS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Create organization failure action
+ * Called when create organization failure
+ */
 export class CreateOrganizationFailure implements Action {
   readonly type &#x3D; OrganizationActionTypes.CREATE_ORGANIZATION_FAILURE;
   constructor(public payload: any) {}
 }
-
+/**
+ * Action types
+ * Export action types
+ */
 export type All &#x3D;
   | FetchOrganization
   | FetchOrganizationSuccess

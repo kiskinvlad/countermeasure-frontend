@@ -1552,6 +1552,48 @@
                                 </td>
                             </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <ul class="jsdoc-params">
+                                                        <li>
+                                                            <div>
+                                                                <b>router</b>
+                                                                    :     <code><a href="https://angular.io/docs/ts/latest/api/router/index/Router-class.html" target="_blank" >Router</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>Application router service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>localStorageService</b>
+                                                                    :     <code><a href="../injectables/LocalStorageService.html" target="_self" >LocalStorageService</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>Local storage service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>store</b>
+                                                                    :     <code>Store</code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App store service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1574,10 +1616,17 @@
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Can activate method. Allow/prevent user routing</p>
+            </div>
+                                        <div class="io-description">
+                                        </div>
                                         <div class="io-description">
                                             <b>Returns: </b>    <code>boolean</code>
             
                                         </div>
+                                            <div class="io-description">
+                                                
+                                            </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -1659,13 +1708,27 @@ import { LocalStorageService } from &#x27;@app/core/services/LocalStorageService
 import { AppState, selectAuthState } from &#x27;@app/shared/ngrx-store/app.states&#x27;;
 import { FetchUserData } from &#x27;@app/shared/ngrx-store/actions/auth.actions&#x27;;
 @Injectable()
+/**
+ * Authentication guard service. Check user authentication, token expired, prevent unauthorized routing
+ * @implements {CanActivate}
+ */
 export class AuthGuardService implements CanActivate {
-
+/**
+ * @param {Store&lt;any&gt;} getState$ App state param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {boolean} isAuth User authentication state param
+ */
   getState$: Store&lt;any&gt;;
   errorMessage: string | null;
   subscription: Subscription;
   isAuth: boolean;
-
+/**
+ * @constructor
+ * @param {Router} router Application router service
+ * @param {LocalStorageService} localStorageService Local storage service
+ * @param {Store&lt;AppState&gt;} store  App store service
+ */
   constructor(private auth: AuthenticationService,
     private router: Router,
     private localStorageService: LocalStorageService,
@@ -1679,7 +1742,10 @@ export class AuthGuardService implements CanActivate {
       this.isAuth &#x3D; state.isAuthenticated;
     });
   }
-
+/**
+ * Can activate method. Allow/prevent user routing
+ * @returns {boolean}
+ */
   canActivate(): boolean {
     if (!this.isAuth || this.auth.isTokenExpired(this.localStorageService.getAuthToken())) {
       this.router.navigateByUrl(&#x27;/login&#x27;);

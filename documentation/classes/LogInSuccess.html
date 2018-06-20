@@ -1543,6 +1543,13 @@
             <code>src/app/shared/ngrx-store/actions/auth.actions.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Log in action<br>Called when user try to login</p>
+
+            </p>
 
             <section>
                 <h3 id="constructor">Constructor</h3>
@@ -1598,49 +1605,79 @@
         <pre><code class="hljs javascript">import { Action } from &#x27;@ngrx/store&#x27;;
 import { User } from &#x27;@app/shared/models/user&#x27;;
 import { AuthActionTypes } from &#x27;@app/shared/ngrx-store/constants/auth&#x27;;
-
+/**
+ * Log in action
+ * Called when user try to login
+ */
 export class LogIn implements Action {
   readonly type &#x3D; AuthActionTypes.LOGIN;
   constructor(public payload: any) {}
 }
-
+/**
+ * Log in success action
+ * Called when user login successful
+ */
 export class LogInSuccess implements Action {
   readonly type &#x3D; AuthActionTypes.LOGIN_SUCCESS;
   constructor(public payload: User) {}
 }
-
+/**
+ * Log in failure action
+ * Called when user login failure
+ */
 export class LogInFailure implements Action {
   readonly type &#x3D; AuthActionTypes.LOGIN_FAILURE;
   constructor(public payload: object) {}
 }
-
+/**
+ * Log out action
+ * Called when user try to log out
+ */
 export class LogOut implements Action {
   readonly type &#x3D; AuthActionTypes.LOGOUT;
 }
-
+/**
+ * Log out success action
+ * Called when user log out successful
+ */
 export class LogOutSuccess implements Action {
   readonly type &#x3D; AuthActionTypes.LOGOUT_SUCCESS;
 }
-
+/**
+ * Log out failure action
+ * Called when user log out failure
+ */
 export class LogOutFailure implements Action {
   readonly type &#x3D; AuthActionTypes.LOGOUT_FAILURE;
   constructor(public payload: object) {}
 }
-
+/**
+ * Fetch user data action
+ * Called when try to fetch user data
+ */
 export class FetchUserData implements Action {
   readonly type &#x3D; AuthActionTypes.FETCH_USER_DATA;
 }
-
+/**
+ * Fetch user data success action
+ * Called when user data fetched successful
+ */
 export class FetchUserDataSuccess implements Action {
   readonly type &#x3D; AuthActionTypes.FETCH_USER_DATA_SUCCESS;
   constructor(public payload: any) {}
 }
-
+/**
+ * Fetch user data success action
+ * Called when user data fetched failure
+ */
 export class FetchUserDataFailure implements Action {
   readonly type &#x3D; AuthActionTypes.FETCH_USER_DATA_FAILURE;
   constructor(public payload: object) {}
 }
-
+/**
+ * Action types
+ * Export action types
+ */
 export type All &#x3D;
   | LogIn
   | LogInSuccess

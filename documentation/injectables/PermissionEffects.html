@@ -1552,6 +1552,92 @@
                                 </td>
                             </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <ul class="jsdoc-params">
+                                                        <li>
+                                                            <div>
+                                                                <b>actions</b>
+                                                                    :     <code>Actions</code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App ngrx action service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>permissionService</b>
+                                                                    :     <code><a href="../injectables/PermissionService.html" target="_self" >PermissionService</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>Permission service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>router</b>
+                                                                    :     <code><a href="https://angular.io/docs/ts/latest/api/router/index/Router-class.html" target="_blank" >Router</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App router service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>localStorageService</b>
+                                                                    :     <code><a href="../injectables/LocalStorageService.html" target="_self" >LocalStorageService</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>Local storage service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>permissionsService</b>
+                                                                    :     <code><a href="../classes/Permission.html" target="_self" >NgxPermissionsService</a></code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>User ermissions service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>notificationsService</b>
+                                                                    :     <code>NotificationsService</code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App notification service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>store</b>
+                                                                    :     <code>Store</code>
+            
+                                                            </div>
+                                                            <div>
+                                                                <p>App store service</p>
+            
+                                                            </div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1731,8 +1817,20 @@ import {
 } from &#x27;../actions/permission.actions&#x27;;
 
 @Injectable()
+/**
+ * Permission side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class PermissionEffects {
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {PermissionService} permissionService Permission service
+ * @param {Router} router App router service
+ * @param {LocalStorageService} localStorageService Local storage service
+ * @param {NgxPermissionsService} permissionsService User ermissions service
+ * @param {NotificationsService} notificationsService App notification service
+ * @param {Store&lt;AppState&gt;} store App store service
+ */
   constructor(
     private actions: Actions,
     private permissionService: PermissionService,

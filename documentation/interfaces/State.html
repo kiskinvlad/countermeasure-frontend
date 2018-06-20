@@ -1544,6 +1544,13 @@
             <code>src/app/shared/ngrx-store/reducers/user.reducers.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>User state interface</p>
+
+            </p>
 
 
 
@@ -1652,6 +1659,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>State params</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -1687,15 +1700,27 @@
 import { UserActionTypes } from &#x27;@app/shared/ngrx-store/constants/user&#x27;;
 import { All } from &#x27;@app/shared/ngrx-store/actions/user.actions&#x27;;
 import { Permission } from &#x27;@shared/models/permission&#x27;;
-
+/**
+ * User state interface
+ */
 export interface State {
+/**
+ * State params
+ * @param {User} user User model
+ * @param {User[]} users Users models array param
+ * @param {Number} totalCount Total users count param
+ * @param {number} totalEnabled Users count state param
+ * @param {string | null} errorMessage Error message param
+ */
   user: User;
   users: User[];
   totalCount: Number;
   totalEnabled: Number;
   errorMessage: string;
 }
-
+/**
+ * Initial state
+ */
 export const initialState: State &#x3D; {
   user: null,
   users: [],
@@ -1704,14 +1729,17 @@ export const initialState: State &#x3D; {
   errorMessage: null,
 };
 
-
 const messages &#x3D; {
   ERR_FAILED_GET_USER: &#x27;Failed to fetch user.&#x27;,
   ERR_FAILED_UPDATE_USER: &#x27;Failed to update user.&#x27;,
   ERR_FAILED_UPDATE_PASSWORD: &#x27;Failed to update password.&#x27;,
   ERR_FAILED_GET_USERS: &#x27;Failed to fetch users.&#x27;,
 };
-
+/**
+ * Scenario state reducer
+ * @param {State} state
+ * @param {All} action
+ */
 export function reducer(state: State &#x3D; initialState, action: All): State {
   console.log(action.type);
   switch (action.type) {
