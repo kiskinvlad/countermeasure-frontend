@@ -38,8 +38,12 @@ export class AnticipatedLitigationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
-      this.scenarios = (state.sceneries || []).map(item => {
-        item.savings = +item.taxes + +item.penalties + +item.interest;
+      this.scenarios = (state.sceneries || []).map(item => Object.assign({}, item));
+      this.scenarios.map(item => {
+        item.taxes = Math.abs(+item.taxes);
+        item.penalties = Math.abs(+item.penalties);
+        item.interest = Math.abs(+item.interest);
+        item.savings = item.taxes + item.penalties + item.interest;
         return {...item };
       });
       if (this.scenarios.length > 0) {
