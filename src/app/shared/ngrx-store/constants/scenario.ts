@@ -1,3 +1,6 @@
+/**
+ * Scenaries action types enumeration.
+ */
 export enum ScenariosActionTypes {
     FETCH_SCENARIOS = '[Scenarios] Fetch Scenarios Action',
     FETCH_SCENARIOS_SUCCESS = '[Scenarios] Fetch Scenarios Success Action',

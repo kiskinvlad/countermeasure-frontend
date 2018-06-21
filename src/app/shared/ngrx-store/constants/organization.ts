@@ -1,3 +1,6 @@
+/**
+ * Organization action types enumeration.
+ */
 export enum OrganizationActionTypes {
     FETCH_ORGANIZATION = '[Organization] Fetch Organization Action',
     FETCH_ORGANIZATION_SUCCESS = '[Organization] Fetch Organization Success Action',

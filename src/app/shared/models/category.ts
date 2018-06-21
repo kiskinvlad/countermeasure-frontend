@@ -1,3 +1,6 @@
+/**
+ * Category model.
+ */
 export class Category {
     category_id: number;
     case_id: number;

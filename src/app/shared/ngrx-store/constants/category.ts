@@ -1,3 +1,6 @@
+/**
+ * Categories action types enumeration.
+ */
 export enum CategoriesActionTypes {
     FETCH_CATEGORIES = '[Categories] Fetch Categories Action',
     FETCH_CATEGORIES_SUCCESS = '[Categories] Fetch Categories Success Action',

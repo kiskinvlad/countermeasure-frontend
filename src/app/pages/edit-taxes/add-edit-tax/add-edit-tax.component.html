@@ -1,13 +1,8 @@
+<ct-navigation-bar></ct-navigation-bar>
 
+<div class="d-flex flex-row">
+  <ct-sidebar></ct-sidebar>
 
-<div class="modal-header">
-  {{dialogTitle}}
-  <button type="button" class="close pull-right" aria-label="Close" (click)="onClose()">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-  
-<div class="modal-body body-style">
   <div class="d-flex flex-row">
 
     <div class="tax-section">
@@ -15,7 +10,7 @@
         <h1>Personal Income Tax Years in Dispute</h1>
       </div>
 
-      <div class="d-flex justify-content-start">
+      <div class="d-flex justify-content-start" *ngIf="disputed">
         <div class="p-3 pyp-section" style="width: 20%">
           <p> Taxpayer </p>
           <input type="text" placeholder="Taxpayer" [(ngModel)]="disputed['taxpayer']"/>
@@ -38,9 +33,9 @@
             <tbody>
               <tr>
                 <td>Taxable Income</td>
-                <td>$<input type="number" [(ngModel)]="disputed['TP_taxable_income']"/></td>
-                <td>$<input type="number" [(ngModel)]="disputed['GP_taxable_income']"/></td>
-                <td>$<input disabled type="number" [(ngModel)]="disputed['DIFF_taxable_income'] = disputed['GP_taxable_income'] - disputed['TP_taxable_income']"/></td>
+                <td><span>$</span><input type="number" [(ngModel)]="disputed['TP_taxable_income']"/></td>
+                <td><span>$</span><input type="number" [(ngModel)]="disputed['GP_taxable_income']"/></td>
+                <td><span>$</span><input disabled type="number" [(ngModel)]="disputed['DIFF_taxable_income'] = disputed['GP_taxable_income'] - disputed['TP_taxable_income']"/></td>
               </tr>
               <tr class="header-style">
                 <td>Federal Taxes</td>
@@ -172,10 +167,10 @@
           </table>
         </div>
       </div>
+
+      <button class="btn btn-primary pull-right" (click)="onClose()">Cancel</button>
+      <button class="btn btn-primary pull-right" type="submit" (click)="onSubmit()">Save</button>
+      <button class="btn btn-primary pull-right" *ngIf="btn_remove" (click)="onRemove()">Remove</button>
     </div>
   </div>
-
-  <button class="btn btn-primary pull-right" (click)="onClose()">Cancel</button>
-  <button class="btn btn-primary pull-right" type="submit" (click)="onSubmit()">Save</button>
-  <button class="btn btn-primary pull-right" *ngIf="btn_remove" (click)="onRemove()">Remove</button>
 </div>

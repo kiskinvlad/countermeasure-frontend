@@ -12,8 +12,27 @@ import { CreateCsv } from '@app/shared/ngrx-store/actions/csv.actions';
   templateUrl: './summary-scenarios.component.html',
   styleUrls: ['./summary-scenarios.component.scss']
 })
+/**
+ * Sumamry scenarios component.
+ * @implements {OnInit, OnDestroy,}
+ */
 export class SummaryScenariosComponent implements OnInit, OnDestroy {
-
+/**
+ * @param {Observable<any>} getScenariosState$ Scenarios state observable param
+ * @param {Observable<any>} getDisputesState$ Taxes state observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {Array<any>} scenarios Scenarios array param
+ * @param {Array<any>} disputes Taxes array param
+ * @param {number} case_id Current case id param
+ * @param {number} total Total scenarios count param
+ * @param {number} payable_income Tax payable income param
+ * @param {number} payable_taxes Tax payable taxes param
+ * @param {number} payable_penalties Tax payable penalties param
+ * @param {number} payable_interest Tax payable interest param
+ * @param {number} payable_total Tax payable total param
+ * @param {number} remaining_amount_payable_total Tax remaining amount payable total param
+ */
   private getScenariosState$: Observable<any>;
   private getDisputesState$: Observable<any>;
   private errorMessage: string | null;
@@ -28,7 +47,12 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
   public payable_interest: number;
   public payable_total: number;
   public remaining_amount_payable_total: number;
-
+/**
+ * @constructor
+ * @param {ActivatedRoute} route Current route state service
+ * @param {Store<AppState>} scenarioStore App scenario state store service
+ * @param {Store<AppState>} disputesStore App taxes state store service
+ */
   constructor(
     private scenarioStore: Store<AppState>,
     private disputesStore: Store<AppState>,
@@ -37,7 +61,9 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
     this.getScenariosState$ = this.scenarioStore.select(selectScenarioState);
     this.getDisputesState$ = this.disputesStore.select(selectDisputesState);
    }
-
+/**
+ * Initialize sumamry scenario component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
       this.case_id = params['case_id'];
@@ -78,12 +104,16 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
     this.scenarioStore.dispatch(new FetchScenarios(payload));
     this.disputesStore.dispatch(new FetchDisputesByCase({case_id: this.case_id}));
   }
-
+/**
+ * Create comma separated values table method
+ */
   public create_csv(): void {
     const json = this.generateJsonForCvs();
     this.scenarioStore.dispatch(new CreateCsv({json: json, case_id: this.case_id, type: 'scenario'}));
   }
-
+/**
+ * Create json data for comma separated value table method
+ */
   private generateJsonForCvs() {
     const json = [];
     let scenarioObj = {};
@@ -112,7 +142,9 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
     json.push(scenarioObj);
     return json;
   }
-
+/**
+ * Destroy sumamry scenario component life cycle method
+ */
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

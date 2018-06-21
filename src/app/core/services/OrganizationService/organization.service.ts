@@ -7,11 +7,21 @@ import { ApiRoutingService } from '@app/core/api-routing.service';
 import { HttpHelperService } from '@app/core/http-helper.service';
 
 @Injectable()
+/**
+ * Organization Service for organizations CRUD operations
+ */
 export class OrganizationService {
-
+/**
+ * @param {string} organization_api_url
+ * @param {string} org_stats_api_url
+ */
   private organization_api_url: string;
   private org_stats_api_url: string;
-
+/**
+ * @constructor
+ * @param {HttpHelperService} http
+ * @param {ApiRoutingService} apiRoutingService
+ */
   constructor(
     private http: HttpHelperService,
     private apiRoutingService: ApiRoutingService
@@ -19,8 +29,12 @@ export class OrganizationService {
     this.organization_api_url = apiRoutingService.getOrganizationAPIUrl();
     this.org_stats_api_url = apiRoutingService.getOrganizationStatsAPIUrl();
   }
-
-  getOrganization(payload): Observable<any> {
+/**
+ * Get organization method
+ * @param {any} payload
+ * @returns {Observable<any>}
+ */
+  getOrganization(payload: any): Observable<any> {
     return this.http.get(
       this.organization_api_url + '/' + payload.org_id,
       null,
@@ -28,8 +42,12 @@ export class OrganizationService {
       null
     );
   }
-
-  updateOrganization(payload): Observable<any> {
+/**
+ * Update organization method
+ * @param {any} payload
+ * @returns {Observable<any>}
+ */
+  updateOrganization(payload: any): Observable<any> {
     return this.http.put(
       this.organization_api_url + '/' + payload.org_id,
       payload,
@@ -38,16 +56,24 @@ export class OrganizationService {
       null
     );
   }
-
-  getOrganizations(payload): Observable<any> {
+/**
+ * Get organizations method
+ * @param {any} payload
+ * @returns {Observable<any>}
+ */
+  getOrganizations(payload: any): Observable<any> {
     return this.http.get(
       this.org_stats_api_url,
       payload,
       true
     );
   }
-
-  createOrganization(payload): Observable<any> {
+/**
+ * Create organization method
+ * @param {any} payload
+ * @returns {Observable<any>}
+ */
+  createOrganization(payload: any): Observable<any> {
     return this.http.post(
       this.organization_api_url,
       payload,

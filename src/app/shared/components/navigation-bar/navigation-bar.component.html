@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand">CounterMeasure</a>
+  <a class="navbar-brand" routerLink="/">CounterMeasure</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,11 +7,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Joe and Jane Taxpayer T1 Dispute </a>
+        <a class="nav-link">{{userRole === 'CA' ? orgName : caseName}}</a>
       </li>
     </ul>
-    <li class="navbar-text">
-      <a class="nav-link">BEC Lawyers</a>
+    <li class="navbar-text" *ngIf="userRole !== 'CA'">
+      <a class="nav-link">{{orgName}}</a>
     </li>
     <div ngbDropdown class="d-inline-block" placement="bottom-right">
       <button class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>{{userName}}</button>

@@ -14,8 +14,21 @@ import { LocalStorageService } from '@app/core/services/LocalStorageService/loca
   templateUrl: './edit-details.component.html',
   styleUrls: ['./edit-details.component.scss']
 })
+/**
+ * Edit details component
+ * @implements {OnInit, OnDestroy}
+ */
 export class EditDetailsComponent implements OnInit, OnDestroy {
-
+/**
+ * @param {Organization} org Organization model for edit-details param
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {FormGroup} orgForm Edit details form param
+ * @param {number} orgID Current organization id param
+ * @param {ValidatorModule} validator Form validator module param
+ * @param {string} roleID Current user role id param
+ */
   org: Organization = new Organization();
   getState$: Observable<any>;
   errorMessage: string | null;
@@ -24,7 +37,13 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   orgID: number;
   validator: ValidatorModule;
   roleID: string;
-
+/**
+ * @constructor
+ * @param {Store<AppState>} store App state store service
+ * @param {FormBuilder} fb Edit details form builder service
+ * @param {ActivatedRoute} route Current route state service
+ * @param {LocalStorageService} localStorageService Local storage service
+ */
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
@@ -36,7 +55,9 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
     this.validator = new ValidatorModule();
     this.roleID = localStorageService.getUserRoleID();
   }
-
+/**
+ * Initialize edit-details component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
@@ -53,11 +74,15 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
       this.getOrganization();
     });
   }
-
+/**
+ * Destroy edit-details component life cycle method
+ */
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
+/**
+ * Create form method
+ */
   createForm() {
     this.orgForm = this.fb.group ({
       orgName: '',
@@ -68,11 +93,15 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
       enabled: ''
     });
   }
-
+/**
+ * Get current organization method
+ */
   getOrganization(): void {
     this.store.dispatch(new FetchOrganization({org_id: this.orgID}));
   }
-
+/**
+ * Submit form method
+ */
   onSubmit() {
     const formModel = this.orgForm.value;
     const data = {
@@ -86,7 +115,9 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
     };
     this.store.dispatch(new UpdateOrganization(data));
   }
-
+/**
+ * Set form data method
+ */
   setFormValues() {
     if (!this.errorMessage && this.org) {
       this.orgForm.setValue({

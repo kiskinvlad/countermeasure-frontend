@@ -2,15 +2,27 @@ import { User } from '@shared/models/user';
 import { UserActionTypes } from '@app/shared/ngrx-store/constants/user';
 import { All } from '@app/shared/ngrx-store/actions/user.actions';
 import { Permission } from '@shared/models/permission';
-
+/**
+ * User state interface
+ */
 export interface State {
+/**
+ * State params
+ * @param {User} user User model
+ * @param {User[]} users Users models array param
+ * @param {Number} totalCount Total users count param
+ * @param {number} totalEnabled Users count state param
+ * @param {string | null} errorMessage Error message param
+ */
   user: User;
   users: User[];
   totalCount: Number;
   totalEnabled: Number;
   errorMessage: string;
 }
-
+/**
+ * Initial state
+ */
 export const initialState: State = {
   user: null,
   users: [],
@@ -19,14 +31,17 @@ export const initialState: State = {
   errorMessage: null,
 };
 
-
 const messages = {
   ERR_FAILED_GET_USER: 'Failed to fetch user.',
   ERR_FAILED_UPDATE_USER: 'Failed to update user.',
   ERR_FAILED_UPDATE_PASSWORD: 'Failed to update password.',
   ERR_FAILED_GET_USERS: 'Failed to fetch users.',
 };
-
+/**
+ * Scenario state reducer
+ * @param {State} state
+ * @param {All} action
+ */
 export function reducer(state: State = initialState, action: All): State {
   console.log(action.type);
   switch (action.type) {

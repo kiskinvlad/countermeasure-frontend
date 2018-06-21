@@ -13,8 +13,29 @@ import { FetchScenario, DeleteScenario, UpdateScenario, CreateScenario } from '@
   templateUrl: './add-edit-scenario.component.html',
   styleUrls: ['./add-edit-scenario.component.scss']
 })
+/**
+ * Add/Edit scenario component
+ * @implements {OnInit, OnDestroy}
+ */
 export class AddEditScenarioComponent implements OnInit, OnDestroy {
-
+/**
+ * @param {Observable<any>} getScenarioState$ Scenario state observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {ValidatorModule} validator Form validaor module param
+ * @param {Scenario} scenario Current scenario object param
+ * @param {number} case_id Current case id param
+ * @param {string} type Component type param
+ * @param {number} scenario_id Current scenario id param
+ * @param {boolean} isFormTouched Form touched state param
+ * @param {FormGroup} categoryForm Scenario form param
+ * @param {FormControl} name Form name control param
+ * @param {FormControl} probability Form probability control param
+ * @param {FormControl} description Form description control param
+ * @param {FormControl} taxes Form taxes control param
+ * @param {FormControl} penalties Form penalties control param
+ * @param {FormControl} interest Form interest control param
+ */
   private getScenarioState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
@@ -31,7 +52,12 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
   public taxes: FormControl;
   public penalties: FormControl;
   public interest: FormControl;
-
+/**
+ * @constructor
+ * @param {ActivatedRoute} route Current route state service
+ * @param {Store<AppState>} store App state store service
+ * @param {Router} router  App router service
+ */
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -40,7 +66,9 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
       this.isFormTouched = false;
       this.getScenarioState$ = this.store.select(selectScenarioState);
   }
-
+/**
+ * Initialize add-edit-scenario component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
       this.scenario_id = +params['scenario_id'];
@@ -89,7 +117,9 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
       });
     });
   }
-
+/**
+ * Create form controls method
+ */
   private createFormControls(): void {
     this.name = new FormControl('', [
       Validators.required,
@@ -110,7 +140,9 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
       Validators.required
     ]);
   }
-
+/**
+ * Create form method
+ */
   private createForm(): void {
     this.scenarioForm = new FormGroup({
       name: this.name,
@@ -121,13 +153,18 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
       interest: this.interest
     });
   }
-
+/**
+ * Create form data method
+ * @param {object} payload Http request data
+ */
   private getFormData(payload: object): void {
     if (this.type === 'edit') {
       this.store.dispatch(new FetchScenario(payload));
     }
   }
-
+/**
+ * Set form data method
+ */
   private setFormData(): void {
     this.name.setValue(this.scenario.name);
     this.probability.setValue(this.scenario.probability);
@@ -136,7 +173,9 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
     this.penalties.setValue(this.scenario.penalties);
     this.interest.setValue(this.scenario.interest);
   }
-
+/**
+ * Delete scenario method
+ */
   private deleteScenario(): void {
     const payload = {
       id: this.scenario_id,
@@ -145,7 +184,9 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
     };
     this.store.dispatch(new DeleteScenario(payload));
   }
-
+/**
+ * Add/update scenario method
+ */
   private addUpdateScenario(): void {
     let payload;
     if (!this.scenarioForm.valid) {
@@ -168,7 +209,9 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
       this.store.dispatch(new CreateScenario(payload));
     }
   }
-
+/**
+ * Destroy add-edit-scenario component life cycle method
+ */
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

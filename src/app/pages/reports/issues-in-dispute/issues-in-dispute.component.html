@@ -25,17 +25,17 @@
           <tbody>
             <tr *ngFor="let category_group of grouped_categories; let index = index">
               <td>{{category_group.param}}</td>
-              <td>{{category_group.taxes | number:'1.2-2'}}$</td>
-              <td>{{category_group.penalties | number:'1.2-2'}}$</td>
-              <td>{{category_group.interest | number:'1.2-2'}}$</td>
-              <td>{{category_group.total | number:'1.2-2'}}$</td>
+              <td>{{category_group.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{category_group.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{category_group.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{category_group.total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
             </tr>
             <tr>
-              <td>Total</td>
-              <td>{{total_issues['taxes'] | number:'1.2-2'}}$</td>
-              <td>{{total_issues['penalties'] | number:'1.2-2'}}$</td>
-              <td>{{total_issues['interest'] | number:'1.2-2'}}$</td>
-              <td>{{total_issues['total'] | number:'1.2-2'}}$</td>
+              <td class="total-section">Total</td>
+              <td class="total-section">{{total_issues['taxes'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section">{{total_issues['penalties'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section">{{total_issues['interest'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section">{{total_issues['total'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
             </tr>
           </tbody>
         </table>

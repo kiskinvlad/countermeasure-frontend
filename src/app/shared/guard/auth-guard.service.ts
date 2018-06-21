@@ -8,13 +8,27 @@ import { LocalStorageService } from '@app/core/services/LocalStorageService/loca
 import { AppState, selectAuthState } from '@app/shared/ngrx-store/app.states';
 import { FetchUserData } from '@app/shared/ngrx-store/actions/auth.actions';
 @Injectable()
+/**
+ * Authentication guard service. Check user authentication, token expired, prevent unauthorized routing
+ * @implements {CanActivate}
+ */
 export class AuthGuardService implements CanActivate {
-
+/**
+ * @param {Store<any>} getState$ App state param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {boolean} isAuth User authentication state param
+ */
   getState$: Store<any>;
   errorMessage: string | null;
   subscription: Subscription;
   isAuth: boolean;
-
+/**
+ * @constructor
+ * @param {Router} router Application router service
+ * @param {LocalStorageService} localStorageService Local storage service
+ * @param {Store<AppState>} store  App store service
+ */
   constructor(private auth: AuthenticationService,
     private router: Router,
     private localStorageService: LocalStorageService,
@@ -28,7 +42,10 @@ export class AuthGuardService implements CanActivate {
       this.isAuth = state.isAuthenticated;
     });
   }
-
+/**
+ * Can activate method. Allow/prevent user routing
+ * @returns {boolean}
+ */
   canActivate(): boolean {
     if (!this.isAuth || this.auth.isTokenExpired(this.localStorageService.getAuthToken())) {
       this.router.navigateByUrl('/login');

@@ -1,14 +1,25 @@
 import { Organization } from '@shared/models/organization';
 import { OrganizationActionTypes } from '@app/shared/ngrx-store/constants/organization';
 import { All } from '@app/shared/ngrx-store/actions/organization.actions';
-
+/**
+ * Organization state interface
+ */
 export interface State {
+/**
+ * State params
+ * @param {Organization} organization Organization model
+ * @param {Organization[]} organizations Organization models array param
+ * @param {number} totalCount Taxes count param
+ * @param {string | null} errorMessage Error message param
+ */
   organization: Organization;
-  organizations: any[];
+  organizations: Organization[];
   totalCount: number;
   errorMessage: string;
 }
-
+/**
+ * Initial state
+ */
 export const initialState: State = {
   organization: null,
   organizations: [],
@@ -22,7 +33,11 @@ const messages = {
   ERR_FAILED_GET_ORGANIZATIONS: 'Failed to fetch organizations.',
   ERR_FAILED_CREATE_ORGANIZATION: 'Failed to create organization.'
 };
-
+/**
+ * Organizations state reducer
+ * @param {State} state
+ * @param {All} action
+ */
 export function reducer(state: State = initialState, action: All): State {
   console.log(action.type);
   switch (action.type) {

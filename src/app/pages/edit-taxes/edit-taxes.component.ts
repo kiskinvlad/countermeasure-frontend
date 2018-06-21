@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs/';
 import { Store } from '@ngrx/store';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal';
 
 import { AppState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
 import { AddEditTaxComponent } from './add-edit-tax/add-edit-tax.component';
@@ -20,13 +18,25 @@ import {
   templateUrl: './edit-taxes.component.html',
   styleUrls: ['./edit-taxes.component.scss']
 })
-export class EditTaxesComponent implements OnInit {
-
+/**
+ * Edit taxes component
+ * @implements {OnInit, OnDestroy}
+ */
+export class EditTaxesComponent implements OnInit, OnDestroy {
+/**
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {any} next_category Next scenario in list param
+ * @param {BsModalRef} disputedDlgRef Bootstrap modal reference param
+ * @param {object} dialogConfig Modal options param
+ * @param {Array<any>} disputed Taxes array param
+ * @param {number} case_id Current case id param
+ */
   private getState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
   private next_category: any;
-  private disputedDlgRef: BsModalRef;
   private dialogConfig = {
     animated: true,
     keyboard: true,
@@ -36,15 +46,22 @@ export class EditTaxesComponent implements OnInit {
 
   public disputed: Array<any> = [];
   public case_id: number;
-
+/**
+ * @constructor
+ * @param {ActivatedRoute} route Current route state service
+ * @param {Store<AppState>} store App state store service
+ * @param {addEditDlgService} addEditDlgService Add edit dialog service
+ */
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
-    private addEditDlgService: BsModalService,
+    private router: Router
   ) {
     this.getState$ = this.store.select(selectDisputesState);
   }
-
+/**
+ * Initialize add-edit component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
@@ -64,6 +81,14 @@ export class EditTaxesComponent implements OnInit {
     this.store.dispatch(new FetchDisputesByCase(payload));
   }
 
+  redirectToEditTaxPage(index): void {
+    this.router.navigate(['/case/' + (this.case_id) + '/taxes/edit/' + this.disputed[index].disputed_t1_ta_id]);
+  }
+
+  redirectToAddTaxPage(index): void {
+    this.router.navigate(['/case/' + (this.case_id) + '/taxes/add/']);
+  }
+
   removeDisputed(index): void {
     const payload = {
       disputed_id: this.disputed[index]['disputed_t1_ta_id'],
@@ -71,41 +96,5 @@ export class EditTaxesComponent implements OnInit {
     };
 
     this.store.dispatch(new RemoveDisputed(payload));
-  }
-
-  openAddTaxDialog(): void {
-    this.disputedDlgRef = this.addEditDlgService.show(AddEditTaxComponent, this.dialogConfig);
-    this.disputedDlgRef.content.dialogTitle = 'Add Personal Income Tax Year in';
-    this.disputedDlgRef.content.btn_remove = false;
-    this.disputedDlgRef.content.onCloseReason.subscribe(result => {
-      if (result === 'submit') {
-        const payload = {
-          disputed: this.disputedDlgRef.content.disputed,
-          case_id: this.case_id
-        };
-
-        this.store.dispatch(new CreateDisputed(payload));
-      }
-    });
-  }
-
-  openEditTaxDialog(index): void {
-
-    this.disputedDlgRef = this.addEditDlgService.show(AddEditTaxComponent, this.dialogConfig);
-    this.disputedDlgRef.content.disputed = this.disputed[index];
-    this.disputedDlgRef.content.dialogTitle = 'Edit Personal Income Tax Year in';
-    this.disputedDlgRef.content.onCloseReason.subscribe(result => {
-      if (result === 'submit') {
-        console.log(this.disputedDlgRef.content.disputed);
-        const payload = {
-          case_id: this.case_id,
-          disputed: this.disputedDlgRef.content.disputed
-        };
-
-        this.store.dispatch(new UpdateDisputed(payload));
-      } else if (result === 'remove') {
-        this.removeDisputed(index);
-      }
-    });
   }
 }

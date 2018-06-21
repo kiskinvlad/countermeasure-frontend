@@ -12,15 +12,31 @@ import { LocalStorageService } from '@app/core/services/LocalStorageService/loca
   templateUrl: './edit-details.component.html',
   styleUrls: ['./edit-details.component.scss']
 })
+/**
+ * Edit details component
+ * @implements {OnInit, OnDestroy}
+ */
 export class EditDetailsComponent implements OnInit, OnDestroy {
-
+/**
+ * @param {User} user User model for edit-details param
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {FormGroup} myProfileForm Edit details form param
+ * @param {number} userID Current user id param
+ */
   user: User = new User();
   getState$: Observable<any>;
   errorMessage: string | null;
   subscription: Subscription;
   myProfileForm: FormGroup;
   userID: number;
-
+/**
+ * @constructor
+ * @param {Store<AppState>} store App state store service
+ * @param {FormBuilder} fb Edit details form builder service
+ * @param {LocalStorageService} localStorageService Local storage service
+ */
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
@@ -30,7 +46,9 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
     this.userID = this.localStorageService.getUserID();
     this.createForm();
   }
-
+/**
+ * Initialize edit details component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
@@ -44,11 +62,15 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
 
     this.getUser();
   }
-
+/**
+ * Destroy edit details component life cycle method
+ */
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
+/**
+ * Create form method
+ */
   createForm() {
     this.myProfileForm = this.fb.group ({
       firstName: '',
@@ -56,11 +78,15 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
       phone: ''
     });
   }
-
+/**
+ * Get current user method
+ */
   getUser(): void {
     this.store.dispatch(new FetchUser({user_id: this.userID}));
   }
-
+/**
+ * Form submit method
+ */
   onSubmit() {
     const formModel = this.myProfileForm.value;
     const saveUser = {
@@ -70,7 +96,9 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
     };
     this.store.dispatch(new UpdateUser(saveUser));
   }
-
+/**
+ * Set form values method
+ */
   setFormValues() {
     if (!this.errorMessage && this.user) {
       this.myProfileForm.setValue({

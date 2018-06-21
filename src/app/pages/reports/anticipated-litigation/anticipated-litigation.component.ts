@@ -14,7 +14,25 @@ import 'chartjs-plugin-datalabels';
   templateUrl: './anticipated-litigation.component.html',
   styleUrls: ['./anticipated-litigation.component.scss']
 })
+/**
+ * Anticipated litigation component.
+ * @implements {OnInit, OnDestroy}
+ */
 export class AnticipatedLitigationComponent implements OnInit, OnDestroy {
+/**
+ * @param {ElementRef} pdf Pdf table element refernce param
+ * @param {ElementRef} header Pdf header element reference param
+ * @param {ElementRef} canvas Pdf chart element reference param
+ * @param {ElementRef} headerpolicy Pdf additional info reference param
+ * @param {Chart} chart Chart object param
+ * @param {any} ctx Canvas element context param
+ * @param {Array<any>} scenarios Scenarios array param
+ * @param {object} total_disputed Total tax count param
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {number} case_id Current case id param
+ */
   @ViewChild('pdf') pdf: ElementRef;
   @ViewChild('header') header: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
@@ -27,19 +45,29 @@ export class AnticipatedLitigationComponent implements OnInit, OnDestroy {
   private errorMessage: string | null;
   private subscription: Subscription;
   private case_id: number;
-
+/**
+ * @constructor
+ * @param {ActivatedRoute} route Current route state service
+ * @param {Store<AppState>} store App state store service
+ */
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
   ) {
     this.getState$ = this.store.select(selectScenarioState);
   }
-
+/**
+ * Initialize anticipated litigation component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
-      this.scenarios = (state.scenarios || []).map(item => {
-        item.savings = +item.taxes + +item.penalties + +item.interest;
+      this.scenarios = (state.scenarios || []).map(item => Object.assign({}, item));
+      this.scenarios.map(item => {
+        item.taxes = Math.abs(+item.taxes);
+        item.penalties = Math.abs(+item.penalties);
+        item.interest = Math.abs(+item.interest);
+        item.savings = item.taxes + item.penalties + item.interest;
         return {...item };
       });
       if (this.scenarios.length > 0) {
@@ -57,7 +85,9 @@ export class AnticipatedLitigationComponent implements OnInit, OnDestroy {
     };
     this.store.dispatch(new FetchScenarios(payload));
   }
-
+/**
+ * Create and download pdf method
+ */
   public downloadPdf(): void {
     const header = this.header.nativeElement;
     const content = this.pdf.nativeElement;
@@ -88,8 +118,11 @@ export class AnticipatedLitigationComponent implements OnInit, OnDestroy {
     window.open(URL.createObjectURL(doc.output('blob')));
     // doc.save('case_' + this.case_id + '_amount_in_dispute.pdf');
   }
-
-  private createChart(data): void {
+/**
+ * Create chart method
+ * @param {any} data Data for chart
+ */
+  private createChart(data: any): void {
     let values = [];
     const labels = [];
     data.forEach((el, index) => {
@@ -183,11 +216,18 @@ export class AnticipatedLitigationComponent implements OnInit, OnDestroy {
       },
     });
   }
-
-  private sortBySavings(array: Array<any>, x): Array<any> {
+/**
+ * Sort scenarios by param method
+ * @param {Array<any>} array Array to sort
+ * @param {string} param Param for sort
+ * @returns {Array<any>}
+ */
+  private sortBySavings(array: Array<any>, x: string): Array<any> {
     return array.sort((a, b) => b[x] - a[x]);
   }
-
+/**
+ * Destroy anticipated litigation component life cycle method
+ */
   ngOnDestroy(): void {
     this.ctx.clearRect(0, 0, 100, 100);
     this.chart.destroy();

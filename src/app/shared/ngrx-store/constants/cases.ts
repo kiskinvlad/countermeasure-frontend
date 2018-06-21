@@ -1,3 +1,6 @@
+/**
+ * Cases action types enumeration.
+ */
 export enum CasesActionTypes {
     FETCH_CASES = '[Cases] Fetch Cases Action',
     FETCH_CASES_SUCCESS = '[Cases] Fetch Cases Success Action',

@@ -40,10 +40,10 @@
           <tbody>
             <tr *ngFor="let scenario of scenarios; let index = index">
               <td>Scenario {{index + 1}}</td>
-              <td>{{+scenario.taxes | number:'1.2-2'}}$</td>
-              <td>{{+scenario.penalties | number:'1.2-2'}}$</td>
-              <td>{{+scenario.interest | number:'1.2-2'}}$</td>
-              <td>{{+scenario.savings | number:'1.2-2'}}$</td>
+              <td>{{scenario.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{scenario.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{scenario.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{scenario.savings | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
             </tr>
           </tbody>
         </table>

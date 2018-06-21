@@ -14,8 +14,20 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './dialog-create-org.component.html',
   styleUrls: ['./dialog-create-org.component.scss']
 })
+/**
+ * Dialog create organization component
+ * @implements {OnInit, OnDestroy}
+ */
 export class DialogCreateOrgComponent implements OnInit, OnDestroy {
-
+/**
+ * @param {Organization} org Current organization param
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {FormGroup} orgForm Organization form group param
+ * @param {number} orgID Organization id param
+ * @param {ValidatorModule} validator Form validaor module param
+ */
   org: Organization = new Organization();
   getState$: Observable<any>;
   errorMessage: string | null;
@@ -23,13 +35,20 @@ export class DialogCreateOrgComponent implements OnInit, OnDestroy {
   orgForm: FormGroup;
   orgID: number;
   validator: ValidatorModule;
-
+/**
+ * @constructor
+ * @param {Store<AppState>} store App state store service
+ * @param {FormBuilder} fb Organization form builder service
+ * @param {NgbActiveModal} activeModal Bootstrap modal state handler service
+ */
   constructor(private store: Store<AppState>, private fb: FormBuilder, public activeModal: NgbActiveModal) {
     this.getState$ = this.store.select(selectOrganizationState);
     this.createForm();
     this.validator = new ValidatorModule();
   }
-
+/**
+ * Initialize dialog create organization component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
@@ -40,11 +59,15 @@ export class DialogCreateOrgComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+/**
+ * Destroy dialog create organization component life cycle method
+ */
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
+/**
+ * Create form method
+ */
   createForm() {
     this.orgForm = this.fb.group ({
       orgName: ['', [Validators.required]],
@@ -52,7 +75,9 @@ export class DialogCreateOrgComponent implements OnInit, OnDestroy {
       enabled: true
     });
   }
-
+/**
+ * Submit form method
+ */
   onSubmit() {
     const formModel = this.orgForm.value;
     const data = {

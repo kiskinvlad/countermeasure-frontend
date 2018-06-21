@@ -2,9 +2,19 @@
 import { CategoriesActionTypes } from '@app/shared/ngrx-store/constants/category';
 import { Category } from '@app/shared/models/category';
 import { All } from '@app/shared/ngrx-store/actions/category.actions';
-
-
+/**
+ * Categories state interface
+ */
 export interface State {
+/**
+ * State params
+ * @param {Category[]} categories Category models array state
+ * @param {Category} category Current category model
+ * @param {Number} totalCount Categories count param
+ * @param {Number} page_number Page number param
+ * @param {Number} items_per_page Categories count per page param
+ * @param {string | null} errorMessage Error message param
+ */
   categories: Category[];
   category: Category;
   totalCount: Number;
@@ -12,7 +22,9 @@ export interface State {
   items_per_page: Number;
   errorMessage: string | null;
 }
-
+/**
+ * Initial state
+ */
 export const initialState: State = {
   categories: [],
   category: null,
@@ -21,8 +33,12 @@ export const initialState: State = {
   items_per_page: 10,
   errorMessage: null
 };
-
-export function reducer(state = initialState, action: All): State {
+/**
+ * Category state reducer
+ * @param {State} state
+ * @param {All} action
+ */
+export function reducer(state: State = initialState, action: All): State {
   switch (action.type) {
     case CategoriesActionTypes.FETCH_CATEGORIES_SUCCESS: {
       return {

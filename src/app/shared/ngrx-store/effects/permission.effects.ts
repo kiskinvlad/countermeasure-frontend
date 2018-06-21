@@ -32,8 +32,20 @@ import {
 } from '../actions/permission.actions';
 
 @Injectable()
+/**
+ * Permission side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class PermissionEffects {
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {PermissionService} permissionService Permission service
+ * @param {Router} router App router service
+ * @param {LocalStorageService} localStorageService Local storage service
+ * @param {NgxPermissionsService} permissionsService User ermissions service
+ * @param {NotificationsService} notificationsService App notification service
+ * @param {Store<AppState>} store App store service
+ */
   constructor(
     private actions: Actions,
     private permissionService: PermissionService,
@@ -49,7 +61,6 @@ export class PermissionEffects {
       .ofType(PermissionActionTypes.FETCH_PERMISSIONS)
       .map((action: FetchPermissions) => action.payload)
       .switchMap(payload => {
-        console.log('called getGuestPermissions: ' + JSON.stringify(payload));
         return this.permissionService.getGuestPermissions(payload)
           .map((data) => {
             return new FetchPermissionsSuccess(data);
@@ -94,22 +105,6 @@ export class PermissionEffects {
       .map(() => {
         this.notificationsService.error('Error', 'Unable to add guest permissions.');
       });
-
-    /*@Effect({ dispatch: false })
-    AddPermissionsSuccess: Observable<any> = this.actions.pipe(
-      ofType(PermissionActionTypes.ADD_PERMISSIONS_SUCCESS),
-      tap((data) => {
-        const user_id = data.payload.user_id;
-        const payload = {
-          user_id: data.payload.userID,
-          org_id: data.payload.orgID,
-          offset: data.payload.offset,
-          limit: data.payload.this.itemsPerPage,
-          cases: JSON.stringify(this.addedCases)
-        };
-        this.store.dispatch(new FetchUser(payload));
-      })
-    );*/
 
     @Effect({ dispatch: false })
     AddPermissionsSuccess: Observable<any> = this.actions.pipe(

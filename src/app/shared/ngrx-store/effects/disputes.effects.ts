@@ -27,8 +27,18 @@ import {
   FetchDisputesBySummaryFailure} from '@app/shared/ngrx-store/actions/disputes.actions';
 
 @Injectable()
+/**
+ * Taxes side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class DisputesEffects {
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {DisputesService} disputesService Taxes service
+ * @param {Router} router App router service
+ * @param {LocalStorageService} localStorageService Local storage service
+ * @param {NotificationsService} notificationsService App notification service
+ */
   constructor(
     private actions: Actions,
     private disputesService: DisputesService,
@@ -42,6 +52,8 @@ export class DisputesEffects {
     .ofType(DisputesActionTypes.FETCH_DISPUTED)
     .map((action: FetchDisputed) => action.payload)
     .switchMap(payload => {
+      console.log('=====');
+      console.log(payload);
       return this.disputesService.getDisputed(payload)
         .map((data) => {
           return new FetchDisputedSuccess(data);
@@ -75,7 +87,6 @@ export class DisputesEffects {
           return new CreateDisputedSuccess(data);
         })
         .catch((error) => {
-          console.log(error);
           return Observable.of(new CreateDisputedFailure({ error: error }));
         });
     });
