@@ -15,7 +15,7 @@
             <tbody>
               <tr>
                 <td>Total payable</td>
-                <td>${{remaining_amount_payable_total}}</td>
+                <td>{{remaining_amount_payable_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
             </tbody>
           </table>
@@ -36,28 +36,28 @@
             <tbody>
               <tr>
                 <td>Reduction to Income</td>
-                <td>${{scenario.taxable_income}}</td>
-                <td>${{scenario.payable_income}}</td>
+                <td>{{scenario.taxable_income | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+                <td>{{scenario.payable_income | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
               <tr>
                 <td>Reduction to Taxes</td>
-                <td>${{scenario.taxes}}</td>
-                <td>${{scenario.payable_taxes}}</td>
+                <td>{{scenario.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+                <td>{{scenario.payable_taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
               <tr>
                 <td>Reduction to Penalties</td>
-                <td>${{scenario.penalties}}</td>
-                <td>${{scenario.payable_penalties}}</td>
+                <td>{{scenario.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+                <td>{{scenario.payable_penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
               <tr>
                 <td>Reduction to Interest</td>
-                <td>${{scenario.interest}}</td>
-                <td>${{scenario.payable_interest}}</td>
+                <td>{{scenario.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+                <td>{{scenario.payable_interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
               <tr>
-                <td>Total</td>
-                <td>${{scenario.total}}</td>
-                <td>${{scenario.payable_total}}</td>
+                <td class="total-section">Total</td>
+                <td class="total-section">{{scenario.total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+                <td class="total-section">{{scenario.payable_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
               <tr>
               </tr>
