@@ -43,6 +43,8 @@ const routes: Routes = [
   { path: 'case/:case_id/detail', component: EditCasesComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/taxes', component: EditTaxesComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/taxes/summary', component: SummaryTaxesComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/taxes/edit/:disputed_id', component: AddEditTaxComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/taxes/add', component: AddEditTaxComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/amount-in-dispute', component: AmountInDisputeComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/issues-in-dispute', component: IssuesInDisputeComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/anticipated-litigation', component: AnticipatedLitigationComponent, canActivate: [AuthGuardService] },
