@@ -1,20 +1,32 @@
 import { Role } from '@shared/models/role';
 import { All } from '@app/shared/ngrx-store/actions/role.actions';
 import { RoleActionTypes } from '@app/shared/ngrx-store/constants/role';
-
-
+/**
+ * Role state interface
+ */
 export interface State {
+/**
+ * State params
+ * @param {Role | null} role Role model
+ * @param {string | null} errorMessage Error message param
+ */
   role: Role | null;
   // error message
   errorMessage: string | null;
 }
-
+/**
+ * Initial state
+ */
 export const initialState: State = {
   role: null,
   errorMessage: null
 };
-
-export function reducer(state = initialState, action: All): State {
+/**
+ * Organizations state reducer
+ * @param {State} state
+ * @param {All} action
+ */
+export function reducer(state: State = initialState, action: All): State {
   switch (action.type) {
     case RoleActionTypes.FETCH_ROLE_SUCCESS: {
       return {

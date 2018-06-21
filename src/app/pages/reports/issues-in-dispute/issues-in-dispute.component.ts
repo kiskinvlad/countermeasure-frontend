@@ -15,7 +15,26 @@ import 'jspdf-autotable';
   templateUrl: './issues-in-dispute.component.html',
   styleUrls: ['./issues-in-dispute.component.scss']
 })
+/**
+ * Issues in dispute component.
+ * @implements {OnInit, OnDestroy}
+ */
 export class IssuesInDisputeComponent implements OnInit, OnDestroy {
+/**
+ * @param {ElementRef} pdf Pdf table element refernce param
+ * @param {ElementRef} header Pdf header element reference param
+ * @param {ElementRef} canvas Pdf chart element reference param
+ * @param {Chart} issue_chart Chart object param
+ * @param {any} ctx Canvas element context param
+ * @param {Array<any>} categories Categories array param
+ * @param {Array<any>} disputes Taxes array param
+ * @param {Array<any>} grouped_categories Grouped categories array param
+ * @param {Observable<any>} getCategoryState$ Category state observable param
+ * @param {Observable<any>} getDisputesState$ Taxes state observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {number} case_id Current case id param
+ */
   @ViewChild('pdf') pdf: ElementRef;
   @ViewChild('header') header: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
@@ -31,7 +50,11 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
   private errorMessage: string | null;
   private subscription: Subscription;
   private case_id: number;
-
+/**
+ * @constructor
+ * @param {ActivatedRoute} route Current route state service
+ * @param {Store<AppState>} store App state store service
+ */
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -39,7 +62,9 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
     this.getCategoryState$ = this.store.select(selectCategoryState);
     this.getDisputesState$ = this.store.select(selectDisputesState);
   }
-
+/**
+ * Issues in dispute component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getCategoryState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
@@ -70,7 +95,9 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
     this.store.dispatch(new FetchCategories(payload));
     this.store.dispatch(new FetchDisputesByCase({case_id: this.case_id}));
   }
-
+/**
+ * Calculate data for table method
+ */
   private calculateTableData(): void {
     this.total_issues['taxes'] = 0;
     this.total_issues['penalties'] = 0;
@@ -100,8 +127,13 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
     this.total_issues['penalties_percents'] = Math.round(this.total_issues['penalties'] / this.total_issues['total'] * 100) + '%';
     this.total_issues['interest_percents'] = Math.round(this.total_issues['interest'] / this.total_issues['total'] * 100) + '%';
   }
-
-  private groupBy(array, param): any[] {
+/**
+ * Group taxes by param method
+ * @param {Array<any>} array Array to group
+ * @param {string} param Param for group
+ * @returns {any[]}
+ */
+  private groupBy(array: Array<any>, param: string): any[] {
     const group_to_values = array.reduce(function (obj, item) {
       obj[item[param]] = obj[item[param]] || [];
       obj[item[param]].push(item);
@@ -113,8 +145,11 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
     });
     return groups;
   }
-
-  private createChart(data): void {
+/**
+ * Create chart method
+ * @param {any} data Data for chart
+ */
+  private createChart(data: any): void {
     const labels = [];
     const values = [];
     data.forEach(el => {
@@ -171,7 +206,9 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+/**
+ * Create and download pdf method
+ */
   public downloadPdf(): void {
     const header = this.header.nativeElement;
     const content = this.pdf.nativeElement;
@@ -200,7 +237,9 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
     window.open(URL.createObjectURL(doc.output('blob')));
     // doc.save('case_' + this.case_id + '_amount_in_dispute.pdf');
   }
-
+/**
+ * Destroy issues in dispute component life cycle method
+ */
   ngOnDestroy(): void {
     this.ctx.clearRect(0, 0, 100, 100);
     this.issue_chart.destroy();

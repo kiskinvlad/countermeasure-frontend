@@ -8,13 +8,31 @@ import * as Chart from 'chart.js';
 import * as jsPDF from 'jspdf';
 import 'chart.piecelabel.js';
 import 'jspdf-autotable';
+import { ARIA_LIVE_DELAY_TYPE } from '@ng-bootstrap/ng-bootstrap/util/accessibility/live';
 
 @Component({
   selector: 'ct-amount-in-dispute',
   templateUrl: './amount-in-dispute.component.html',
   styleUrls: ['./amount-in-dispute.component.scss']
 })
+/**
+ * Amount in dispute component.
+ * @implements {OnInit, OnDestroy}
+ */
 export class AmountInDisputeComponent implements OnInit, OnDestroy {
+/**
+ * @param {ElementRef} pdf Pdf table element refernce param
+ * @param {ElementRef} header Pdf header element reference param
+ * @param {ElementRef} canvas Pdf chart element reference param
+ * @param {Chart} chart Chart object param
+ * @param {any} ctx Canvas element context param
+ * @param {Array<any>} disputed Taxes array param
+ * @param {object} total_disputed Total tax count param
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {number} case_id Current case id param
+ */
   @ViewChild('pdf') pdf: ElementRef;
   @ViewChild('header') header: ElementRef;
   @ViewChild('canvas') canvas: ElementRef;
@@ -28,14 +46,20 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
   private errorMessage: string | null;
   private subscription: Subscription;
   private case_id: number;
-
+/**
+ * @constructor
+ * @param {ActivatedRoute} route Current route state service
+ * @param {Store<AppState>} store App state store service
+ */
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
   ) {
     this.getState$ = this.store.select(selectDisputesState);
   }
-
+/**
+ * Initialize amount in dispute component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
@@ -57,8 +81,13 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
     };
     this.store.dispatch(new FetchDisputesByCase(payload));
   }
-
-  private groupBy(array, param): any[] {
+/**
+ * Group taxes by param method
+ * @param {Array<any>} array Array to group
+ * @param {string} param Param for group
+ * @returns {any[]}
+ */
+  private groupBy(array: Array<any>, param: string): any[] {
     const group_to_values = array.reduce(function (obj, item) {
       obj[item[param]] = obj[item[param]] || [];
       obj[item[param]].push(item);
@@ -70,7 +99,9 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
     });
     return groups;
   }
-
+/**
+ * Calculate data for table method
+ */
   private calculateTableData(): void {
     this.total_disputed['taxes'] = 0;
     this.total_disputed['penalties'] = 0;
@@ -96,8 +127,11 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
     this.total_disputed['penalties_percents'] = Math.round(this.total_disputed['penalties'] / this.total_disputed['total'] * 100) + '%';
     this.total_disputed['interest_percents'] = Math.round(this.total_disputed['interest'] / this.total_disputed['total'] * 100) + '%';
   }
-
-  private createChart(data): void {
+/**
+ * Create chart method
+ * @param {any} data Data for chart
+ */
+  private createChart(data: any): void {
     const data_set = [data.taxes, data.penalties, data.interest];
     const labels_set = ['Taxes', 'Penalties', 'Interest'];
     this.ctx = this.canvas.nativeElement.getContext('2d');
@@ -150,7 +184,9 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+/**
+ * Create and download pdf method
+ */
   public downloadPdf(): void {
     const header = this.header.nativeElement;
     const content = this.pdf.nativeElement;
@@ -179,7 +215,9 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
     window.open(URL.createObjectURL(doc.output('blob')));
     // doc.save('case_' + this.case_id + '_amount_in_dispute.pdf');
   }
-
+/**
+ * Destroy amount in dispute component life cycle method. Destroy chart and clear canvas context.
+ */
   ngOnDestroy(): void {
     this.ctx.clearRect(0, 0, 100, 100);
     this.chart.destroy();

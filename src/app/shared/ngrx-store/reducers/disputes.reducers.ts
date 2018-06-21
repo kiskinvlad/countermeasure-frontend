@@ -4,22 +4,37 @@ import { Case } from '@app/shared/models/case';
 import { All } from '@app/shared/ngrx-store/actions/disputes.actions';
 import { Disputed } from '@app/shared/models/disputed';
 
-
+/**
+ * Taxes state interface
+ */
 export interface State {
+/**
+ * State params
+ * @param {Disputed[]} disputes Taxes models array param
+ * @param {Disputed} disputed Current tax model
+ * @param {Disputed[]} summaries Summary taxes models array param
+ * @param {string | null} errorMessage Error message param
+ */
   disputes: Disputed[];
   disputed: Disputed;
   summaries: Disputed[];
   errorMessage: string | null;
 }
-
+/**
+ * Initial state
+ */
 export const initialState: State = {
   disputes: [],
   disputed: null,
   errorMessage: null,
   summaries: []
 };
-
-export function reducer(state = initialState, action: All): State {
+/**
+ * Taxes state reducer
+ * @param {State} state
+ * @param {All} action
+ */
+export function reducer(state: State = initialState, action: All): State {
   switch (action.type) {
     case DisputesActionTypes.FETCH_DISPUTED_SUCCESS: {
       console.log('------');

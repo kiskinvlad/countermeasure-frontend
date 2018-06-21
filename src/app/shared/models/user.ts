@@ -1,4 +1,6 @@
-
+/**
+ * User model.
+ */
 export class User {
     user_id?: number;
     org_id?: number;

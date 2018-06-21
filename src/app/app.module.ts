@@ -165,4 +165,7 @@ import { PrincipledSettlementComponent } from './pages/reports/principled-settle
   ],
   bootstrap: [AppComponent]
 })
+/**
+ * Application root module
+ */
 export class AppModule { }

@@ -19,6 +19,10 @@ import {
   templateUrl: './add-edit-tax.component.html',
   styleUrls: ['./add-edit-tax.component.scss']
 })
+/**
+ * Add/Edit tax component
+ * @implements {OnInit, OnDestroy}
+ */
 export class AddEditTaxComponent implements OnInit, AfterViewInit {
 
   private getState$: Observable<any>;
@@ -29,8 +33,11 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
   public case_id: number;
   public disputed_id: number;
   public disputed: Disputed;
-  public onCloseReason: Subject<string>;
-
+/**
+ * @constructor
+ * @param {BsModalRef} bsModalRef Bootstrap modal reference service
+ * @param {ChangeDetectorRef} cdr Change detector reference service
+ */
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -40,10 +47,15 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
     this.btn_remove = true;
     this.getState$ = this.store.select(selectDisputesState);
   }
+/**
+ * After view init add/edit tax component life cycle method
+ */
   ngAfterViewInit() {
     this.cdr.detectChanges();
   }
-
+/**
+ * Initialize view init add/edit tax component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
@@ -78,7 +90,9 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
     else this.store.dispatch(new CreateDisputed(payload));
     this.router.navigate(['/case/' + (this.case_id) + '/taxes/']);
   }
-
+/**
+ * Form remove method
+ */
   onRemove() {
     this.disputed['DIFF_total_debt'] = this.disputed['GP_total_debt'] - this.disputed['TP_total_debt'];
     const payload = {

@@ -40,8 +40,17 @@ import {
     } from '@app/shared/ngrx-store/actions/scenario.actions';
 
 @Injectable()
+/**
+ * Scenario side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class ScenarioEffects {
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {ScenarioService} scenarioService Scenario service
+ * @param {Router} router App router service
+ * @param {NotificationsService} notificationsService App notification service
+ */
   constructor(
     private actions: Actions,
     private scenarioService: ScenarioService,

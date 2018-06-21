@@ -1,3 +1,6 @@
+/**
+ * Scenario model.
+ */
 export class Scenario {
     scenario_id: number;
     case_id: number;

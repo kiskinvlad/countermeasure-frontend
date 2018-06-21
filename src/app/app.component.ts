@@ -14,12 +14,23 @@ import { AuthenticationService } from '@app/core/services/AuthenticationService/
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
+/**
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {string} token Authentication token param
+ */
   getState: Observable<any>;
   errorMessage: string | null;
   subscription: Subscription;
   token: string;
-
+/**
+ * @constructor
+ * @param {Store<AppState>} store App store service
+ * @param {NgxPermissionsService} permissionsService User permissions service
+ * @param {LocalStorageService} localStorageService Local storage service
+ * @param {AuthenticationService} auth Authentication service
+ */
   constructor(
     private store: Store<AppState>,
     private permissionsService: NgxPermissionsService,
@@ -31,7 +42,9 @@ export class AppComponent implements OnInit {
   }
 
   title = 'ct';
-
+/**
+ * Initialize app component life cycle method
+ */
   ngOnInit(): void {
     this.subscription = this.getState.subscribe((state) => {
       this.token = this.localStorageService.getAuthToken();

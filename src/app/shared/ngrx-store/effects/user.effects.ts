@@ -38,8 +38,19 @@ import {
 } from '../actions/user.actions';
 
 @Injectable()
+/**
+ * User side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class UserEffects {
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {UserService} userService User service
+ * @param {Router} router App router service
+ * @param {LocalStorageService} localStorageService Local storage service
+ * @param {NotificationsService} notificationsService App notification service
+ * @param {Store<AppState>} store App store service
+ */
   constructor(
     private actions: Actions,
     private userService: UserService,

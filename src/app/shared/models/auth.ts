@@ -1,5 +1,7 @@
 import { User } from './user';
-
+/**
+ * Authentication model.
+ */
 export class Auth {
     token?: string;
     email?: string;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectCategoryState } from '@app/shared/ngrx-store/app.states';
@@ -12,8 +12,22 @@ import { CreateCsv } from '@app/shared/ngrx-store/actions/csv.actions';
   templateUrl: './summary-categories.component.html',
   styleUrls: ['./summary-categories.component.scss']
 })
-export class SummaryCategoriesComponent implements OnInit {
-
+/**
+ * Sumamry categories component.
+ * @implements {OnInit, OnDestroy,}
+ */
+export class SummaryCategoriesComponent implements OnInit, OnDestroy {
+/**
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {Array<any>} categories Categories array param
+ * @param {number} case_id Current case id param
+ * @param {number} total Total categories count param
+ * @param {Array<any>} groupedCategories Grouped categories array param
+ * @param {Array<any>} combinedCategories Combined categories array param
+ * @param {any} combinedCategoriesTotals Combined categories totals object param
+ */
   private getState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
@@ -23,13 +37,20 @@ export class SummaryCategoriesComponent implements OnInit {
   public groupedCategories: Array<any> = [];
   public combinedCategories: Array<any> = [];
   public combinedCategoriesTotals: any = {};
+/**
+ * @constructor
+ * @param {ActivatedRoute} route Current route state service
+ * @param {Store<AppState>} store App state store service
+ */
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
   ) {
       this.getState$ = this.store.select(selectCategoryState);
     }
-
+/**
+ * Initialize sumamry categories component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
@@ -53,8 +74,14 @@ export class SummaryCategoriesComponent implements OnInit {
     };
     this.store.dispatch(new FetchCategories(payload));
   }
-
-  private groupBy(array, param, f): any[] {
+/**
+ * Group taxes by param method
+ * @param {Array<any>} array Array to group
+ * @param {string} param Param for group
+ * @param {any} f Callback
+ * @returns {any[]}
+ */
+  private groupBy(array: Array<any>, param: string, f: any): any[] {
     const groups = {};
     array.forEach( function( o ) {
       const group = JSON.stringify( f(o) );
@@ -66,7 +93,9 @@ export class SummaryCategoriesComponent implements OnInit {
       return groups[group];
     });
   }
-
+/**
+ * Calculate categories totals for table method
+ */
   private calculateTotals(categories): void {
     categories.forEach((item) => {
       let taxable_income_total = 0;
@@ -94,7 +123,9 @@ export class SummaryCategoriesComponent implements OnInit {
       item.other_penalties_total = other_penalties_total;
     });
   }
-
+/**
+ * Calculate combined categories totals for table method
+ */
   private calculateCombinedTotals(categories): void {
       let taxable_income_total = 0;
       let non_refundable_federal_tax_credits_total = 0;
@@ -127,7 +158,9 @@ export class SummaryCategoriesComponent implements OnInit {
       this.combinedCategoriesTotals['income_subject_to_gnp_total'] = income_subject_to_gnp_total;
       this.combinedCategoriesTotals['other_penalties_total'] = other_penalties_total;
   }
-
+/**
+ * Calculate combined categories data for table method
+ */
   private createCombinedData(categories: Array<any>): Array<any> {
     const output = [];
     categories.forEach(function(value) {
@@ -156,12 +189,16 @@ export class SummaryCategoriesComponent implements OnInit {
     });
     return output;
   }
-
+/**
+ * Create comma separated values table method
+ */
   public create_csv(): void {
     const json = this.generateJsonForCvs(this.groupedCategories, this.combinedCategories, this.combinedCategoriesTotals);
     this.store.dispatch(new CreateCsv({json: json, case_id: this.case_id, type: 'categories'}));
   }
-
+/**
+ * Create json data for comma separated value table method
+ */
   private generateJsonForCvs(gc, cc, cct): Array<any> {
     const groupedCategories = Object.assign([], gc);
     const combinedCategories = Object.assign([], cc);
@@ -229,5 +266,11 @@ export class SummaryCategoriesComponent implements OnInit {
     totalObj['income_subject_to_gnp$'] = +combinedCategoriesTotals.income_subject_to_gnp_total;
     json.push(Object.assign({}, totalObj));
     return json;
+  }
+/**
+ * Destroy sumamry categories component life cycle method
+ */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

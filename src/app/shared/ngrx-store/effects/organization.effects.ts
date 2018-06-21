@@ -30,8 +30,17 @@ import {
 } from '../actions/organization.actions';
 
 @Injectable()
+/**
+ * Oranization side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class OrganizationEffects {
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {OrganizationService} organizationService Organization service
+ * @param {Router} router App router service
+ * @param {NotificationsService} notificationsService App notification service
+ */
   constructor(
     private actions: Actions,
     private organizationService: OrganizationService,

@@ -1,3 +1,6 @@
+/**
+ * Disputes action types enumeration.
+ */
 export enum DisputesActionTypes {
     FETCH_DISPUTED = '[Disputes] Fetch Disputed Action',
     FETCH_DISPUTED_SUCCESS = '[Disputes] Fetch Disputed Success Action',

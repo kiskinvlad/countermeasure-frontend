@@ -28,11 +28,20 @@ import {
   FetchRole, FetchRoleSuccess, FetchRoleFailure
 } from '../actions/role.actions';
 
-
-
 @Injectable()
+/**
+ * Auth side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class AuthEffects {
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {AuthenticationService} authService Authentication service
+ * @param {RoleService} roleService Role service
+ * @param {Router} router App router service
+ * @param {LocalStorageService} localStorageService  App local storage service
+ * @param {NgxPermissionsService} permissionsService User permissions service
+ */
   constructor(
     private actions: Actions,
     private authService: AuthenticationService,

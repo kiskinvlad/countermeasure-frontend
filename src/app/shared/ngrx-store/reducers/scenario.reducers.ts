@@ -2,9 +2,19 @@
 import { SceneriesActionTypes } from '@app/shared/ngrx-store/constants/scenario';
 import { Scenario } from '@app/shared/models/scenario';
 import { All } from '@app/shared/ngrx-store/actions/scenario.actions';
-
-
+/**
+ * Scenario state interface
+ */
 export interface State {
+/**
+ * State params
+ * @param {Scenario} scenario Scenario model
+ * @param {Scenario[]} sceneries Scenarios models array param
+ * @param {Number} totalCount Total case count param
+ * @param {Number} page_number Page number param
+ * @param {Number} items_per_page Cases count per page param
+ * @param {string | null} errorMessage Error message param
+ */
   sceneries: Scenario[];
   scenario: Scenario;
   totalCount: Number;
@@ -12,7 +22,9 @@ export interface State {
   items_per_page: Number;
   errorMessage: string | null;
 }
-
+/**
+ * Initial state
+ */
 export const initialState: State = {
   sceneries: [],
   scenario: null,
@@ -21,8 +33,12 @@ export const initialState: State = {
   items_per_page: 10,
   errorMessage: null
 };
-
-export function reducer(state = initialState, action: All): State {
+/**
+ * Scenario state reducer
+ * @param {State} state
+ * @param {All} action
+ */
+export function reducer(state: State = initialState, action: All): State {
   console.log('scenario reducer', action.type);
   switch (action.type) {
     case SceneriesActionTypes.FETCH_SCENERIES_SUCCESS: {

@@ -28,7 +28,9 @@ import { EditGuestComponent } from '@app/pages/organization/edit-guest/edit-gues
 import { AnticipatedLitigationComponent } from '@app/pages/reports/anticipated-litigation/anticipated-litigation.component';
 import { PrincipledSettlementComponent } from '@app/pages/reports/principled-settlement/principled-settlement.component';
 import { DashboardOrganizationsComponent } from '@app/pages/dashboard-organizations/dashboard-organizations.component';
-
+/**
+ * Application routes
+ */
 const routes: Routes = [
   { path: '', component: DashboardCaseComponent, canActivate: [DashboardGuardService] },
   { path: 'case/:case_id/categories', component: EditCategoriesComponent, canActivate: [AuthGuardService] },
@@ -75,4 +77,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+/**
+ * Application routing module
+ */
 export class AppRoutingModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
@@ -11,8 +11,19 @@ import { GetCase, UpdateCase } from '@app/shared/ngrx-store/actions/cases.action
   templateUrl: './edit-cases.component.html',
   styleUrls: ['./edit-cases.component.scss']
 })
-export class EditCasesComponent implements OnInit {
-
+/**
+ * Dashboard case component
+ * @implements {OnInit, OnDestroy}
+ */
+export class EditCasesComponent implements OnInit, OnDestroy  {
+/**
+ * @param {FormGroup} formGroup Edit cases form group param
+ * @param {Array<any>} categories Categories array param
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {number} case_id Current case id param
+ */
   public formGroup: FormGroup;
   public categories: Array<any> = [];
   getState$: Observable<any>;
@@ -20,14 +31,20 @@ export class EditCasesComponent implements OnInit {
   errorMessage: string | null;
 
   private case_id: number;
-
+/**
+ * @constructor
+ * @param {ActivatedRoute} route Current route state service
+ * @param {Store<AppState>} store App state store service
+ */
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
   ) {
     this.getState$ = this.store.select(selectCasesState);
   }
-
+/**
+ * Initialize edit-cases component life cycle method
+ */
   ngOnInit() {
     this.formGroup = new FormGroup({
       matter_id: new FormControl('', [
@@ -62,7 +79,9 @@ export class EditCasesComponent implements OnInit {
     };
     this.store.dispatch(new GetCase(payload));
   }
-
+/**
+ * Form submit method
+ */
   onSubmit() {
     const payload = {
       case_id: this.case_id,
@@ -71,5 +90,11 @@ export class EditCasesComponent implements OnInit {
       description: this.formGroup.controls['description'].value,
     };
     this.store.dispatch(new UpdateCase(payload));
+  }
+/**
+ * Destroy edit-cases component life cycle method
+ */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

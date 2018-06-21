@@ -12,21 +12,37 @@ import { ValidatorModule } from '@app/shared/form-validator/validator.module';
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
 })
+/**
+ * Change password component
+ * @implements {OnInit, OnDestroy}
+ */
 export class ChangePasswordComponent implements OnInit, OnDestroy {
-
+/**
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {FormGroup} passwordForm Change password form param
+ * @param {ValidatorModule} validator Form validator module param
+ */
   getState$: Observable<any>;
   errorMessage: string | null;
   subscription: Subscription;
   passwordForm: FormGroup;
   confirmForm: FormGroup;
   validator: ValidatorModule;
-
+/**
+ * @constructor
+ * @param {Store<AppState>} store App state store service
+ * @param {FormBuilder} fb Edit details form builder service
+ */
   constructor(private store: Store<AppState>, private fb: FormBuilder) {
     this.getState$ = this.store.select(selectUserState);
     this.createForm();
     this.validator = new ValidatorModule();
   }
-
+/**
+ * Initialize change password component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
@@ -36,11 +52,15 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+/**
+ * Destroy change password component life cycle method
+ */
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
+/**
+ * Create form method
+ */
   createForm() {
     this.passwordForm = this.fb.group({
       current: ['', Validators.required],
@@ -50,7 +70,9 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       }, {validator: this.matchValidator})
     });
   }
-
+/**
+ * Submit form method
+ */
   onSubmit() {
     const formModel = this.passwordForm.value;
     const data = {
@@ -59,8 +81,12 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     };
     this.store.dispatch(new UpdatePassword(data));
   }
-
-  matchValidator(group: FormGroup) {
+/**
+ * Check password match method
+ * @param {FormGroup} group Form group param
+ * @return {boolean}
+ */
+  matchValidator(group: FormGroup): any {
     return group.get('new').value === group.get('repeat').value ? null : { mismatch: true };
   }
 

@@ -1,3 +1,6 @@
+/**
+ * Permission model.
+ */
 export class Permission {
     org_id?: number;
     user_id?: number;

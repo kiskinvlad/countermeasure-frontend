@@ -4,13 +4,23 @@ import { HttpHelperService } from '@app/core/http-helper.service';
 import { ApiRoutingService } from '@app/core/api-routing.service';
 
 @Injectable()
+/**
+ * Disputes Service for taxes CRUD operations
+ */
 export class DisputesService {
-
+/**
+ * @constructor
+ * @param {HttpHelperService} http Http service
+ * @param {ApiRoutingService} apiRoutingService Api routing service
+ */
   constructor(
     private http: HttpHelperService,
     private apiRoutingService: ApiRoutingService
   ) { }
-
+/**
+ * Get taxes method
+ * @returns {Observable<any>}
+ */
   getDisputes(): Observable<any> {
     return this.http.get(
       this.apiRoutingService.getDisputesApiUrl(),
@@ -19,8 +29,12 @@ export class DisputesService {
       null
     );
   }
-
-  getDisputesByCase(payload): Observable<any> {
+/**
+ * Get taxes by case method
+ * @param {any} payload Http request data
+ * @returns {Observable<any>}
+ */
+  getDisputesByCase(payload: any): Observable<any> {
     return this.http.get(
       this.apiRoutingService.getDisputesByCaseAPIUrl(),
       payload,
@@ -28,8 +42,12 @@ export class DisputesService {
       null
     );
   }
-
-  getDisputesBySummary(payload): Observable<any> {
+/**
+ * Get taxes by summary method
+ * @param {any} payload Http request data
+ * @returns {Observable<any>}
+ */
+  getDisputesBySummary(payload: any): Observable<any> {
     return this.http.get(
       this.apiRoutingService.getDisputesBySummaryAPIUrl(),
       payload,
@@ -37,8 +55,12 @@ export class DisputesService {
       null
     );
   }
-
-  getDisputed(payload): Observable<any> {
+/**
+ * Get tax method
+ * @param {any} payload Http request data
+ * @returns {Observable<any>}
+ */
+  getDisputed(payload: any): Observable<any> {
     return this.http.get(
       this.apiRoutingService.getDisputedApiUrl(),
       payload,
@@ -46,8 +68,12 @@ export class DisputesService {
       null
     );
   }
-
-  createDisputed(payload): Observable<any> {
+/**
+ * Create tax method
+ * @param {any} payload Http request data
+ * @returns {Observable<any>}
+ */
+  createDisputed(payload: any): Observable<any> {
     return this.http.post(
       this.apiRoutingService.getCreateDisputedAPIUrl(),
       payload,
@@ -56,8 +82,12 @@ export class DisputesService {
       null
     );
   }
-
-  updateDisputed(payload): Observable<any> {
+/**
+ * Update tax method
+ * @param {any} payload Http request data
+ * @returns {Observable<any>}
+ */
+  updateDisputed(payload: any): Observable<any> {
     return this.http.post(
       this.apiRoutingService.getUpdateDisputedAPIUrl(),
       payload,
@@ -67,7 +97,12 @@ export class DisputesService {
     );
   }
 
-  removeDisputed(payload): Observable<any> {
+/**
+ * Remove tax method
+ * @param {any} payload Http request data
+ * @returns {Observable<any>}
+ */
+  removeDisputed(payload: any): Observable<any> {
     return this.http.post(
       this.apiRoutingService.getRemoveDisputedAPIUrl(),
       payload,

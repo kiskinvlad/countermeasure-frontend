@@ -40,10 +40,21 @@ import {
     } from '@app/shared/ngrx-store/actions/category.actions';
 
 @Injectable()
+/**
+ * Category side-effects service. {@link https://github.com/ngrx/effects/blob/master/docs/intro.md Effects}
+ */
 export class CategoryEffects {
-
+/**
+ * @param {number} case_id Current case id
+ */
   private case_id: number;
-
+/**
+ * @constructor
+ * @param {Actions} actions App ngrx action service
+ * @param {CategoryService} categoryService Category service
+ * @param {Router} router App router service
+ * @param {NotificationsService} notificationsService App notification service
+ */
   constructor(
     private actions: Actions,
     private categoryService: CategoryService,

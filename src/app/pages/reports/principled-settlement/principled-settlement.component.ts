@@ -24,7 +24,24 @@ import 'chart.piecelabel.js';
   templateUrl: './principled-settlement.component.html',
   styleUrls: ['./principled-settlement.component.scss']
 })
+/**
+ * Principled settlement component.
+ * @implements {OnInit, OnDestroy, AfterViewInit}
+ */
 export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterViewInit {
+/**
+ * @param {ElementRef} header Pdf header element reference param
+ * @param {ElementRef} canvas Pdf chart element reference param
+ * @param {Chart[]} charts Charts array param
+ * @param {any[]} ctx Canvas elements context param
+ * @param {Array<any>} scenarios Scenarios array param
+ * @param {Array<any>} disputes Taxes array param
+ * @param {any} disputes_total Taxes count param
+ * @param {Observable<any>} getState$ State observable param
+ * @param {string | null} errorMessage Error message param
+ * @param {Subscription} subscription Subscription param
+ * @param {number} case_id Current case id param
+ */
   @ViewChildren('canvas') canvas: QueryList<any>;
   @ViewChild('header') header: ElementRef;
 
@@ -38,7 +55,12 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
   private errorMessage: string | null;
   private subscription: Subscription;
   private case_id: number;
-
+/**
+ * @constructor
+ * @param {ActivatedRoute} route Current route state service
+ * @param {Store<AppState>} store App state store service
+ * @param {ChangeDetectorRef} cdr Change detector reference service
+ */
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -47,7 +69,9 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
     this.getState$ = this.store.select(selectScenarioState);
     this.getDisputesState$ = this.store.select(selectDisputesState);
   }
-
+/**
+ * Initialize principled settlement component life cycle method
+ */
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
@@ -91,12 +115,22 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
     this.store.dispatch(new FetchSceneries(payload));
     this.store.dispatch(new FetchDisputesByCase({case_id: this.case_id}));
   }
-
+/**
+ * Sort scenarios by param method
+ * @param {Array<any>} array Array to sort
+ * @param {string} param Param for sort
+ * @returns {Array<any>}
+ */
   private sortBySavings(array: Array<any>, x): Array<any> {
     return array.sort((a, b) => b[x] - a[x]);
   }
-
-  private createChart(data, index, ctx): void {
+/**
+ * Create chart method
+ * @param {any} data Data for chart
+ * @param {number} index Scenario index
+ * @param {any} ctx Canvas context
+ */
+  private createChart(data: any, index: number, ctx: any): void {
     const labels = [];
     const values = [];
     values.push(data.total_other_amounts);
@@ -153,7 +187,9 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
       }
     }));
   }
-
+/**
+ * Create and download pdf method
+ */
   public downloadPdf(): void {
     const header = this.header.nativeElement;
     const imgData = [];
@@ -190,7 +226,9 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
     window.open(URL.createObjectURL(doc.output('blob')));
     // doc.save('case_' + this.case_id + '_amount_in_dispute.pdf');
   }
-
+/**
+ * After view inititalize principled settlement component life cycle method
+ */
   ngAfterViewInit(): void {
     this.subscription = this.canvas.changes.subscribe(() => {
       this.canvas.toArray().forEach((el, index) => {
@@ -201,7 +239,9 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
       });
     });
   }
-
+/**
+ * Destroy principled settlement component life cycle method
+ */
   ngOnDestroy(): void {
     this.charts.forEach(chart => chart.destroy());
     this.subscription.unsubscribe();

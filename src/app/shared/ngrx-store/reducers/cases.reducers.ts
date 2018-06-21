@@ -2,9 +2,23 @@
 import { CasesActionTypes } from '@app/shared/ngrx-store/constants/cases';
 import { Case } from '@app/shared/models/case';
 import { All } from '@app/shared/ngrx-store/actions/cases.actions';
-
-
+/**
+ * Cases state interface
+ */
 export interface State {
+/**
+ * State params
+ * @param {Case[]} cases Cases models array state
+ * @param {Number} totalCount Total case count param
+ * @param {Number} page_number Page number param
+ * @param {Number} items_per_page Cases count per page param
+ * @param {String} role_id User role id param
+ * @param {String} matter_id Metter id param
+ * @param {Number} case_id Current case id param
+ * @param {String} name Case name param
+ * @param {String} description Case description param
+ * @param {string | null} errorMessage Error message param
+ */
   cases: Case[];
   totalCount: Number;
   page_number: Number;
@@ -16,7 +30,9 @@ export interface State {
   description: String;
   errorMessage: string | null;
 }
-
+/**
+ * Initial state
+ */
 export const initialState: State = {
   cases: [],
   totalCount: 0,
@@ -29,8 +45,12 @@ export const initialState: State = {
   description: '',
   errorMessage: null
 };
-
-export function reducer(state = initialState, action: All): State {
+/**
+ * Cases state reducer
+ * @param {State} state
+ * @param {All} action
+ */
+export function reducer(state: State = initialState, action: All): State {
   switch (action.type) {
     case CasesActionTypes.FETCH_CASES_SUCCESS: {
       return {
