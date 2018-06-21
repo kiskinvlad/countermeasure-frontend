@@ -1,27 +1,27 @@
 import { Action } from '@ngrx/store';
-import { SceneriesActionTypes } from '@app/shared/ngrx-store/constants/scenario';
+import { ScenariosActionTypes } from '@app/shared/ngrx-store/constants/scenario';
 /**
  * Fetch scenaries data action
  * Called when try to fetch scenaries data
  */
-export class FetchSceneries implements Action {
-  readonly type = SceneriesActionTypes.FETCH_SCENERIES;
+export class FetchScenarios implements Action {
+  readonly type = ScenariosActionTypes.FETCH_SCENARIOS;
   constructor(public payload: any) {}
 }
 /**
  * Fetch scenaries data success action
  * Called when fetch scenaries data successful
  */
-export class FetchSceneriesSuccess implements Action {
-  readonly type = SceneriesActionTypes.FETCH_SCENERIES_SUCCESS;
+export class FetchScenariosSuccess implements Action {
+  readonly type = ScenariosActionTypes.FETCH_SCENARIOS_SUCCESS;
   constructor(public payload: any) {}
 }
 /**
  * Fetch scenaries data failure action
  * Called when fetch scenaries data failure
  */
-export class FetchSceneriesFailure implements Action {
-  readonly type = SceneriesActionTypes.FETCH_SCENERIES_FAILURE;
+export class FetchScenariosFailure implements Action {
+  readonly type = ScenariosActionTypes.FETCH_SCENARIOS_FAILURE;
   constructor(public payload: any) {}
 }
 /**
@@ -29,7 +29,7 @@ export class FetchSceneriesFailure implements Action {
  * Called when try to fetch scenario data
  */
 export class FetchScenario implements Action {
-  readonly type = SceneriesActionTypes.FETCH_SCENARIO;
+  readonly type = ScenariosActionTypes.FETCH_SCENARIO;
   constructor(public payload: any) {}
 }
 /**
@@ -37,7 +37,7 @@ export class FetchScenario implements Action {
  * Called when fetch scenario data successful
  */
 export class FetchScenarioSuccess implements Action {
-  readonly type = SceneriesActionTypes.FETCH_SCENARIO_SUCCESS;
+  readonly type = ScenariosActionTypes.FETCH_SCENARIO_SUCCESS;
   constructor(public payload: any) {}
 }
 /**
@@ -45,7 +45,7 @@ export class FetchScenarioSuccess implements Action {
  * Called when fetch scenario data failure
  */
 export class FetchScenarioFailure implements Action {
-  readonly type = SceneriesActionTypes.FETCH_SCENARIO_FAILURE;
+  readonly type = ScenariosActionTypes.FETCH_SCENARIO_FAILURE;
   constructor(public payload: any) {}
 }
 /**
@@ -53,7 +53,7 @@ export class FetchScenarioFailure implements Action {
  * Called when try to change scenario position
  */
 export class MoveScenario implements Action {
-  readonly type = SceneriesActionTypes.MOVE_SCENARIO;
+  readonly type = ScenariosActionTypes.MOVE_SCENARIO;
   constructor(public payload: any) {}
 }
 /**
@@ -61,7 +61,7 @@ export class MoveScenario implements Action {
  * Called when change scenario position successful
  */
 export class MoveScenarioSuccess implements Action {
-  readonly type = SceneriesActionTypes.MOVE_SCENARIO_SUCCESS;
+  readonly type = ScenariosActionTypes.MOVE_SCENARIO_SUCCESS;
   constructor(public payload: any) {}
 }
 /**
@@ -69,7 +69,7 @@ export class MoveScenarioSuccess implements Action {
  * Called when change scenario position failure
  */
 export class MoveScenarioFailure implements Action {
-  readonly type = SceneriesActionTypes.MOVE_SCENARIO_FAILURE;
+  readonly type = ScenariosActionTypes.MOVE_SCENARIO_FAILURE;
   constructor(public payload: any) {}
 }
 /**
@@ -77,7 +77,7 @@ export class MoveScenarioFailure implements Action {
  * Called when try to delete scenario from list
  */
 export class DeleteScenarioFromList implements Action {
-  readonly type = SceneriesActionTypes.DELETE_SCENARIO_FROM_LIST;
+  readonly type = ScenariosActionTypes.DELETE_SCENARIO_FROM_LIST;
   constructor(public payload: any) {}
 }
 /**
@@ -85,7 +85,7 @@ export class DeleteScenarioFromList implements Action {
  * Called when delete scenario from list successful
  */
 export class DeleteScenarioFromListSuccess implements Action {
-  readonly type = SceneriesActionTypes.DELETE_SCENARIO_FROM_LIST_SUCCESS;
+  readonly type = ScenariosActionTypes.DELETE_SCENARIO_FROM_LIST_SUCCESS;
   constructor(public payload: any) {}
 }
 /**
@@ -93,7 +93,7 @@ export class DeleteScenarioFromListSuccess implements Action {
  * Called when delete scenario from list failure
  */
 export class DeleteScenarioFromListFailure implements Action {
-  readonly type = SceneriesActionTypes.DELETE_SCENARIO_FROM_LIST_FAILURE;
+  readonly type = ScenariosActionTypes.DELETE_SCENARIO_FROM_LIST_FAILURE;
   constructor(public payload: any) {}
 }
 /**
@@ -101,7 +101,7 @@ export class DeleteScenarioFromListFailure implements Action {
  * Called when try to delete scenario
  */
 export class DeleteScenario implements Action {
-  readonly type = SceneriesActionTypes.DELETE_SCENARIO;
+  readonly type = ScenariosActionTypes.DELETE_SCENARIO;
   constructor(public payload: any) {}
 }
 /**
@@ -109,7 +109,7 @@ export class DeleteScenario implements Action {
  * Called when delete scenario successful
  */
 export class DeleteScenarioSuccess implements Action {
-  readonly type = SceneriesActionTypes.DELETE_SCENARIO_SUCCESS;
+  readonly type = ScenariosActionTypes.DELETE_SCENARIO_SUCCESS;
   constructor(public payload: any) {}
 }
 /**
@@ -117,7 +117,7 @@ export class DeleteScenarioSuccess implements Action {
  * Called when delete scenario failure
  */
 export class DeleteScenarioFailure implements Action {
-  readonly type = SceneriesActionTypes.DELETE_SCENARIO_FAILURE;
+  readonly type = ScenariosActionTypes.DELETE_SCENARIO_FAILURE;
   constructor(public payload: any) {}
 }
 /**
@@ -125,7 +125,7 @@ export class DeleteScenarioFailure implements Action {
  * Called when try to update scenario
  */
 export class UpdateScenario implements Action {
-  readonly type = SceneriesActionTypes.UPDATE_SCENARIO;
+  readonly type = ScenariosActionTypes.UPDATE_SCENARIO;
   constructor(public payload: any) {}
 }
 /**
@@ -133,7 +133,7 @@ export class UpdateScenario implements Action {
  * Called when update scenario successful
  */
 export class UpdateScenarioSuccess implements Action {
-  readonly type = SceneriesActionTypes.UPDATE_SCENARIO_SUCCESS;
+  readonly type = ScenariosActionTypes.UPDATE_SCENARIO_SUCCESS;
   constructor(public payload: any) {}
 }
 /**
@@ -141,7 +141,7 @@ export class UpdateScenarioSuccess implements Action {
  * Called when update scenario failure
  */
 export class UpdateScenarioFailure implements Action {
-  readonly type = SceneriesActionTypes.UPDATE_SCENARIO_FAILURE;
+  readonly type = ScenariosActionTypes.UPDATE_SCENARIO_FAILURE;
   constructor(public payload: any) {}
 }
 /**
@@ -149,7 +149,7 @@ export class UpdateScenarioFailure implements Action {
  * Called when try to create scenario
  */
 export class CreateScenario implements Action {
-  readonly type = SceneriesActionTypes.CREATE_SCENARIO;
+  readonly type = ScenariosActionTypes.CREATE_SCENARIO;
   constructor(public payload: any) {}
 }
 /**
@@ -157,7 +157,7 @@ export class CreateScenario implements Action {
  * Called when create scenario successful
  */
 export class CreateScenarioSuccess implements Action {
-  readonly type = SceneriesActionTypes.CREATE_SCENARIO_SUCCESS;
+  readonly type = ScenariosActionTypes.CREATE_SCENARIO_SUCCESS;
   constructor(public payload: any) {}
 }
 /**
@@ -165,7 +165,7 @@ export class CreateScenarioSuccess implements Action {
  * Called when create scenario failure
  */
 export class CreateScenarioFailure implements Action {
-  readonly type = SceneriesActionTypes.CREATE_SCENARIO_FAILURE;
+  readonly type = ScenariosActionTypes.CREATE_SCENARIO_FAILURE;
   constructor(public payload: any) {}
 }
 /**
@@ -173,9 +173,9 @@ export class CreateScenarioFailure implements Action {
  * Export action types
  */
 export type All =
-  | FetchSceneries
-  | FetchSceneriesSuccess
-  | FetchSceneriesFailure
+  | FetchScenarios
+  | FetchScenariosSuccess
+  | FetchScenariosFailure
   | MoveScenario
   | MoveScenarioSuccess
   | MoveScenarioFailure

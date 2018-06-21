@@ -1,5 +1,5 @@
 
-import { SceneriesActionTypes } from '@app/shared/ngrx-store/constants/scenario';
+import { ScenariosActionTypes } from '@app/shared/ngrx-store/constants/scenario';
 import { Scenario } from '@app/shared/models/scenario';
 import { All } from '@app/shared/ngrx-store/actions/scenario.actions';
 /**
@@ -15,7 +15,7 @@ export interface State {
  * @param {Number} items_per_page Cases count per page param
  * @param {string | null} errorMessage Error message param
  */
-  sceneries: Scenario[];
+  Scenarios: Scenario[];
   scenario: Scenario;
   totalCount: Number;
   page_number: Number;
@@ -26,7 +26,7 @@ export interface State {
  * Initial state
  */
 export const initialState: State = {
-  sceneries: [],
+  Scenarios: [],
   scenario: null,
   totalCount: 0,
   page_number: 1,
@@ -41,98 +41,98 @@ export const initialState: State = {
 export function reducer(state: State = initialState, action: All): State {
   console.log('scenario reducer', action.type);
   switch (action.type) {
-    case SceneriesActionTypes.FETCH_SCENERIES_SUCCESS: {
+    case ScenariosActionTypes.FETCH_SCENARIOS_SUCCESS: {
       return {
         ...state,
-        sceneries: action.payload.sceneries,
+        Scenarios: action.payload.Scenarios,
         page_number: action.payload.page_number,
         totalCount: action.payload.totalCount,
         items_per_page: action.payload.items_per_page,
         errorMessage: null
       };
     }
-    case SceneriesActionTypes.FETCH_SCENERIES_FAILURE: {
+    case ScenariosActionTypes.FETCH_SCENARIOS_FAILURE: {
       return {
         ...state,
-        errorMessage: 'Cannot fetch sceneries.'
+        errorMessage: 'Cannot fetch Scenarios.'
       };
     }
-    case SceneriesActionTypes.MOVE_SCENARIO_SUCCESS: {
+    case ScenariosActionTypes.MOVE_SCENARIO_SUCCESS: {
       return {
         ...state,
-        sceneries: action.payload.sceneries,
+        Scenarios: action.payload.Scenarios,
         page_number: action.payload.page_number,
         totalCount: action.payload.totalCount,
         items_per_page: action.payload.items_per_page,
         errorMessage: null
       };
     }
-    case SceneriesActionTypes.MOVE_SCENARIO_FAILURE: {
+    case ScenariosActionTypes.MOVE_SCENARIO_FAILURE: {
       return {
         ...state,
         errorMessage: 'Cannot move scenario.',
       };
     }
-    case SceneriesActionTypes.DELETE_SCENARIO_FROM_LIST_SUCCESS: {
+    case ScenariosActionTypes.DELETE_SCENARIO_FROM_LIST_SUCCESS: {
       return {
         ...state,
-        sceneries: action.payload.sceneries,
+        Scenarios: action.payload.Scenarios,
         page_number: action.payload.page_number,
         totalCount: action.payload.totalCount,
         items_per_page: action.payload.items_per_page,
         errorMessage: null
       };
     }
-    case SceneriesActionTypes.DELETE_SCENARIO_FROM_LIST_FAILURE: {
+    case ScenariosActionTypes.DELETE_SCENARIO_FROM_LIST_FAILURE: {
       return {
         ...state,
         errorMessage: 'Cannot delete scenario.',
       };
     }
-    case SceneriesActionTypes.FETCH_SCENARIO_SUCCESS: {
+    case ScenariosActionTypes.FETCH_SCENARIO_SUCCESS: {
       return {
         ...state,
         scenario: action.payload.scenario,
         errorMessage: null
       };
     }
-    case SceneriesActionTypes.FETCH_SCENARIO_FAILURE: {
+    case ScenariosActionTypes.FETCH_SCENARIO_FAILURE: {
       return {
         ...state,
         errorMessage: 'Cannot fetch scenario.',
       };
     }
-    case SceneriesActionTypes.DELETE_SCENARIO_SUCCESS: {
+    case ScenariosActionTypes.DELETE_SCENARIO_SUCCESS: {
       return {
         ...state,
         errorMessage: null
       };
     }
-    case SceneriesActionTypes.DELETE_SCENARIO_FAILURE: {
+    case ScenariosActionTypes.DELETE_SCENARIO_FAILURE: {
       return {
         ...state,
         errorMessage: 'Cannot delete scenario.',
       };
     }
-    case SceneriesActionTypes.CREATE_SCENARIO_SUCCESS: {
+    case ScenariosActionTypes.CREATE_SCENARIO_SUCCESS: {
       return {
         ...state,
         errorMessage: null
       };
     }
-    case SceneriesActionTypes.CREATE_SCENARIO_FAILURE: {
+    case ScenariosActionTypes.CREATE_SCENARIO_FAILURE: {
       return {
         ...state,
         errorMessage: 'Cannot delete scenario.',
       };
     }
-    case SceneriesActionTypes.UPDATE_SCENARIO_SUCCESS: {
+    case ScenariosActionTypes.UPDATE_SCENARIO_SUCCESS: {
       return {
         ...state,
         errorMessage: null
       };
     }
-    case SceneriesActionTypes.UPDATE_SCENARIO_FAILURE: {
+    case ScenariosActionTypes.UPDATE_SCENARIO_FAILURE: {
       return {
         ...state,
         errorMessage: 'Cannot delete scenario.',

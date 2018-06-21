@@ -13,7 +13,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectScenarioState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
 import { ActivatedRoute } from '@angular/router';
-import { FetchSceneries } from '@app/shared/ngrx-store/actions/scenario.actions';
+import { FetchScenarios } from '@app/shared/ngrx-store/actions/scenario.actions';
 import { FetchDisputesByCase } from '@app/shared/ngrx-store/actions/disputes.actions';
 import * as Chart from 'chart.js';
 import * as jsPDF from 'jspdf';
@@ -88,7 +88,7 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
           this.disputes_total['total'] = this.disputes_total['tax'] + this.disputes_total['penalties'] + this.disputes_total['interest'];
           return {...item };
         });
-        this.scenarios = (state.sceneries || []).map((scenario, index) => {
+        this.scenarios = (state.scenarios || []).map((scenario, index) => {
           scenario.savings = +scenario.taxes + +scenario.penalties + +scenario.interest;
           scenario['total_tax_percents'] = Math.round((scenario.taxes / this.disputes_total['tax']) * 100);
           scenario['total_penalties_percents'] = Math.round((scenario.penalties / this.disputes_total['penalties']) * 100);
@@ -112,7 +112,7 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
       case_id: this.case_id
     };
 
-    this.store.dispatch(new FetchSceneries(payload));
+    this.store.dispatch(new FetchScenarios(payload));
     this.store.dispatch(new FetchDisputesByCase({case_id: this.case_id}));
   }
 /**

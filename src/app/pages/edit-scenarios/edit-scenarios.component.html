@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let scenario of sceneries; let index = index">
+            <tr *ngFor="let scenario of scenarios; let index = index">
               <td>{{scenario.name}}</td>
               <td>${{scenario.taxable_income | number:'1.2-2'}}</td>
               <td>${{scenario.taxes | number:'1.2-2'}}</td>
@@ -29,7 +29,7 @@
               <td>${{+scenario.taxes + +scenario.penalties + +scenario.interest | number:'1.2-2'}}</td>
               <td>{{scenario.probability}}%</td>
               <td class="action-col">
-                  <button [routerLink]="['/case', case_id, 'scenaries', getScenarioId(index), 'edit', 'edit']">Edit</button>
+                  <button [routerLink]="['/case', case_id, 'scenarios', getScenarioId(index), 'edit', 'edit']">Edit</button>
                   <button (click)="moveUp(index)">Up</button>
                   <button (click)="moveDown(index)">Down</button>
                   <button (click)="deleteScenario(index)">Delete</button>
@@ -38,7 +38,7 @@
           </tbody>
         </table>
       </div>
-      <button type="button" class="btn btn-primary create-case" [routerLink]="['/case', case_id, 'scenaries', 'edit', 'add']"> Add </button>
+      <button type="button" class="btn btn-primary create-case" [routerLink]="['/case', case_id, 'scenarios', 'edit', 'add']"> Add </button>
       <nav class="float-right" *ngIf="total_count >= items_per_page">
         <ul class="pagination">
           <li [ngClass]="page_number === 1 ? 'page-item disabled' : 'page-item'" (click)="getItemsByPage(page_number-1)">

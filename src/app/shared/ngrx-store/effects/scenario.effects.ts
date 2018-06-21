@@ -13,12 +13,12 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/observable/from';
 
-import { SceneriesActionTypes } from '@app/shared/ngrx-store/constants/scenario';
+import { ScenariosActionTypes } from '@app/shared/ngrx-store/constants/scenario';
 import { ScenarioService } from '@app/core/services/ScenarioService/scenario.service';
 import {
-    FetchSceneries,
-    FetchSceneriesSuccess,
-    FetchSceneriesFailure,
+    FetchScenarios,
+    FetchScenariosSuccess,
+    FetchScenariosFailure,
     MoveScenario,
     MoveScenarioSuccess,
     MoveScenarioFailure,
@@ -59,33 +59,33 @@ export class ScenarioEffects {
   ) {}
 
   @Effect()
-  FetchSceneries: Observable<Action> = this.actions
-    .ofType(SceneriesActionTypes.FETCH_SCENERIES)
-    .map((action: FetchSceneries) => action.payload)
+  FetchScenarios: Observable<Action> = this.actions
+    .ofType(ScenariosActionTypes.FETCH_SCENARIOS)
+    .map((action: FetchScenarios) => action.payload)
     .switchMap(payload => {
       return this.scenarioService.getFilteredAndSorted(payload)
         .map((data) => {
-          return new FetchSceneriesSuccess(data);
+          return new FetchScenariosSuccess(data);
         })
         .catch((error) => {
           console.log(error);
-          return Observable.of(new FetchSceneriesFailure({ error: error }));
+          return Observable.of(new FetchScenariosFailure({ error: error }));
         });
     });
 
   @Effect({ dispatch: false })
-  FetchSceneriesSuccess: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.FETCH_SCENERIES_SUCCESS)
+  FetchScenariosSuccess: Observable<any> = this.actions.pipe(
+    ofType(ScenariosActionTypes.FETCH_SCENARIOS_SUCCESS)
   );
 
   @Effect({ dispatch: false })
-  FetchSceneriesFailure: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.FETCH_SCENERIES_FAILURE)
+  FetchScenariosFailure: Observable<any> = this.actions.pipe(
+    ofType(ScenariosActionTypes.FETCH_SCENARIOS_FAILURE)
   );
 
   @Effect()
   MoveScenario: Observable<Action> = this.actions
-    .ofType(SceneriesActionTypes.MOVE_SCENARIO)
+    .ofType(ScenariosActionTypes.MOVE_SCENARIO)
     .map((action: MoveScenario) => action.payload)
     .switchMap(payload => {
       return this.scenarioService.moveScenario(payload)
@@ -100,17 +100,17 @@ export class ScenarioEffects {
 
   @Effect({ dispatch: false })
   MoveScenarioSuccess: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.MOVE_SCENARIO_SUCCESS)
+    ofType(ScenariosActionTypes.MOVE_SCENARIO_SUCCESS)
   );
 
   @Effect({ dispatch: false })
   MoveScenarioFailure: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.MOVE_SCENARIO_FAILURE)
+    ofType(ScenariosActionTypes.MOVE_SCENARIO_FAILURE)
   );
 
   @Effect()
   DeleteScenarioFromList: Observable<Action> = this.actions
-    .ofType(SceneriesActionTypes.DELETE_SCENARIO_FROM_LIST)
+    .ofType(ScenariosActionTypes.DELETE_SCENARIO_FROM_LIST)
     .map((action: DeleteScenarioFromList) => action.payload)
     .switchMap(payload => {
       return this.scenarioService.deleteScenarioFromList(payload)
@@ -125,17 +125,17 @@ export class ScenarioEffects {
 
   @Effect({ dispatch: false })
   DeleteScenarioFromListSuccess: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.DELETE_SCENARIO_FROM_LIST_SUCCESS)
+    ofType(ScenariosActionTypes.DELETE_SCENARIO_FROM_LIST_SUCCESS)
   );
 
   @Effect({ dispatch: false })
   DeleteScenarioFromListFailure: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.DELETE_SCENARIO_FROM_LIST_FAILURE)
+    ofType(ScenariosActionTypes.DELETE_SCENARIO_FROM_LIST_FAILURE)
   );
 
   @Effect()
   FetchScenario: Observable<Action> = this.actions
-    .ofType(SceneriesActionTypes.FETCH_SCENARIO)
+    .ofType(ScenariosActionTypes.FETCH_SCENARIO)
     .map((action: FetchScenario) => action.payload)
     .switchMap(payload => {
       return this.scenarioService.getScenario(payload)
@@ -150,17 +150,17 @@ export class ScenarioEffects {
 
   @Effect({ dispatch: false })
   FetchScenarioSuccess: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.FETCH_SCENARIO_SUCCESS)
+    ofType(ScenariosActionTypes.FETCH_SCENARIO_SUCCESS)
   );
 
   @Effect({ dispatch: false })
   FetchScenarioFailure: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.FETCH_SCENARIO_FAILURE)
+    ofType(ScenariosActionTypes.FETCH_SCENARIO_FAILURE)
   );
 
   @Effect()
   DeleteScenario: Observable<Action> = this.actions
-    .ofType(SceneriesActionTypes.DELETE_SCENARIO)
+    .ofType(ScenariosActionTypes.DELETE_SCENARIO)
     .map((action: DeleteScenario) => action.payload)
     .switchMap(payload => {
       return this.scenarioService.deleteScenario(payload)
@@ -175,16 +175,16 @@ export class ScenarioEffects {
 
   @Effect({ dispatch: false })
   DeleteScenarioSuccess: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.DELETE_SCENARIO_SUCCESS),
+    ofType(ScenariosActionTypes.DELETE_SCENARIO_SUCCESS),
     tap(({payload: data}) => {
-      this.router.navigate(['/case', data.case_id, 'scenaries']);
+      this.router.navigate(['/case', data.case_id, 'scenarios']);
       this.notificationsService.success('Success', 'Scenario ' + data.name + ' deleted!');
     })
   );
 
   @Effect({ dispatch: false })
   DeleteScenarioFailure: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.DELETE_SCENARIO_FAILURE),
+    ofType(ScenariosActionTypes.DELETE_SCENARIO_FAILURE),
     tap(() => {
       this.notificationsService.error('Failure', 'Scenario not deleted.');
     })
@@ -192,7 +192,7 @@ export class ScenarioEffects {
 
   @Effect()
   UpdateScenario: Observable<Action> = this.actions
-    .ofType(SceneriesActionTypes.UPDATE_SCENARIO)
+    .ofType(ScenariosActionTypes.UPDATE_SCENARIO)
     .map((action: UpdateScenario) => action.payload)
     .switchMap(payload => {
       return this.scenarioService.updateScenario(payload)
@@ -207,16 +207,16 @@ export class ScenarioEffects {
 
   @Effect({ dispatch: false })
   UpdateScenarioSuccess: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.UPDATE_SCENARIO_SUCCESS),
+    ofType(ScenariosActionTypes.UPDATE_SCENARIO_SUCCESS),
     tap(({payload: data}) => {
-      this.router.navigate(['/case', data.scenario.case_id, 'scenaries']);
+      this.router.navigate(['/case', data.scenario.case_id, 'scenarios']);
       this.notificationsService.success('Successful', 'Scenario ' + data.scenario.name + ' updated!');
     })
   );
 
   @Effect({ dispatch: false })
   UpdateScenarioFailure: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.UPDATE_SCENARIO_FAILURE),
+    ofType(ScenariosActionTypes.UPDATE_SCENARIO_FAILURE),
     tap(() => {
       this.notificationsService.error('Failure', 'Scenario not updated.');
     })
@@ -224,7 +224,7 @@ export class ScenarioEffects {
 
   @Effect()
   CreateScenario: Observable<Action> = this.actions
-    .ofType(SceneriesActionTypes.CREATE_SCENARIO)
+    .ofType(ScenariosActionTypes.CREATE_SCENARIO)
     .map((action: CreateScenario) => action.payload)
     .switchMap(payload => {
       return this.scenarioService.createScenario(payload)
@@ -239,16 +239,16 @@ export class ScenarioEffects {
 
   @Effect({ dispatch: false })
   CreateScenarioSuccess: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.CREATE_SCENARIO_SUCCESS),
+    ofType(ScenariosActionTypes.CREATE_SCENARIO_SUCCESS),
     tap(({payload: data}) => {
-      this.router.navigate(['/case', data.scenario.case_id, 'scenaries']);
+      this.router.navigate(['/case', data.scenario.case_id, 'scenarios']);
       this.notificationsService.success('Successful', 'Scenario ' + data.scenario.name + ' created!');
     })
   );
 
   @Effect({ dispatch: false })
   CreateScenarioFailure: Observable<any> = this.actions.pipe(
-    ofType(SceneriesActionTypes.CREATE_SCENARIO_FAILURE),
+    ofType(ScenariosActionTypes.CREATE_SCENARIO_FAILURE),
     tap(() => {
       this.notificationsService.error('Failure', 'Scenario not created.');
     })

@@ -163,7 +163,7 @@ export class ApiRoutingService {
  * Get filtered and stored scenaries api url method
  * @returns {string}
  */
-  getFilteredAndSortedSceneriesAPIUrl(): string {
+  getFilteredAndSortedScenariosAPIUrl(): string {
     return this.baseUrl + 'scenario/all';
   }
 /**

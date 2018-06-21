@@ -78,7 +78,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
       this.createFormControls();
       this.createForm();
       if (this.type === 'add') {
-        this.router.navigate(['/case', this.case_id, 'scenaries', 'edit', 'add']);
+        this.router.navigate(['/case', this.case_id, 'scenarios', 'edit', 'add']);
       }
     });
 

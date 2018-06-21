@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectScenarioState } from '@app/shared/ngrx-store/app.states';
 import { ActivatedRoute } from '@angular/router';
-import { FetchSceneries, DeleteScenarioFromList, MoveScenario } from '@app/shared/ngrx-store/actions/scenario.actions';
+import { FetchScenarios, DeleteScenarioFromList, MoveScenario } from '@app/shared/ngrx-store/actions/scenario.actions';
 
 @Component({
   selector: 'ct-edit-scenarios',
@@ -33,7 +33,7 @@ export class EditScenariosComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   private next_scenario: any;
   private selected_scenario: any;
-  public sceneries: Array<any> = [];
+  public scenarios: Array<any> = [];
   public case_id: number;
   public total_count: number;
   public items_per_page: number;
@@ -60,25 +60,25 @@ export class EditScenariosComponent implements OnInit, OnDestroy {
       this.items_per_page = state.items_per_page;
       this.page_number = state.page_number;
       this.total_page = Math.ceil(state.totalCount / state.items_per_page);
-      this.sceneries = (state.sceneries || []).map(item => {
+      this.scenarios = (state.scenarios || []).map(item => {
         return {...item };
       });
-      this.sceneries = this.sortByProperty(this.sceneries, 'order_position');
+      this.scenarios = this.sortByProperty(this.scenarios, 'order_position');
     });
     this.subscription = this.route.params.subscribe(params => {
       this.case_id = +params['case_id'];
     });
 
     const payload = this.getScenarioPayload();
-    this.store.dispatch(new FetchSceneries(payload));
+    this.store.dispatch(new FetchScenarios(payload));
   }
 /**
  * Move up scenario method
  * @param {number} index Current scenario index
  */
   private moveUp(index: number): void {
-    this.selected_scenario = this.sceneries[index];
-    this.next_scenario = this.sceneries[index - 1];
+    this.selected_scenario = this.scenarios[index];
+    this.next_scenario = this.scenarios[index - 1];
     if (this.next_scenario) {
       const payload = this.getScenarioPayload();
       payload['first_scenario'] = { id: this.selected_scenario.scenario_id, order_position: this.selected_scenario.order_position },
@@ -91,8 +91,8 @@ export class EditScenariosComponent implements OnInit, OnDestroy {
  * @param {number} index Current scenario index
  */
   private moveDown(index: number): void {
-    this.selected_scenario = this.sceneries[index];
-    this.next_scenario = this.sceneries[index + 1];
+    this.selected_scenario = this.scenarios[index];
+    this.next_scenario = this.scenarios[index + 1];
     if (this.next_scenario) {
       const payload = this.getScenarioPayload();
       payload['first_scenario'] = { id: this.selected_scenario.scenario_id, order_position: this.selected_scenario.order_position },
@@ -105,7 +105,7 @@ export class EditScenariosComponent implements OnInit, OnDestroy {
  * @param {number} index Current scenario index
  */
   private deleteScenario(index: number): void {
-    this.selected_scenario = this.sceneries[index];
+    this.selected_scenario = this.scenarios[index];
     const payload = this.getScenarioPayload();
     payload['scenario_id'] = this.selected_scenario.scenario_id,
 
@@ -116,7 +116,7 @@ export class EditScenariosComponent implements OnInit, OnDestroy {
  * @param {number} index Current scenario index
  */
   private getScenarioId(index: number): number {
-    return this.sceneries[index].scenario_id;
+    return this.scenarios[index].scenario_id;
   }
 /**
  * Sort scenaries by property method
@@ -144,7 +144,7 @@ export class EditScenariosComponent implements OnInit, OnDestroy {
  * Get categories array method
  */
   private getItems(): void {
-    this.store.dispatch(new FetchSceneries(this.getScenarioPayload()));
+    this.store.dispatch(new FetchScenarios(this.getScenarioPayload()));
   }
 /**
  * Get categories array per page method
