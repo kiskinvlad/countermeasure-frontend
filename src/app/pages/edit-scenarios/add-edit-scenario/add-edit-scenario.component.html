@@ -86,7 +86,7 @@
     <div class="float-right">
         <button *ngIf="type === 'edit'" type="button" class="btn btn-primary" (click)="deleteScenario()"> Remove </button>
         <button [disabled]="!isFormTouched" type="button" class="btn btn-primary" (click)="addUpdateScenario()"> Save </button>
-        <button type="button" class="btn btn-primary" [routerLink]="['/case', case_id, 'scenaries']"> Cancel </button>
+        <button type="button" class="btn btn-primary" [routerLink]="['/case', case_id, 'scenarios']"> Cancel </button>
       </div>
   </div>
 </div>

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState, selectDisputesState, selectScenarioState, selectCsvState } from '@app/shared/ngrx-store/app.states';
 import { ActivatedRoute } from '@angular/router';
 import { FetchDisputesByCase } from '@app/shared/ngrx-store/actions/disputes.actions';
-import { FetchSceneries } from '@app/shared/ngrx-store/actions/scenario.actions';
+import { FetchScenarios } from '@app/shared/ngrx-store/actions/scenario.actions';
 import { CreateCsv } from '@app/shared/ngrx-store/actions/csv.actions';
 
 @Component({
@@ -44,7 +44,7 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
     });
     this.subscription = this.getScenariosState$.subscribe((scenario_state) => {
       this.errorMessage = scenario_state.errorMessage;
-      this.scenarios = (scenario_state.sceneries || null);
+      this.scenarios = (scenario_state.scenarios || null);
       this.subscription = this.getDisputesState$.subscribe((disputed_state) => {
         this.errorMessage = disputed_state.errorMessage;
         this.disputes = (disputed_state.disputes || null);
@@ -75,7 +75,7 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
     const payload = {
       filter_param: { 'id': this.case_id }
     };
-    this.scenarioStore.dispatch(new FetchSceneries(payload));
+    this.scenarioStore.dispatch(new FetchScenarios(payload));
     this.disputesStore.dispatch(new FetchDisputesByCase({case_id: this.case_id}));
   }
 

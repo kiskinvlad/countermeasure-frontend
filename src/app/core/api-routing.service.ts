@@ -91,7 +91,7 @@ export class ApiRoutingService {
     return this.baseUrl + 'cases';
   }
 
-  getFilteredAndSortedSceneriesAPIUrl(): string {
+  getFilteredAndSortedScenariosAPIUrl(): string {
     return this.baseUrl + 'scenario/all';
   }
 

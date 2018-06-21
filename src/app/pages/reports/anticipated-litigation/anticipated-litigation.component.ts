@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectScenarioState } from '@app/shared/ngrx-store/app.states';
 import { ActivatedRoute } from '@angular/router';
-import { FetchSceneries } from '@app/shared/ngrx-store/actions/scenario.actions';
+import { FetchScenarios } from '@app/shared/ngrx-store/actions/scenario.actions';
 import * as Chart from 'chart.js';
 import * as jsPDF from 'jspdf';
 import 'chart.piecelabel.js';
@@ -38,7 +38,7 @@ export class AnticipatedLitigationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
-      this.scenarios = (state.sceneries || []).map(item => {
+      this.scenarios = (state.scenarios || []).map(item => {
         item.savings = +item.taxes + +item.penalties + +item.interest;
         return {...item };
       });
@@ -55,7 +55,7 @@ export class AnticipatedLitigationComponent implements OnInit, OnDestroy {
     const payload = {
       case_id: this.case_id
     };
-    this.store.dispatch(new FetchSceneries(payload));
+    this.store.dispatch(new FetchScenarios(payload));
   }
 
   public downloadPdf(): void {
