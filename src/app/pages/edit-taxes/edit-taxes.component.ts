@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs/';
 import { Store } from '@ngrx/store';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal';
 
 import { AppState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
 import { AddEditTaxComponent } from './add-edit-tax/add-edit-tax.component';
@@ -26,7 +24,6 @@ export class EditTaxesComponent implements OnInit {
   private errorMessage: string | null;
   private subscription: Subscription;
   private next_category: any;
-  private disputedDlgRef: BsModalRef;
   private dialogConfig = {
     animated: true,
     keyboard: true,
@@ -40,7 +37,7 @@ export class EditTaxesComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
-    private addEditDlgService: BsModalService,
+    private router: Router
   ) {
     this.getState$ = this.store.select(selectDisputesState);
   }
@@ -64,6 +61,14 @@ export class EditTaxesComponent implements OnInit {
     this.store.dispatch(new FetchDisputesByCase(payload));
   }
 
+  redirectToEditTaxPage(index): void {
+    this.router.navigate(['/case/' + (this.case_id) + '/taxes/edit/' + this.disputed[index].disputed_t1_ta_id]);
+  }
+
+  redirectToAddTaxPage(index): void {
+    this.router.navigate(['/case/' + (this.case_id) + '/taxes/add/']);
+  }
+
   removeDisputed(index): void {
     const payload = {
       disputed_id: this.disputed[index]['disputed_t1_ta_id'],
@@ -71,41 +76,5 @@ export class EditTaxesComponent implements OnInit {
     };
 
     this.store.dispatch(new RemoveDisputed(payload));
-  }
-
-  openAddTaxDialog(): void {
-    this.disputedDlgRef = this.addEditDlgService.show(AddEditTaxComponent, this.dialogConfig);
-    this.disputedDlgRef.content.dialogTitle = 'Add Personal Income Tax Year in';
-    this.disputedDlgRef.content.btn_remove = false;
-    this.disputedDlgRef.content.onCloseReason.subscribe(result => {
-      if (result === 'submit') {
-        const payload = {
-          disputed: this.disputedDlgRef.content.disputed,
-          case_id: this.case_id
-        };
-
-        this.store.dispatch(new CreateDisputed(payload));
-      }
-    });
-  }
-
-  openEditTaxDialog(index): void {
-
-    this.disputedDlgRef = this.addEditDlgService.show(AddEditTaxComponent, this.dialogConfig);
-    this.disputedDlgRef.content.disputed = this.disputed[index];
-    this.disputedDlgRef.content.dialogTitle = 'Edit Personal Income Tax Year in';
-    this.disputedDlgRef.content.onCloseReason.subscribe(result => {
-      if (result === 'submit') {
-        console.log(this.disputedDlgRef.content.disputed);
-        const payload = {
-          case_id: this.case_id,
-          disputed: this.disputedDlgRef.content.disputed
-        };
-
-        this.store.dispatch(new UpdateDisputed(payload));
-      } else if (result === 'remove') {
-        this.removeDisputed(index);
-      }
-    });
   }
 }

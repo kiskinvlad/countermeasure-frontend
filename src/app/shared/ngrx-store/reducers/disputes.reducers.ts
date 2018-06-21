@@ -22,6 +22,8 @@ export const initialState: State = {
 export function reducer(state = initialState, action: All): State {
   switch (action.type) {
     case DisputesActionTypes.FETCH_DISPUTED_SUCCESS: {
+      console.log('------');
+      console.log(action.payload.disputed);
       return {
         ...state,
         disputed: action.payload.disputed,
