@@ -5,7 +5,9 @@ import {
   ActionReducerMap,
   Store,
   combineReducers,
-  createSelector
+  createSelector,
+  MetaReducer,
+  Action
 } from '@ngrx/store';
 
 import * as auth from '@shared/ngrx-store/reducers/auth.reducers';
@@ -18,6 +20,8 @@ import * as scenario from '@shared/ngrx-store/reducers/scenario.reducers';
 import * as organization from '@shared/ngrx-store/reducers/organization.reducers';
 import * as csv from '@shared/ngrx-store/reducers/csv.reducers';
 import * as permission from '@shared/ngrx-store/reducers/permission.reducers';
+
+import { AuthActionTypes } from '@app/shared/ngrx-store/constants/auth';
 
 export interface AppState {
   authState: auth.State;
@@ -69,3 +73,14 @@ export function reducer(state: any, action: any) {
 }
 
 export const getAuthState = (state: AppState) => state.authState;
+
+// For resetting state upon successful logout
+export function clearState(myReducer: ActionReducer<AppState>): ActionReducer<AppState> {
+  return function(state: AppState, action: Action): AppState {
+    if (action.type === AuthActionTypes.LOGOUT_SUCCESS) {
+      state = undefined;
+    }
+    return myReducer(state, action);
+  };
+}
+export const metaReducers: MetaReducer<AppState>[] = [clearState];

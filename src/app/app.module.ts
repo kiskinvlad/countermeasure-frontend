@@ -47,7 +47,7 @@ import { GuestsComponent } from './pages/organization/guests/guests.component';
 import { EditGuestComponent } from './pages/organization/edit-guest/edit-guest.component';
 import { DashboardOrganizationsComponent } from './pages/dashboard-organizations/dashboard-organizations.component';
 
-import { reducers } from '@app/shared/ngrx-store/app.states';
+import { reducers, metaReducers } from '@app/shared/ngrx-store/app.states';
 import { AuthEffects } from '@app/shared/ngrx-store/effects/auth.effects';
 import { CasesEffects } from '@app/shared/ngrx-store/effects/cases.effects';
 import { CategoryEffects } from '@app/shared/ngrx-store/effects/category.effects';
@@ -123,7 +123,7 @@ import { PrincipledSettlementComponent } from './pages/reports/principled-settle
     HttpClientModule,
     ModalModule.forRoot(),
     NgxPermissionsModule.forRoot(),
-    StoreModule.forRoot(reducers, {}),
+    StoreModule.forRoot(reducers, { metaReducers }),
     BrowserAnimationsModule,
     EffectsModule.forRoot([
       AuthEffects,
