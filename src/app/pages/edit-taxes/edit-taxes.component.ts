@@ -20,16 +20,14 @@ import {
 })
 /**
  * Edit taxes component
- * @implements {OnInit, OnDestroy}
+ * @implements {OnInit}
  */
-export class EditTaxesComponent implements OnInit, OnDestroy {
+export class EditTaxesComponent implements OnInit {
 /**
  * @param {Observable<any>} getState$ State observable param
  * @param {string | null} errorMessage Error message param
  * @param {Subscription} subscription Subscription param
  * @param {any} next_category Next scenario in list param
- * @param {BsModalRef} disputedDlgRef Bootstrap modal reference param
- * @param {object} dialogConfig Modal options param
  * @param {Array<any>} disputed Taxes array param
  * @param {number} case_id Current case id param
  */
@@ -37,12 +35,6 @@ export class EditTaxesComponent implements OnInit, OnDestroy {
   private errorMessage: string | null;
   private subscription: Subscription;
   private next_category: any;
-  private dialogConfig = {
-    animated: true,
-    keyboard: true,
-    backdrop: true,
-    ignoreBackdropClick: false
-  };
 
   public disputed: Array<any> = [];
   public case_id: number;
