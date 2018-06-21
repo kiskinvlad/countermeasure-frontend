@@ -6,7 +6,7 @@ import { NgOption } from '@ng-select/ng-select';
 import { Store } from '@ngrx/store';
 import { AppState, selectCategoryState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
 import { FetchCategory, DeleteCategory, UpdateCategory, CreateCategory } from '@app/shared/ngrx-store/actions/category.actions';
-import { FetchDisputes } from '@app/shared/ngrx-store/actions/disputes.actions';
+import { FetchDisputesByCase } from '@app/shared/ngrx-store/actions/disputes.actions';
 import { Category } from '@app/shared/models/category';
 import { ValidatorModule } from '@app/shared/form-validator/validator.module';
 
@@ -115,7 +115,10 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
     } else {
       this.category = null;
       this.categoryForm.reset();
-      this.store.dispatch(new FetchDisputes());
+      const payload = {
+        case_id: this.case_id,
+      };
+      this.store.dispatch(new FetchDisputesByCase(payload));
     }
 
     this.categoryForm.statusChanges.subscribe(() => {
@@ -194,7 +197,7 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
     if (this.type === 'edit') {
       this.store.dispatch(new FetchCategory(payload));
     }
-    this.store.dispatch(new FetchDisputes());
+    this.store.dispatch(new FetchDisputesByCase({case_id: this.case_id}));
   }
 /**
  * Set form data method
