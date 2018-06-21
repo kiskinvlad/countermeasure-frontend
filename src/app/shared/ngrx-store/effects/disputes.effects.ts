@@ -52,6 +52,8 @@ export class DisputesEffects {
     .ofType(DisputesActionTypes.FETCH_DISPUTED)
     .map((action: FetchDisputed) => action.payload)
     .switchMap(payload => {
+      console.log('=====');
+      console.log(payload);
       return this.disputesService.getDisputed(payload)
         .map((data) => {
           return new FetchDisputedSuccess(data);
@@ -85,7 +87,6 @@ export class DisputesEffects {
           return new CreateDisputedSuccess(data);
         })
         .catch((error) => {
-          console.log(error);
           return Observable.of(new CreateDisputedFailure({ error: error }));
         });
     });

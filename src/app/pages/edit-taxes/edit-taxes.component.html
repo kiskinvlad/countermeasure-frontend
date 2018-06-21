@@ -28,13 +28,13 @@
           <td>{{tax.year}}</td>
           <td>{{tax.province}}</td>
           <td>{{tax.DIFF_total_debt}}</td>
-          <td class="text-center" (click)="openEditTaxDialog(index)">Edit</td>
+          <td class="text-center" (click)="redirectToEditTaxPage(index)">Edit</td>
           <td class="remove-item" (click)="removeDisputed(index)"><i class="fa fa-minus"></i></td>
         </tr>
       </tbody>
     </table>
 
-    <div class="add-item" (click)="openAddTaxDialog()">
+    <div class="add-item" (click)="redirectToAddTaxPage()">
       <i class="fa fa-plus"></i>
       <span>Add Personal Income Tax Year</span>
     </div>

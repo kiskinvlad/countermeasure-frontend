@@ -160,7 +160,6 @@ import { PrincipledSettlementComponent } from './pages/reports/principled-settle
     PermissionService
   ],
   entryComponents: [
-    AddEditTaxComponent,
     DialogCreateCaseComponent,
     DialogCreateOrgComponent
   ],

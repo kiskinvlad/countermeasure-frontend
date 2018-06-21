@@ -1,8 +1,18 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs/Subject';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs/';
+import { Store } from '@ngrx/store';
+import { AppState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
 import { Disputed } from '@app/shared/models/disputed';
+import {
+  FetchDisputesByCase,
+  FetchDisputed,
+  CreateDisputed,
+  UpdateDisputed,
+  RemoveDisputed
+} from '@app/shared/ngrx-store/actions/disputes.actions';
 
 @Component({
   selector: 'ct-add-edit-tax',
@@ -14,30 +24,28 @@ import { Disputed } from '@app/shared/models/disputed';
  * @implements {OnInit, OnDestroy}
  */
 export class AddEditTaxComponent implements OnInit, AfterViewInit {
-/**
- * @param {string} dialogContent Modal content param
- * @param {string} dialogTitle Modal title param
- * @param {Disputed} disputed Currrent tax param
- * @param {boolean} btn_remove Button remove state param
- * @param {Subject<string>} onCloseReason Modal close reason param
- */
-  dialogContent: string;
-  dialogTitle: string;
-  disputed: Disputed;
-  btn_remove: boolean;
-  public onCloseReason: Subject<string>;
+
+  private getState$: Observable<any>;
+  private errorMessage: string | null;
+  private subscription: Subscription;
+  private btn_remove: boolean;
+
+  public case_id: number;
+  public disputed_id: number;
+  public disputed: Disputed;
 /**
  * @constructor
  * @param {BsModalRef} bsModalRef Bootstrap modal reference service
  * @param {ChangeDetectorRef} cdr Change detector reference service
  */
   constructor(
-    private bsModalRef: BsModalRef,
+    private store: Store<AppState>,
+    private route: ActivatedRoute,
+    private router: Router,
     private cdr: ChangeDetectorRef
   ) {
-    this.onCloseReason = new Subject();
     this.btn_remove = true;
-    this.disputed = new Disputed();
+    this.getState$ = this.store.select(selectDisputesState);
   }
 /**
  * After view init add/edit tax component life cycle method
@@ -49,34 +57,50 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
  * Initialize view init add/edit tax component life cycle method
  */
   ngOnInit() {
+    this.subscription = this.getState$.subscribe((state) => {
+      this.errorMessage = state.errorMessage;
+      this.disputed = state.disputed;
+    });
+    this.subscription = this.route.params.subscribe(params => {
+      this.case_id = +params['case_id'];
+      this.disputed_id = +params['disputed_id'];
+    });
+
+    if (this.disputed_id) {
+      const payload = {
+        case_id: this.case_id,
+        disputed_t1_ta_id: this.disputed_id
+      };
+
+      this.store.dispatch(new FetchDisputed(payload));
+    } else {
+      this.btn_remove = false;
+      this.disputed = new Disputed (); 
+    }
   }
-/**
- * Form sumbit method
- */
+
   onSubmit() {
     this.disputed['DIFF_total_debt'] = this.disputed['GP_total_debt'] - this.disputed['TP_total_debt'];
-    this.onCloseReason.next('submit');
-    this.bsModalRef.hide();
-  }
-/**
- * Form close method
- */
-  onClose() {
-    this.disputed['DIFF_total_debt'] = this.disputed['GP_total_debt'] - this.disputed['TP_total_debt'];
-    this.onCloseReason.next('close');
-    this.bsModalRef.hide();
+    const payload = {
+      disputed: this.disputed,
+      case_id: this.case_id
+    };
+    
+    if (this.btn_remove) this.store.dispatch(new UpdateDisputed(payload));
+    else this.store.dispatch(new CreateDisputed(payload));
+    this.router.navigate(['/case/' + (this.case_id) + '/taxes/']);
   }
 /**
  * Form remove method
  */
   onRemove() {
     this.disputed['DIFF_total_debt'] = this.disputed['GP_total_debt'] - this.disputed['TP_total_debt'];
-    this.onCloseReason.next('remove');
-    this.bsModalRef.hide();
-  }
-/**
- * Form reset method
- */
-  onReset() {
+    const payload = {
+      disputed_id: this.disputed['disputed_t1_ta_id'],
+      case_id: this.case_id
+    };
+
+    this.store.dispatch(new RemoveDisputed(payload));
+    this.router.navigate(['/case/' + (this.case_id) + '/taxes/']);
   }
 }

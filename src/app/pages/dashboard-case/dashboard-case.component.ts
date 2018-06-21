@@ -151,12 +151,13 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
       }
     });
   }
+  
 /**
  * Redirect to detail component method
  * @param {number} i Case index
  */
-  redirectToDetail(index: number): void {
-    this.router.navigate(['/case/' + (index + 1) + '/detail']);
+  redirectToDetail(index): void {
+    this.router.navigate(['/case/' + (this.cases[index].case_id) + '/detail']);
   }
 /**
  * Delete case method
@@ -171,6 +172,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
       search_name: this.search_name,
       case_id: this.cases[i].case_id
     };
+    console.log(payload);
     this.store.dispatch(new DeleteCase(payload));
   }
 /**
