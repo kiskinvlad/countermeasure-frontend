@@ -15,7 +15,7 @@ export interface State {
  * @param {Number} items_per_page Cases count per page param
  * @param {string | null} errorMessage Error message param
  */
-  Scenarios: Scenario[];
+  scenarios: Scenario[];
   scenario: Scenario;
   totalCount: Number;
   page_number: Number;
@@ -26,7 +26,7 @@ export interface State {
  * Initial state
  */
 export const initialState: State = {
-  Scenarios: [],
+  scenarios: [],
   scenario: null,
   totalCount: 0,
   page_number: 1,
@@ -44,7 +44,7 @@ export function reducer(state: State = initialState, action: All): State {
     case ScenariosActionTypes.FETCH_SCENARIOS_SUCCESS: {
       return {
         ...state,
-        Scenarios: action.payload.Scenarios,
+        scenarios: action.payload.scenarios,
         page_number: action.payload.page_number,
         totalCount: action.payload.totalCount,
         items_per_page: action.payload.items_per_page,
@@ -60,7 +60,7 @@ export function reducer(state: State = initialState, action: All): State {
     case ScenariosActionTypes.MOVE_SCENARIO_SUCCESS: {
       return {
         ...state,
-        Scenarios: action.payload.Scenarios,
+        scenarios: action.payload.scenarios,
         page_number: action.payload.page_number,
         totalCount: action.payload.totalCount,
         items_per_page: action.payload.items_per_page,
@@ -76,7 +76,7 @@ export function reducer(state: State = initialState, action: All): State {
     case ScenariosActionTypes.DELETE_SCENARIO_FROM_LIST_SUCCESS: {
       return {
         ...state,
-        Scenarios: action.payload.Scenarios,
+        scenarios: action.payload.scenarios,
         page_number: action.payload.page_number,
         totalCount: action.payload.totalCount,
         items_per_page: action.payload.items_per_page,
