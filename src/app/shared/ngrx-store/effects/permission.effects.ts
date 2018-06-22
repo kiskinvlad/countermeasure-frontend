@@ -90,9 +90,10 @@ export class PermissionEffects {
       .switchMap(payload => {
 
         return this.permissionService.addGuestPermissions(payload)
-          .map((data) => {
-            return new AddPermissionsSuccess(data);
-          })
+          .mergeMap((data) => [
+            new AddPermissionsSuccess(data),
+            new FetchPermissions(data)
+          ])
           .catch((error) => {
             console.log(error);
             return Observable.of(new AddPermissionsFailure({ error: error }));
@@ -118,9 +119,10 @@ export class PermissionEffects {
       .switchMap(payload => {
 
         return this.permissionService.deleteGuestPermissions(payload)
-          .map((data) => {
-            return new DeletePermissionsSuccess(data);
-          })
+          .mergeMap((data) => [
+            new DeletePermissionsSuccess(data),
+            new FetchPermissions(data)
+          ])
           .catch((error) => {
             console.log(error);
             return Observable.of(new DeletePermissionsFailure({ error: error }));
