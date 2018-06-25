@@ -34,6 +34,13 @@ export class ApiRoutingService {
     return this.baseUrl + 'roles';
   }
 /**
+ * Get states api url method
+ * @returns {string}
+ */
+  getStatesAPIUrl(): string {
+    return this.baseUrl + 'disputes/getStates';
+  }
+/**
  * Get filtered and stored cases api url method
  * @returns {string}
  */

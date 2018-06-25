@@ -17,7 +17,9 @@
           <p> Taxyear </p>
           <input type="number" placeholder="Taxyear" [(ngModel)]="disputed['year']"/>
           <p> Province </p>
-          <input type="text" placeholder="Province" [(ngModel)]="disputed['province']"/>
+          <select placeholder="Province" [(ngModel)]="disputed['province']">
+            <option *ngFor="let item of taxes" [ngValue]="item.value">{{item.label}}</option>
+          </select>
         </div>
 
         <div class="p-3" style="width: 80%">

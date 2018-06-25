@@ -111,4 +111,16 @@ export class DisputesService {
       null
     );
   }
+/**
+ * Get states infor method
+ * @returns {Observable<any>}
+ */
+  getStates(): Observable<any> {
+    return this.http.get(
+      this.apiRoutingService.getStatesAPIUrl(),
+      null,
+      true,
+      null
+    );
+  }
 }

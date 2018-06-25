@@ -23,8 +23,8 @@ import {
   FetchDisputed, FetchDisputedSuccess, FetchDisputedFailure,
   FetchDisputes, FetchDisputesSuccess, FetchDisputesFailure,
   FetchDisputesByCase, FetchDisputesByCaseSuccess, FetchDisputesByCaseFailure,
-  FetchDisputesBySummary, FetchDisputesBySummarySuccess,
-  FetchDisputesBySummaryFailure} from '@app/shared/ngrx-store/actions/disputes.actions';
+  FetchDisputesBySummary, FetchDisputesBySummarySuccess, FetchDisputesBySummaryFailure,
+  FetchStateInfor, FetchStateInforSuccess, FetchStateInforFailure} from '@app/shared/ngrx-store/actions/disputes.actions';
 
 @Injectable()
 /**
@@ -52,8 +52,6 @@ export class DisputesEffects {
     .ofType(DisputesActionTypes.FETCH_DISPUTED)
     .map((action: FetchDisputed) => action.payload)
     .switchMap(payload => {
-      console.log('=====');
-      console.log(payload);
       return this.disputesService.getDisputed(payload)
         .map((data) => {
           return new FetchDisputedSuccess(data);
@@ -246,12 +244,38 @@ export class DisputesEffects {
   FetchDisputesBySummarySuccess: Observable<any> = this.actions.pipe(
     ofType(DisputesActionTypes.FETCH_DISPUTES_BY_SUMMARY_SUCCESS),
     tap(({payload: disputes_data}) => {
-      console.log('disputesData = ', disputes_data);
     })
   );
 
   @Effect({ dispatch: false })
   FetchDisputesBySummaryFailure: Observable<any> = this.actions.pipe(
     ofType(DisputesActionTypes.FETCH_DISPUTES_BY_SUMMARY_FAILURE)
+  );
+
+  @Effect()
+  FetchStateInfor: Observable<Action> = this.actions
+    .ofType(DisputesActionTypes.FETCH_STATE_INFOR)
+    .map((action: FetchStateInfor) => action)
+    .switchMap(() => {
+      return this.disputesService.getStates()
+        .map((data) => {
+          return new FetchStateInforSuccess(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new FetchStateInforFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  FetchStateInforSuccess: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.FETCH_STATE_INFOR_SUCCESS),
+    tap(({payload: disputed_data}) => {
+    })
+  );
+
+  @Effect({ dispatch: false })
+  FetchStateInforFailure: Observable<any> = this.actions.pipe(
+    ofType(DisputesActionTypes.FETCH_STATE_INFOR_FAILURE)
   );
 }

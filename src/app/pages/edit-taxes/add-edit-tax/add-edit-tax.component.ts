@@ -11,7 +11,8 @@ import {
   FetchDisputed,
   CreateDisputed,
   UpdateDisputed,
-  RemoveDisputed
+  RemoveDisputed,
+  FetchStateInfor
 } from '@app/shared/ngrx-store/actions/disputes.actions';
 
 @Component({
@@ -33,6 +34,7 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
   public case_id: number;
   public disputed_id: number;
   public disputed: Disputed;
+  public taxes: Array<any>;
 /**
  * @constructor
  * @param {BsModalRef} bsModalRef Bootstrap modal reference service
@@ -57,9 +59,27 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
  * Initialize view init add/edit tax component life cycle method
  */
   ngOnInit() {
+    // this.taxes =[
+    // {label:'Alberta', value:'AB'},
+    // {label:'British Columbia', value:'BC'},
+    // {label:'Manitoba', value:'MB'},
+    // {label:'New Brunswick', value:'NB'},
+    // {label:'Newfoundland and Labrador', value:'NL'},
+    // {label:'Nova Scotia', value:'NS'},
+    // {label:'Northwest Territories', value:'NT'},
+    // {label:'Nunavut', value:'NU'},
+    // {label:'Ontario', value:'ON'},
+    // {label:'Prince Edward Island', value:'PE'},
+    // {label:'Quebec', value:'QC'},
+    // {label:'Saskatchewan', value:'SK'},
+    // {label:'Yukon', value:'YT'}
+    // ];
+
+
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
       this.disputed = state.disputed;
+      this.taxes = state.states;
     });
     this.subscription = this.route.params.subscribe(params => {
       this.case_id = +params['case_id'];
@@ -77,6 +97,7 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
       this.btn_remove = false;
       this.disputed = new Disputed (); 
     }
+    this.store.dispatch(new FetchStateInfor());
   }
 
   onSubmit() {
