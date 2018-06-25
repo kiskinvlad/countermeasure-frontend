@@ -40,6 +40,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
   private getScenarioState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
+  private formSubscription: Subscription;
   private validator: ValidatorModule;
   public scenario: Scenario;
   public case_id: number;
@@ -102,7 +103,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
       this.scenarioForm.reset();
     }
 
-    this.scenarioForm.statusChanges.subscribe(() => {
+    this.formSubscription = this.scenarioForm.statusChanges.subscribe(() => {
       const controllersToCheck = [
         'name',
         'probability',
@@ -223,6 +224,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
  */
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.formSubscription.unsubscribe();
   }
 
 }
