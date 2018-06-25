@@ -194,7 +194,7 @@ export class AnticipatedLitigationComponent implements OnInit, OnDestroy {
           callbacks: {
              label: function(tooltipItem, data_labels) {
                 const label = data_labels.labels[tooltipItem.index];
-                return label + ': (' + tooltipItem.xLabel + '$, ' + tooltipItem.yLabel + '%)';
+                return label + ': ($' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel + '%)';
              },
              title: function() {
               return false;
@@ -229,8 +229,10 @@ export class AnticipatedLitigationComponent implements OnInit, OnDestroy {
  * Destroy anticipated litigation component life cycle method
  */
   ngOnDestroy(): void {
-    this.ctx.clearRect(0, 0, 100, 100);
-    this.chart.destroy();
+    if (this.ctx && this.chart) {
+      this.ctx.clearRect(0, 0, 100, 100);
+      this.chart.destroy();
+    }
     this.subscription.unsubscribe();
   }
 

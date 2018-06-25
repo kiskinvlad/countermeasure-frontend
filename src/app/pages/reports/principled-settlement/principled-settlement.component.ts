@@ -159,7 +159,7 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
           callbacks: {
              label: function(tooltipItem, data_labels) {
                 const label = data_labels.labels[tooltipItem.index];
-                return label + ' : ' + parseFloat(data_labels.datasets[0].data[tooltipItem.index]).toFixed(2) + ' $';
+                return label + ' : $ ' + parseFloat(data_labels.datasets[0].data[tooltipItem.index]).toFixed(2);
              },
              title: function() {
               return false;
@@ -243,7 +243,9 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
  * Destroy principled settlement component life cycle method
  */
   ngOnDestroy(): void {
-    this.charts.forEach(chart => chart.destroy());
+    if (this.charts.length > 0) {
+      this.charts.forEach(chart => chart.destroy());
+    }
     this.subscription.unsubscribe();
   }
 
