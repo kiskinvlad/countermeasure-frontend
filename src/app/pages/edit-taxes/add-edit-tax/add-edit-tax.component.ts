@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChildren, QueryList, OnInit, Output, AfterViewInit, ChangeDetectorRef, EventEmitter, Directive } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,36 +13,37 @@ import {
   UpdateDisputed,
   RemoveDisputed
 } from '@app/shared/ngrx-store/actions/disputes.actions';
+import { MyCurrencyFormatterDirective } from '@app/shared/directive/MyCurrencyFormatter/my-currency-formatter.directive';
+import { CalcInputFormatterDirective } from '@app/shared/directive/CalcInputFormatter/calc-input-formatter.directive';
+import { MyCurrencyPipe } from '@app/shared/pipe/MyCurrency/my-currency.pipe';
 
 @Component({
   selector: 'ct-add-edit-tax',
   templateUrl: './add-edit-tax.component.html',
-  styleUrls: ['./add-edit-tax.component.scss']
+  styleUrls: ['./add-edit-tax.component.scss'],
+  providers: [ MyCurrencyPipe ]
 })
-/**
- * Add/Edit tax component
- * @implements {OnInit, OnDestroy}
- */
+
 export class AddEditTaxComponent implements OnInit, AfterViewInit {
+
+  @ViewChildren(MyCurrencyFormatterDirective) vc: QueryList<MyCurrencyFormatterDirective>;
+
+  @Output() updateCurrencyFormatter = new EventEmitter<string>();
 
   private getState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
   private btn_remove: boolean;
-
   public case_id: number;
   public disputed_id: number;
   public disputed: Disputed;
-/**
- * @constructor
- * @param {BsModalRef} bsModalRef Bootstrap modal reference service
- * @param {ChangeDetectorRef} cdr Change detector reference service
- */
+
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private currencyPipe: MyCurrencyPipe
   ) {
     this.btn_remove = true;
     this.getState$ = this.store.select(selectDisputesState);
@@ -51,7 +52,7 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
  * After view init add/edit tax component life cycle method
  */
   ngAfterViewInit() {
-    this.cdr.detectChanges();
+    this.cdr.detectChanges();    
   }
 /**
  * Initialize view init add/edit tax component life cycle method
@@ -60,6 +61,7 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
       this.disputed = state.disputed;
+      this.updateCurrencyFormatter.emit('updated');
     });
     this.subscription = this.route.params.subscribe(params => {
       this.case_id = +params['case_id'];
@@ -77,6 +79,7 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
       this.btn_remove = false;
       this.disputed = new Disputed (); 
     }
+
   }
 
   onSubmit() {
@@ -88,6 +91,10 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
     
     if (this.btn_remove) this.store.dispatch(new UpdateDisputed(payload));
     else this.store.dispatch(new CreateDisputed(payload));
+    this.router.navigate(['/case/' + (this.case_id) + '/taxes/']);
+  }
+
+  onClose() {
     this.router.navigate(['/case/' + (this.case_id) + '/taxes/']);
   }
 /**
