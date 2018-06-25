@@ -57,7 +57,7 @@ export class EditMemberComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.route.params.subscribe(params => {
+    const sub = this.route.params.subscribe(params => {
       this.userID = params['user_id'];
       if (this.userID) {
         // Password field is not required when updating a user
@@ -65,10 +65,12 @@ export class EditMemberComponent implements OnInit, OnDestroy {
         this.getMember();
       }
     });
+    this.subscription.add(sub);
 
-    this.route.parent.params.subscribe(params => {
+    const parentSub = this.route.parent.params.subscribe(params => {
       this.orgID = params['org_id'];
     });
+    this.subscription.add(parentSub);
   }
 
   ngOnDestroy(): void {
