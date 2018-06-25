@@ -20,9 +20,9 @@ import {
 })
 /**
  * Edit taxes component
- * @implements {OnInit}
+ * @implements {OnInit, OnDestroy}
  */
-export class EditTaxesComponent implements OnInit {
+export class EditTaxesComponent implements OnInit, OnDestroy {
 /**
  * @param {Observable<any>} getState$ State observable param
  * @param {string | null} errorMessage Error message param
@@ -72,15 +72,21 @@ export class EditTaxesComponent implements OnInit {
 
     this.store.dispatch(new FetchDisputesByCase(payload));
   }
-
+/**
+ * Redirect to Edit Tax Page
+ */
   redirectToEditTaxPage(index): void {
     this.router.navigate(['/case/' + (this.case_id) + '/taxes/edit/' + this.disputed[index].disputed_t1_ta_id]);
   }
-
+/**
+ * Redirect to Add tax page
+ */
   redirectToAddTaxPage(index): void {
     this.router.navigate(['/case/' + (this.case_id) + '/taxes/add/']);
   }
-
+/**
+ * Remove selected disputed
+ */
   removeDisputed(index): void {
     const payload = {
       disputed_id: this.disputed[index]['disputed_t1_ta_id'],
@@ -88,5 +94,11 @@ export class EditTaxesComponent implements OnInit {
     };
 
     this.store.dispatch(new RemoveDisputed(payload));
+  }
+/**
+ * Destroy edit-taxes component life cycle method
+ */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

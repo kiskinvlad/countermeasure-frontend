@@ -1,4 +1,5 @@
-import { Component, ViewChildren, QueryList, OnInit, Output, AfterViewInit, ChangeDetectorRef, EventEmitter, Directive } from '@angular/core';
+import { Component, ViewChildren, QueryList, OnInit, OnDestroy, Output, 
+        AfterViewInit, ChangeDetectorRef, EventEmitter, Directive } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,9 +24,12 @@ import { MyCurrencyPipe } from '@app/shared/pipe/MyCurrency/my-currency.pipe';
   styleUrls: ['./add-edit-tax.component.scss'],
   providers: [ MyCurrencyPipe ]
 })
-
-export class AddEditTaxComponent implements OnInit, AfterViewInit {
-
+/**
+ * Add/Edit tax component
+ * @implements {OnInit, AfterViewInit, OnDestroy}
+ */
+export class AddEditTaxComponent implements OnInit, AfterViewInit, OnDestroy {
+  
   @ViewChildren(MyCurrencyFormatterDirective) vc: QueryList<MyCurrencyFormatterDirective>;
 
   @Output() updateCurrencyFormatter = new EventEmitter<string>();
@@ -109,5 +113,11 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
 
     this.store.dispatch(new RemoveDisputed(payload));
     this.router.navigate(['/case/' + (this.case_id) + '/taxes/']);
+  }
+/**
+ * Destroy add-taxes component life cycle method
+ */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
