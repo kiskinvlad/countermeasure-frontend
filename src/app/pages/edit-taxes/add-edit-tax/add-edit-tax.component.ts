@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChildren, QueryList, OnInit, OnDestroy, Output, 
+        AfterViewInit, ChangeDetectorRef, EventEmitter, Directive } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,37 +15,41 @@ import {
   RemoveDisputed,
   FetchStateInfor
 } from '@app/shared/ngrx-store/actions/disputes.actions';
+import { MyCurrencyFormatterDirective } from '@app/shared/directive/MyCurrencyFormatter/my-currency-formatter.directive';
+import { CalcInputFormatterDirective } from '@app/shared/directive/CalcInputFormatter/calc-input-formatter.directive';
+import { MyCurrencyPipe } from '@app/shared/pipe/MyCurrency/my-currency.pipe';
 
 @Component({
   selector: 'ct-add-edit-tax',
   templateUrl: './add-edit-tax.component.html',
-  styleUrls: ['./add-edit-tax.component.scss']
+  styleUrls: ['./add-edit-tax.component.scss'],
+  providers: [ MyCurrencyPipe ]
 })
 /**
  * Add/Edit tax component
- * @implements {OnInit, OnDestroy}
+ * @implements {OnInit, AfterViewInit, OnDestroy}
  */
-export class AddEditTaxComponent implements OnInit, AfterViewInit {
+export class AddEditTaxComponent implements OnInit, AfterViewInit, OnDestroy {
+  
+  @ViewChildren(MyCurrencyFormatterDirective) vc: QueryList<MyCurrencyFormatterDirective>;
+
+  @Output() updateCurrencyFormatter = new EventEmitter<string>();
 
   private getState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
   private btn_remove: boolean;
-
   public case_id: number;
   public disputed_id: number;
   public disputed: Disputed;
   public taxes: Array<any>;
-/**
- * @constructor
- * @param {BsModalRef} bsModalRef Bootstrap modal reference service
- * @param {ChangeDetectorRef} cdr Change detector reference service
- */
+
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private currencyPipe: MyCurrencyPipe
   ) {
     this.btn_remove = true;
     this.getState$ = this.store.select(selectDisputesState);
@@ -53,7 +58,7 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
  * After view init add/edit tax component life cycle method
  */
   ngAfterViewInit() {
-    this.cdr.detectChanges();
+    this.cdr.detectChanges();    
   }
 /**
  * Initialize view init add/edit tax component life cycle method
@@ -81,7 +86,7 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
       this.btn_remove = false;
       this.disputed = new Disputed (); 
     }
-
+    
     this.store.dispatch(new FetchStateInfor());
   }
 
@@ -96,6 +101,10 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
     else this.store.dispatch(new CreateDisputed(payload));
     this.router.navigate(['/case/' + (this.case_id) + '/taxes/']);
   }
+
+  onClose() {
+    this.router.navigate(['/case/' + (this.case_id) + '/taxes/']);
+  }
 /**
  * Form remove method
  */
@@ -108,5 +117,11 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
 
     this.store.dispatch(new RemoveDisputed(payload));
     this.router.navigate(['/case/' + (this.case_id) + '/taxes/']);
+  }
+/**
+ * Destroy add-taxes component life cycle method
+ */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

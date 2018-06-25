@@ -1,5 +1,5 @@
 <ct-navigation-bar></ct-navigation-bar>
-<div class="wadd-edit-categories d-flex flex-row">
+<div class="add-edit-scenaries d-flex flex-row">
   <ct-sidebar></ct-sidebar>
   <div class="wrapper">
     <div class="form-container">
@@ -54,6 +54,18 @@
             </div>
             <div class="form-control-feedback" *ngIf="taxes.errors && (taxes.dirty || taxes.touched)">
               <p *ngIf="taxes?.errors['required']">Taxes is required</p>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{
+            'has-danger': taxable_income.invalid && (taxable_income.dirty || taxable_income.touched),
+            'has-success': taxable_income.valid && (taxable_income.dirty || taxable_income.touched)
+          }"> 
+            <div>
+              <label for="taxable_income">Income</label>
+              <input type="text" class="form-control" name="taxable_income" formControlName="taxable_income">
+            </div>
+            <div class="form-control-feedback" *ngIf="taxable_income.errors && (taxable_income.dirty || taxable_income.touched)">
+              <p *ngIf="taxable_income?.errors['required']">Income is required</p>
             </div>
           </div>
           <div class="form-group" [ngClass]="{

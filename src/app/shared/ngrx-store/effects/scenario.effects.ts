@@ -65,6 +65,7 @@ export class ScenarioEffects {
     .switchMap(payload => {
       return this.scenarioService.getFilteredAndSorted(payload)
         .map((data) => {
+          console.log('ss', data);
           return new FetchScenariosSuccess(data);
         })
         .catch((error) => {

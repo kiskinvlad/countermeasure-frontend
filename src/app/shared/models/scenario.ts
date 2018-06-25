@@ -9,6 +9,7 @@ export class Scenario {
     probability: number;
     description: string;
     taxable_income: number;
+    income: number;
     taxes: number;
     penalties: number;
     interest: number;

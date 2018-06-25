@@ -59,8 +59,6 @@ export function reducer(state: State = initialState, action: All): State {
     case PermissionActionTypes.ADD_PERMISSIONS_SUCCESS: {
       return {
         ...state,
-        permissions:  action.payload.permissions,
-        totalCount: action.payload.count,
         errorMessage: null
       };
     }
@@ -73,8 +71,6 @@ export function reducer(state: State = initialState, action: All): State {
     case PermissionActionTypes.DELETE_PERMISSIONS_SUCCESS: {
       return {
         ...state,
-        permissions:  action.payload.permissions,
-        totalCount: action.payload.count,
         errorMessage: null
       };
     }

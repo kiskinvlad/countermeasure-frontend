@@ -75,6 +75,9 @@ import { PermissionService } from '@app/core/services/PermissionService/permissi
 import { AnticipatedLitigationComponent } from './pages/reports/anticipated-litigation/anticipated-litigation.component';
 import { DialogCreateOrgComponent } from './pages/dashboard-organizations/dialog-create-org/dialog-create-org.component';
 import { PrincipledSettlementComponent } from './pages/reports/principled-settlement/principled-settlement.component';
+import { MyCurrencyPipe } from '@app/shared/pipe/MyCurrency/my-currency.pipe';
+import { MyCurrencyFormatterDirective } from '@app/shared/directive/MyCurrencyFormatter/my-currency-formatter.directive';
+import { CalcInputFormatterDirective } from './shared/directive/CalcInputFormatter/calc-input-formatter.directive';
 
 @NgModule({
   declarations: [
@@ -110,6 +113,9 @@ import { PrincipledSettlementComponent } from './pages/reports/principled-settle
     AnticipatedLitigationComponent,
     DashboardOrganizationsComponent,
     DialogCreateOrgComponent,
+    MyCurrencyPipe,
+    MyCurrencyFormatterDirective,
+    CalcInputFormatterDirective,
   ],
   imports: [
     BrowserModule,
