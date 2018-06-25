@@ -17,7 +17,6 @@ import { PermissionService } from '@app/core/services/PermissionService/permissi
 import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
 import { PermissionActionTypes } from '@app/shared/ngrx-store/constants/permission';
 import { NotificationsService } from 'angular2-notifications';
-import { AppState } from '@app/shared/ngrx-store/app.states';
 
 import {
   FetchPermissions,
@@ -44,7 +43,6 @@ export class PermissionEffects {
  * @param {LocalStorageService} localStorageService Local storage service
  * @param {NgxPermissionsService} permissionsService User ermissions service
  * @param {NotificationsService} notificationsService App notification service
- * @param {Store<AppState>} store App store service
  */
   constructor(
     private actions: Actions,
@@ -53,7 +51,6 @@ export class PermissionEffects {
     private localStorageService: LocalStorageService,
     private permissionsService: NgxPermissionsService,
     private notificationsService: NotificationsService,
-    private store: Store<AppState>
   ) {}
 
     @Effect()
