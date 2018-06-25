@@ -169,6 +169,30 @@ export class RemoveDisputedFailure implements Action {
   constructor(public payload: any) {}
 }
 /**
+ * Fetch state data action
+ * Called when try to fetch state data
+ */
+export class FetchStateInfor implements Action {
+  readonly type = DisputesActionTypes.FETCH_STATE_INFOR;
+  constructor() {}
+}
+/**
+ * Fetch state data success action
+ * Called when fetch state data successful
+ */
+export class FetchStateInforSuccess implements Action {
+  readonly type = DisputesActionTypes.FETCH_STATE_INFOR_SUCCESS;
+  constructor(public payload: any) {}
+}
+/**
+ * Fetch state data failure action
+ * Called when fetch state data failure
+ */
+export class FetchStateInforFailure implements Action {
+  readonly type = DisputesActionTypes.FETCH_STATE_INFOR_FAILURE;
+  constructor(public payload: any) {}
+}
+/**
  * Action types
  * Export action types
  */
@@ -193,4 +217,7 @@ export type All =
   | FetchDisputesBySummaryFailure
   | FetchDisputes
   | FetchDisputesSuccess
-  | FetchDisputesFailure;
+  | FetchDisputesFailure
+  | FetchStateInfor
+  | FetchStateInforSuccess
+  | FetchStateInforFailure;

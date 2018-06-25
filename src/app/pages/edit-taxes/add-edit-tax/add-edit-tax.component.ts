@@ -12,7 +12,8 @@ import {
   FetchDisputed,
   CreateDisputed,
   UpdateDisputed,
-  RemoveDisputed
+  RemoveDisputed,
+  FetchStateInfor
 } from '@app/shared/ngrx-store/actions/disputes.actions';
 import { MyCurrencyFormatterDirective } from '@app/shared/directive/MyCurrencyFormatter/my-currency-formatter.directive';
 import { CalcInputFormatterDirective } from '@app/shared/directive/CalcInputFormatter/calc-input-formatter.directive';
@@ -41,6 +42,7 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit, OnDestroy {
   public case_id: number;
   public disputed_id: number;
   public disputed: Disputed;
+  public taxes: Array<any>;
 
   constructor(
     private store: Store<AppState>,
@@ -62,10 +64,11 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit, OnDestroy {
  * Initialize view init add/edit tax component life cycle method
  */
   ngOnInit() {
+
     this.subscription = this.getState$.subscribe((state) => {
       this.errorMessage = state.errorMessage;
-      this.disputed = state.disputed;
-      this.updateCurrencyFormatter.emit('updated');
+      if(this.btn_remove) this.disputed = state.disputed;
+      this.taxes = state.states;
     });
     this.subscription = this.route.params.subscribe(params => {
       this.case_id = +params['case_id'];
@@ -83,7 +86,8 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit, OnDestroy {
       this.btn_remove = false;
       this.disputed = new Disputed (); 
     }
-
+    
+    this.store.dispatch(new FetchStateInfor());
   }
 
   onSubmit() {

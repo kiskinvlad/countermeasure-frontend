@@ -19,6 +19,7 @@ export interface State {
   disputed: Disputed;
   summaries: Disputed[];
   errorMessage: string | null;
+  states: Array<any>;
 }
 /**
  * Initial state
@@ -27,7 +28,8 @@ export const initialState: State = {
   disputes: [],
   disputed: null,
   errorMessage: null,
-  summaries: []
+  summaries: [],
+  states: []
 };
 /**
  * Taxes state reducer
@@ -37,8 +39,6 @@ export const initialState: State = {
 export function reducer(state: State = initialState, action: All): State {
   switch (action.type) {
     case DisputesActionTypes.FETCH_DISPUTED_SUCCESS: {
-      console.log('------');
-      console.log(action.payload.disputed);
       return {
         ...state,
         disputed: action.payload.disputed,
@@ -46,6 +46,19 @@ export function reducer(state: State = initialState, action: All): State {
       };
     }
     case DisputesActionTypes.FETCH_DISPUTED_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Cannot fetch disputed.'
+      };
+    }
+    case DisputesActionTypes.FETCH_STATE_INFOR_SUCCESS: {
+      return {
+        ...state,
+        states: action.payload.states,
+        errorMessage: null
+      };
+    }
+    case DisputesActionTypes.FETCH_STATE_INFOR_FAILURE: {
       return {
         ...state,
         errorMessage: 'Cannot fetch disputed.'
