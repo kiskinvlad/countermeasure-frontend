@@ -71,6 +71,7 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
     this.subscription = this.getScenariosState$.subscribe((scenario_state) => {
       this.errorMessage = scenario_state.errorMessage;
       this.scenarios = (scenario_state.scenarios || null);
+      console.log('aas', scenario_state);
       this.subscription = this.getDisputesState$.subscribe((disputed_state) => {
         this.errorMessage = disputed_state.errorMessage;
         this.disputes = (disputed_state.disputes || null);
@@ -78,7 +79,6 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
         this.payable_taxes = 0;
         this.payable_penalties = 0;
         this.payable_interest = 0;
-        this.payable_total = 0;
         this.remaining_amount_payable_total = 0;
         this.disputes.forEach((tax) => {
           this.payable_income += +tax.DIFF_taxable_income;
@@ -87,14 +87,13 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
           this.payable_interest += +tax.DIFF_estimated_interest;
           this.remaining_amount_payable_total += +tax.DIFF_total_tax_and_penalties + +tax.DIFF_estimated_interest;
         });
-        this.payable_total += this.payable_taxes + this.payable_penalties + this.payable_interest;
         this.scenarios.forEach((scenario) => {
           scenario.total = +scenario.taxes + +scenario.penalties + +scenario.interest;
-          scenario.payable_income = this.payable_income;
-          scenario.payable_taxes = this.payable_taxes;
-          scenario.payable_penalties = this.payable_penalties;
-          scenario.payable_interest = this.payable_interest;
-          scenario.payable_total = this.payable_total;
+          scenario.payable_income = this.payable_income + +scenario.taxable_income;
+          scenario.payable_taxes = this.payable_taxes + +scenario.taxes;
+          scenario.payable_penalties = this.payable_penalties + +scenario.penalties;
+          scenario.payable_interest = this.payable_interest + +scenario.interest;
+          scenario.payable_total = +scenario.payable_taxes + +scenario.payable_penalties + +scenario.payable_interest;
         });
       });
     });
