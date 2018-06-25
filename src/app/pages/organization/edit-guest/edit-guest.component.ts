@@ -121,7 +121,7 @@ export class EditGuestComponent implements OnInit, OnDestroy {
       this.permissions = state.permissions;
     });
 
-    this.route.params.subscribe(params => {
+    const sub = this.route.params.subscribe(params => {
       this.userID = params['user_id'];
       if (this.userID) {
         // Password field is not required when updating a user
@@ -129,10 +129,12 @@ export class EditGuestComponent implements OnInit, OnDestroy {
         this.getGuest();
       }
     });
+    this.subscription.add(sub);
 
-    this.route.parent.params.subscribe(params => {
+    const parentSub = this.route.parent.params.subscribe(params => {
       this.orgID = params['org_id'];
     });
+    this.subscription.add(parentSub);
 
     if (this.orgID) {
       this.loadData();

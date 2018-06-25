@@ -17,7 +17,6 @@ import { UserService } from '@app/core/services/UserService/user.service';
 import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
 import { UserActionTypes } from '@app/shared/ngrx-store/constants/user';
 import { NotificationsService } from 'angular2-notifications';
-import { AppState } from '@app/shared/ngrx-store/app.states';
 
 import {
   FetchUser,
@@ -49,7 +48,6 @@ export class UserEffects {
  * @param {Router} router App router service
  * @param {LocalStorageService} localStorageService Local storage service
  * @param {NotificationsService} notificationsService App notification service
- * @param {Store<AppState>} store App store service
  */
   constructor(
     private actions: Actions,
@@ -57,7 +55,6 @@ export class UserEffects {
     private router: Router,
     private localStorageService: LocalStorageService,
     private notificationsService: NotificationsService,
-    private store: Store<AppState>
   ) {}
 
   @Effect()

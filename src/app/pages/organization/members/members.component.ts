@@ -62,10 +62,11 @@ export class MembersComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.route.parent.params.subscribe(params => {
+    const sub = this.route.parent.params.subscribe(params => {
       this.orgID = params['org_id'];
       this.getOrganization();
     });
+    this.subscription.add(sub);
 
     this.loadData();
   }

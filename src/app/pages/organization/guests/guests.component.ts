@@ -45,9 +45,10 @@ export class GuestsComponent implements OnInit, OnDestroy {
       this.totalCount = state.totalCount;
     });
 
-    this.route.parent.params.subscribe(params => {
+    const sub = this.route.parent.params.subscribe(params => {
       this.orgID = params['org_id'];
     });
+    this.subscription.add(sub);
 
     this.loadData();
   }

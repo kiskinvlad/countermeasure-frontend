@@ -9,11 +9,9 @@ export interface State {
  * State params
  * @param {Permission[]} permissions Permission models array param
  * @param {number} totalCount Permissions count param
- * @param {number} totalEnabled Permissions count state param
  * @param {string | null} errorMessage Error message param
  */
   totalCount: Number;
-  totalEnabled: Number;
   errorMessage: string;
   permissions: Permission[];
 }
@@ -22,7 +20,6 @@ export interface State {
  */
 export const initialState: State = {
   totalCount: 0,
-  totalEnabled: null,
   errorMessage: null,
   permissions: []
 };

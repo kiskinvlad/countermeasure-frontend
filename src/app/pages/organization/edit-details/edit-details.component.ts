@@ -69,10 +69,11 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
       this.setFormValues();
     });
 
-    this.route.parent.params.subscribe(params => {
+    const sub = this.route.parent.params.subscribe(params => {
       this.orgID = params['org_id'];
       this.getOrganization();
     });
+    this.subscription.add(sub);
   }
 /**
  * Destroy edit-details component life cycle method
