@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,9 +21,9 @@ import {
 })
 /**
  * Add/Edit tax component
- * @implements {OnInit, OnDestroy}
+ * @implements {OnInit, AfterViewInit, OnDestroy}
  */
-export class AddEditTaxComponent implements OnInit, AfterViewInit {
+export class AddEditTaxComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private getState$: Observable<any>;
   private errorMessage: string | null;
@@ -102,5 +102,11 @@ export class AddEditTaxComponent implements OnInit, AfterViewInit {
 
     this.store.dispatch(new RemoveDisputed(payload));
     this.router.navigate(['/case/' + (this.case_id) + '/taxes/']);
+  }
+/**
+ * Destroy add-taxes component life cycle method
+ */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
