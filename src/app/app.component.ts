@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -13,7 +13,7 @@ import { AuthenticationService } from '@app/core/services/AuthenticationService/
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 /**
  * @param {Observable<any>} getState$ State observable param
  * @param {string | null} errorMessage Error message param
@@ -58,5 +58,10 @@ export class AppComponent implements OnInit {
       }
     });
   }
-
+/**
+ * Destroy app component life cycle method
+ */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

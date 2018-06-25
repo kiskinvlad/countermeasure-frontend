@@ -47,6 +47,7 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
   private getDisputesState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
+  private formSubscribtion: Subscription;
   private validator: ValidatorModule;
   public category: Category;
   public case_id: number;
@@ -121,7 +122,7 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       this.store.dispatch(new FetchDisputesByCase(payload));
     }
 
-    this.categoryForm.statusChanges.subscribe(() => {
+    this.formSubscribtion = this.categoryForm.statusChanges.subscribe(() => {
       const controllersToCheck = [
         'name',
         'tax',
@@ -260,5 +261,6 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
  */
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.formSubscribtion.unsubscribe();
   }
 }
