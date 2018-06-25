@@ -6,7 +6,7 @@
       <div class="amount-in-dispute__header" #header>
           <hr/>
           <h1>Amount In Dispute</h1>
-          <h2>{{total_disputed['total'] | number:'1.2-2'}}$</h2>
+          <h2>{{total_disputed['total'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</h2>
           <hr/>
       </div>
       <div [hidden]="!chart">
