@@ -65,9 +65,9 @@ export class EditGuestComponent implements OnInit, OnDestroy {
   addedCases = Array<number>();
   removedCases = Array<number>();
   submitted = false;
-  filterParam: string | null;
+  filterParam = 'all';
   searchParam: string | null;
-  sortParam: string | null;
+  sortParam = 'matter_id';
 /**
  * @constructor
  * @param {Store<AppState>} store App state store service
@@ -212,13 +212,14 @@ export class EditGuestComponent implements OnInit, OnDestroy {
     const payload = {
       user_id: userID,
       org_id: this.orgID,
-      offset: offset,
       limit: this.itemsPerPage,
-      cases: JSON.stringify(cases),
-      filter: this.filterParam,
-      search: this.searchParam,
-      sort_by: this.sortParam
+      cases: JSON.stringify(cases)
     };
+    this.currentPage = 1;
+    this.previousPage = 0;
+    this.filterParam = 'all';
+    this.searchParam = null;
+    this.sortParam = 'matter_id';
     return payload;
   }
 /**
