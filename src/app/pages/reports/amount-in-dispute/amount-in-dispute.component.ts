@@ -147,7 +147,7 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
             datalabels: {
               display: true,
               formatter: function(value, context) {
-                return value + '$';
+                return '$' + value;
               }
             }
           }
@@ -158,7 +158,7 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
           callbacks: {
              label: function(tooltipItem, data_labels) {
                 const label = data_labels.labels[tooltipItem.index];
-                return label + ' : ' + parseFloat(data_labels.datasets[0].data[tooltipItem.index]).toFixed(2) + ' $';
+                return label + ' : $ ' + parseFloat(data_labels.datasets[0].data[tooltipItem.index]).toFixed(2);
              },
              title: function() {
               return false;
@@ -219,8 +219,10 @@ export class AmountInDisputeComponent implements OnInit, OnDestroy {
  * Destroy amount in dispute component life cycle method. Destroy chart and clear canvas context.
  */
   ngOnDestroy(): void {
-    this.ctx.clearRect(0, 0, 100, 100);
-    this.chart.destroy();
+    if (this.ctx && this.chart) {
+      this.ctx.clearRect(0, 0, 100, 100);
+      this.chart.destroy();
+    }
     this.subscription.unsubscribe();
   }
 

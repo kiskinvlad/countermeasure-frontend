@@ -28,11 +28,12 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
  * @param {string} type Component type param
  * @param {number} scenario_id Current scenario id param
  * @param {boolean} isFormTouched Form touched state param
- * @param {FormGroup} categoryForm Scenario form param
+ * @param {FormGroup} scenarioForm Scenario form param
  * @param {FormControl} name Form name control param
  * @param {FormControl} probability Form probability control param
  * @param {FormControl} description Form description control param
  * @param {FormControl} taxes Form taxes control param
+ * @param {FormControl} taxable_income Form income control param
  * @param {FormControl} penalties Form penalties control param
  * @param {FormControl} interest Form interest control param
  */
@@ -49,6 +50,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
   public name: FormControl;
   public probability: FormControl;
   public description: FormControl;
+  public taxable_income: FormControl;
   public taxes: FormControl;
   public penalties: FormControl;
   public interest: FormControl;
@@ -105,6 +107,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
         'name',
         'probability',
         'description',
+        'taxable_income',
         'taxes',
         'penalties',
         'interest'
@@ -130,6 +133,9 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
     this.description = new FormControl('', [
       Validators.required
     ]);
+    this.taxable_income = new FormControl('', [
+      Validators.required
+    ]);
     this.taxes = new FormControl('', [
       Validators.required
     ]);
@@ -148,6 +154,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
       name: this.name,
       probability: this.probability,
       description: this.description,
+      taxable_income: this.taxable_income,
       taxes: this.taxes,
       penalties: this.penalties,
       interest: this.interest
@@ -169,6 +176,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
     this.name.setValue(this.scenario.name);
     this.probability.setValue(this.scenario.probability);
     this.description.setValue(this.scenario.description);
+    this.taxable_income.setValue(this.scenario.taxable_income);
     this.taxes.setValue(this.scenario.taxes);
     this.penalties.setValue(this.scenario.penalties);
     this.interest.setValue(this.scenario.interest);
@@ -196,6 +204,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
         name: this.scenarioForm.get('name').value,
         probability:  this.scenarioForm.get('probability').value,
         description: this.scenarioForm.get('description').value,
+        taxable_income: this.scenarioForm.get('taxable_income').value,
         taxes: this.scenarioForm.get('taxes').value,
         penalties: this.scenarioForm.get('penalties').value,
         interest: this.scenarioForm.get('interest').value,

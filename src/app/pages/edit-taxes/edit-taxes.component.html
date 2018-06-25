@@ -27,7 +27,7 @@
           <td>{{tax.taxpayer}}</td>
           <td>{{tax.year}}</td>
           <td>{{tax.province}}</td>
-          <td>{{tax.DIFF_total_debt}}</td>
+          <td>$ {{tax.DIFF_total_debt | number:'1.2-2'}}</td>
           <td class="text-center" (click)="redirectToEditTaxPage(index)">Edit</td>
           <td class="remove-item" (click)="removeDisputed(index)"><i class="fa fa-minus"></i></td>
         </tr>
