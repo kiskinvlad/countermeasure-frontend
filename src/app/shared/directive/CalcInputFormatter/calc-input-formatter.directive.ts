@@ -7,11 +7,13 @@ import { MyCurrencyPipe } from '../../pipe/MyCurrency/my-currency.pipe';
 export class CalcInputFormatterDirective {
 
   private el: HTMLInputElement;
+  private flag: number;
 
   constructor(
     private elementRef: ElementRef,
     private currencyPipe: MyCurrencyPipe
   ) {
+    this.flag = 1;
     this.el = this.elementRef.nativeElement;
   }
 
@@ -20,7 +22,7 @@ export class CalcInputFormatterDirective {
   }
 
   ngAfterContentChecked() {
+    this.el.value = this.currencyPipe.parse(this.el.value);
     this.el.value = this.currencyPipe.transform(this.el.value);
   }
-
 }

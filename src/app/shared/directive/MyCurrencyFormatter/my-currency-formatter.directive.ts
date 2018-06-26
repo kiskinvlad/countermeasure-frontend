@@ -22,6 +22,9 @@ export class MyCurrencyFormatterDirective {
   }
 
   ngAfterContentChecked() {
+    if(Number(this.el.value) === 0.00) {
+      this.el.value = this.currencyPipe.transform(this.el.value);
+    }
     if(Number(this.el.value) && !this.flag) {
       this.el.value = this.currencyPipe.transform(this.el.value);
     }
