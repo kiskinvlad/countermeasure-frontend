@@ -1,11 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@ng-select/ng-select/themes/default.theme.css";
 .with-sidebar {
-  margin-left: 260px;
+    margin-left: 285px;
 }
 
 .container {
-  margin-top: 15px;
+    margin-top: 15px;
+}
+
+.with-sidebar .container {
+    margin-top: 50px;
+    margin-left: 0;
+    padding-bottom: 40px;
+}
+
+.top-h1 {
+    margin-bottom: 40px;
 }
 
 .modal-dialog {

@@ -3,6 +3,7 @@
 }
 
 .card-borderless .card-body {
+  padding-top: 0;
   padding-bottom: 0.3rem;
 }
 
@@ -13,4 +14,9 @@ button {
 .form-check {
   padding-left: 3.5rem;
   margin-top: 1rem;
+}
+
+.card.col-lg-6 {
+  padding-left: 0;
+  padding-right: 0;
 }

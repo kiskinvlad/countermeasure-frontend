@@ -1,13 +1,13 @@
 <div class="with-sidebar">
   <div class="container">
-    <h2>{{userID ? 'Edit' : 'Add'}} Guest</h2>
+    <h1 class="top-h1">{{userID ? 'Edit' : 'Add'}} Guest</h1>
     <form [formGroup]="guestForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.target.tagName == 'TEXTAREA'">
       <div class="row">
-        <div class="form-group col">
+        <div class="form-group col-lg-6">
           <label for="first-name">First Name</label>
           <input type="text" class="form-control" id="first-name" formControlName="firstName">
         </div>
-        <div class="form-group col">
+        <div class="form-group col-lg-6">
           <label for="last-name">Last Name</label>
           <input type="text" class="form-control" id="last-name" formControlName="lastName">
         </div>
@@ -20,15 +20,15 @@
         </div>
       </div>
       <div class="row align-items-center">
-        <div class="form-group col-sm-6">
+        <div class="form-group col-lg-6">
           <label for="password">Password</label>
           <input type="password" class="form-control" [ngClass]="validator.displayFieldCss(guestForm, 'password')" id="password" formControlName="password">
           <div class="invalid-feedback">
             Please enter a password.
           </div>
         </div>
-        <div class="form-group col-sm-6">
-          <div class="form-check">
+        <div class="form-group col-lg-6">
+          <div class="form-check text-center">
             <input type="checkbox" class="form-check-input" id="enabled" formControlName="enabled">
             <label class="form-check-label" for="enabled">Enabled</label>
           </div>
@@ -38,13 +38,13 @@
       <div class="permissions-container">
         <label>Permissions</label>
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-lg-3">
             <select class="form-control" formControlName="filterParam" (change)="onChangeFilter($event)">
               <option value="all">All</option>
               <option value="recent">Recent</option>
             </select>
           </div>
-          <div class="col-sm-6">
+          <div class="col-lg-6">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
@@ -52,7 +52,7 @@
               <input type="text" class="form-control" formControlName="searchParam" placeholder="Find a Case by Name or Matter ID" (keyup.enter)="searchPermissions($event)">
             </div>
           </div>
-          <div class="col-sm-3">
+          <div class="col-lg-3">
             <select class="form-control" formControlName="sortParam" (change)="onChangeSort($event)">
               <option value="matter_id">Matter ID</option>
               <option value="name">Name</option>
