@@ -107,7 +107,6 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
       });
       if (this.scenarios.length > 0) {
         this.scenarios = this.sortByRemainingAmount(this.scenarios, 'payable_total');
-        console.log(this.scenarios)
       }
     });
     const payload = {
