@@ -4,10 +4,14 @@
 }
 .table-wrapper {
     padding: 1rem;
+    td {
+        width: 25%;
+    }
 }
 .action-col {
     padding: 0;
     button {
+        width: 25%;
         height: 45px;
         background: none;
         padding: 0 10px;
