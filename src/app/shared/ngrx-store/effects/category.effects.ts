@@ -182,7 +182,7 @@ export class CategoryEffects {
     ofType(CategoriesActionTypes.DELETE_CATEGORY_SUCCESS),
     tap(({payload: data}) => {
       this.router.navigate(['/case', data.case_id, 'categories']);
-      this.notificationsService.success('Success', 'Category ' + data.name + ' deleted!');
+      this.notificationsService.success('Success', 'Category ' + data.name + ' deleted');
     })
   );
 
@@ -214,7 +214,7 @@ export class CategoryEffects {
     ofType(CategoriesActionTypes.UPDATE_CATEGORY_SUCCESS),
     tap(({payload: data}) => {
       this.router.navigate(['/case', data.category.case_id, 'categories']);
-      this.notificationsService.success('Successful', 'Category ' + data.category.name + ' updated!');
+      this.notificationsService.success('Successful', 'Category ' + data.category.name + ' updated');
     })
   );
 
@@ -246,7 +246,7 @@ export class CategoryEffects {
     ofType(CategoriesActionTypes.CREATE_CATEGORY_SUCCESS),
     tap(({payload: data}) => {
       this.router.navigate(['/case', data.category.case_id, 'categories']);
-      this.notificationsService.success('Successful', 'Category ' + data.category.name + ' created!');
+      this.notificationsService.success('Successful', 'Category ' + data.category.name + ' created');
     })
   );
 
