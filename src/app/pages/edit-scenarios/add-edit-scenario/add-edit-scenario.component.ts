@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { ValidatorModule } from '@app/shared/form-validator/validator.module';
 import { Scenario } from '@app/shared/models/scenario';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState, selectScenarioState } from '@app/shared/ngrx-store/app.states';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, CanDeactivate } from '@angular/router';
 import { FetchScenario, DeleteScenario, UpdateScenario, CreateScenario } from '@app/shared/ngrx-store/actions/scenario.actions';
+import { ComponentCanDeactivate } from '@app/shared/guard/auth-guard.service';
 
 @Component({
   selector: 'ct-add-edit-scenario',
@@ -17,12 +18,13 @@ import { FetchScenario, DeleteScenario, UpdateScenario, CreateScenario } from '@
  * Add/Edit scenario component
  * @implements {OnInit, OnDestroy}
  */
-export class AddEditScenarioComponent implements OnInit, OnDestroy {
+export class AddEditScenarioComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
 /**
  * @param {Observable<any>} getScenarioState$ Scenario state observable param
  * @param {string | null} errorMessage Error message param
  * @param {Subscription} subscription Subscription param
  * @param {ValidatorModule} validator Form validaor module param
+ * @param {boolean} allowNavigate Allow user to navigate
  * @param {Scenario} scenario Current scenario object param
  * @param {number} case_id Current case id param
  * @param {string} type Component type param
@@ -42,6 +44,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   private formSubscription: Subscription;
   private validator: ValidatorModule;
+  private allowNavigate: boolean;
   public scenario: Scenario;
   public case_id: number;
   public type: string;
@@ -67,6 +70,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
       this.isFormTouched = false;
+      this.allowNavigate = true;
       this.getScenarioState$ = this.store.select(selectScenarioState);
   }
 /**
@@ -117,6 +121,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
         const ctrl = this.scenarioForm.get(ctrlName);
         if (ctrl.dirty || ctrl.touched) {
           this.isFormTouched = true;
+          this.allowNavigate = false;
         }
       });
     });
@@ -135,16 +140,12 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
       Validators.required
     ]);
     this.taxable_income = new FormControl('', [
-      Validators.required
     ]);
     this.taxes = new FormControl('', [
-      Validators.required
     ]);
     this.penalties = new FormControl('', [
-      Validators.required
     ]);
     this.interest = new FormControl('', [
-      Validators.required
     ]);
   }
 /**
@@ -218,6 +219,15 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy {
     } else if (this.scenarioForm.valid) {
       this.store.dispatch(new CreateScenario(payload));
     }
+  }
+/**
+ * Can deactivate method
+ * @returns {Observable | boolean}
+ * Allow or prevent user navigate without confirmation
+ */
+  @HostListener('window:beforeunload')
+  public canDeactivate(): Observable<boolean> | boolean {
+    return this.allowNavigate;
   }
 /**
  * Destroy add-edit-scenario component life cycle method

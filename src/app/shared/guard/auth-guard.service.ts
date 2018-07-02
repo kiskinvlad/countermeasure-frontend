@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, CanDeactivate } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { Store } from '@ngrx/store';
@@ -7,12 +7,15 @@ import { AuthenticationService } from '@app/core/services/AuthenticationService/
 import { LocalStorageService } from '@app/core/services/LocalStorageService/local-storage.service';
 import { AppState, selectAuthState } from '@app/shared/ngrx-store/app.states';
 import { FetchUserData } from '@app/shared/ngrx-store/actions/auth.actions';
+export interface ComponentCanDeactivate {
+  canDeactivate: () => boolean | Observable<boolean>;
+}
 @Injectable()
 /**
  * Authentication guard service. Check user authentication, token expired, prevent unauthorized routing
  * @implements {CanActivate}
  */
-export class AuthGuardService implements CanActivate {
+export class AuthGuardService implements CanActivate, CanDeactivate<ComponentCanDeactivate> {
 /**
  * @param {Store<any>} getState$ App state param
  * @param {string | null} errorMessage Error message param
@@ -52,5 +55,11 @@ export class AuthGuardService implements CanActivate {
       return false;
     }
     return true;
+  }
+
+  canDeactivate(component: ComponentCanDeactivate): boolean | Observable<boolean> {
+    return component.canDeactivate() ?
+      true :
+      confirm('WARNING: You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.');
   }
 }
