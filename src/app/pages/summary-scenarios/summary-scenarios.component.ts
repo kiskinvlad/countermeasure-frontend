@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState, selectDisputesState, selectScenarioState, selectCsvState } from '@app/shared/ngrx-store/app.states';
+import { AppState, selectDisputesState, selectScenarioState, selectCsvState, selectCasesState } from '@app/shared/ngrx-store/app.states';
 import { ActivatedRoute } from '@angular/router';
 import { FetchDisputesByCase } from '@app/shared/ngrx-store/actions/disputes.actions';
 import { FetchScenarios } from '@app/shared/ngrx-store/actions/scenario.actions';
@@ -20,8 +20,10 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
 /**
  * @param {Observable<any>} getScenariosState$ Scenarios state observable param
  * @param {Observable<any>} getDisputesState$ Taxes state observable param
+ * @param {Observable<any>} getCaseState$ Case state observable param
  * @param {string | null} errorMessage Error message param
  * @param {Subscription} subscription Subscription param
+ * @param {number} matter_id Case matter id param
  * @param {Array<any>} scenarios Scenarios array param
  * @param {Array<any>} disputes Taxes array param
  * @param {number} case_id Current case id param
@@ -35,8 +37,10 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
  */
   private getScenariosState$: Observable<any>;
   private getDisputesState$: Observable<any>;
+  private getCaseState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
+  private matter_id: number;
   public scenarios: Array<any> = [];
   public disputes: Array<any> = [];
   public case_id: number;
@@ -52,14 +56,17 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
  * @param {ActivatedRoute} route Current route state service
  * @param {Store<AppState>} scenarioStore App scenario state store service
  * @param {Store<AppState>} disputesStore App taxes state store service
+ * @param {Store<AppState>} caseStore App case state store service
  */
   constructor(
     private scenarioStore: Store<AppState>,
     private disputesStore: Store<AppState>,
+    private caseStore: Store<AppState>,
     private route: ActivatedRoute
   ) {
     this.getScenariosState$ = this.scenarioStore.select(selectScenarioState);
     this.getDisputesState$ = this.disputesStore.select(selectDisputesState);
+    this.getCaseState$ = this.caseStore.select(selectCasesState);
    }
 /**
  * Initialize sumamry scenario component life cycle method
@@ -71,7 +78,6 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
     this.subscription = this.getScenariosState$.subscribe((scenario_state) => {
       this.errorMessage = scenario_state.errorMessage;
       this.scenarios = (scenario_state.scenarios || null);
-      console.log('aas', scenario_state);
       this.subscription = this.getDisputesState$.subscribe((disputed_state) => {
         this.errorMessage = disputed_state.errorMessage;
         this.disputes = (disputed_state.disputes || null);
@@ -96,6 +102,9 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
           scenario.payable_total = +scenario.payable_taxes + +scenario.payable_penalties + +scenario.payable_interest;
         });
       });
+      this.subscription = this.getCaseState$.subscribe((case_state) => {
+        this.matter_id = case_state.matter_id;
+      });
     });
     const payload = {
       filter_param: { 'id': this.case_id }
@@ -108,7 +117,7 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
  */
   public create_csv(): void {
     const json = this.generateJsonForCvs();
-    this.scenarioStore.dispatch(new CreateCsv({json: json, case_id: this.case_id, type: 'scenario'}));
+    this.scenarioStore.dispatch(new CreateCsv({json: json, case_id: this.case_id, matter_id: this.matter_id, type: 'Scenario'}));
   }
 /**
  * Create json data for comma separated value table method
@@ -117,28 +126,28 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
     const json = [];
     let scenarioObj = {};
     scenarioObj = {
-      group: 'Amount In Dispute',
-      total_payable$: this.remaining_amount_payable_total
+      'Title': 'Amount In Dispute',
+      'Total': this.remaining_amount_payable_total
     };
     json.push(scenarioObj);
     scenarioObj = {};
     this.scenarios.forEach((scenario) => {
       scenarioObj = {
-        group: 'Proposed Scenarios',
-        scenario_name: scenario.name,
-        total_reduction_to_dept_income$: +scenario.taxable_income,
-        remaining_amount_payable_income$: +scenario.payable_income,
-        total_reduction_to_dept_taxes$: +scenario.taxes,
-        remaining_amount_payable_taxes$: +scenario.payable_taxes,
-        total_reduction_to_dept_penalties$: +scenario.penalties,
-        remaining_amount_payable_penalties$: +scenario.payable_penalties,
-        total_reduction_to_dept_interest$: +scenario.interest,
-        remaining_amount_payable_interest$: +scenario.payable_interest,
-        total_reduction_to_dept_total$: +scenario.total,
-        remaining_amount_payable_total$: +scenario.payable_total
+        'Title': 'Proposed Scenarios',
+        'Scenario': scenario.name,
+        'Adjustment to Income': +scenario.taxable_income,
+        'Income Remaining': +scenario.payable_income,
+        'Adjustment to Taxes': +scenario.taxes,
+        'Taxes Remaining': +scenario.payable_taxes,
+        'Adjustment to Penalties': +scenario.penalties,
+        'Penalties Remaining': +scenario.payable_penalties,
+        'Adjustment to Interest': +scenario.interest,
+        'Interest Remaining': +scenario.payable_interest,
+        'Total Adjustment': +scenario.total,
+        'Total Remaining': +scenario.payable_total
       };
+      json.push(scenarioObj);
     });
-    json.push(scenarioObj);
     return json;
   }
 /**
