@@ -14,7 +14,7 @@
             </thead>
             <tbody>
               <tr>
-                <td>Total payable</td>
+                <td>Amount in Dispute</td>
                 <td>{{remaining_amount_payable_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
             </tbody>
@@ -29,33 +29,33 @@
             <thead>
               <tr>
                 <th></th>
-                <th>Total Reduction To Dept</th>
-                <th>Remaining Amount Payable</th>
+                <th>Total Adjustment</th>
+                <th>Total Remaining</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Reduction to Income</td>
+                <td>Adjustment to Income</td>
                 <td>{{scenario.taxable_income | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
                 <td>{{scenario.payable_income | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
               <tr>
-                <td>Reduction to Taxes</td>
+                <td>Adjustment to Taxes</td>
                 <td>{{scenario.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
                 <td>{{scenario.payable_taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
               <tr>
-                <td>Reduction to Penalties</td>
+                <td>Adjustment to Penalties</td>
                 <td>{{scenario.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
                 <td>{{scenario.payable_penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
               <tr>
-                <td>Reduction to Interest</td>
+                <td>Adjustment to Interest</td>
                 <td>{{scenario.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
                 <td>{{scenario.payable_interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
               <tr>
-                <td class="total-section">Total</td>
+                <td class="total-section">Amount in Dispute</td>
                 <td class="total-section">{{scenario.total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
                 <td class="total-section">{{scenario.payable_total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
               </tr>
