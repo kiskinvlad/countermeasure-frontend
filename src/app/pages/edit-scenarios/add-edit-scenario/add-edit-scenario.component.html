@@ -45,18 +45,6 @@
             </div>
           </div>
           <div class="form-group" [ngClass]="{
-            'has-danger': taxes.invalid && (taxes.dirty || taxes.touched),
-            'has-success': taxes.valid && (taxes.dirty || taxes.touched)
-          }"> 
-            <div>
-              <label for="taxes">Taxes</label>
-              <input type="text" class="form-control" name="taxes" formControlName="taxes">
-            </div>
-            <div class="form-control-feedback" *ngIf="taxes.errors && (taxes.dirty || taxes.touched)">
-              <p *ngIf="taxes?.errors['required']">Taxes is required</p>
-            </div>
-          </div>
-          <div class="form-group" [ngClass]="{
             'has-danger': taxable_income.invalid && (taxable_income.dirty || taxable_income.touched),
             'has-success': taxable_income.valid && (taxable_income.dirty || taxable_income.touched)
           }"> 
@@ -66,6 +54,18 @@
             </div>
             <div class="form-control-feedback" *ngIf="taxable_income.errors && (taxable_income.dirty || taxable_income.touched)">
               <p *ngIf="taxable_income?.errors['required']">Income is required</p>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{
+            'has-danger': taxes.invalid && (taxes.dirty || taxes.touched),
+            'has-success': taxes.valid && (taxes.dirty || taxes.touched)
+          }"> 
+            <div>
+              <label for="taxes">Taxes</label>
+              <input type="text" class="form-control" name="taxes" formControlName="taxes">
+            </div>
+            <div class="form-control-feedback" *ngIf="taxes.errors && (taxes.dirty || taxes.touched)">
+              <p *ngIf="taxes?.errors['required']">Taxes is required</p>
             </div>
           </div>
           <div class="form-group" [ngClass]="{
