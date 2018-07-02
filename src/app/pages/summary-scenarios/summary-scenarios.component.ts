@@ -105,6 +105,10 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
       this.subscription = this.getCaseState$.subscribe((case_state) => {
         this.matter_id = case_state.matter_id;
       });
+      if (this.scenarios.length > 0) {
+        this.scenarios = this.sortByRemainingAmount(this.scenarios, 'payable_total');
+        console.log(this.scenarios)
+      }
     });
     const payload = {
       filter_param: { 'id': this.case_id }
@@ -150,6 +154,15 @@ export class SummaryScenariosComponent implements OnInit, OnDestroy {
     });
     return json;
   }
+/**
+ * Sort scenarios by param method
+ * @param {Array<any>} array Array to sort
+ * @param {string} param Param for sort
+ * @returns {Array<any>}
+ */
+private sortByRemainingAmount(array: Array<any>, x): Array<any> {
+  return array.sort((a, b) => a[x] - b[x]);
+}
 /**
  * Destroy sumamry scenario component life cycle method
  */
