@@ -3,31 +3,31 @@
   <ct-sidebar></ct-sidebar>
   <div class="wrapper">
       <div class="d-flex justify-content-between section-title">
-          <h1>Edit scenarios</h1>
+          <h1>Edit Scenarios</h1>
       </div>
       <div class="table-wrapper">
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Taxable Income / Sales</th>
-              <th>Taxes</th>
-              <th>Penalties</th>
-              <th>Interest</th>
-              <th>Amount in Dispute</th>
-              <th>Probability</th>
-              <th>Actions</th>
+              <th class="text-center align-middle">Name</th>
+              <th class="text-center align-middle">Taxable Income / Sales</th>
+              <th class="text-center align-middle">Taxes</th>
+              <th class="text-center align-middle">Penalties</th>
+              <th class="text-center align-middle">Interest</th>
+              <th class="text-center align-middle">Amount in Dispute</th>
+              <th class="text-center align-middle">Probability</th>
+              <th class="text-center align-middle">Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let scenario of scenarios; let index = index">
               <td>{{scenario.name}}</td>
-              <td>${{scenario.taxable_income | number:'1.2-2'}}</td>
-              <td>${{scenario.taxes | number:'1.2-2'}}</td>
-              <td>${{scenario.penalties | number:'1.2-2'}}</td>
-              <td>${{scenario.interest | number:'1.2-2'}}</td>
-              <td>${{+scenario.taxes + +scenario.penalties + +scenario.interest | number:'1.2-2'}}</td>
-              <td>{{scenario.probability}}%</td>
+              <td>{{scenario.taxable_income | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{scenario.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{scenario.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{scenario.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td>{{+scenario.taxes + +scenario.penalties + +scenario.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-center ">{{scenario.probability}}%</td>
               <td class="action-col">
                   <button [routerLink]="['/case', case_id, 'scenarios', getScenarioId(index), 'edit', 'edit']">Edit</button>
                   <button (click)="moveUp(index)">Up</button>
