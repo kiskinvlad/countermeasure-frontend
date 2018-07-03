@@ -5,6 +5,8 @@ import { CsvActionTypes } from '@app/shared/ngrx-store/constants/csv';
  */
 export interface State {
   errorMessage: string | null;
+  data: string | null;
+  matter_id: number | undefined;
 }
 /**
  * Initial state
@@ -13,6 +15,8 @@ export const initialState: State = {
   /**
    * @param {string | null} errorMessage Error message param
    */
+  data: null,
+  matter_id: undefined,
   errorMessage: null
 };
 /**
@@ -23,8 +27,11 @@ export const initialState: State = {
 export function reducer(state: State = initialState, action: All): State {
   switch (action.type) {
     case CsvActionTypes.CREATE_CSV_SUCCESS: {
+      console.log(action.payload)
       return {
         ...state,
+        matter_id: action.payload.matter_id,
+        data: action.payload.data,
         errorMessage: null
       };
     }

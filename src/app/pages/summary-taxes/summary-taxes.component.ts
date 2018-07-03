@@ -68,8 +68,30 @@ export class SummaryTaxesComponent implements OnInit, OnDestroy {
  * Create comma separated values table method
  */
   downloadCSV() {
-    const json = JSON.stringify(this.disputed);
-    this.store.dispatch(new CreateCsv({json: json, case_id: this.case_id, type: 'Taxes'}));
+    let convertedJson = JSON.parse(JSON.stringify(this.disputed));
+    this.convertJson(convertedJson);
+    this.store.dispatch(new CreateCsv({json: convertedJson, case_id: this.case_id, type: 'Taxes'}));
+  }
+
+/**
+ * convert field name for CSV
+ */
+  convertJson(disputed) {
+    disputed.forEach(array => {
+      array.forEach(object => {
+        object['Balance Before Penalties and Interest'] = object.DIFF_balance_before_penalties_and_interest;
+        object['Estimated Interest'] = object.DIFF_estimated_interest;
+        object['Taxable Income'] = object.DIFF_taxable_income;
+        object['Total Debt'] = object.DIFF_total_debt;
+        object['Total Tax and Penalties'] = object.DIFF_tatal_tax_and_penalties;
+        delete object.DIFF_balance_before_penalties_and_interest;
+        delete object.DIFF_estimated_interest;
+        delete object.DIFF_total_debt;
+        delete object.DIFF_taxable_income;
+        delete object.DIFF_total_tax_and_penalties;
+      })
+    })
+    return disputed;
   }
 
 /**

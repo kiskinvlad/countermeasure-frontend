@@ -66,8 +66,6 @@ export class CasesEffects {
   FetchCasesSuccess: Observable<any> = this.actions.pipe(
     ofType(CasesActionTypes.FETCH_CASES_SUCCESS),
     tap(({payload: casesData}) => {
-      console.log('casesData = ', casesData);
-      this.notificationsService.success('Success', 'Cases have been loaded.');
     })
   );
 
