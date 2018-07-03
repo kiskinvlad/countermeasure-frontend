@@ -78,6 +78,8 @@ import { PrincipledSettlementComponent } from './pages/reports/principled-settle
 import { MyCurrencyPipe } from '@app/shared/pipe/MyCurrency/my-currency.pipe';
 import { MyCurrencyFormatterDirective } from '@app/shared/directive/MyCurrencyFormatter/my-currency-formatter.directive';
 import { CalcInputFormatterDirective } from './shared/directive/CalcInputFormatter/calc-input-formatter.directive';
+import { DialogConfirmComponent } from './shared/components/dialog-confirm/dialog-confirm.component';
+import { AddTaxesGuard } from '@app/shared/guard/add-taxes.guard';
 
 @NgModule({
   declarations: [
@@ -116,6 +118,7 @@ import { CalcInputFormatterDirective } from './shared/directive/CalcInputFormatt
     MyCurrencyPipe,
     MyCurrencyFormatterDirective,
     CalcInputFormatterDirective,
+    DialogConfirmComponent,
   ],
   imports: [
     BrowserModule,
@@ -147,6 +150,7 @@ import { CalcInputFormatterDirective } from './shared/directive/CalcInputFormatt
   providers: [
     AuthenticationService,
     AuthGuardService,
+    AddTaxesGuard,
     DashboardGuardService,
     ApiRoutingService,
     RoleService,
@@ -167,7 +171,8 @@ import { CalcInputFormatterDirective } from './shared/directive/CalcInputFormatt
   ],
   entryComponents: [
     DialogCreateCaseComponent,
-    DialogCreateOrgComponent
+    DialogCreateOrgComponent,
+    DialogConfirmComponent
   ],
   bootstrap: [AppComponent]
 })

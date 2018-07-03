@@ -28,6 +28,7 @@ import { EditGuestComponent } from '@app/pages/organization/edit-guest/edit-gues
 import { AnticipatedLitigationComponent } from '@app/pages/reports/anticipated-litigation/anticipated-litigation.component';
 import { PrincipledSettlementComponent } from '@app/pages/reports/principled-settlement/principled-settlement.component';
 import { DashboardOrganizationsComponent } from '@app/pages/dashboard-organizations/dashboard-organizations.component';
+import { AddTaxesGuard } from '@app/shared/guard/add-taxes.guard';
 /**
  * Application routes
  */
@@ -45,8 +46,8 @@ const routes: Routes = [
   { path: 'case/:case_id/detail', component: EditCasesComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/taxes', component: EditTaxesComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/taxes/summary', component: SummaryTaxesComponent, canActivate: [AuthGuardService] },
-  { path: 'case/:case_id/taxes/edit/:disputed_id', component: AddEditTaxComponent, canActivate: [AuthGuardService] },
-  { path: 'case/:case_id/taxes/add', component: AddEditTaxComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/taxes/edit/:disputed_id', component: AddEditTaxComponent, canActivate: [AuthGuardService], canDeactivate: [AddTaxesGuard] },
+  { path: 'case/:case_id/taxes/add', component: AddEditTaxComponent, canActivate: [AuthGuardService], canDeactivate: [AddTaxesGuard] },
   { path: 'case/:case_id/amount-in-dispute', component: AmountInDisputeComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/issues-in-dispute', component: IssuesInDisputeComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/anticipated-litigation', component: AnticipatedLitigationComponent, canActivate: [AuthGuardService] },

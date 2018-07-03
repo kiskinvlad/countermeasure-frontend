@@ -35,6 +35,8 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
  * @param {number} total_page Page count param
  * @param {number} items_per_page Items count per page param
  * @param {string} user_role User role param
+ * @param {number} default_items_per_page Items count per page param
+ * @param {boolean} flag_page_no flag for page number updated
  * @param {object} dialogConfig Bootstrap modal dialog options param
  */
   public cases: Array<any> = [];
@@ -52,6 +54,8 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
   private total_page: number;
   private items_per_page: number;
   private user_role: string;
+  private default_items_per_page: number;
+  private flag_page_no: boolean;
   private dialogConfig = {
     animated: true,
     keyboard: true,
@@ -69,6 +73,8 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
     private detailDlgService: BsModalService,
     private store: Store<AppState>
   ) {
+    this.default_items_per_page = 10;
+    this.flag_page_no = false;
     this.getState$ = this.store.select(selectCasesState);
   }
 /**
@@ -96,7 +102,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
       filter_param: { 'id': 1 },
       sort_param: { 'id': 1, field: 'matter_id'},
       page_number: this.page_number,
-      items_per_page: 5
+      items_per_page: this.default_items_per_page
     };
     this.store.dispatch(new FetchCases(payload));
   }
@@ -115,7 +121,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
           filter_param: { 'id': this.filter_param === 'All' ? 1 : 2 },
           sort_param: this.sort_param,
           page_number: this.page_number,
-          items_per_page: 5,
+          items_per_page: this.default_items_per_page,
           search_name: this.search_name
         };
         this.store.dispatch(new CreateCase(payload));
@@ -144,7 +150,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
           filter_param: { 'id': this.filter_param === 'All' ? 1 : 2 },
           sort_param: this.sort_param,
           page_number: this.page_number,
-          items_per_page: 5,
+          items_per_page: this.default_items_per_page,
           search_name: this.search_name
         };
         this.store.dispatch(new CreateCase(payload));
@@ -168,7 +174,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
       filter_param: { 'id': this.filter_param === 'All' ? 1 : 2 },
       sort_param: this.sort_param,
       page_number: this.page_number,
-      items_per_page: 5,
+      items_per_page: this.default_items_per_page,
       search_name: this.search_name,
       case_id: this.cases[i].case_id
     };
@@ -195,11 +201,12 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
     const payload = {
       filter_param: { 'id': this.filter_param === 'All' ? 1 : 2 },
       sort_param: this.sort_param,
-      page_number: this.page_number,
-      items_per_page: 5,
+      page_number: this.flag_page_no ? this.page_number : 1,
+      items_per_page: this.default_items_per_page,
       search_name: this.search_name
     };
-
+    this.page_number = this.flag_page_no ? this.page_number : 1;
+    this.flag_page_no = false;
     this.store.dispatch(new FetchCases(payload));
   }
 /**
@@ -211,6 +218,7 @@ export class DashboardCaseComponent implements OnInit, OnDestroy {
     if (page_no === 0 || page_no === Math.ceil(this.total_count / this.items_per_page) + 1) {
       return false;
     }
+    this.flag_page_no = true;
     this.page_number = page_no;
     this.getItems();
   }

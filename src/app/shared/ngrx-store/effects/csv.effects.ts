@@ -27,9 +27,11 @@ import { CsvService } from '@app/core/services/CsvService/csv.service';
 export class CsvEffects {
 /**
  * @param {number} case_id Current case id
+ * @param {number} matter_id Current matter id
  * @param {string} type Type of table
  */
   private case_id: number;
+  private matter_id: number;
   private type: string;
 /**
  * @constructor
@@ -56,9 +58,10 @@ export class CsvEffects {
     .switchMap(payload => {
       this.case_id = payload.case_id;
       this.type = payload.type;
-      return this.csvService.createCsv(payload.json)
+      return this.csvService.createCsv(payload)
         .map((data) => {
-          const csv = new Blob([data], { type: 'text/csv' });
+          const csv = new Blob([JSON.parse(data).data], { type: 'text/csv' });
+          this.matter_id = JSON.parse(data).matter_id
           return new CreateCsvSuccess(csv);
         })
         .catch((error) => {
@@ -71,7 +74,11 @@ export class CsvEffects {
   CreateCsvSuccess: Observable<any> = this.actions.pipe(
     ofType(CsvActionTypes.CREATE_CSV_SUCCESS),
     tap(({payload: data}) => {
-      saveAs(data, 'Case_' + this.case_id + '_' + this.type + '_summary.csv');
+      let date = new Date();
+      saveAs(data, date.getFullYear() + '-' + 
+                  (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + '-' + 
+                  (date.getDay() < 10 ? '0' + date.getDay() : date.getDay()) + 
+                  ' Matter ID ' + this.matter_id + ' ' + this.type + ' Summary.csv');
       this.notificationsService.success('Successful', 'Download started');
     })
   );

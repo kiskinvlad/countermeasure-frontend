@@ -42,10 +42,10 @@
         <td>{{element.last_updated}}</td>
         <td class="case-action">
           <table class="table table-bordered actions">
-            <th *ngIf="user_role == 'OG'">View</th>
-            <th (click)="redirectToDetail(i)"*ngIf="user_role != 'OG'">Edit</th>
-            <th (click)="openCopyCaseDialog(i)">Copy</th>
-            <th *ngIf="user_role == 'CA' || user_role == 'OA'" (click)="deleteCase(i)">Delete</th>
+            <th class="action-link" *ngIf="user_role === 'OG'">View</th>
+            <th class="action-link" (click)="redirectToDetail(i)" *ngIf="user_role !== 'OG'">Edit</th>
+            <th class="action-link" (click)="openCopyCaseDialog(i)" *ngIf="user_role !== 'OG'">Copy</th>
+            <th class="action-link" *ngIf="user_role === 'CA' || user_role === 'OA'" (click)="deleteCase(i)">Delete</th>
           </table>
         </td>
       </tr>
