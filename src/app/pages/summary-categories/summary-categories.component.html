@@ -7,18 +7,18 @@
       <div class="d-flex justify-content-between section-title">
         <p><b>{{categoryGroup.taxpayer}}</b></p>
       </div>
-      <p><b>Personal Income Tax Year in Dispute</b></p>
+      <p><b>Personal Income Tax Years in Dispute</b></p>
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Category Name</th>
-            <th>Taxable Income</th>
-            <th>Non-refundable Federal Tax Credits</th>
-            <th>Non-refundable Provincial Tax Credits</th>
-            <th>Other Amounts Payable</th>
-            <th>Credits Applied on Filing</th>
-            <th>Income Subject to GNP</th>
-            <th>Other Penalties</th>
+            <th class="text-center align-middle">Category Name</th>
+            <th class="text-center align-middle">Taxable Income</th>
+            <th class="text-center align-middle">Non-refundable Federal Tax Credits</th>
+            <th class="text-center align-middle">Non-refundable Provincial Tax Credits</th>
+            <th class="text-center align-middle">Other Amounts Payable</th>
+            <th class="text-center align-middle">Credits Applied on Filing</th>
+            <th class="text-center align-middle">Income Subject to GNP</th>
+            <th class="text-center align-middle">Other Penalties</th>
           </tr>
         </thead>
         <tbody>
@@ -47,20 +47,20 @@
     </div>
     <div class="edit-categories">
       <div class="d-flex justify-content-between section-title">
-        <p><b>All taxpayers</b></p>
+        <p><b>All Taxpayers</b></p>
       </div>
       <p><b>Combined</b></p>
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Category Name</th>
-            <th>Taxable Income Sales</th>
-            <th>Non-refundable Federal Tax Credits</th>
-            <th>Non-refundable Provincial Tax Credits</th>
-            <th>Other Amounts Payable</th>
-            <th>Credits Applied on Filing</th>
-            <th>Income Subject to GNP</th>
-            <th>Other Penalties</th>
+            <th class="text-center align-middle">Category Name</th>
+            <th class="text-center align-middle">Taxable Income Sales</th>
+            <th class="text-center align-middle">Non-refundable Federal Tax Credits</th>
+            <th class="text-center align-middle">Non-refundable Provincial Tax Credits</th>
+            <th class="text-center align-middle">Other Amounts Payable</th>
+            <th class="text-center align-middle">Credits Applied on Filing</th>
+            <th class="text-center align-middle">Income Subject to GNP</th>
+            <th class="text-center align-middle">Other Penalties</th>
           </tr>
         </thead>
         <tbody>
@@ -87,6 +87,6 @@
         </tbody>
       </table>
     </div>
-    <button type="button" class="btn btn-primary" (click)='create_csv()'> Create CVS </button>
+    <button type="button" class="btn btn-primary" (click)='create_csv()'> Download CSV </button>
   </div>
 </div>

@@ -1,5 +1,10 @@
 .wrapper {
     padding: 1rem;
+    .table {
+        td {
+           width: 12.5%;
+       }
+    }
 }
 .summary-categories,
 .edit-categories {

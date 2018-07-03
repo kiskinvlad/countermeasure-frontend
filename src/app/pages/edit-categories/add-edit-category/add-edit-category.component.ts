@@ -153,25 +153,18 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       Validators.required
     ]);
     this.income = new FormControl('', [
-      Validators.required
     ]);
     this.federal = new FormControl('', [
-      Validators.required
     ]);
     this.provincial = new FormControl('', [
-      Validators.required
     ]);
     this.other_amounts = new FormControl('', [
-      Validators.required
     ]);
     this.credits = new FormControl('', [
-      Validators.required
     ]);
     this.gnp = new FormControl('', [
-      Validators.required
     ]);
     this.other_penalties = new FormControl('', [
-      Validators.required
     ]);
   }
 /**
