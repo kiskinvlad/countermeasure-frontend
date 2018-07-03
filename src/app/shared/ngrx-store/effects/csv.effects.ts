@@ -57,6 +57,7 @@ export class CsvEffects {
     .map((action: CreateCsv) => action.payload)
     .switchMap(payload => {
       this.case_id = payload.case_id;
+      this.matter_id = payload.matter_id;
       this.type = payload.type;
       return this.csvService.createCsv(payload)
         .map((data) => {
