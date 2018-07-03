@@ -25,7 +25,8 @@ export class SummaryCategoriesComponent implements OnInit, OnDestroy {
  * @param {number} case_id Current case id param
  * @param {number} total Total categories count param
  * @param {Array<any>} groupedCategories Grouped categories array param
- * @param {Array<any>} combinedCategories Combined categories array param
+ * @param {Array<any>} groupedCategoriesTotals Grouped categories totals array param
+ * @param {Array<any>} combinedAndGroupedCategories Combined and grouped categories param
  * @param {any} combinedCategoriesTotals Combined categories totals object param
  */
   private getState$: Observable<any>;
@@ -35,8 +36,10 @@ export class SummaryCategoriesComponent implements OnInit, OnDestroy {
   public case_id: number;
   public total: number;
   public groupedCategories: Array<any> = [];
-  public combinedCategories: Array<any> = [];
+  public groupedCategoriesTotals: Array<any> = [];
+  public combinedAndGroupedCategories: Array<any> = [];
   public combinedCategoriesTotals: any = {};
+  public totals: any = {};
 /**
  * @constructor
  * @param {ActivatedRoute} route Current route state service
@@ -57,12 +60,12 @@ export class SummaryCategoriesComponent implements OnInit, OnDestroy {
       this.categories = (state.categories || []).map(item => {
         return {...item };
       });
-      this.combinedCategories = this.createCombinedData(this.categories);
       this.groupedCategories = this.groupBy(this.categories, 'taxpayer', function(item) {
         return item.taxpayer;
       });
-      this.calculateTotals(this.groupedCategories);
-      this.calculateCombinedTotals(this.combinedCategories);
+      this.combinedAndGroupedCategories = this.createCombinedData(this.groupedCategories);
+      this.calculateTotals(this.combinedAndGroupedCategories);
+      this.combinedCategoriesTotals = this.calculateCombinedTotals(Object.assign({}, this.categories));
     });
     this.subscription = this.route.params.subscribe(params => {
       this.case_id = +params['case_id'];
@@ -106,13 +109,20 @@ export class SummaryCategoriesComponent implements OnInit, OnDestroy {
       let income_subject_to_gnp_total = 0;
       let other_penalties_total = 0;
       item.forEach((category) => {
-        taxable_income_total += +category.taxable_income;
-        non_refundable_federal_tax_credits_total += +category.federal_non_refundable_tax_credits;
-        non_refundable_provincial_tax_credits_total += +category.provincial_non_refundable_tax_credits;
-        other_amounts_payable_total += +category.other_amounts_payable;
-        credits_applied_on_filing_total += +category.credits_applied_on_filing;
-        income_subject_to_gnp_total += + category.income_subject_to_gnp;
-        other_penalties_total += + category.other_penalties;
+        taxable_income_total +=
+          +category.taxable_income_combined || +category.taxable_income;
+        non_refundable_federal_tax_credits_total +=
+          +category.federal_non_refundable_tax_credits_combined || +category.federal_non_refundable_tax_credits;
+        non_refundable_provincial_tax_credits_total +=
+          +category.provincial_non_refundable_tax_credits_combined || +category.provincial_non_refundable_tax_credits;
+        other_amounts_payable_total +=
+          +category.other_amounts_payable_combined || +category.other_amounts_payable;
+        credits_applied_on_filing_total +=
+          +category.credits_applied_on_filing_combined || +category.credits_applied_on_filing;
+        income_subject_to_gnp_total +=
+          + category.income_subject_to_gnp_combined || + category.income_subject_to_gnp;
+        other_penalties_total +=
+          + category.other_penalties_combined || + category.other_penalties;
       });
       item.taxable_income_total = taxable_income_total;
       item.non_refundable_federal_tax_credits_total = non_refundable_federal_tax_credits_total;
@@ -125,67 +135,98 @@ export class SummaryCategoriesComponent implements OnInit, OnDestroy {
   }
 /**
  * Calculate combined categories totals for table method
+ * @param {Array<any>} categories
+ * @returns {Array<any>}
  */
-  private calculateCombinedTotals(categories): void {
-      let taxable_income_total = 0;
-      let non_refundable_federal_tax_credits_total = 0;
-      let non_refundable_provincial_tax_credits_total = 0;
-      let other_amounts_payable_total = 0;
-      let credits_applied_on_filing_total = 0;
-      let income_subject_to_gnp_total = 0;
-      let other_penalties_total = 0;
-      categories.forEach((category) => {
-        taxable_income_total +=
-          +category.taxable_income_grouped || +category.taxable_income;
-        non_refundable_federal_tax_credits_total +=
-          +category.federal_non_refundable_tax_credits_grouped || +category.federal_non_refundable_tax_credits;
-        non_refundable_provincial_tax_credits_total +=
-          +category.provincial_non_refundable_tax_credits_grouped || +category.provincial_non_refundable_tax_credits;
-        other_amounts_payable_total +=
-          +category.other_amounts_payable_grouped || +category.other_amounts_payable;
-        credits_applied_on_filing_total +=
-          +category.credits_applied_on_filing_grouped || +category.credits_applied_on_filing;
-        income_subject_to_gnp_total +=
-          +category.income_subject_to_gnp_grouped || +category.income_subject_to_gnp;
-        other_penalties_total +=
-          +category.other_penalties_grouped || +category.other_penalties;
-      });
-      this.combinedCategoriesTotals['taxable_income_total'] = taxable_income_total;
-      this.combinedCategoriesTotals['non_refundable_federal_tax_credits_total'] = non_refundable_federal_tax_credits_total;
-      this.combinedCategoriesTotals['non_refundable_provincial_tax_credits_total'] = non_refundable_provincial_tax_credits_total;
-      this.combinedCategoriesTotals['other_amounts_payable_total'] = other_amounts_payable_total;
-      this.combinedCategoriesTotals['credits_applied_on_filing_total'] = credits_applied_on_filing_total;
-      this.combinedCategoriesTotals['income_subject_to_gnp_total'] = income_subject_to_gnp_total;
-      this.combinedCategoriesTotals['other_penalties_total'] = other_penalties_total;
+  private calculateCombinedTotals(categories): Array<any>  {
+    const output = [];
+    const array = Object.assign([], categories);
+    const obj = {};
+    const total = {};
+
+    total['taxable_income_total'] = 0;
+    total['federal_non_refundable_tax_credits_total'] = 0;
+    total['provincial_non_refundable_tax_credits_total'] = 0;
+    total['other_amounts_payable_total'] = 0;
+    total['credits_applied_on_filing_total'] = 0;
+    total['income_subject_to_gnp_total'] = 0;
+    total['other_penalties_total'] = 0;
+
+    array.forEach((item) => {
+      const name = item.name;
+        if (!obj[name]) {
+          obj[name] = item;
+        } else {
+          obj[name].taxable_income_total =
+            + obj[name].taxable_income_total || +obj[name].taxable_income + +item.taxable_income ;
+          obj[name].federal_non_refundable_tax_credits_total =
+            + obj[name].federal_non_refundable_tax_credits_total ||
+            + obj[name].federal_non_refundable_tax_credits + +item.federal_non_refundable_tax_credits;
+          obj[name].provincial_non_refundable_tax_credits_total =
+            + obj[name].provincial_non_refundable_tax_credits_total ||
+            + obj[name].provincial_non_refundable_tax_credits + +item.provincial_non_refundable_tax_credits;
+          obj[name].other_amounts_payable_total =
+            + obj[name].other_amounts_payable_total || +obj[name].other_amounts_payable + +item.other_amounts_payable;
+          obj[name].credits_applied_on_filing_total =
+            + obj[name].credits_applied_on_filing_total || +obj[name].credits_applied_on_filing + +item.credits_applied_on_filing;
+          obj[name].income_subject_to_gnp_total =
+            + obj[name].income_subject_to_gnp_total || +obj[name].income_subject_to_gnp + +item.income_subject_to_gnp;
+          obj[name].other_penalties_total =
+            + obj[name].other_penalties_total || +obj[name].other_penalties + +item.other_penalties;
+        }
+    });
+    Object.keys(obj).forEach((key) => {
+      output.push(obj[key]);
+    });
+    output.forEach((item) => {
+      total['taxable_income_total'] += item.taxable_income_total;
+      total['federal_non_refundable_tax_credits_total'] += item.federal_non_refundable_tax_credits_total;
+      total['provincial_non_refundable_tax_credits_total'] += item.provincial_non_refundable_tax_credits_total;
+      total['other_amounts_payable_total'] += item.other_amounts_payable_total;
+      total['credits_applied_on_filing_total'] += item.credits_applied_on_filing_total;
+      total['income_subject_to_gnp_total'] += item.income_subject_to_gnp_total;
+      total['other_penalties_total'] += item.other_penalties_total;
+    });
+    this.totals = total;
+    return output;
   }
 /**
  * Calculate combined categories data for table method
+ * @param {Array<any>} categories
+ * @returns {Array<any>}
  */
   private createCombinedData(categories: Array<any>): Array<any> {
-    const output = [];
-    categories.forEach(function(value) {
-      const existing = output.filter(function(v, i) {
-        return v.name === value.name;
+    let output = [];
+    const array = Object.assign([], categories);
+    array.forEach((i) => {
+      const obj = {};
+      i.forEach((item) => {
+        const name = item.name;
+        if (!obj[name]) {
+          obj[name] = item;
+        } else {
+          obj[name].taxable_income =
+           +item.taxable_income + +obj[name].taxable_income;
+          obj[name].federal_non_refundable_tax_credits =
+           +obj[name].federal_non_refundable_tax_credits + +item.federal_non_refundable_tax_credits;
+          obj[name].provincial_non_refundable_tax_credits =
+           +obj[name].provincial_non_refundable_tax_credits + +item.provincial_non_refundable_tax_credits;
+          obj[name].other_amounts_payable =
+           +obj[name].other_amounts_payable + +item.other_amounts_payable;
+          obj[name].credits_applied_on_filing =
+           +obj[name].credits_applied_on_filing + +item.credits_applied_on_filing;
+          obj[name].income_subject_to_gnp =
+           +obj[name].income_subject_to_gnp + +item.income_subject_to_gnp;
+          obj[name].other_penalties =
+           +obj[name].other_penalties + +item.other_penalties;
+        }
       });
-      if (existing.length) {
-        const existingIndex = output.indexOf(existing[0]);
-        output[existingIndex].taxable_income_grouped =
-          +output[existingIndex].taxable_income + +value.taxable_income;
-        output[existingIndex].federal_non_refundable_tax_credits_grouped =
-          +output[existingIndex].federal_non_refundable_tax_credits + +value.federal_non_refundable_tax_credits;
-        output[existingIndex].provincial_non_refundable_tax_credits_grouped =
-          +output[existingIndex].provincial_non_refundable_tax_credits + +value.provincial_non_refundable_tax_credits;
-        output[existingIndex].other_amounts_payable_grouped =
-          +output[existingIndex].other_amounts_payable + +value.other_amounts_payable;
-        output[existingIndex].credits_applied_on_filing_grouped =
-          +output[existingIndex].credits_applied_on_filing + +value.credits_applied_on_filing;
-        output[existingIndex].income_subject_to_gnp_grouped =
-          +output[existingIndex].income_subject_to_gnp + +value.income_subject_to_gnp;
-        output[existingIndex].other_penalties_grouped =
-          +output[existingIndex].other_penalties + +value.other_penalties;
-      } else {
-        output.push(value);
-      }
+      Object.keys(obj).forEach((key) => {
+        output.push(obj[key]);
+      });
+    });
+    output = this.groupBy(output, 'taxpayer', function(item) {
+      return item.taxpayer;
     });
     return output;
   }
@@ -193,7 +234,7 @@ export class SummaryCategoriesComponent implements OnInit, OnDestroy {
  * Create comma separated values table method
  */
   public create_csv(): void {
-    const json = this.generateJsonForCvs(this.groupedCategories, this.combinedCategories, this.combinedCategoriesTotals);
+    const json = this.generateJsonForCvs(this.combinedAndGroupedCategories, this.combinedCategoriesTotals, this.totals);
     this.store.dispatch(new CreateCsv({json: json, case_id: this.case_id, type: 'categories'}));
   }
 /**
@@ -208,62 +249,62 @@ export class SummaryCategoriesComponent implements OnInit, OnDestroy {
     let totalObj = {};
     groupedCategories.forEach((item) => {
       item.forEach((category) => {
-        categoryObj['taxpayer'] = Object.assign({}, category).taxpayer;
-        categoryObj['type'] = 'Personal Income Tax Returns';
-        categoryObj['category'] = category.name;
-        categoryObj['tax$'] = +category.taxable_income;
-        categoryObj['penalties$'] = + category.other_penalties;
-        categoryObj['federal_non_refundable_tax_credits$'] = +category.federal_non_refundable_tax_credits;
-        categoryObj['provincial_non_refundable_tax_credits$'] = +category.provincial_non_refundable_tax_credits;
-        categoryObj['other_amounts_payable$'] = +category.other_amounts_payable;
-        categoryObj['credits_applied_on_filing$'] = +category.credits_applied_on_filing;
-        categoryObj['income_subject_to_gnp$'] = + category.income_subject_to_gnp;
+        categoryObj['Taxpayer'] = Object.assign({}, category).taxpayer;
+        categoryObj['Type'] = 'Personal Income Tax Returns';
+        categoryObj['Category Name'] = category.name;
+        categoryObj['Taxable Income'] = +category.taxable_income;
+        categoryObj['Other Penalties'] = + category.other_penalties;
+        categoryObj['Non-refundable Federal Tax Credits'] = +category.federal_non_refundable_tax_credits;
+        categoryObj['Non-refundable Provincial Tax Credits'] = +category.provincial_non_refundable_tax_credits;
+        categoryObj['Other Amounts Payable'] = +category.other_amounts_payable;
+        categoryObj['Credits Applied on Filing'] = +category.credits_applied_on_filing;
+        categoryObj['Income Subject to GNP'] = + category.income_subject_to_gnp;
         json.push(Object.assign({}, categoryObj));
       });
-      totalObj['taxpayer'] = item.taxpayer;
-      totalObj['type'] = 'Personal Income Tax Returns';
-      totalObj['category'] = 'Total';
-      totalObj['tax$'] = +item.taxable_income_total;
-      totalObj['penalties$'] = + item.other_penalties_total;
-      totalObj['federal_non_refundable_tax_credits$'] = +item.non_refundable_federal_tax_credits_total;
-      totalObj['provincial_non_refundable_tax_credits$'] = +item.non_refundable_provincial_tax_credits_total;
-      totalObj['other_amounts_payable$'] = +item.other_amounts_payable_total;
-      totalObj['credits_applied_on_filing$'] = +item.credits_applied_on_filing_total;
-      totalObj['income_subject_to_gnp$'] = + item.income_subject_to_gnp_total;
+      totalObj['Taxpayer'] = item.taxpayer;
+      totalObj['Type'] = 'Personal Income Tax Returns';
+      totalObj['Category Name'] = 'Total';
+      totalObj['Taxable Income'] = +item.taxable_income_total;
+      totalObj['Other Penalties'] = + item.other_penalties_total;
+      totalObj['Non-refundable Federal Tax Credits'] = +item.non_refundable_federal_tax_credits_total;
+      totalObj['Non-refundable Provincial Tax Credits'] = +item.non_refundable_provincial_tax_credits_total;
+      totalObj['Other Amounts Payable'] = +item.other_amounts_payable_total;
+      totalObj['Credits Applied on Filing'] = +item.credits_applied_on_filing_total;
+      totalObj['Income Subject to GNP'] = + item.income_subject_to_gnp_total;
       json.push(Object.assign({}, totalObj));
     });
     categoryObj = {};
     totalObj = {};
     combinedCategories.forEach((item) => {
-      categoryObj['taxpayer'] = 'All taxpayers';
-      categoryObj['type'] = 'All Tax Returns';
-      categoryObj['category'] = item.name;
-      categoryObj['tax$'] =
-        +item.taxable_income_grouped || +item.taxable_income;
-      categoryObj['penalties$'] =
-        +item.other_penalties_grouped || +item.other_penalties;
-      categoryObj['federal_non_refundable_tax_credits$'] =
-        +item.federal_non_refundable_tax_credits_grouped || +item.federal_non_refundable_tax_credits;
-      categoryObj['provincial_non_refundable_tax_credits$'] =
-        +item.provincial_non_refundable_tax_credits_grouped || +item.provincial_non_refundable_tax_credits;
-      categoryObj['other_amounts_payable$'] =
-        +item.other_amounts_payable_grouped || +item.other_amounts_payable;
-      categoryObj['credits_applied_on_filing$'] =
-        +item.credits_applied_on_filing_grouped || +item.credits_applied_on_filing;
-      categoryObj['income_subject_to_gnp$'] =
-        +item.income_subject_to_gnp_grouped || +item.income_subject_to_gnp;
+      categoryObj['Taxpayer'] = 'All taxpayers';
+      categoryObj['Type'] = 'All Tax Returns';
+      categoryObj['Category Name'] = item.name;
+      categoryObj['Taxable Income'] =
+        +item.taxable_income_total || +item.taxable_income;
+      categoryObj['Other Penalties'] =
+        +item.other_penalties_total || +item.other_penalties;
+      categoryObj['Non-refundable Federal Tax Credits'] =
+        +item.federal_non_refundable_tax_credits_total || +item.federal_non_refundable_tax_credits;
+      categoryObj['Non-refundable Provincial Tax Credits'] =
+        +item.provincial_non_refundable_tax_credits_total || +item.provincial_non_refundable_tax_credits;
+      categoryObj['Other Amounts Payable'] =
+        +item.other_amounts_payable_total || +item.other_amounts_payable;
+      categoryObj['Credits Applied on Filing'] =
+        +item.credits_applied_on_filing_total || +item.credits_applied_on_filing;
+      categoryObj['Income Subject to GNP'] =
+        +item.income_subject_to_gnp_total || +item.income_subject_to_gnp;
       json.push(Object.assign({}, categoryObj));
     });
-    totalObj['taxpayer'] = 'All taxpayers';
-    totalObj['type'] = 'All Tax Returns';
-    totalObj['category'] = 'Total';
-    totalObj['tax$'] = +combinedCategoriesTotals.taxable_income_total;
-    totalObj['penalties$'] = +combinedCategoriesTotals.other_penalties_total;
-    totalObj['federal_non_refundable_tax_credits$'] = +combinedCategoriesTotals.non_refundable_federal_tax_credits_total;
-    totalObj['provincial_non_refundable_tax_credits$'] = +combinedCategoriesTotals.non_refundable_provincial_tax_credits_total;
-    totalObj['other_amounts_payable$'] = +combinedCategoriesTotals.other_amounts_payable_total;
-    totalObj['credits_applied_on_filing$'] = +combinedCategoriesTotals.credits_applied_on_filing_total;
-    totalObj['income_subject_to_gnp$'] = +combinedCategoriesTotals.income_subject_to_gnp_total;
+    totalObj['Taxpayer'] = 'All taxpayers';
+    totalObj['Type'] = 'All Tax Returns';
+    totalObj['Category Name'] = 'Total';
+    totalObj['Taxable Income'] = +combinedCategoriesTotals.taxable_income_total;
+    totalObj['Other Penalties'] = +combinedCategoriesTotals.other_penalties_total;
+    totalObj['Non-refundable Federal Tax Credits'] = +combinedCategoriesTotals.federal_non_refundable_tax_credits_total;
+    totalObj['Non-refundable Provincial Tax Credits'] = +combinedCategoriesTotals.provincial_non_refundable_tax_credits_total;
+    totalObj['Other Amounts Payable'] = +combinedCategoriesTotals.other_amounts_payable_total;
+    totalObj['Credits Applied on Filing'] = +combinedCategoriesTotals.credits_applied_on_filing_total;
+    totalObj['Income Subject to GNP'] = +combinedCategoriesTotals.income_subject_to_gnp_total;
     json.push(Object.assign({}, totalObj));
     return json;
   }
