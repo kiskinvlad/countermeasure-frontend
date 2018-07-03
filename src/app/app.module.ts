@@ -16,6 +16,7 @@ import { ModalModule } from 'ngx-bootstrap';
 import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from './app.component';
@@ -146,6 +147,7 @@ import { AddTaxesGuard } from '@app/shared/guard/add-taxes.guard';
       PermissionEffects
     ]),
     SimpleNotificationsModule.forRoot(),
+    CurrencyMaskModule,
   ],
   providers: [
     AuthenticationService,

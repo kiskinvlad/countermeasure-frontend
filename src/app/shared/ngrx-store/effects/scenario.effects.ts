@@ -65,7 +65,6 @@ export class ScenarioEffects {
     .switchMap(payload => {
       return this.scenarioService.getFilteredAndSorted(payload)
         .map((data) => {
-          console.log('ss', data);
           return new FetchScenariosSuccess(data);
         })
         .catch((error) => {
@@ -179,7 +178,7 @@ export class ScenarioEffects {
     ofType(ScenariosActionTypes.DELETE_SCENARIO_SUCCESS),
     tap(({payload: data}) => {
       this.router.navigate(['/case', data.case_id, 'scenarios']);
-      this.notificationsService.success('Success', 'Scenario ' + data.name + ' deleted!');
+      this.notificationsService.success('Success', 'Scenario ' + data.name + ' deleted.');
     })
   );
 
@@ -211,7 +210,7 @@ export class ScenarioEffects {
     ofType(ScenariosActionTypes.UPDATE_SCENARIO_SUCCESS),
     tap(({payload: data}) => {
       this.router.navigate(['/case', data.scenario.case_id, 'scenarios']);
-      this.notificationsService.success('Successful', 'Scenario ' + data.scenario.name + ' updated!');
+      this.notificationsService.success('Successful', 'Scenario ' + data.scenario.name + ' updated.');
     })
   );
 
@@ -243,7 +242,7 @@ export class ScenarioEffects {
     ofType(ScenariosActionTypes.CREATE_SCENARIO_SUCCESS),
     tap(({payload: data}) => {
       this.router.navigate(['/case', data.scenario.case_id, 'scenarios']);
-      this.notificationsService.success('Successful', 'Scenario ' + data.scenario.name + ' created!');
+      this.notificationsService.success('Successful', 'Scenario ' + data.scenario.name + ' created.');
     })
   );
 
