@@ -46,7 +46,7 @@ export const reducers = {
   scenarioState: scenario.reducer,
   organizationState: organization.reducer,
   csvState: csv.reducer,
-  permissionState: permission.reducer
+  permissionState: permission.reducer,
 };
 
 export const selectAuthState = createFeatureSelector<AppState>('authState');

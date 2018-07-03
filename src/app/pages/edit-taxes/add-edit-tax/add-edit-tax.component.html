@@ -3,7 +3,7 @@
 <div class="d-flex flex-row">
   <ct-sidebar></ct-sidebar>
 
-  <div class="d-flex flex-row">
+  <form class="d-flex flex-row" name="taxForm" (change)="changed = true">
 
     <div class="tax-section">
       <div class="d-flex justify-content-between section-title">
@@ -13,11 +13,11 @@
       <div class="d-flex justify-content-start" *ngIf="disputed">
         <div class="p-3 pyp-section" style="width: 20%">
           <p> Taxpayer </p>
-          <input type="text" placeholder="Taxpayer" [(ngModel)]="disputed['taxpayer']"/>
+          <input type="text" name="taxpayer" placeholder="Taxpayer" [(ngModel)]="disputed['taxpayer']"/>
           <p> Taxyear </p>
-          <input type="text" placeholder="Taxyear" [(ngModel)]="disputed['year']"/>
+          <input type="text" name="year" placeholder="Tax Year" [(ngModel)]="disputed['year']"/>
           <p> Province </p>
-          <select placeholder="Province" [(ngModel)]="disputed['province']">
+          <select placeholder="Province" name="province" [(ngModel)]="disputed['province']">
             <option *ngFor="let item of taxes" [ngValue]="item.value">{{item.label}}</option>
           </select>
         </div>
@@ -35,9 +35,9 @@
             <tbody>
               <tr>
                 <td>Taxable Income</td>
-                <td><span>$</span><input type="text" [(ngModel)]="disputed['TP_taxable_income']" myCurrencyFormatter/></td>
-                <td><span>$</span><input type="text" [(ngModel)]="disputed['GP_taxable_income']" myCurrencyFormatter/></td>
-                <td><span>$</span><input disabled type="text" [(ngModel)]="disputed['DIFF_taxable_income'] = disputed['GP_taxable_income'] - disputed['TP_taxable_income']" myCalcInputFormatter/></td>
+                <td><span>$</span><input type="text" name="TP_taxable_income" [(ngModel)]="disputed['TP_taxable_income']" myCurrencyFormatter/></td>
+                <td><span>$</span><input type="text" name="GP_taxable_income" [(ngModel)]="disputed['GP_taxable_income']" myCurrencyFormatter/></td>
+                <td><span>$</span><input disabled type="text" name="DIFF_taxable_income" [(ngModel)]="disputed['DIFF_taxable_income'] = disputed['GP_taxable_income'] - disputed['TP_taxable_income']" myCalcInputFormatter/></td>
               </tr>
               <tr class="header-style">
                 <td>Federal Taxes</td>
@@ -47,15 +47,15 @@
               </tr>
               <tr>
                 <td>Federal Non-Refundable Tax Credits</td>
-                <td>$<input type="text" [(ngModel)]="disputed['TP_federal_non_refundable_tax_credits']" myCurrencyFormatter/></td>
-                <td>$<input type="text" [(ngModel)]="disputed['GP_federal_non_refundable_tax_credits']" myCurrencyFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_federal_non_refundable_tax_credits'] = disputed['GP_federal_non_refundable_tax_credits'] - disputed['TP_federal_non_refundable_tax_credits']" myCalcInputFormatter/></td>
+                <td>$<input type="text" name="TP_federal_non_refundable_tax_credits" [(ngModel)]="disputed['TP_federal_non_refundable_tax_credits']" myCurrencyFormatter/></td>
+                <td>$<input type="text" name="GP_federal_non_refundable_tax_credits" [(ngModel)]="disputed['GP_federal_non_refundable_tax_credits']" myCurrencyFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_federal_non_refundable_tax_credits" [(ngModel)]="disputed['DIFF_federal_non_refundable_tax_credits'] = disputed['GP_federal_non_refundable_tax_credits'] - disputed['TP_federal_non_refundable_tax_credits']" myCalcInputFormatter/></td>
               </tr>
               <tr>
                 <td>Net Federal Tax</td>
-                <td>$<input type="text" [(ngModel)]="disputed['TP_net_federal_tax']" myCurrencyFormatter/></td>
-                <td>$<input type="text" [(ngModel)]="disputed['GP_net_federal_tax']" myCurrencyFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_net_federal_tax'] = disputed['GP_net_federal_tax'] - disputed['TP_net_federal_tax']" myCalcInputFormatter/></td>
+                <td>$<input type="text" name="TP_net_federal_tax" [(ngModel)]="disputed['TP_net_federal_tax']" myCurrencyFormatter/></td>
+                <td>$<input type="text" name="GP_net_federal_tax" [(ngModel)]="disputed['GP_net_federal_tax']" myCurrencyFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_net_federal_tax" [(ngModel)]="disputed['DIFF_net_federal_tax'] = disputed['GP_net_federal_tax'] - disputed['TP_net_federal_tax']" myCalcInputFormatter/></td>
               </tr>
               <tr class="header-style">
                 <td>Provincial Taxes</td>
@@ -65,15 +65,15 @@
               </tr>
               <tr>
                 <td>Provincial Non-Refundable Tax Credits</td>
-                <td>$<input type="text" [(ngModel)]="disputed['TP_provincial_non_refundable_tax_credits']" myCurrencyFormatter/></td>
-                <td>$<input type="text" [(ngModel)]="disputed['GP_provincial_non_refundable_tax_credits']" myCurrencyFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_provincial_non_refundable_tax_credits'] = disputed['GP_provincial_non_refundable_tax_credits'] - disputed['TP_provincial_non_refundable_tax_credits']" myCalcInputFormatter/></td>
+                <td>$<input type="text" name="TP_provincial_non_refundable_tax_credits" [(ngModel)]="disputed['TP_provincial_non_refundable_tax_credits']" myCurrencyFormatter/></td>
+                <td>$<input type="text" name="GP_provincial_non_refundable_tax_credits" [(ngModel)]="disputed['GP_provincial_non_refundable_tax_credits']" myCurrencyFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_provincial_non_refundable_tax_credits" [(ngModel)]="disputed['DIFF_provincial_non_refundable_tax_credits'] = disputed['GP_provincial_non_refundable_tax_credits'] - disputed['TP_provincial_non_refundable_tax_credits']" myCalcInputFormatter/></td>
               </tr>
               <tr>
                 <td>Net Provincial Tax</td>
-                <td>$<input type="text" [(ngModel)]="disputed['TP_net_provincial_tax']" myCurrencyFormatter/></td>
-                <td>$<input type="text" [(ngModel)]="disputed['GP_net_provincial_tax']" myCurrencyFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_net_provincial_tax'] = disputed['GP_net_provincial_tax'] - disputed['TP_net_provincial_tax']" myCalcInputFormatter/></td>
+                <td>$<input type="text" name="TP_net_provincial_tax" [(ngModel)]="disputed['TP_net_provincial_tax']" myCurrencyFormatter/></td>
+                <td>$<input type="text" name="GP_net_provincial_tax" [(ngModel)]="disputed['GP_net_provincial_tax']" myCurrencyFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_net_provincial_tax" [(ngModel)]="disputed['DIFF_net_provincial_tax'] = disputed['GP_net_provincial_tax'] - disputed['TP_net_provincial_tax']" myCalcInputFormatter/></td>
               </tr>
               <tr class="header-style">
                 <td>Payables</td>
@@ -83,27 +83,27 @@
               </tr>
               <tr>
                 <td>Other Amounts Payable</td>
-                <td>$<input type="text" [(ngModel)]="disputed['TP_other_amounts_payable']" myCurrencyFormatter/></td>
-                <td>$<input type="text" [(ngModel)]="disputed['GP_other_amounts_payable']" myCurrencyFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_other_amounts_payable'] = disputed['GP_other_amounts_payable'] - disputed['TP_other_amounts_payable']" myCalcInputFormatter/></td>
+                <td>$<input type="text" name="TP_other_amounts_payable" [(ngModel)]="disputed['TP_other_amounts_payable']" myCurrencyFormatter/></td>
+                <td>$<input type="text" name="GP_other_amounts_payable" [(ngModel)]="disputed['GP_other_amounts_payable']" myCurrencyFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_other_amounts_payable" [(ngModel)]="disputed['DIFF_other_amounts_payable'] = disputed['GP_other_amounts_payable'] - disputed['TP_other_amounts_payable']" myCalcInputFormatter/></td>
               </tr>
               <tr>
                 <td>Total Payable</td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['TP_total_payable'] = 0.00 - -disputed['TP_net_federal_tax'] - -disputed['TP_net_provincial_tax'] - -disputed['TP_other_amounts_payable']" myCalcInputFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['GP_total_payable'] = 0.00 - -disputed['GP_net_federal_tax'] - -disputed['GP_net_provincial_tax'] - -disputed['GP_other_amounts_payable']" myCalcInputFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_total_payable'] = disputed['GP_total_payable'] - disputed['TP_total_payable']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="TP_total_payable" [(ngModel)]="disputed['TP_total_payable'] = 0.00 - -disputed['TP_net_federal_tax'] - -disputed['TP_net_provincial_tax'] - -disputed['TP_other_amounts_payable']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="GP_total_payable" [(ngModel)]="disputed['GP_total_payable'] = 0.00 - -disputed['GP_net_federal_tax'] - -disputed['GP_net_provincial_tax'] - -disputed['GP_other_amounts_payable']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_total_payable" [(ngModel)]="disputed['DIFF_total_payable'] = disputed['GP_total_payable'] - disputed['TP_total_payable']" myCalcInputFormatter/></td>
               </tr>
               <tr>
                 <td>Credits Applied on Filling</td>
-                <td>$<input type="text" [(ngModel)]="disputed['TP_credits_applied_on_filing']" myCurrencyFormatter/></td>
-                <td>$<input type="text" [(ngModel)]="disputed['GP_credits_applied_on_filing']" myCurrencyFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_credits_applied_on_filing'] = disputed['GP_credits_applied_on_filing'] - disputed['TP_credits_applied_on_filing']" myCalcInputFormatter/></td>
+                <td>$<input type="text" name="TP_credits_applied_on_filing" [(ngModel)]="disputed['TP_credits_applied_on_filing']" myCurrencyFormatter/></td>
+                <td>$<input type="text" name="GP_credits_applied_on_filing" [(ngModel)]="disputed['GP_credits_applied_on_filing']" myCurrencyFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_credits_applied_on_filing" [(ngModel)]="disputed['DIFF_credits_applied_on_filing'] = disputed['GP_credits_applied_on_filing'] - disputed['TP_credits_applied_on_filing']" myCalcInputFormatter/></td>
               </tr>
               <tr>
                 <td>Balance Before Penalties and Interest</td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['TP_balance_before_penalties_and_interest'] = disputed['TP_total_payable'] - disputed['TP_credits_applied_on_filing']" myCalcInputFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['GP_balance_before_penalties_and_interest'] = disputed['GP_total_payable'] - disputed['GP_credits_applied_on_filing']" myCalcInputFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_balance_before_penalties_and_interest'] = disputed['GP_balance_before_penalties_and_interest'] - disputed['TP_balance_before_penalties_and_interest']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="TP_balance_before_penalties_and_interest" [(ngModel)]="disputed['TP_balance_before_penalties_and_interest'] = disputed['TP_total_payable'] - disputed['TP_credits_applied_on_filing']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="GP_balance_before_penalties_and_interest" [(ngModel)]="disputed['GP_balance_before_penalties_and_interest'] = disputed['GP_total_payable'] - disputed['GP_credits_applied_on_filing']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_balance_before_penalties_and_interest" [(ngModel)]="disputed['DIFF_balance_before_penalties_and_interest'] = disputed['GP_balance_before_penalties_and_interest'] - disputed['TP_balance_before_penalties_and_interest']" myCalcInputFormatter/></td>
               </tr>
               <tr class="header-style">
                 <td>Penalties</td>
@@ -113,33 +113,33 @@
               </tr>
               <tr>
                 <td>Income Subject to Gross-Negligence Penalty</td>
-                <td>$<input type="text" [(ngModel)]="disputed['TP_income_subject_to_gnp']" myCurrencyFormatter/></td>
-                <td>$<input type="text" [(ngModel)]="disputed['GP_income_subject_to_gnp']" myCurrencyFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_income_subject_to_gnp'] = disputed['GP_income_subject_to_gnp'] - disputed['TP_income_subject_to_gnp']" myCalcInputFormatter/></td>
+                <td>$<input type="text" name="TP_income_subject_to_gnp" [(ngModel)]="disputed['TP_income_subject_to_gnp']" myCurrencyFormatter/></td>
+                <td>$<input type="text" name="GP_income_subject_to_gnp" [(ngModel)]="disputed['GP_income_subject_to_gnp']" myCurrencyFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_income_subject_to_gnp" [(ngModel)]="disputed['DIFF_income_subject_to_gnp'] = disputed['GP_income_subject_to_gnp'] - disputed['TP_income_subject_to_gnp']" myCalcInputFormatter/></td>
               </tr>
               <tr>
                 <td>Gross-Negligence Penalty</td>
-                <td>$<input type="text" [(ngModel)]="disputed['TP_gross_negligence_penalty']" myCurrencyFormatter/></td>
-                <td>$<input type="text" [(ngModel)]="disputed['GP_gross_negligence_penalty']" myCurrencyFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_gross_negligence_penalty'] = disputed['GP_gross_negligence_penalty'] - disputed['TP_gross_negligence_penalty']" myCalcInputFormatter/></td>
+                <td>$<input type="text" name="TP_gross_negligence_penalty" [(ngModel)]="disputed['TP_gross_negligence_penalty']" myCurrencyFormatter/></td>
+                <td>$<input type="text" name="GP_gross_negligence_penalty" [(ngModel)]="disputed['GP_gross_negligence_penalty']" myCurrencyFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_gross_negligence_penalty" [(ngModel)]="disputed['DIFF_gross_negligence_penalty'] = disputed['GP_gross_negligence_penalty'] - disputed['TP_gross_negligence_penalty']" myCalcInputFormatter/></td>
               </tr>
               <tr>
                 <td>Late Filing Penalty</td>
-                <td>$<input type="text" [(ngModel)]="disputed['TP_late_filing_penalty']" myCurrencyFormatter/></td>
-                <td>$<input type="text" [(ngModel)]="disputed['GP_late_filing_penalty']" myCurrencyFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_late_filing_penalty'] = disputed['GP_late_filing_penalty'] - disputed['TP_late_filing_penalty']" myCalcInputFormatter/></td>
+                <td>$<input type="text" name="TP_late_filing_penalty" [(ngModel)]="disputed['TP_late_filing_penalty']" myCurrencyFormatter/></td>
+                <td>$<input type="text" name="GP_late_filing_penalty" [(ngModel)]="disputed['GP_late_filing_penalty']" myCurrencyFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_late_filing_penalty" [(ngModel)]="disputed['DIFF_late_filing_penalty'] = disputed['GP_late_filing_penalty'] - disputed['TP_late_filing_penalty']" myCalcInputFormatter/></td>
               </tr>
               <tr>
                 <td>Other Penalties</td>
-                <td>$<input type="text" [(ngModel)]="disputed['TP_other_penalties']" myCurrencyFormatter/></td>
-                <td>$<input type="text" [(ngModel)]="disputed['GP_other_penalties']" myCurrencyFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_other_penalties'] = disputed['GP_other_penalties'] - disputed['TP_other_penalties']" myCalcInputFormatter/></td>
+                <td>$<input type="text" name="TP_other_penalties" [(ngModel)]="disputed['TP_other_penalties']" myCurrencyFormatter/></td>
+                <td>$<input type="text" name="GP_other_penalties" [(ngModel)]="disputed['GP_other_penalties']" myCurrencyFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_other_penalties" [(ngModel)]="disputed['DIFF_other_penalties'] = disputed['GP_other_penalties'] - disputed['TP_other_penalties']" myCalcInputFormatter/></td>
               </tr>
               <tr>
                 <td>Total Tax and Penalties</td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['TP_total_tax_and_penalties'] = 0.00 - -disputed['TP_balance_before_penalties_and_interest'] - -disputed['TP_gross_negligence_penalty'] - -disputed['TP_late_filing_penalty'] - -disputed['TP_other_penalties']" myCalcInputFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['GP_total_tax_and_penalties'] = 0.00 - -disputed['GP_balance_before_penalties_and_interest'] - -disputed['GP_gross_negligence_penalty'] - -disputed['GP_late_filing_penalty'] - -disputed['GP_other_penalties']" myCalcInputFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_total_tax_and_penalties'] = disputed['GP_total_tax_and_penalties'] - disputed['TP_total_tax_and_penalties']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="TP_total_tax_and_penalties" [(ngModel)]="disputed['TP_total_tax_and_penalties'] = 0.00 - -disputed['TP_balance_before_penalties_and_interest'] - -disputed['TP_gross_negligence_penalty'] - -disputed['TP_late_filing_penalty'] - -disputed['TP_other_penalties']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="GP_total_tax_and_penalties" [(ngModel)]="disputed['GP_total_tax_and_penalties'] = 0.00 - -disputed['GP_balance_before_penalties_and_interest'] - -disputed['GP_gross_negligence_penalty'] - -disputed['GP_late_filing_penalty'] - -disputed['GP_other_penalties']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_total_tax_and_penalties" [(ngModel)]="disputed['DIFF_total_tax_and_penalties'] = disputed['GP_total_tax_and_penalties'] - disputed['TP_total_tax_and_penalties']" myCalcInputFormatter/></td>
               </tr>
               <tr class="header-style">
                 <td>Interest</td>
@@ -150,8 +150,8 @@
               <tr>
                 <td>Estimated Interest</td>
                 <td></td>
-                <td>$<input type="text" [(ngModel)]="disputed['GP_estimated_interest']" myCurrencyFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['DIFF_estimated_interest'] = disputed['GP_estimated_interest']" myCalcInputFormatter/></td>
+                <td>$<input type="text" name="GP_estimated_interest" [(ngModel)]="disputed['GP_estimated_interest']" myCurrencyFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_estimated_interest" [(ngModel)]="disputed['DIFF_estimated_interest'] = disputed['GP_estimated_interest']" myCalcInputFormatter/></td>
               </tr>
               <tr class="header-style">
                 <td>Total</td>
@@ -161,9 +161,9 @@
               </tr>
               <tr>
                 <td>Balance</td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['TP_total_debt'] = disputed['TP_total_tax_and_penalties']" myCalcInputFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['GP_total_debt'] = 0.00 - -disputed['GP_total_tax_and_penalties'] - -disputed['GP_estimated_interest']" myCalcInputFormatter/></td>
-                <td>$<input disabled type="text" [(ngModel)]="disputed['GP_total_debt'] - disputed['TP_total_debt']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="TP_total_debt" [(ngModel)]="disputed['TP_total_debt'] = disputed['TP_total_tax_and_penalties']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="GP_total_debt" [(ngModel)]="disputed['GP_total_debt'] = 0.00 - -disputed['GP_total_tax_and_penalties'] - -disputed['GP_estimated_interest']" myCalcInputFormatter/></td>
+                <td>$<input disabled type="text" name="DIFF_total_debt" [(ngModel)]="disputed['GP_total_debt'] - disputed['TP_total_debt']" myCalcInputFormatter/></td>
               </tr>
             </tbody>
           </table>
@@ -174,5 +174,5 @@
       <button class="btn btn-primary pull-right" type="submit" (click)="onSubmit()">Save</button>
       <button class="btn btn-primary pull-right" *ngIf="btn_remove" (click)="onRemove()">Remove</button>
     </div>
-  </div>
+  </form>
 </div>

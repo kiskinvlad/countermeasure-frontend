@@ -4,7 +4,7 @@
 export class Disputed {
     disputed_t1_ta_id: number = 0;
     case_id: number = 0;
-    taxpayer: string;
+    taxpayer: string = '';
     year: number = 0;
     province: string;
     federal_tax_applies: boolean;
