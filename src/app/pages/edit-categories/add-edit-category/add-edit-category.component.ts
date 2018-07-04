@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { FetchCategory, DeleteCategory, UpdateCategory, CreateCategory } from '@
 import { FetchDisputesByCase } from '@app/shared/ngrx-store/actions/disputes.actions';
 import { Category } from '@app/shared/models/category';
 import { ValidatorModule } from '@app/shared/form-validator/validator.module';
+import { ComponentCanDeactivate } from '@app/shared/guard/auth-guard.service';
 
 @Component({
   selector: 'ct-add-edit-category',
@@ -19,13 +20,14 @@ import { ValidatorModule } from '@app/shared/form-validator/validator.module';
  * Add/Edit category component
  * @implements {OnInit, OnDestroy}
  */
-export class AddEditCategoryComponent implements OnInit, OnDestroy {
+export class AddEditCategoryComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
 /**
  * @param {Observable<any>} getCategoryState$ Category state observable param
  * @param {Observable<any>} getDisputesState$ Taxes state observable param
  * @param {string | null} errorMessage Error message param
  * @param {Subscription} subscription Subscription param
  * @param {ValidatorModule} validator Form validaor module param
+ * @param {boolean} allowNavigate Allow user to navigate
  * @param {Category} category Current category object param
  * @param {number} case_id Current case id param
  * @param {string} type Component type param
@@ -48,6 +50,7 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
   private errorMessage: string | null;
   private subscription: Subscription;
   private formSubscribtion: Subscription;
+  private allowNavigate: boolean;
   private validator: ValidatorModule;
   public category: Category;
   public case_id: number;
@@ -77,6 +80,7 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
       this.isFormTouched = false;
+      this.allowNavigate = true;
       this.getCategoryState$ = this.store.select(selectCategoryState);
       this.getDisputesState$ = this.store.select(selectDisputesState);
     }
@@ -138,6 +142,7 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
         const ctrl = this.categoryForm.get(ctrlName);
         if (ctrl.dirty || ctrl.touched) {
           this.isFormTouched = true;
+          this.allowNavigate = false;
         }
       });
     });
@@ -249,6 +254,15 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy {
       this.store.dispatch(new CreateCategory(payload));
     }
   }
+/**
+ * Can deactivate method
+ * @returns {Observable | boolean}
+ * Allow or prevent user navigate without confirmation
+ */
+@HostListener('window:beforeunload')
+public canDeactivate(): Observable<boolean> | boolean {
+  return this.allowNavigate;
+}
 /**
  * Destroy add-edit-categories component life cycle method
  */
