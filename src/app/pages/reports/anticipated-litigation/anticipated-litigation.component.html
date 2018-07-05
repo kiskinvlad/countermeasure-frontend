@@ -9,17 +9,18 @@
           <br/>
           <hr/>
           <div #headerpolicy>
-            <p>We trust that you understand and accept the limits on out ability to accurately predict
-                litigation results. If not, please read our <u>Tax Court Appeal Forecasting</u> article.
-            </p>
-            <p>Althought tax litigation contains the uncertain and unknowable, we want to bring our
-              best guess into the light of day where we can inspect and discuss it. This way, we can
-              work together to make the best descisions and maximise your return on investment.
+            <p>
+                We trust that you understand and accept the limits on our ability to accurately predict
+                litigation results. If not, please read our <u>Tax Court Appeal Forecasting</u> article. 
             </p>
             <p>
-              We believe - based on our current understanding of the facts, evidence, and law - that
-              if you litigated the metter to the fullest extent possible, you would achieve a scenario
-              within the highlighted range below.
+                Although tax litigation contains the uncertain and unknowable, we want to bring our best
+                guess into the light of day where we can inspect and discuss it. This way, we can work together
+                to make the best decisions and maximize your return on investment.
+            </p>
+            <p> We believe – based on our current understanding of the facts, evidence, and law – that if you
+                litigated the matter to the fullest extent possible, you would achieve a scenario within the 
+                highlighted range below.
             </p>
           </div>
       </div>
@@ -31,25 +32,25 @@
           <thead>
             <tr>
               <th></th>
-              <th>Tax</th>
-              <th>Penalties</th>
-              <th>Interest</th>
-              <th>Savings</th>
+              <th class="text-center align-middle">Tax</th>
+              <th class="text-center align-middle">Penalties</th>
+              <th class="text-center align-middle">Interest</th>
+              <th class="text-center align-middle">Savings</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let scenario of scenarios; let index = index">
               <td>Scenario {{index + 1}}</td>
-              <td>{{scenario.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td>{{scenario.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td>{{scenario.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td>{{scenario.savings | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{scenario.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{scenario.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{scenario.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{scenario.savings | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
             </tr>
           </tbody>
         </table>
-        <small>* See Principled Settlement Report or detailed breakdown of each scenario.</small>
+        <button type="button" class="btn btn-primary float-right" (click)="downloadPdf()"> Print </button>
+        <small>* See Principled Settlement Report for a detailed breakdown of each scenario.</small>
       </div>
     </div>
-    <button type="button" class="btn btn-primary float-right" (click)="downloadPdf()"> Print </button>
   </div>
 </div>

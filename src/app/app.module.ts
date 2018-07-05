@@ -81,6 +81,7 @@ import { MyCurrencyFormatterDirective } from '@app/shared/directive/MyCurrencyFo
 import { CalcInputFormatterDirective } from './shared/directive/CalcInputFormatter/calc-input-formatter.directive';
 import { DialogConfirmComponent } from './shared/components/dialog-confirm/dialog-confirm.component';
 import { AddTaxesGuard } from '@app/shared/guard/add-taxes.guard';
+import { UtilsService } from '@app/shared/utils.service';
 
 @NgModule({
   declarations: [
@@ -169,7 +170,8 @@ import { AddTaxesGuard } from '@app/shared/guard/add-taxes.guard';
     ScenarioService,
     OrganizationService,
     CsvService,
-    PermissionService
+    PermissionService,
+    UtilsService
   ],
   entryComponents: [
     DialogCreateCaseComponent,

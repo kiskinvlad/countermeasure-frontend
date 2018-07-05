@@ -11,13 +11,15 @@ import {
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState, selectScenarioState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
+import { AppState, selectScenarioState, selectDisputesState, selectCasesState } from '@app/shared/ngrx-store/app.states';
 import { ActivatedRoute } from '@angular/router';
 import { FetchScenarios } from '@app/shared/ngrx-store/actions/scenario.actions';
 import { FetchDisputesByCase } from '@app/shared/ngrx-store/actions/disputes.actions';
 import * as Chart from 'chart.js';
 import * as jsPDF from 'jspdf';
 import 'chart.piecelabel.js';
+import { GetCase } from '@app/shared/ngrx-store/actions/cases.actions';
+import {UtilsService} from '@shared/utils.service';
 
 @Component({
   selector: 'ct-principled-settlement',
@@ -38,9 +40,13 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
  * @param {Array<any>} disputes Taxes array param
  * @param {any} disputes_total Taxes count param
  * @param {Observable<any>} getState$ State observable param
+ * @param {Observable<any>} getDisputesState$ Disputes state observable param
+ * @param {Observable<any>} getCaseState$ Case state observable param
  * @param {string | null} errorMessage Error message param
  * @param {Subscription} subscription Subscription param
  * @param {number} case_id Current case id param
+ * @param {string} case_name Current case name param
+ * @param {string} matter_id Current case matter id param
  */
   @ViewChildren('canvas') canvas: QueryList<any>;
   @ViewChild('header') header: ElementRef;
@@ -52,9 +58,12 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
   private disputes_total: any = {};
   private getState$: Observable<any>;
   private getDisputesState$: Observable<any>;
+  private getCaseState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
   private case_id: number;
+  private case_name: string;
+  private matter_id: string;
 /**
  * @constructor
  * @param {ActivatedRoute} route Current route state service
@@ -68,6 +77,7 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
   ) {
     this.getState$ = this.store.select(selectScenarioState);
     this.getDisputesState$ = this.store.select(selectDisputesState);
+    this.getCaseState$ = this.store.select(selectCasesState);
   }
 /**
  * Initialize principled settlement component life cycle method
@@ -90,12 +100,12 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
         });
         this.scenarios = (state.scenarios || []).map((scenario, index) => {
           scenario.savings = +scenario.taxes + +scenario.penalties + +scenario.interest;
-          scenario['total_tax_percents'] = Math.round((scenario.taxes / this.disputes_total['tax']) * 100);
-          scenario['total_penalties_percents'] = Math.round((scenario.penalties / this.disputes_total['penalties']) * 100);
-          scenario['total_interest_percents'] = Math.round((scenario.interest / this.disputes_total['interest']) * 100);
-          scenario['total_savings_percents'] = Math.round((scenario.savings / this.disputes_total['total']) * 100);
+          scenario['total_tax_percents'] = Math.round(Math.abs(scenario.taxes / this.disputes_total['tax']) * 100);
+          scenario['total_penalties_percents'] = Math.round(Math.abs(scenario.penalties / this.disputes_total['penalties']) * 100);
+          scenario['total_interest_percents'] = Math.round(Math.abs(scenario.interest / this.disputes_total['interest']) * 100);
+          scenario['total_savings_percents'] = Math.round(Math.abs(scenario.savings / this.disputes_total['total']) * 100);
           scenario['total_other_amounts_percents'] = Math.round(
-            ((this.disputes_total['total'] - scenario.savings) / this.disputes_total['total']) * 100
+            Math.abs((this.disputes_total['total'] - scenario.savings) / this.disputes_total['total']) * 100
           );
           scenario['total_other_amounts'] = this.disputes_total['total'] - scenario.savings;
           return {...scenario };
@@ -108,12 +118,19 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
       this.case_id = +params['case_id'];
     });
 
+    this.subscription = this.getCaseState$.subscribe((case_state) => {
+      this.errorMessage = case_state.errorMessage;
+      this.case_name = case_state.name;
+      this.matter_id = case_state.matter_id;
+    });
+
     const payload = {
       case_id: this.case_id
     };
 
     this.store.dispatch(new FetchScenarios(payload));
     this.store.dispatch(new FetchDisputesByCase({case_id: this.case_id}));
+    this.store.dispatch(new GetCase({case_id: this.case_id}));
   }
 /**
  * Sort scenarios by param method
@@ -122,7 +139,7 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
  * @returns {Array<any>}
  */
   private sortBySavings(array: Array<any>, x): Array<any> {
-    return array.sort((a, b) => b[x] - a[x]);
+    return array.sort((a, b) => a[x] - b[x]);
   }
 /**
  * Create chart method
@@ -145,6 +162,7 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
           {
             backgroundColor: ['#699bc5', '#082948'],
             data: values,
+            borderWidth: 0,
             datalabels: {
               display: true,
               formatter: function(value, context) {
@@ -159,7 +177,7 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
           callbacks: {
              label: function(tooltipItem, data_labels) {
                 const label = data_labels.labels[tooltipItem.index];
-                return label + ' : $ ' + parseFloat(data_labels.datasets[0].data[tooltipItem.index]).toFixed(2);
+                return label + ' ' + UtilsService.currencyForLocale(parseFloat(data_labels.datasets[0].data[tooltipItem.index]));
              },
              title: function() {
               return false;
@@ -173,6 +191,8 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
           render: function (args) {
             if (args.label === 'Win') {
               return 'Win ' + args.percentage + '%';
+            } else if (args.label === 'Outstanding' && args.percentage === 100) {
+              return 'Win 0%';
             } else {
               return '';
             }
@@ -183,6 +203,12 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
           segment: true,
           outsidePadding: 4,
           overlap: true
+        },
+        plugins: {
+          legend: false,
+          outlabels: {
+              text: null
+          }
         }
       }
     }));
@@ -193,31 +219,69 @@ export class PrincipledSettlementComponent implements OnInit, OnDestroy, AfterVi
   public downloadPdf(): void {
     const header = this.header.nativeElement;
     const imgData = [];
+
+    let height;
     let yOffset = 150;
     this.canvas.toArray().forEach((el) => {
      imgData.push(el.nativeElement.toDataURL('image/png'));
     });
-    const doc = new jsPDF('p', 'pt', 'a4', true);
-    doc.line(50, 25, 550, 25);
-    doc.fromHTML(header, 100, 35);
-    doc.line(50, 115, 550, 115);
+    const doc = new jsPDF('p', 'pt', 'letter', true);
+
+    doc.setDrawColor(0, 40, 63);
+    doc.line(125, 25, 550, 25);
+    doc.setFontSize(30);
+    doc.setTextColor('105', '155', '197');
+    doc.text(125, 70, 'Principled Settlement Report');
+    doc.setFontType('normal');
+    doc.setTextColor('0', '0', '0');
+    doc.setFontSize(12);
+
+    doc.line(25, 25, 110, 25);
+    doc.setTextColor('105', '155', '197');
+    height = doc.getTextDimensions(this.case_name).h * doc.splitTextToSize(this.case_name, 100).length;
+    doc.text(25, 45, doc.splitTextToSize(this.case_name, 100));
+    doc.text(25, 45 + height + 8, doc.splitTextToSize('Matter ID: ' + this.matter_id, 100));
+    height += doc.getTextDimensions(doc.splitTextToSize('Matter ID: ' + this.matter_id, 100)).h;
+    doc.text(25, 45 + height + 17, doc.splitTextToSize(UtilsService.dateForReports(), 100));
+    doc.line(25, 57 + height + 15, 110, 57 + height + 15);
+    doc.line(125, 57 + height + 15, 550, 57 + height + 15);
+
     for (let i = 0; i < this.scenarios.length; i++) {
-      doc.fromHTML('Scenario ' + (i + 1), 50, yOffset, {'pagesplit': true});
-      doc.fromHTML('Tax', 50, yOffset + 25, {'pagesplit': true});
-      doc.fromHTML(this.scenarios[i].total_tax_percents + '%', 280, yOffset + 25, {'pagesplit': true});
-      doc.fromHTML('Penalties', 50, yOffset + 40, {'pagesplit': true});
-      doc.fromHTML(this.scenarios[i].total_penalties_percents + '%', 280, yOffset + 40, {'pagesplit': true});
-      doc.fromHTML('Interest', 50, yOffset + 55, {'pagesplit': true});
-      doc.fromHTML(this.scenarios[i].total_interest_percents + '%', 280, yOffset + 55, {'pagesplit': true});
+      doc.setFontSize(12);
+      doc.setFontType('bold');
+      doc.setTextColor('105', '155', '197');
+      doc.text(125, yOffset, 'Scenario ' + (i + 1), {'pagesplit': true});
+      doc.setFontType('normal');
+      doc.setTextColor('0', '0', '0');
+      doc.text(125, yOffset + 25, 'Tax', {'pagesplit': true});
+      doc.text(280, yOffset + 25, this.scenarios[i].total_tax_percents + '%', {'pagesplit': true});
+      doc.text(125, yOffset + 43, 'Penalties', {'pagesplit': true});
+      doc.text(280, yOffset + 43, this.scenarios[i].total_penalties_percents + '%', {'pagesplit': true});
+      doc.text(125, yOffset + 61, 'Interest', {'pagesplit': true});
+      doc.text(280, yOffset + 61, this.scenarios[i].total_interest_percents + '%', {'pagesplit': true});
+      doc.setFontType('bold');
+      doc.setTextColor('105', '155', '197');
+      doc.text(125, yOffset + 95, 'Total Savings (' + this.scenarios[i].total_savings_percents + '%)', {'pagesplit': true});
+      doc.setFontType('normal');
+      doc.setTextColor('0', '0', '0');
+      doc.text(125, yOffset + 113, (+this.scenarios[i].savings !== 0 ? UtilsService.currencyForLocale(this.scenarios[i].savings) : '$ - '),
+        {'pagesplit': true}
+      );
+      doc.setFontType('bold');
+      doc.setTextColor('105', '155', '197');
+      doc.text(125, yOffset + 135, 'Outstanding Amount (' + this.scenarios[i].total_other_amounts_percents + '%)', {'pagesplit': true});
+      doc.setFontType('normal');
+      doc.setTextColor('0', '0', '0');
+      doc.text(125, yOffset + 153, (+this.scenarios[i].total_other_amounts !== 0
+        ? UtilsService.currencyForLocale(this.scenarios[i].total_other_amounts) : '$ - '),
+          {'pagesplit': true}
+      );
 
-      doc.fromHTML('Total Savings (' + this.scenarios[i].total_savings_percents + '%)', 50, yOffset + 95, {'pagesplit': true});
-      doc.fromHTML('$' + this.scenarios[i].savings, 50, yOffset + 110, {'pagesplit': true});
-      doc.fromHTML('Outstanding Amount (' + this.scenarios[i].total_other_amounts_percents + '%)', 50, yOffset + 130, {'pagesplit': true});
-      doc.fromHTML('$' + this.scenarios[i].total_other_amounts, 50, yOffset + 145, {'pagesplit': true});
-
-      doc.addImage(imgData[i], 'PNG', 300, yOffset, 320, 170, undefined, 'FAST', {'pagesplit': true});
-      doc.line(50, yOffset + 185, 550, yOffset + 185);
-      yOffset += 200;
+      doc.addImage(imgData[i], 'PNG', 300, yOffset - 10, 320, 170, undefined, 'FAST', {'pagesplit': true});
+      if (this.scenarios.length - 1 !== i) {
+        doc.line(125, yOffset + 185, 550, yOffset + 185);
+      }
+      yOffset += 215;
       if (yOffset > 600) {
         doc.addPage();
         yOffset = 50;
