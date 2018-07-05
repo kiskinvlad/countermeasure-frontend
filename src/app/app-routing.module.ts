@@ -36,7 +36,10 @@ const routes: Routes = [
   { path: '', component: DashboardCaseComponent, canActivate: [DashboardGuardService] },
   { path: 'case/:case_id/categories', component: EditCategoriesComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/scenarios', component: EditScenariosComponent, canActivate: [AuthGuardService] },
-  { path: 'case/:case_id/scenarios/:scenario_id/edit/:type', component: AddEditScenarioComponent, canActivate: [AuthGuardService] },
+  { path: 'case/:case_id/scenarios/:scenario_id/edit/:type', component: AddEditScenarioComponent,
+    canActivate: [AuthGuardService],
+    canDeactivate: [AuthGuardService]
+  },
   { path: 'case/:case_id/scenarios/edit/:type', component: AddEditScenarioComponent,
     canActivate: [AuthGuardService],
     canDeactivate: [AuthGuardService]
@@ -44,8 +47,8 @@ const routes: Routes = [
   { path: 'case/:case_id/scenarios/summary', component: SummaryScenariosComponent, canActivate: [AuthGuardService] },
   { path: 'case/:case_id/detail', component: EditCasesComponent, canActivate: [AuthGuardService]},
   { path: 'case/:case_id/categories/:category_id/edit/:type', component: AddEditCategoryComponent,
-   canActivate: [AuthGuardService],
-   canDeactivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    canDeactivate: [AuthGuardService]
   },
   { path: 'case/:case_id/categories/edit/:type', component: AddEditCategoryComponent,
    canActivate: [AuthGuardService],

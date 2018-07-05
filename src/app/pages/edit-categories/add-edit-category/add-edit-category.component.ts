@@ -44,6 +44,7 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy, ComponentCan
  * @param {FormControl} credits Form credits control param
  * @param {FormControl} gnp Form gnp control param
  * @param {FormControl} credits Form other_penalties control param
+ * @param {string} componentRef Component reference
  */
   private getCategoryState$: Observable<any>;
   private getDisputesState$: Observable<any>;
@@ -52,6 +53,7 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy, ComponentCan
   private formSubscribtion: Subscription;
   private allowNavigate: boolean;
   private validator: ValidatorModule;
+  private componentRef: string;
   public category: Category;
   public case_id: number;
   public type: string;
@@ -79,6 +81,7 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy, ComponentCan
     private route: ActivatedRoute,
     private router: Router
   ) {
+      this.componentRef = 'active';
       this.isFormTouched = false;
       this.allowNavigate = true;
       this.getCategoryState$ = this.store.select(selectCategoryState);
@@ -230,6 +233,7 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy, ComponentCan
  * Add/update category
  */
   private addUpdateCategory(): void {
+    this.componentRef = 'save';
     let payload;
     if (!this.categoryForm.valid) {
       this.validator.validateFormFields(this.categoryForm);
@@ -261,7 +265,11 @@ export class AddEditCategoryComponent implements OnInit, OnDestroy, ComponentCan
  */
 @HostListener('window:beforeunload')
 public canDeactivate(): Observable<boolean> | boolean {
-  return this.allowNavigate;
+  if (this.componentRef !== 'save' && !this.allowNavigate) {
+    return false;
+  } else {
+    return true;
+  }
 }
 /**
  * Destroy add-edit-categories component life cycle method

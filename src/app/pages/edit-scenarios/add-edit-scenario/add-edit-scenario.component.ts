@@ -38,6 +38,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy, ComponentCan
  * @param {FormControl} taxable_income Form income control param
  * @param {FormControl} penalties Form penalties control param
  * @param {FormControl} interest Form interest control param
+ * @param {string} componentRef Component reference
  */
   private getScenarioState$: Observable<any>;
   private errorMessage: string | null;
@@ -45,6 +46,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy, ComponentCan
   private formSubscription: Subscription;
   private validator: ValidatorModule;
   private allowNavigate: boolean;
+  private componentRef: string;
   public scenario: Scenario;
   public case_id: number;
   public type: string;
@@ -69,6 +71,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy, ComponentCan
     private route: ActivatedRoute,
     private router: Router
   ) {
+      this.componentRef = 'active';
       this.isFormTouched = false;
       this.allowNavigate = true;
       this.getScenarioState$ = this.store.select(selectScenarioState);
@@ -198,6 +201,7 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy, ComponentCan
  * Add/update scenario method
  */
   private addUpdateScenario(): void {
+    this.componentRef = 'save';
     let payload;
     if (!this.scenarioForm.valid) {
       this.validator.validateFormFields(this.scenarioForm);
@@ -227,7 +231,11 @@ export class AddEditScenarioComponent implements OnInit, OnDestroy, ComponentCan
  */
   @HostListener('window:beforeunload')
   public canDeactivate(): Observable<boolean> | boolean {
-    return this.allowNavigate;
+    if (this.componentRef !== 'save' && !this.allowNavigate) {
+      return false;
+    } else {
+      return true;
+    }
   }
 /**
  * Destroy add-edit-scenario component life cycle method
