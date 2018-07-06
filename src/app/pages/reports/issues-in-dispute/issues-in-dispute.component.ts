@@ -186,7 +186,7 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
             datalabels: {
               display: true,
               formatter: function(value, context) {
-                return UtilsService.currencyForLocale(parseFloat(value));
+                return null;
               }
             }
           }
