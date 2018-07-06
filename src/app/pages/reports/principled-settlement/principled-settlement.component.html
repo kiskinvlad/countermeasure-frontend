@@ -19,9 +19,9 @@
           </div>
           <div class="scenario_total_data">
             <h6>Total Savings ({{scenario.total_savings_percents}}%)</h6>
-            <p>$ {{scenario.savings}}</p>
+            <p>{{scenario.savings | currency: 'USD': 'symbol-narrow': '1.0-0'}}</p>
             <h6>Outstanding Amount ({{scenario.total_other_amounts_percents}}%)</h6>
-            <p>$ {{scenario.total_other_amounts}}</p>
+            <p>{{scenario.total_other_amounts | currency: 'USD': 'symbol-narrow': '1.0-0'}}</p>
           </div>
         </div>
         <div class="col">
