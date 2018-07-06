@@ -152,10 +152,16 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
   private createChart(data: any): void {
     const labels = [];
     const values = [];
-    data.forEach(el => {
-      labels.push(el.param);
-      values.push(parseFloat(el.total).toFixed(2));
-    });
+    const backgroundColors = ['#082948', '#699bc5', '#c46158', '#9180ac', '#f3aeab', '#9ac066'];
+    for (let i = 0; i < data.length; i++) {
+      if (i > 15) {
+        values[15] += parseFloat(data[i].total).toFixed(0);
+        labels[15] = 'Others';
+      } else {
+        labels.push(data[i].param);
+        values.push(parseFloat(data[i].total).toFixed(0));
+      }
+    }
     this.ctx = this.canvas.nativeElement.getContext('2d');
     this.issue_chart = new Chart(this.ctx, {
       type: 'pie',
