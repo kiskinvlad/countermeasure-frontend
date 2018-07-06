@@ -7,32 +7,34 @@
     <div class="d-flex justify-content-between section-title">
       <h1>Edit Taxes</h1>
     </div>
-    <div class="d-flex justify-content-between second-title">
-      <h5>Personal Income Tax Years in Dispute</h5>
-    </div>
 
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Taxpayer</th>
-          <th>Tax Year</th>
-          <th>Province</th>
-          <th>Amount in Dispute</th>
-          <th></th>
-          <th class="remove-item"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let tax of disputed; let index = index">
-          <td>{{tax.taxpayer}}</td>
-          <td>{{tax.year}}</td>
-          <td>{{tax.province}}</td>
-          <td>$ {{tax.DIFF_total_debt | number:'1.2-2'}}</td>
-          <td class="text-center" (click)="redirectToEditTaxPage(index)">Edit</td>
-          <td class="remove-item" (click)="removeDisputed(index)"><i class="fa fa-minus"></i></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <div class="d-flex justify-content-between second-title">
+        <h5>Personal Income Tax Years in Dispute</h5>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Taxpayer</th>
+            <th>Tax Year</th>
+            <th>Province</th>
+            <th>Amount in Dispute</th>
+            <th></th>
+            <th class="remove-item"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tax of disputed; let index = index">
+            <td>{{tax.taxpayer}}</td>
+            <td>{{tax.year}}</td>
+            <td>{{tax.province}}</td>
+            <td>$ {{tax.DIFF_total_debt | number:'1.2-2'}}</td>
+            <td class="text-center" (click)="redirectToEditTaxPage(index)">Edit</td>
+            <td class="remove-item" (click)="removeDisputed(index)"><i class="fa fa-minus"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="add-item" (click)="redirectToAddTaxPage()">
       <i class="fa fa-plus"></i>

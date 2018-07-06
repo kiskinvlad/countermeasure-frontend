@@ -3,8 +3,8 @@
   <ct-sidebar></ct-sidebar>
   <div class="wrapper">
     <h1>Scenarios Summary</h1>
-    <div class="summary-scenarios">
-        <p><b>Amount in Dispute</b></p>
+    <div class="summary-section">
+        <p><b>Amount In Dispute</b></p>
         <table class="table table-bordered">
             <thead>
               <tr>
@@ -20,12 +20,13 @@
             </tbody>
           </table>
     </div>
-    <p class="px-3"><b>Proposed Scenarios</b></p>
-    <div class="summary-scenarios" *ngFor="let scenario of scenarios; let index = index">
-        <div class="d-flex justify-content-between section-title">
-            <p><b>{{index + 1}}. {{scenario.name}}</b></p>
-        </div>
-        <table class="table table-bordered">
+    <div class="summary-section">
+        <p><b>Proposed Scenarios</b></p>
+        <div class="summary-scenarios" *ngFor="let scenario of scenarios; let index = index">
+          <div class="d-flex justify-content-between section-title">
+              <p><b>{{index + 1}}. {{scenario.name}}</b></p>
+          </div>
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th></th>
@@ -63,7 +64,8 @@
               </tr>
             </tbody>
           </table>
-      </div>
-      <button type="button" class="btn btn-primary" (click)='create_csv()'> Download CSV </button>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)='create_csv()'> Download CSV </button>
   </div>
 </div>
