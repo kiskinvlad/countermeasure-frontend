@@ -9,39 +9,39 @@
           <h2>{{total_disputed['total'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</h2>
           <hr/>
       </div>
-      <div [hidden]="!chart">
+      <div [hidden]="!chart" style="margin: 100px, 0">
         <canvas id="canvas" #canvas height="125">{{ chart }}</canvas>
       </div>
       <div class="container edit-categories">
         <table class="table table-bordered" #pdf>
           <thead>
             <tr>
-              <th>Year</th>
-              <th>Tax</th>
-              <th>Penalties</th>
-              <th>Interest</th>
-              <th>Total</th>
+              <th class="align-middle">Year</th>
+              <th class="text-center align-middle">Tax</th>
+              <th class="text-center align-middle">Penalties</th>
+              <th class="text-center align-middle">Interest</th>
+              <th class="text-center align-middle">Total</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let disputed_group of grouped_disputed; let index = index">
               <td>{{disputed_group.param}}</td>
-              <td>{{disputed_group.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td>{{disputed_group.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td>{{disputed_group.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td>{{disputed_group.total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{disputed_group.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{disputed_group.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{disputed_group.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{disputed_group.total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
             </tr>
             <tr>
               <td class="total-section">Total</td>
-              <td class="total-section">{{total_disputed['taxes'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td class="total-section">{{total_disputed['penalties'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td class="total-section">{{total_disputed['interest'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td class="total-section">{{total_disputed['total'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section text-right align-middle">{{total_disputed['taxes'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section text-right align-middle">{{total_disputed['penalties'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section text-right align-middle">{{total_disputed['interest'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section text-right align-middle">{{total_disputed['total'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
             </tr>
           </tbody>
         </table>
+        <button type="button" class="btn btn-primary float-right" (click)="downloadPdf()"> Print </button>
       </div>
     </div>
-    <button type="button" class="btn btn-primary float-right" (click)="downloadPdf()"> Print </button>
   </div>
 </div>

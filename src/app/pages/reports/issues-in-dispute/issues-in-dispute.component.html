@@ -16,31 +16,31 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Tax</th>
-              <th>Penalties</th>
-              <th>Interest</th>
-              <th>Total</th>
+              <th class="text-center align-middle">Tax</th>
+              <th class="text-center align-middle">Penalties</th>
+              <th class="text-center align-middle">Interest</th>
+              <th class="text-center align-middle">Total</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let category_group of grouped_categories; let index = index">
               <td>{{category_group.param}}</td>
-              <td>{{category_group.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td>{{category_group.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td>{{category_group.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td>{{category_group.total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{category_group.taxes | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{category_group.penalties | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{category_group.interest | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="text-right align-middle">{{category_group.total | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
             </tr>
             <tr>
               <td class="total-section">Total</td>
-              <td class="total-section">{{total_issues['taxes'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td class="total-section">{{total_issues['penalties'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td class="total-section">{{total_issues['interest'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
-              <td class="total-section">{{total_issues['total'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section text-right align-middle">{{total_issues['taxes'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section text-right align-middle">{{total_issues['penalties'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section text-right align-middle">{{total_issues['interest'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
+              <td class="total-section text-right align-middle">{{total_issues['total'] | currency: 'USD': 'symbol-narrow': '1.0-0'}}</td>
             </tr>
           </tbody>
         </table>
+        <button type="button" class="btn btn-primary float-right" (click)="downloadPdf()"> Print </button>
       </div>
     </div>
-    <button type="button" class="btn btn-primary float-right" (click)="downloadPdf()"> Print </button>
   </div>
 </div>

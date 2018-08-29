@@ -1,14 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState, selectCategoryState, selectDisputesState } from '@app/shared/ngrx-store/app.states';
+import { AppState, selectCategoryState, selectDisputesState, selectCasesState } from '@app/shared/ngrx-store/app.states';
 import { ActivatedRoute } from '@angular/router';
 import { FetchCategories } from '@app/shared/ngrx-store/actions/category.actions';
 import { FetchDisputes, FetchDisputesByCase } from '@app/shared/ngrx-store/actions/disputes.actions';
 import * as Chart from 'chart.js';
 import * as jsPDF from 'jspdf';
-import 'chart.piecelabel.js';
 import 'jspdf-autotable';
+import 'chartjs-plugin-piechart-outlabels';
+import { GetCase } from '@app/shared/ngrx-store/actions/cases.actions';
+import {UtilsService} from '@shared/utils.service';
 
 @Component({
   selector: 'ct-issues-in-dispute',
@@ -31,9 +33,12 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
  * @param {Array<any>} grouped_categories Grouped categories array param
  * @param {Observable<any>} getCategoryState$ Category state observable param
  * @param {Observable<any>} getDisputesState$ Taxes state observable param
+ * @param {Observable<any>} getCaseState$ Case state observable param
  * @param {string | null} errorMessage Error message param
  * @param {Subscription} subscription Subscription param
  * @param {number} case_id Current case id param
+ * @param {string} case_name Current case name param
+ * @param {string} matter_id Current case matter id param
  */
   @ViewChild('pdf') pdf: ElementRef;
   @ViewChild('header') header: ElementRef;
@@ -47,9 +52,12 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
   public ctx: any;
   private getCategoryState$: Observable<any>;
   private getDisputesState$: Observable<any>;
+  private getCaseState$: Observable<any>;
   private errorMessage: string | null;
   private subscription: Subscription;
   private case_id: number;
+  private case_name: string;
+  private matter_id: string;
 /**
  * @constructor
  * @param {ActivatedRoute} route Current route state service
@@ -61,6 +69,7 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
   ) {
     this.getCategoryState$ = this.store.select(selectCategoryState);
     this.getDisputesState$ = this.store.select(selectDisputesState);
+    this.getCaseState$ = this.store.select(selectCasesState);
   }
 /**
  * Issues in dispute component life cycle method
@@ -88,12 +97,19 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
       this.case_id = +params['case_id'];
     });
 
+    this.subscription = this.getCaseState$.subscribe((case_state) => {
+      this.errorMessage = case_state.errorMessage;
+      this.case_name = case_state.name;
+      this.matter_id = case_state.matter_id;
+    });
+
     const payload = {
       filter_param: { 'id': this.case_id },
       sort_param: { field: 'order_position' }
     };
     this.store.dispatch(new FetchCategories(payload));
     this.store.dispatch(new FetchDisputesByCase({case_id: this.case_id}));
+    this.store.dispatch(new GetCase({case_id: this.case_id}));
   }
 /**
  * Calculate data for table method
@@ -152,10 +168,17 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
   private createChart(data: any): void {
     const labels = [];
     const values = [];
-    data.forEach(el => {
-      labels.push(el.param);
-      values.push(parseFloat(el.total).toFixed(2));
-    });
+    const backgroundColors = ['#082948', '#699bc5', '#c46158', '#9180ac', '#f3aeab', '#d2b6d4', '#ecaecd', '#f3aeab', '#9ac066', '#0349ca',
+    '#0f544f', '#076e4e', '#b0e0e6', '#f0f8ff', '#9ac066'];
+    for (let i = 0; i < data.length; i++) {
+      if (i > 15) {
+        values[15] += parseFloat(data[i].total).toFixed(0);
+        labels[15] = 'Others';
+      } else {
+        labels.push(data[i].param);
+        values.push(parseFloat(data[i].total).toFixed(0));
+      }
+    }
     this.ctx = this.canvas.nativeElement.getContext('2d');
     this.issue_chart = new Chart(this.ctx, {
       type: 'pie',
@@ -164,23 +187,30 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
         datasets: [
           {
             label: 'Total',
-            backgroundColor: ['#082948', '#699bc5', '#c46158'],
+            backgroundColor: backgroundColors,
             data: values,
+            borderWidth: 0,
             datalabels: {
               display: true,
               formatter: function(value, context) {
-                return '$' + value;
+                return null;
               }
             }
           }
         ]
       },
        options: {
+        layout: {
+          padding: {
+            top: 60,
+            bottom: 60
+          },
+         },
         tooltips: {
           callbacks: {
              label: function(tooltipItem, data_labels) {
                 const label = data_labels.labels[tooltipItem.index];
-                return label + ' : $ ' + parseFloat(data_labels.datasets[0].data[tooltipItem.index]).toFixed(2);
+                return label + ' : ' + UtilsService.currencyForLocale(parseFloat(data_labels.datasets[0].data[tooltipItem.index]));
              },
              title: function() {
               return false;
@@ -192,17 +222,31 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
             fontSize: 18
           }
         },
-        pieceLabel: {
-          render: function (args) {
-            return args.percentage + '%';
-          },
-          fontColor: '#082948',
-          fontSize: 18,
-          position: 'outside',
-          segment: true,
-          outsidePadding: 4,
-          overlap: true
-        }
+        plugins: {
+          legend: false,
+          outlabels: {
+              text: function(chartData) {
+                const index = chartData.dataIndex;
+                const label = chartData.labels[index];
+                const value = UtilsService.currencyForLocale(parseFloat(chartData.dataset.data[index]));
+                const percents = (Math.abs(chartData.percent) * 100).toFixed(0) + '%';
+                const firstLine = label + ' (' + percents + ')';
+                const secondLine = value;
+                return firstLine + '\n' + secondLine;
+              },
+              color: '#082948',
+              backgroundColor: '',
+              stretch: 45,
+              textAlign: 'left',
+              font: {
+                weight: 'bold',
+                lineHeight: 1.5,
+                resizable: true,
+                minSize: 16,
+                maxSize: 18
+              }
+          }
+      }
       }
     });
   }
@@ -213,26 +257,49 @@ export class IssuesInDisputeComponent implements OnInit, OnDestroy {
     const header = this.header.nativeElement;
     const content = this.pdf.nativeElement;
     const imgData = this.canvas.nativeElement.toDataURL('image/png');
+    const yOffset = 150;
+    let height;
 
-    const doc = new jsPDF('p', 'pt', 'a4', true);
+    const doc = new jsPDF('p', 'pt', 'letter', true);
     doc.setDrawColor(0, 40, 63);
-    doc.line(130, 25, 480, 25);
-    doc.fromHTML(header, 130, 25);
-    doc.line(130, 115, 480, 115);
-    doc.addImage(imgData, 'PNG', -20, 150, 620, 270, undefined, 'FAST');
+    doc.line(125, 25, 550, 25);
+    doc.setFontSize(30);
+    doc.setTextColor('105', '155', '197');
+    doc.text(125, 70, 'Issues In Dispute');
+    doc.line(25, 25, 110, 25);
+    doc.setTextColor('105', '155', '197');
+    doc.setFontSize(12);
+
+    height = doc.getTextDimensions(this.case_name).h * doc.splitTextToSize(this.case_name, 100).length;
+    doc.text(25, 45, doc.splitTextToSize(this.case_name, 100));
+    doc.text(25, 45 + height + 8, doc.splitTextToSize('Matter ID: ' + this.matter_id, 100));
+    height += doc.getTextDimensions(doc.splitTextToSize('Matter ID: ' + this.matter_id, 100)).h;
+    doc.text(25, 45 + height + 17, doc.splitTextToSize(UtilsService.dateForReports(), 100));
+    doc.line(25, 57 + height + 15, 110, 57 + height + 15);
+    doc.line(125, 115, 550, 115);
+
+    doc.addImage(imgData, 'PNG', 20, yOffset - 10, 640, 270, undefined, 'FAST');
     const table = doc.autoTableHtmlToJson(content);
     doc.autoTable(table.columns, table.data, {
       startY: 420,
-      margin: 130,
-      tableWidth: 350,
+      margin: 125,
+      tableWidth: 425,
       headerStyles: {
         fillColor: [255, 255, 255],
         textColor: [0, 0, 0],
+        halign: 'center',
+        valign: 'middle'
       },
       bodyStyles: {
         lineWidth: 1,
-        lineColor: [0, 0, 0]
-      }
+        lineColor: [0, 0, 0],
+        halign: 'right',
+        valign: 'middle'
+      },
+      columnStyles: {
+        0: {halign: 'center'},
+      },
+      createdCell: function(cell, data) { cell.styles.fillColor = [255, 255, 255]; }
     });
     window.open(URL.createObjectURL(doc.output('blob')));
     // doc.save('case_' + this.case_id + '_amount_in_dispute.pdf');

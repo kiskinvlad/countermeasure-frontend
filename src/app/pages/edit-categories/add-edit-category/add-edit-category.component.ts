@@ -21,7 +21,7 @@ import { ComponentCanDeactivate } from '@app/shared/guard/auth-guard.service';
  * @implements {OnInit, OnDestroy}
  */
 export class AddEditCategoryComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
- /**
+
  * @param {Observable<any>} getCategoryState$ Category state observable param
  * @param {Observable<any>} getDisputesState$ Taxes state observable param
  * @param {string | null} errorMessage Error message param

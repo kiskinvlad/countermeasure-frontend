@@ -49,7 +49,7 @@
               }">
                 <div>
                   <label for="income">Taxable Income</label>
-                  <input type="text" class="form-control" name="income" formControlName="income">
+                  <input currencyMask [options]="{ align: 'left', precision: 0}" class="form-control" name="income" formControlName="income">
                 </div>
                 <div class="form-control-feedback" *ngIf="income.errors && (income.dirty || income.touched)">
                   <p *ngIf="income?.errors['required']">Taxable Income is required</p>
@@ -61,7 +61,7 @@
               }">
                 <div>
                   <label for="federal">Non-refundable Federal Tax Credits</label>
-                  <input type="text" class="form-control" name="federal" formControlName="federal">
+                  <input currencyMask [options]="{ align: 'left', precision: 0}" class="form-control" name="federal" formControlName="federal">
                 </div>
                 <div class="form-control-feedback" *ngIf="federal.errors && (federal.dirty || federal.touched)">
                   <p *ngIf="federal?.errors['required']">Non-refundable Federal Tax Credits is required</p>
@@ -73,7 +73,7 @@
               }"> 
                 <div>
                   <label for="provincial">Non-refundable Provincial Tax Credits</label>
-                  <input type="text" class="form-control" name="provincial" formControlName="provincial">
+                  <input currencyMask [options]="{ align: 'left', precision: 0}" class="form-control" name="provincial" formControlName="provincial">
                 </div>
                 <div class="form-control-feedback" *ngIf="provincial.errors && (provincial.dirty || provincial.touched)">
                   <p *ngIf="provincial?.errors['required']">Non-refundable Provincial Tax Credits is required</p>
@@ -85,7 +85,7 @@
               }">
                 <div>
                   <label for="other-amounts">Other Amounts Payable</label>
-                  <input type="text" class="form-control" name="other-amounts" formControlName="other_amounts">
+                  <input currencyMask [options]="{ align: 'left', precision: 0}" class="form-control" name="other-amounts" formControlName="other_amounts">
                 </div>
                 <div class="form-control-feedback" *ngIf="other_amounts.errors && (other_amounts.dirty || other_amounts.touched)">
                   <p *ngIf="other_amounts?.errors['required']">Other Amounts Payable is required</p>
@@ -97,7 +97,7 @@
               }">
                 <div>
                   <label for="credits">Credits Applied on Filing</label>
-                  <input type="text" class="form-control" name="credits" formControlName="credits">
+                  <input currencyMask [options]="{ align: 'left', precision: 0}" class="form-control" name="credits" formControlName="credits">
                 </div>
                 <div class="form-control-feedback" *ngIf="credits.errors && (credits.dirty || credits.touched)">
                   <p *ngIf="credits?.errors['required']">Credits Applied on Filing is required</p>
@@ -109,7 +109,7 @@
               }">
                 <div>
                   <label for="gnp">Income Subject to GNP</label>
-                  <input type="text" class="form-control" name="gnp" formControlName="gnp">
+                  <input currencyMask [options]="{ align: 'left', precision: 0}" class="form-control" name="gnp" formControlName="gnp">
                 </div>
                 <div class="form-control-feedback" *ngIf="gnp.errors && (gnp.dirty || gnp.touched)">
                   <p *ngIf="gnp?.errors['required']">Income Subject to GNP is required</p>
@@ -121,7 +121,7 @@
               }">
                 <div>
                   <label for="other-penalties">Other Penalties</label>
-                  <input type="text" class="form-control" name="other-penalties" formControlName="other_penalties">
+                  <input currencyMask [options]="{ align: 'left', precision: 0}" class="form-control" name="other-penalties" formControlName="other_penalties">
                 </div>
                 <div class="form-control-feedback" *ngIf="other_penalties.errors && (other_penalties.dirty || other_penalties.touched)">
                   <p *ngIf="other_penalties?.errors['required']">Other Penalties is required</p>
